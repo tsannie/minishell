@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:37 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/02/10 14:29:49 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/02/10 13:34:06 by tsannie          ###   ########.fr       */
+>>>>>>> fa5cd6f8ca3ca5d58a557da7b7c7fdb3b9b082fe
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +81,12 @@ char *get_val(void)
 void	start_shell(int ac, char **av, char **envp, t_set *set)
 {
 	set->str = get_val();
+<<<<<<< HEAD
+=======
+
+	//ft_putstr_fd(set->str, 1);
+
+>>>>>>> fa5cd6f8ca3ca5d58a557da7b7c7fdb3b9b082fe
 	if (ft_strcmpp(set->str, "exit") == 0)
         exit(0);
 	else if (ft_strcmpp(set->str, "echo") == 0)
