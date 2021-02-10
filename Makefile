@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/10 11:11:55 by tsannie          ###   ########.fr        #
+#    Updated: 2021/02/10 12:18:48 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,11 @@ END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
-SRC			= \
+SRC			= main.c
 
 SRC_BONUS 	= \
 
-OBJ			= $(addprefix srcs/, $(SRC:.c=.o))
+OBJ			= $(addprefix minishell_basic/srcs/, $(SRC:.c=.o))
 OBJ_BONUS	= $(addprefix srcs/, $(SRC_BONUS:.c=.o))
 
 all:		$(NAME)
@@ -44,7 +44,7 @@ $(NAME): 	$(OBJ)
 			@echo "${YELLOW}${BOLD}Start compile ...${END}"
 			@$(MAKE) -C $(LIBFT)
 			@echo "${GREEN}The $(NAMELIB) ${GREEN}has been build !${END}"
-			$(CC) $(CFLAGS) -I/includes ./libft/libft.a -o $(NAME) $(OBJ) $(OBJ_BONUS)
+			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ)
 			@echo "${GREEN}The $(NAMEC) ${GREEN}has been build !${END}"
 
 clean:
