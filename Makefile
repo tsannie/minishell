@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/10 12:18:48 by tsannie          ###   ########.fr        #
+#    Updated: 2021/02/10 13:18:10 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
 CC			= @gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= #-Wall -Wextra -Werror
 
 RM			= @rm -rf
 LIBFT		= ./libft
@@ -31,7 +31,7 @@ END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
-SRC			= main.c
+SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c ft_unset.c ft_pwd.c \
 
 SRC_BONUS 	= \
 

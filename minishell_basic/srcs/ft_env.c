@@ -1,46 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minish.h                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+/*   Created: 2021/02/10 13:18:30 by phbarrad          #+#    #+#             */
 /*   Updated: 2021/02/10 13:19:10 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minish.h"
 
-#ifndef MINISH_H
-# define MINISH_H
-
-# include "../../libft/libft.h"
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-
-typedef struct	s_set
+int ft_env(t_set *set, char **envp)
 {
-	char 	*str;
-
-}				t_set;
-
-
-
-void	start_shell(int ac, char **av, char **envp, t_set *set);
-int ft_cd(t_set *set);
-int ft_echo(t_set *set);
-int ft_env(t_set *set, char **envp);
-int ft_export(t_set *set);
-int ft_unset(t_set *set, char **envp);
-int ft_pwd(t_set *set);
-
-
-#endif
+	return (0);
+}
