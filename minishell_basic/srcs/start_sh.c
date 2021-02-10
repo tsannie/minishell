@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/10 16:53:16 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/10 17:20:43 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void	start_shell(int ac, char **av, char **envp, t_set *set)
 {
 	char	**res;
 
-	set->str = get_val();
+	if (ac == 3)
+		set->str = av[2];		// for testeur
+	else
+		set->str = get_val();
 	res = ft_split(set->str, ';'); // faut free res a un moment mais je trouve pas quand
 	while (*res)
 	{
