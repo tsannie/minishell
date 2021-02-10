@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 14:18:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/10 11:07:05 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/02/10 11:32:59 by phbarrad          #+#    #+#             */
+/*   Updated: 2021/02/10 11:33:01 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#ifndef MINISH_BONUS_H
+# define MINISH_BONUS_H
 
-void				*ft_memset(void *b, int c, size_t len)
-{
-	unsigned int	i;
-	unsigned char	*t;
+# include "../../libft/libft.h"
 
-	t = (unsigned char *)b;
-	i = -1;
-	while (++i < len)
-		t[i] = (unsigned char)c;
-	return ((void *)t);
-}
+#endif
