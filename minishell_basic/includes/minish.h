@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/10 13:19:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:07:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 typedef struct	s_set
 {
 	char 	*str;
-
+	int		cwplen;
 }				t_set;
 
 
