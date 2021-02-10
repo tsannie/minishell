@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 07:41:37 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/01 02:01:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 13:40:49 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int					ft_maxvalue(int a, int b);
 int					get_next_line(int fd, char **line);
 int					ft_iscolor(int a, int b, int c);
 int					ft_ispair(int a);
+int					ft_iswhite(char a);
 int					ft_streql(const char *s1, const char *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
 

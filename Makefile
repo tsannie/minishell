@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/10 13:18:10 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/02/10 13:32:23 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,11 @@ fclean:		clean
 			$(RM) $(NAME)
 			@$(MAKE) fclean -C $(LIBFT)
 			@echo "${PURPLE}Delete $(NAMEC)${PURPLE}...${END}"
+
+test:		re
+			@make clean
+			./$(NAME)
+			@echo "\n"
 
 re:			fclean all
 
