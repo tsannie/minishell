@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/10 17:20:43 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:09:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../includes/minish.h"
 
@@ -97,7 +95,7 @@ void	start_shell(int ac, char **av, char **envp, t_set *set)
 		else if (ft_strcmpp(set->str, "pwd") == 0)
 			ft_pwd(set);
 		else if (ft_strcmpp(set->str, "export") == 0)
-			ft_export(set);
+			ft_export(set, envp);
 		else if (ft_strcmpp(set->str, "unset") == 0)
 			ft_unset(set, envp);
 		else if (ft_strcmpp(set->str, "env") == 0)
