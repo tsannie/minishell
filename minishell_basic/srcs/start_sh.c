@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 13:37:50 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/12 13:58:05 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ char *get_val(void)
 
 void	start_cmd(char **envp, t_set *set)
 {
-	//char	**res;
+	char	**res;
 
-	//res = ft_split(set->str, ';'); // faut free res a un moment mais je trouve pas quand
-	//while (*res)
-	//{
-		//set->str = *res;
+	res = ft_split(set->str, ';'); // faut free res a un moment mais je trouve pas quand
+	while (*res)
+	{
+		set->str = *res;
 		if (ft_strcmpp(set->str, "exit") == 0)
 			exit(0);
 		else if (ft_strcmpp(set->str, "echo") == 0)
@@ -100,19 +100,17 @@ void	start_cmd(char **envp, t_set *set)
 			ft_putstr_fd("\033[H\033[2J", 1);
 		else if (ft_strlen(set->str) != 0 && check_cmd(set->str) == 0)
 			ft_putstr_not_found(set->str);
-	//	res++;
-	//}
+		res++;
+	}
 }
 
 void	start_shell(int ac, char **av, char **envp, t_set *set)
 {
-	//if (ac == 3)
-		//set->str = av[2];
-		// for testeur
-	//else
+	if (ac == 3)
+		set->str = av[2];// for testeur
+	else
 		set->str = get_val();
-	start_cmd(envp, set);
-
-	//treat_cmd(set, envp);
+	//start_cmd(envp, set);
+	treat_cmd(set, envp);
 }
 

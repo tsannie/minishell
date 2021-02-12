@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 13:36:40 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/12 13:58:20 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	treat_cmd(t_set *set, char **envp)
 	char **list;
 	int i;
 
-	list = ft_split(set->str, ';');
 	i = 0;
+	list = ft_split(set->str, ';');
 	while (list[i])
 	{
 		clean(list[i], set);
