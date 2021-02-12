@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/10 13:32:23 by tsannie          ###   ########.fr        #
+#    Updated: 2021/02/11 15:09:52 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
-SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c ft_unset.c ft_pwd.c \
+SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
+ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c \
 
 SRC_BONUS 	= \
 

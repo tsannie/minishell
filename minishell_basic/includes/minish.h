@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/10 15:07:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:59:53 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,27 @@
 typedef struct	s_set
 {
 	char 	*str;
+
+	char	**arg;
+	char	*cmd;
+	int		y;
+
 	int		cwplen;
+
 }				t_set;
 
 
 
 void	start_shell(int ac, char **av, char **envp, t_set *set);
-int ft_cd(t_set *set);
-int ft_echo(t_set *set);
-int ft_env(t_set *set, char **envp);
-int ft_export(t_set *set);
-int ft_unset(t_set *set, char **envp);
-int ft_pwd(t_set *set);
-
+int		ft_cd(t_set *set);
+int		ft_echo(t_set *set);
+int		ft_env(t_set *set, char **envp);
+int		ft_export(t_set *set);
+int		ft_unset(t_set *set, char **envp);
+int		ft_pwd(t_set *set);
+void	treat_cmd(t_set *set, char **envp);
+void	start_cmd(char **envp, t_set *set);
+char	**search_arg(char *str, t_set *set);
+char	*add_letter(char *str, char a);
 
 #endif

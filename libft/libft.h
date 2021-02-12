@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 07:41:37 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/10 16:39:23 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/11 12:38:11 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int					ft_ispair(int a);
 int					ft_iswhite(char a);
 int					ft_streql(const char *s1, const char *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
-void				ft_freedoublechar(char **str);
+char				*ft_realloc(char *src);
 
 #endif

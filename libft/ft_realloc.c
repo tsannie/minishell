@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freedoublechar.c                                :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 16:34:04 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/10 16:44:56 by tsannie          ###   ########.fr       */
+/*   Created: 2021/02/11 08:23:34 by tsannie           #+#    #+#             */
+/*   Updated: 2021/02/11 13:13:37 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
-void	ft_freedoublechar(char **str)
+char	*ft_realloc(char *src)
 {
-	while (*str)
-	{
-		free(*str);
-		str++;
-		ft_putstr_fd("\nfree\n", 1);
-	}
-	free(str);
+	char *res;
+
+	res = ft_strdup(src);
+	if (src)
+		free(src);
+	return (res);
 }

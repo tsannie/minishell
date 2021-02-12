@@ -6,20 +6,20 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 21:25:36 by tsannie           #+#    #+#             */
-/*   Updated: 2021/01/04 15:00:07 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/11 08:40:30 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		be_charset(char a, char charset)
+static int	be_charset(char a, char charset)
 {
 	if (a == charset)
 		return (1);
 	return (0);
 }
 
-int		count_word(const char *str, char charset)
+static int	count_word(const char *str, char charset)
 {
 	int n;
 	int word;
@@ -43,7 +43,7 @@ int		count_word(const char *str, char charset)
 	return (word);
 }
 
-void	alloc(char **res, const char *str, char charset)
+static void	alloc(char **res, const char *str, char charset)
 {
 	int n;
 	int word;
@@ -69,7 +69,7 @@ void	alloc(char **res, const char *str, char charset)
 	}
 }
 
-void	fill(char **res, const char *str, char charset)
+static void	fill(char **res, const char *str, char charset)
 {
 	int n;
 	int word;
