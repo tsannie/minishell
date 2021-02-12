@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 11:44:04 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/12 14:32:49 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	print_args(char **str)
 	int		i;
 
 	i = 0;
-	printf("args_stock : \n");
+	printf("\nargs_stock : \n");
 	while (str[i])
 	{
-		printf("Argument %d\t:\t|%s|\n", i, str[i]);
+		printf("- Argument %d\t:\t|%s|\n", i, str[i]);
 		i++;
 	}
 }
@@ -45,8 +45,8 @@ char	**addword(char **res, int nb_word)
 
 char	**search_arg(char *str, t_set *set)
 {
-	printf("\nstart parcing arg :\n");
-	printf("y = %d\nstr[y] = {%c}\nstr = {%s}\n", set->y, str[set->y], &str[set->y]);
+	//printf("\nstart parcing arg :\n");
+	//printf("y = %d\nstr[y] = {%c}\nstr = {%s}\n", set->y, str[set->y], &str[set->y]);
 
 	char	**res;
 	char	*word;
@@ -54,13 +54,15 @@ char	**search_arg(char *str, t_set *set)
 	int		nb_word;
 
 	nb_word = 0;
-	exit = 0;
+	exit = 2;
+	while (ft_iswhite(str[set->y]) == 1 && str[set->y])
+		set->y++;
 	while(str[set->y])
 	{
-		while (ft_iswhite(str[set->y]) == 1)
+		while (ft_iswhite(str[set->y]) == 1 && str[set->y])
 			set->y++;
 		if (!(str[set->y]))
-			exit = 1;
+			exit = 2;
 		else
 		{
 			exit = 0;
@@ -94,7 +96,7 @@ char	**search_arg(char *str, t_set *set)
 					exit = -1;
 				set->y++;
 			}
-			else if (ft_iswhite(str[set->y]) != 1)
+			else if (ft_iswhite(str[set->y]) != 1 && str[set->y])
 			{
 				while (str[set->y] && ft_iswhite(str[set->y]) != 1 && str[set->y] != '\'' && str[set->y] != '\"')
 				{
@@ -108,7 +110,12 @@ char	**search_arg(char *str, t_set *set)
 		res[nb_word - 1] = ft_strdup(word);
 		free(word);
 	}
-	printf("exit = %d\n", exit);		// if exit == -1 error quote
-	print_args(res);
+	if (exit != 2)
+	{
+		print_args(res);
+		printf("exit = %d\n", exit);		// if exit == -1 error quote
+	}
+	else
+		printf("no arg\n");
 	return (res);
 }

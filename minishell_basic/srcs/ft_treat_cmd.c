@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 13:58:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/12 14:16:17 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*search_cmd(char *src, t_set *set)
 
 int		clean(char *src, t_set *set)
 {
-	printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
+	//printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
 	set->cmd = search_cmd(src, set);
 	set->arg = search_arg(src, set);
 
