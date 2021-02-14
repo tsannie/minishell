@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 14:32:49 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/14 15:59:56 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,44 @@ void	print_args(char **str)
 	int		i;
 
 	i = 0;
-	printf("\nargs_stock : \n");
-	while (str[i])
+	if (!str[0])
 	{
-		printf("- Argument %d\t:\t|%s|\n", i, str[i]);
-		i++;
+		printf("NO ARGS\n");
+	}
+	else
+	{
+		printf("args_stock : \n");
+		while (str[i])
+		{
+			printf("- Argument %d\t:\t|%s|\n", i, str[i]);
+			i++;
+		}
 	}
 }
 
-char	**addword(char **res, int nb_word)
+char	**addword(char **res, int nb_word, t_set *set, char *word)
 {
 	char	**new;
 	int		i;
 
-	if (!(new = malloc(sizeof(char*) * nb_word + 1)))
+	if (!(new = malloc(sizeof(char*) * (nb_word + 1))))
 		return (NULL);
 	i = 0;
 	while (res[i])
 	{
-		new[i] = res[i];
+			//printf("set.cmd = {%s}\n", set->cmd);
+		new[i] = ft_strdup(res[i]);
+		i++;
+	}
+	new[i] = ft_strdup(word);
+	new[nb_word] = 0;
+	i = 0;
+	while (res[i])
+	{
+		free(res[i]);
 		i++;
 	}
 	free(res);
-	new[nb_word] = 0;
 	return (new);
 }
 
@@ -47,7 +62,6 @@ char	**search_arg(char *str, t_set *set)
 {
 	//printf("\nstart parcing arg :\n");
 	//printf("y = %d\nstr[y] = {%c}\nstr = {%s}\n", set->y, str[set->y], &str[set->y]);
-
 	char	**res;
 	char	*word;
 	int 	exit;
@@ -57,19 +71,13 @@ char	**search_arg(char *str, t_set *set)
 	exit = 2;
 	while (ft_iswhite(str[set->y]) == 1 && str[set->y])
 		set->y++;
+	if (!(res = malloc(sizeof(char*) * 1)))
+		return (NULL);
+	res[0] = 0;
 	while(str[set->y])
 	{
-		while (ft_iswhite(str[set->y]) == 1 && str[set->y])
-			set->y++;
-		if (!(str[set->y]))
-			exit = 2;
-		else
-		{
-			exit = 0;
-			nb_word++;
-			res = addword(res, nb_word);
-			word = ft_strdup("");
-		}
+		exit = 0;
+		word = ft_strdup("");
 		while (exit == 0)
 		{
 			if (str[set->y] == '\'')
@@ -107,15 +115,17 @@ char	**search_arg(char *str, t_set *set)
 			if ((ft_iswhite(str[set->y]) == 1 || !str[set->y]) && exit == 0)
 				exit = 1;
 		}
-		res[nb_word - 1] = ft_strdup(word);
+		while (ft_iswhite(str[set->y]) == 1 && str[set->y])
+			set->y++;
+		if (!(str[set->y]))
+			exit = 1;
+		nb_word++;
+		res = addword(res, nb_word, set, word);
+		//print_args(res);
+		//printf("\n\n");
 		free(word);
 	}
-	if (exit != 2)
-	{
-		print_args(res);
-		printf("exit = %d\n", exit);		// if exit == -1 error quote
-	}
-	else
-		printf("no arg\n");
+	//print_args(res);
+	//printf("exit = %d\n", exit);		// if exit == -1 error quote
 	return (res);
 }

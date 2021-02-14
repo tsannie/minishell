@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/12 14:16:17 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/14 15:56:36 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*add_letter(char *str, char a)
 	return (res);
 }
 
-char	*search_cmd(char *src, t_set *set)
+char	*search_cmd(const char *src, t_set *set)
 {
 	char	*res;
 	int		quot;
@@ -93,7 +93,7 @@ char	*search_cmd(char *src, t_set *set)
 			exit = 1;
 	}
 	/* TODO if exit == -1 = {problème de quote} */
-	printf("cmd  = |%s|\nexit = %d\n", res, exit);
+	//printf("cmd  = |%s|\nexit = %d\n", res, exit);
 	return (res);
 }
 
@@ -101,6 +101,7 @@ int		clean(char *src, t_set *set)
 {
 	//printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
 	set->cmd = search_cmd(src, set);
+	//printf("set-cmd = {%s}\nsrc = {%s}\n", set->cmd, src);
 	set->arg = search_arg(src, set);
 
 	return (0);
@@ -110,13 +111,30 @@ void	treat_cmd(t_set *set, char **envp)
 {
 	char **list;
 	int i;
+	int e;
 
 	i = 0;
 	list = ft_split(set->str, ';');
 	while (list[i])
 	{
+		e = 0;
 		clean(list[i], set);
 		start_cmd(envp, set);
+		free(set->cmd);
+		while (set->arg[e])
+		{
+			//printf("\n\n\nset->arg[e] = %s\n\n\n", set->arg[e]);
+			free(set->arg[e]);
+			e++;
+		}
+		free(set->arg);
 		i++;
 	}
+	e = 0;
+	while (list[e])
+	{
+		free(list[e]);
+		e++;
+	}
+	free(list);
 }
