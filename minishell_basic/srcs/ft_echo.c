@@ -6,11 +6,27 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/14 15:55:30 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/14 16:32:35 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
+
+int is_noret(char *str)
+{
+	int i;
+
+	i = 1;
+	if (str[0] != '-')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int		ft_echo(t_set *set)
 {
@@ -26,10 +42,12 @@ int		ft_echo(t_set *set)
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	while (ft_streql(set->arg[i], "-n") == 1)
+	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;
 		n = 1;
+		if (!set->arg[i])
+			return (0);
 	}
 	while (set->arg[i])
 	{
