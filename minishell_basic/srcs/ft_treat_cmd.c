@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 11:44:32 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 11:59:42 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,6 @@ char	*add_letter(char *str, char a)
 	if (str)
 		free(str);
 	return (res);
-}
-
-void	maj_to_min(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			str[i] = str[i] + 32;
-		i++;
-	}
 }
 
 char	*search_cmd(const char *src, t_set *set)
@@ -122,7 +109,6 @@ int		clean(char *src, t_set *set)
 {
 	//printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
 	set->cmd = search_cmd(src, set);
-	maj_to_min(set->cmd);
 	//printf("set-cmd = {%s}\nsrc = {%s}\n", set->cmd, src);
 	set->arg = search_arg(src, set);
 
