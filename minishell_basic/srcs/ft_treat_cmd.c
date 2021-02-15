@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 14:31:45 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 15:18:52 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,44 @@ int		clean(char *src, t_set *set)
 	return (0);
 }
 
+int	error_list(int a)
+{
+	if (a == 1)
+		ft_putstr_fd("minishell: syntax error near unexpected token ';'\n",1);
+	if (a == 2)
+		ft_putstr_fd("minishell: syntax error near unexpected token ';;'\n",1);
+	return (-1);
+}
+
+int check_list(const char *str)
+{
+	int	i;
+	int	e;
+
+	e = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ';' && str[i + 1] == ';')
+			return (error_list(2));
+		if (str[i] == ';')
+		{
+			i++;
+			e = 0;
+			while (str[i] != ';' && str[i])
+			{
+				if (ft_iswhite(str[i]) == 0)
+					e++;
+				i++;
+			}
+			if (e == 0)
+				return (error_list(1));
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	treat_cmd(t_set *set, char **envp)
 {
 	char **list;
@@ -140,28 +178,32 @@ void	treat_cmd(t_set *set, char **envp)
 	int e;
 
 	i = 0;
-	list = ft_split(set->str, ';');
-	while (list[i])
+	if (check_list(set->str) == 0)
 	{
-		e = 0;
-		set->err_quote = 0;
-		clean(list[i], set);
-		start_cmd(envp, set);
-		free(set->cmd);
-		while (set->arg[e])
+		list = ft_split(set->str, ';');
+
+		while (list[i])
 		{
-			//printf("\n\n\nset->arg[e] = %s\n\n\n", set->arg[e]);
-			free(set->arg[e]);
+			e = 0;
+			set->err_quote = 0;
+			clean(list[i], set);
+			start_cmd(envp, set);
+			free(set->cmd);
+			while (set->arg[e])
+			{
+				//printf("\n\n\nset->arg[e] = %s\n\n\n", set->arg[e]);
+				free(set->arg[e]);
+				e++;
+			}
+			free(set->arg);
+			i++;
+		}
+		e = 0;
+		while (list[e])
+		{
+			free(list[e]);
 			e++;
 		}
-		free(set->arg);
-		i++;
+		free(list);
 	}
-	e = 0;
-	while (list[e])
-	{
-		free(list[e]);
-		e++;
-	}
-	free(list);
 }
