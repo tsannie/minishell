@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 14:21:18 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 14:34:34 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**search_arg(char *str, t_set *set)
 				set->y++;
 				while (str[set->y] && str[set->y] != '\'')
 				{
-					if ((str[set->y] == '\\' && str[set->y + 1]))
+					if (str[set->y] == '\\' && str[set->y + 1] == '\'')
 					{
 						word = add_letter(word, str[set->y + 1]);
 						set->y = set->y + 2;
@@ -105,7 +105,7 @@ char	**search_arg(char *str, t_set *set)
 				set->y++;
 				while (str[set->y] && str[set->y] != '\"')
 				{
-					if ((str[set->y] == '\\' && str[set->y + 1]))
+					if (str[set->y] == '\\' && str[set->y + 1] == '\"')
 					{
 						word = add_letter(word, str[set->y + 1]);
 						set->y = set->y + 2;
