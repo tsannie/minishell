@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 13:40:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:21:42 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void ft_putstr_not_found(char *str)
 	ft_putstr_fd(": command not found\n", 1);
 }
 
+void ft_putstr_error_quote(void)
+{
+	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd("syntax error with open quotes\n", 1);
+}
+
 char *get_val(void)
 {
 	char **line;
@@ -95,8 +101,11 @@ void	start_cmd(char **envp, t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
-	ft_eexit(set);
-	if (ft_strcmpp(min, "echo") == 0)
+	if (set->err_quote == 1)
+		ft_putstr_error_quote();
+	else if (ft_strcmpp(min, "exit") == 0)
+		ft_eexit(set);
+	else if (ft_strcmpp(min, "echo") == 0)
 		ft_echo(set);
 	else if (ft_strcmpp(min, "cd") == 0)
 		ft_cd(set);

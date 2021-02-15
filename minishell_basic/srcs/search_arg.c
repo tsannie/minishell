@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 13:50:39 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 14:21:18 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ char	**search_arg(char *str, t_set *set)
 	}
 	//print_args(res);
 	if (exit == -1)
-		printf("Error quote ...\n");
+		set->err_quote = 1;
 	//printf("exit = %d\n", exit);		// if exit == -1 error quote
 	return (res);
 }
