@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 10:26:40 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:43:44 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,6 @@ int	ft_exportenv(t_set *set)
 	set->hide_envp[i]	= set->hide_envp[i - 1];
 	set->hide_envp[i - 1] = set->str + j;	
 	set->hide_envp[i + 1] = NULL;
-    return (0);
-}
-
-int ft_disp_export(t_set *set)
-{
-    int i;
-	
-	i = -1;
-	ft_sort_dbtab(set);
-    while (set->hide_envp[++i] != NULL)
-        printf("declare -x %s\n", set->hide_envp[i]);
     return (0);
 }
 

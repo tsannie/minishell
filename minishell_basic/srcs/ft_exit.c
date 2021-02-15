@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_dbtab.c                                    :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 10:30:31 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
+/*   Updated: 2021/02/15 10:57:37 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
 
-void		ft_sort_dbtab(t_set *set)
+void ft_eexit(t_set *set)
 {
-	;
+	if (ft_strcmpp(set->cmd, "exit") == 0)
+		{
+			if (set->arg[0] == NULL)
+				exit(0);
+			else
+				exit(ft_atoi(set->arg[0]));
+		}
 }

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 09:12:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:56:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,8 @@ char *get_val(void)
 
 void	start_cmd(char **envp, t_set *set)
 {
-	if (ft_strcmpp(set->cmd, "exit") == 0)
-	{
-		if (set->arg[0] == NULL)
-			exit(0);
-		else
-			exit(ft_atoi(set->arg[0]));
-	}
-	else if (ft_strcmpp(set->cmd, "echo") == 0)
+	ft_eexit(set);
+	if (ft_strcmpp(set->cmd, "echo") == 0)
 		ft_echo(set);
 	else if (ft_strcmpp(set->cmd, "cd") == 0)
 		ft_cd(set);

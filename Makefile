@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/15 10:28:59 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/02/15 10:55:10 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
 SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
-ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_sort_dbtab.c \
+ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c ft_exit.c \
 
 SRC_BONUS 	= \
 
