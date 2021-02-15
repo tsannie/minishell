@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 07:40:24 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 11:44:32 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,16 @@ char	*search_cmd(const char *src, t_set *set)
 		{
 			while (src[set->y] && ft_iswhite(src[set->y]) != 1 && src[set->y] != '\'' && src[set->y] != '\"')
 			{
-				res = add_letter(res, src[set->y]);
-				set->y++;
+				if ((src[set->y] == '\\' && src[set->y + 1]))
+				{
+					res = add_letter(res, src[set->y + 1]);
+					set->y = set->y + 2;
+				}
+				else
+				{
+					res = add_letter(res, src[set->y]);
+					set->y++;
+				}
 			}
 		}
 		if ((ft_iswhite(src[set->y]) == 1 || !src[set->y]) && exit == 0)
