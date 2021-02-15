@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 13:38:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:24:35 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ int		ft_check_valid_exit(t_set *set)
 	int i;
 
 	i = 0;
+	printf("[%s][%d][%zu]\n", set->arg[0],ft_atoi(set->arg[0]), ft_strlen(set->arg[0]));
+	if (ft_atoi(set->arg[0]) == 0 && ft_strlen(set->arg[0]) > 2)
+		return (1);
 	while (set->arg[0][i])
 	{
 		if (set->arg[0][i] == '-' || set->arg[0][i] == '+')
@@ -28,6 +31,7 @@ int		ft_check_valid_exit(t_set *set)
 			return (1);
 		i++;
 	}
+	printf("sorti");
 	return (0);
 }
 
