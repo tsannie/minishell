@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 13:45:55 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 14:21:04 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ char	*search_cmd(const char *src, t_set *set)
 		if ((ft_iswhite(src[set->y]) == 1 || !src[set->y]) && exit == 0)
 			exit = 1;
 	}
+	if (exit == -1)
+		set->err_quote = 1;
 	/* TODO if exit == -1 = {problème de quote} */
 	//printf("cmd  = |%s|\nexit = %d\n", res, exit);
 	return (res);
@@ -142,6 +144,7 @@ void	treat_cmd(t_set *set, char **envp)
 	while (list[i])
 	{
 		e = 0;
+		set->err_quote = 0;
 		clean(list[i], set);
 		start_cmd(envp, set);
 		free(set->cmd);
