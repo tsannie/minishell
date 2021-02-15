@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/12 13:30:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 09:28:50 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ char **ft_strdup_tabl(char **envp)
 	int y;
 	int len;
 
-	len = -1;
-	y = -1;
+	len = 0;
+	y = 0;
 	x = 0;
 	while (envp[len] != NULL)
 		len++;
 	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
-	while (envp[++y])
+	while (envp[y])
+	{
 		hide_envp[y] = ft_strdup(envp[y]);
-	hide_envp[y + 1] = NULL;
+		y++;
+	}
+	hide_envp[y] = NULL;
 	return (hide_envp);
 }
 

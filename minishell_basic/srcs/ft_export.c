@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/12 13:29:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:26:40 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,14 @@ int	ft_exportenv(t_set *set)
     return (0);
 }
 
-int ft_disp_export(char **envp)
+int ft_disp_export(t_set *set)
 {
-    int i = -1;
-    while (envp[++i] != NULL)
-        printf("declare -x %s\n", envp[i]);
+    int i;
+	
+	i = -1;
+	ft_sort_dbtab(set);
+    while (set->hide_envp[++i] != NULL)
+        printf("declare -x %s\n", set->hide_envp[i]);
     return (0);
 }
 
@@ -160,11 +163,10 @@ int ft_export(t_set *set, char **envp)
 			egl = 1;
 		j++;
 	}
-	printf("avant[%s]\n\n\n", set->str);
 	if (egl == 1)
 		ft_setenv(set, envp);
-	else if (ft_strcmpp(set->str, "export e") == 0)//&& agr[0] == NULL)
-		ft_disp_export(set->hide_envp);
+	else if (ft_strcmpp(set->str, "export") == 0 && set->arg[0] == NULL)
+		ft_disp_export(set);
 	else
 		ft_exportenv(set);
     return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/14 15:55:07 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 10:29:19 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_set
 }				t_set;
 
 
-
+void		ft_sort_dbtab(t_set *set);
 void	start_shell(int ac, char **av, char **envp, t_set *set);
 int		ft_cd(t_set *set);
 int		ft_echo(t_set *set);
