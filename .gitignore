@@ -1,0 +1,7 @@
+minishell
+
+libft/*.o
+libft/*.a
+
+srcs/*.o
+srcs/*.a
