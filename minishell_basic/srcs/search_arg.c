@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 11:37:59 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/15 13:50:39 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,18 @@ char	**search_arg(char *str, t_set *set)
 			if (str[set->y] == '\'')
 			{
 				set->y++;
-				while (str[set->y] && (str[set->y] != '\''))
+				while (str[set->y] && str[set->y] != '\'')
 				{
-					word = add_letter(word, str[set->y]);
-					set->y++;
+					if ((str[set->y] == '\\' && str[set->y + 1]))
+					{
+						word = add_letter(word, str[set->y + 1]);
+						set->y = set->y + 2;
+					}
+					else
+					{
+						word = add_letter(word, str[set->y]);
+						set->y++;
+					}
 				}
 				if (str[set->y] != '\'')
 					exit = -1;
@@ -97,8 +105,16 @@ char	**search_arg(char *str, t_set *set)
 				set->y++;
 				while (str[set->y] && str[set->y] != '\"')
 				{
-					word = add_letter(word, str[set->y]);
-					set->y++;
+					if ((str[set->y] == '\\' && str[set->y + 1]))
+					{
+						word = add_letter(word, str[set->y + 1]);
+						set->y = set->y + 2;
+					}
+					else
+					{
+						word = add_letter(word, str[set->y]);
+						set->y++;
+					}
 				}
 				if (str[set->y] != '\"')
 					exit = -1;
