@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 09:00:47 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:40:21 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_cd(t_set *set)
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
 	if (valid == -1 && set->arg[0] != NULL)
-		printf("minish: cd: %s: No such file or directory\n", set->arg[0]);
+		printf("minishell: cd: %s: No such file or directory\n", set->arg[0]);
 	if (set->arg[0] == NULL)
 		return (chdir(ft_getenv()));
     return (0);

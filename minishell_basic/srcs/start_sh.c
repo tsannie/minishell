@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 13:26:09 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:40:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void ft_putstr_not_found(char *str)
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minish: ", 1);
+	ft_putstr_fd("minishell: ", 1);
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	while (str[i] && str[i] != ' ' && str[i] != '\t')
