@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 15:24:35 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 08:27:46 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,7 @@ void	treat_cmd(t_set *set, char **envp)
 	i = 0;
 	if (check_list(set->str) == 0)
 	{
-		list = ft_split(set->str, ';');
-
+		list = split_semicolon(set->str, set);
 		while (list[i])
 		{
 			e = 0;

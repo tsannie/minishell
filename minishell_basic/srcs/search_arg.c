@@ -6,31 +6,11 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 14:34:34 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 08:29:23 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
-
-void	print_args(char **str)
-{
-	int		i;
-
-	i = 0;
-	if (!str[0])
-	{
-		printf("NO ARGS\n");
-	}
-	else
-	{
-		printf("args_stock : \n");
-		while (str[i])
-		{
-			printf("- Argument %d\t:\t|%s|\n", i, str[i]);
-			i++;
-		}
-	}
-}
 
 char	**addword(char **res, int nb_word, t_set *set, char *word)
 {

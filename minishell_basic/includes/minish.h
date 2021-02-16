@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 14:07:03 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 08:44:53 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 
 typedef struct	s_set
 {
-	char 	*str;
+	char	*str;
+	char	*word_tmp;
 
 	char	**arg;
 	char	*cmd;
@@ -61,5 +62,13 @@ int 	ft_unset(t_set *set, char **envp);
 int 	ft_pwd(t_set *set);
 
 int 	ft_strcmpp(char *s1, char *s2);
+char	**addword(char **res, int nb_word, t_set *set, char *word);
+char	**split_semicolon(char *str, t_set *set);
+
+
+
+
+/* TOOLS TO DELETE WHEN ITS END */
+void	print_args(char **str);
 
 #endif
