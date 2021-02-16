@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 10:11:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:45:34 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ typedef struct	s_set
 	char	*cmd;
 	int		y;
 	int		err_quote;
+	int 	exit_val;
 
 	int		cwplen;
 	char	**hide_envp;
 }				t_set;
 
+void ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
 void	start_shell(int ac, char **av, char **envp, t_set *set);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 10:21:09 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:35:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ int ft_unset(t_set *set, char **envp)
 
 	i = 0;
 	j = 0;
-    while (set->str[j] != 't' && set->str[j])
-        j++;
-    while (set->str[j] == ' ' || set->str[j] == '\t')
-        j++;
-    while (envp[i] != NULL)
-    {
-        if (ft_streql(set->str + j, envp[i]) == 1)
+	while (set->arg[j])
+	{
+		while (envp[i] != NULL)
 		{
-            while (envp[i] != NULL)
-            {
-                envp[i] = envp[i+1];
-                i++;
-            }
-            return (0);
-        }
-        i++;
-    }
+			if (ft_streql(set->str, envp[i]) == 1)
+			{
+				while (envp[i] != NULL)
+				{
+					envp[i] = envp[i+1];
+					i++;
+				}
+				return (0);
+			}
+			i++;
+		}
+		j++;
+	}
     return (0);
 }

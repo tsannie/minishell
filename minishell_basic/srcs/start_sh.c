@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 12:28:59 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:24:05 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ void	start_cmd(char **envp, t_set *set)
 	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_strlen(min) != 0 && check_cmd(min) == 0)
+	{
 		ft_putstr_not_found(set->cmd);
+		set->exit_val = 0;
+	}
 	free(min);
 }
 

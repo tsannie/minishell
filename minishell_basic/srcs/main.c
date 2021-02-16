@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 12:35:30 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:18:56 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ int main(int ac, char **av, char **envp)
 	}
 	else
 	{
+		set->exit_val = 0;
 		set->hide_envp = ft_strdup_tabl(envp);
-		while (1)
+		while (set->exit_val == 0)
 		{
 			disp_prompt();
 			signal(SIGINT, int_handler);
 			start_shell(ac, av, envp, set);
 		}
 	}
-
 	free(set);
-	return (0);
+	return (set->exit_val);
 }

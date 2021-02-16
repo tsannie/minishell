@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 10:20:54 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:44:35 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,37 +65,25 @@ char *space(char *str)
 
 int checkenvp(char *str)
 {
-    int j = 0;
-	int e = 0;
-	int k;
-	int egl;
+	int i = 0;
+	int avn = 0;
 
-	k = 1;
-	egl = 0;
-    while (str[k])
-    {
-        if ((str[k] == '=' && str[k - 1] != ' ') && (str[k] == '=' && str[k - 1] != ' '))
-            egl++;
-		k++;
-    }
-	//printf("[%d]\n", egl);
-	if (egl == 0)
-	{
-		ft_putstr_fd("minishell: bad assignment\n", 1);
+	if (str[i] == '=')
 		return (1);
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] >= 48 && str[i] <= 59 && avn == 0)
+			return (1);
+		if (((str[i] < 48) || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
+		|| (str[i] >= 91 && str[i] <= 96) )  && (str[i] != '_'))
+		{
+			return (1);
+		}
+		else
+			avn = 1;
+		i++;
 	}
-	while (str[j])
-    {
-        if (str[j] != ' ' && str[j + 1] == ' ')
-            e++;
-        j++;
-    }
-    if (e == 3 || (e == 2 && str[j-1] != ' ')) {
-        ft_putstr_fd("EXPORT: Too many arguments.\n", 1);
-        return (1);
-    }
-	printf("[%s]\n", str);
-    return (0);
+	return (0);
 }
 
 int ft_setenv(t_set *set, char **envp)
@@ -119,20 +107,15 @@ int ft_setenv(t_set *set, char **envp)
     return (0);
 }
 
-int	ft_exportenv(t_set *set)
+int	ft_exportenv(char *str, t_set *set)
 {
-    int i = 0;
-    int j = 1;
-
-    while (set->str[j] != 't' && set->str[j - 1] != 'r' && set->str[j])
-        j++;
-    j++;
-    while (set->str[j] == ' ' || set->str[j] == '\t')
-        j++;
+    int i;
+	
+	i = 0;
     while (set->hide_envp[i] != NULL)
         i++;
 	set->hide_envp[i]	= set->hide_envp[i - 1];
-	set->hide_envp[i - 1] = set->str + j;
+	set->hide_envp[i - 1] = set->str;
 	set->hide_envp[i + 1] = NULL;
     return (0);
 }
@@ -145,18 +128,30 @@ int ft_export(t_set *set, char **envp)
 
 	egl = 0;
 	j = 0;
-	i = 0;
-	while (set->str[j])
+ 	i = -1;
+/*   	printf("str = [%s]\n", set->str);
+	int r = -1;
+	while (set->arg[++r])
+		printf("arg = [%s]\n", set->arg[r]);
+	printf("arg = [%s]\n", set->arg[r]);
+    */
+	if (ft_streql(set->cmd, "export") != 1)
 	{
-		if (set->str[j] == '=')
-			egl = 1;
-		j++;
+		ft_putstr_not_found(set->cmd);
+		set->exit_val = 127; // a retirer 
+		return (1);
 	}
-	if (egl == 1)
-		ft_setenv(set, envp);
-	else if (ft_streql(set->str, "export") == 1 && set->arg[0] == NULL)
+	if (set->arg[0] == NULL)
 		ft_disp_export(set);
-	else
-		ft_exportenv(set);
+	while (set->arg[++i])
+	{
+		if (checkenvp(set->arg[i]) == 1)
+		{
+			printf("minishell: export: `%s': not a valid identifier\n", set->arg[i]);
+			set->exit_val = 1; // a retirer 
+			return (1);
+		}
+		ft_exportenv(set->arg[i], set);
+	}
     return (0);
 }
