@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 10:32:11 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 11:29:21 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int		ft_check_valid_exit(t_set *set)
 	 //	printf("oui\n");
 		return (1);
 	}
+	if (set->arg[0][i] == '-' || set->arg[0][i] == '+')
+		i++;
+	while (ft_iswhite(set->arg[0][i]) == 1)
+		i++;
 	while (set->arg[0][i])
 	{
-		if (set->arg[0][i] == '-' || set->arg[0][i] == '+')
-			i++;
 		if (!(set->arg[0][i] <= '9' && set->arg[0][i] >= '0') &&
-		!((set->arg[0][i] == ' ' || set->arg[0][i] == '\t' ||
-		set->arg[0][i] == '\v' || set->arg[0][i] == '\r' ||
-		set->arg[0][i] == '\f' || set->arg[0][i] == '\n')))
+		!((set->arg[0][i] == ' ' || set->arg[0][i] == '\t')))
 			return (1);
 		i++;
 	}

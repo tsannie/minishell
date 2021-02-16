@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 10:53:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 11:31:18 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	start_cmd(char **envp, t_set *set)
 	//printf("min = {%s}\n", min);
 	if (set->err_quote == 1)
 		ft_putstr_error_quote();
-	else if (ft_streql(min, "exit") == 1)
+	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
 	else if (ft_streql(min, "echo") == 1)
 		ft_echo(set);
