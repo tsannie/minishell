@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 10:43:44 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:20:54 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int ft_setenv(t_set *set, char **envp)
         return (1);
 
 	envp[i]	= envp[i - 1];
-	envp[i - 1] = set->str + j;	
+	envp[i - 1] = set->str + j;
 	envp[i + 1] = NULL;
     return (0);
 }
@@ -132,7 +132,7 @@ int	ft_exportenv(t_set *set)
     while (set->hide_envp[i] != NULL)
         i++;
 	set->hide_envp[i]	= set->hide_envp[i - 1];
-	set->hide_envp[i - 1] = set->str + j;	
+	set->hide_envp[i - 1] = set->str + j;
 	set->hide_envp[i + 1] = NULL;
     return (0);
 }
@@ -154,7 +154,7 @@ int ft_export(t_set *set, char **envp)
 	}
 	if (egl == 1)
 		ft_setenv(set, envp);
-	else if (ft_strcmpp(set->str, "export") == 0 && set->arg[0] == NULL)
+	else if (ft_streql(set->str, "export") == 1 && set->arg[0] == NULL)
 		ft_disp_export(set);
 	else
 		ft_exportenv(set);

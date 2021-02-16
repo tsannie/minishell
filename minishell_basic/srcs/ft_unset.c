@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/12 13:29:38 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:21:09 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_unsetenv(char *str, char * envp[])
         j++;
     while (envp[i] != NULL)
     {
-        if (ft_strcmpp(str + j, envp[i]) == 0){
+        if (ft_streql(str + j, envp[i]) == 1){
             while (envp[i] != NULL)
             {
                 envp[i] = envp[i+1];
@@ -51,7 +51,7 @@ int ft_unset(t_set *set, char **envp)
         j++;
     while (envp[i] != NULL)
     {
-        if (ft_strcmpp(set->str + j, envp[i]) == 0)
+        if (ft_streql(set->str + j, envp[i]) == 1)
 		{
             while (envp[i] != NULL)
             {

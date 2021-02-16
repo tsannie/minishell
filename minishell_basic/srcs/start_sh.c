@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/15 14:29:25 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:21:34 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
-
-int ft_strcmpp(char *s1, char *s2)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (s1[i] == ' ' || s1[i] == '\t')
-		i++;
-	while (s2[j] && s1[i] != ';') // ; = separe les commandes
-	{
-		if (s1[i] > s2[j])
-			return (1);
-		else if (s1[i] < s2[j])
-			return (-1);
-		j++;
-		i++;
-	}
-	if (s1[i] == ' ' || s1[i] == '\t' || s1[i] == '\0' || s1[i] == ';')
-		return (0);
-	return (1);
-}
 
 int check_cmd(char *str)
 {
@@ -55,13 +32,7 @@ void ft_putstr_not_found(char *str)
 
 	i = 0;
 	ft_putstr_fd("minishell: ", 1);
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	while (str[i] && str[i] != ' ' && str[i] != '\t')
-	{
-		ft_putchar_fd(str[i], 1);
-		i++;
-	}
+	ft_putstr_fd(str, 1);
 	ft_putstr_fd(": command not found\n", 1);
 }
 
@@ -87,13 +58,13 @@ char	*maj_to_min(char *str)
 
 	res = ft_strdup(str);
 	i = 0;
-	while(res[i])
+	while (res[i])
 	{
 		if (res[i] >= 'A' && res[i] <= 'Z')
 			res[i] = res[i] + 32;
 		i++;
 	}
-	return(res);
+	return (res);
 }
 
 void	start_cmd(char **envp, t_set *set)
@@ -101,23 +72,24 @@ void	start_cmd(char **envp, t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
+	printf("min = {%s}\n", min);
 	if (set->err_quote == 1)
 		ft_putstr_error_quote();
-	else if (ft_strcmpp(min, "exit") == 0)
+	else if (ft_streql(min, "exit") == 1)
 		ft_eexit(set);
-	else if (ft_strcmpp(min, "echo") == 0)
+	else if (ft_streql(min, "echo") == 1)
 		ft_echo(set);
-	else if (ft_strcmpp(min, "cd") == 0)
+	else if (ft_streql(min, "cd") == 1)
 		ft_cd(set);
-	else if (ft_strcmpp(min, "pwd") == 0)
+	else if (ft_streql(min, "pwd") == 1)
 		ft_pwd(set);
-	else if (ft_strcmpp(min, "export") == 0)
+	else if (ft_streql(min, "export") == 1)
 		ft_export(set, envp);
-	else if (ft_strcmpp(min, "unset") == 0)
+	else if (ft_streql(min, "unset") == 1)
 		ft_unset(set, envp);
-	else if (ft_strcmpp(min, "env") == 0)
+	else if (ft_streql(min, "env") == 1)
 		ft_env(set, envp);
-	else if (ft_strcmpp(min, "clear") == 0)
+	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_strlen(min) != 0 && check_cmd(min) == 0)
 		ft_putstr_not_found(set->cmd);
