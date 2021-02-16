@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 15:44:35 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:33:51 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,50 @@ int ft_setenv(t_set *set, char **envp)
     return (0);
 }
 
+char *recup_new(char *str, int x)
+{
+	char *nstr;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (!(nstr = malloc(sizeof(char) * (ft_strlen(str) + 3))))
+		return (0);
+	while (j < x)
+	{
+		nstr[j] = str[j];
+		j++;
+	}
+	nstr[j] = '\"';
+	while (str[j])
+	{
+		nstr[j + 1] = str[j];
+		j++;
+	}
+	nstr[j + 2] = '\"';
+	nstr[j + 2] = '\0';
+	//printf("[%s]\n", nstr);
+	return (nstr);
+
+}
+
 int	ft_exportenv(char *str, t_set *set)
 {
     int i;
 	
 	i = 0;
+	int r = 0;
+	int j = 0;
+	while(str[i] != '=' && str[i])
+		i++;
+	// printf("[%d][%d]\n",i, (int)ft_strlen(str));
+	if (i != (int)ft_strlen(str))
+		str = recup_new(str, i + 1);
     while (set->hide_envp[i] != NULL)
         i++;
 	set->hide_envp[i]	= set->hide_envp[i - 1];
-	set->hide_envp[i - 1] = set->str;
+	set->hide_envp[i - 1] = str;
 	set->hide_envp[i + 1] = NULL;
     return (0);
 }
