@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 10:21:34 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/16 10:53:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	start_cmd(char **envp, t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
-	printf("min = {%s}\n", min);
+	//printf("min = {%s}\n", min);
 	if (set->err_quote == 1)
 		ft_putstr_error_quote();
 	else if (ft_streql(min, "exit") == 1)
