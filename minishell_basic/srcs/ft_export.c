@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 16:33:51 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:57:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char *recup_new(char *str, int x)
 
 	i = 0;
 	j = 0;
-	if (!(nstr = malloc(sizeof(char) * (ft_strlen(str) + 3))))
+	if (!(nstr = malloc(sizeof(char) * (ft_strlen(str) + 4))))
 		return (0);
 	while (j < x)
 	{
@@ -128,7 +128,7 @@ char *recup_new(char *str, int x)
 		nstr[j + 1] = str[j];
 		j++;
 	}
-	nstr[j + 2] = '\"';
+	nstr[j + 1] = '\"';
 	nstr[j + 2] = '\0';
 	//printf("[%s]\n", nstr);
 	return (nstr);
