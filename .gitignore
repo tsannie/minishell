@@ -3,5 +3,5 @@ minishell
 libft/*.o
 libft/*.a
 
-srcs/*.o
-srcs/*.a
+minishell_basic/srcs/*.o
+minishell_basic/srcs/*.a
