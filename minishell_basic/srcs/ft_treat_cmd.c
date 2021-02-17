@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 10:07:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 08:06:39 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,14 @@ char	*search_cmd(const char *src, t_set *set)
 
 int		clean(char *src, t_set *set)
 {
+	char	*cpy;
+
+	cpy = search_dolars(src, set);
 	//printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
 	set->cmd = search_cmd(src, set);
 	//printf("set-cmd = {%s}\nsrc = {%s}\n", set->cmd, src);
 	set->arg = search_arg(src, set);
+	free(cpy);
 
 	return (0);
 }
