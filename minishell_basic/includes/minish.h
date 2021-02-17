@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 15:45:34 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:56:38 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,29 @@ typedef struct	s_set
 
 	int		cwplen;
 	char	**hide_envp;
+	char	**envp;
 }				t_set;
 
 void ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
-void	start_shell(int ac, char **av, char **envp, t_set *set);
+void	start_shell(int ac, char **av,   t_set *set);
 int		ft_cd(t_set *set);
 int		ft_echo(t_set *set);
-int		ft_env(t_set *set, char **envp);
-int		ft_export(t_set *set, char **envp);
-int		ft_unset(t_set *set, char **envp);
+int		ft_env(t_set *set);
+int		ft_export(t_set *set);
+int		ft_unset(t_set *set);
 int		ft_pwd(t_set *set);
-void	treat_cmd(t_set *set, char **envp);
-void	start_cmd(char **envp, t_set *set);
+void	treat_cmd(t_set *set);
+void	start_cmd(  t_set *set);
 char	**search_arg(char *str, t_set *set);
 char	*add_letter(char *str, char a);
 
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
-int 	ft_env(t_set *set, char **envp);
-int 	ft_export(t_set *set, char **envp);
-int 	ft_unset(t_set *set, char **envp);
+int 	ft_env(t_set *set);
+int 	ft_export(t_set *set);
+int 	ft_unset(t_set *set);
 int 	ft_pwd(t_set *set);
 
 char	**addword(char **res, int nb_word, t_set *set, char *word);

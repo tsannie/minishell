@@ -6,18 +6,18 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:18:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 12:38:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:57:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-int ft_env(t_set *set, char **envp)
+int ft_env(t_set *set)
 {
     int i;
 	
 	i = -1;
-    while (envp[++i] != NULL)
-        printf("%s\n", envp[i]);
+    while (set->envp[++i] != NULL)
+        printf("%s\n", set->envp[i]);
     return (0);
 }

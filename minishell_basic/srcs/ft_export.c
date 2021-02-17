@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 16:57:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:58:12 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int checkenvp(char *str)
 	return (0);
 }
 
-int ft_setenv(t_set *set, char **envp)
+int ft_setenv(t_set *set)
 {
     int i = 0;
     int j = 1;
@@ -96,14 +96,14 @@ int ft_setenv(t_set *set, char **envp)
     j++;
     while (set->str[j] == ' ' || set->str[j] == '\t')
         j++;
-    while (envp[i] != NULL)
+    while (set->envp[i] != NULL)
         i++;
     if (checkenvp(set->str+j) == 1)
         return (1);
 
-	envp[i]	= envp[i - 1];
-	envp[i - 1] = set->str + j;
-	envp[i + 1] = NULL;
+	set->envp[i]	= set->envp[i - 1];
+	set->envp[i - 1] = set->str + j;
+	set->envp[i + 1] = NULL;
     return (0);
 }
 
@@ -155,7 +155,7 @@ int	ft_exportenv(char *str, t_set *set)
     return (0);
 }
 
-int ft_export(t_set *set, char **envp)
+int ft_export(t_set *set)
 {
     int i;
     int j;

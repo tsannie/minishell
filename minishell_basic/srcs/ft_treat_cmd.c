@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 10:07:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 08:59:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int check_list(const char *str)
 	return (0);
 }
 
-void	treat_cmd(t_set *set, char **envp)
+void	treat_cmd(t_set *set)
 {
 	char **list;
 	int i;
@@ -186,7 +186,7 @@ void	treat_cmd(t_set *set, char **envp)
 			e = 0;
 			set->err_quote = 0;
 			clean(list[i], set);
-			start_cmd(envp, set);
+			start_cmd(set);
 			free(set->cmd);
 			while (set->arg[e])
 			{
