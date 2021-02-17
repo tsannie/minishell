@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 09:45:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 16:57:29 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,8 @@ char	**search_arg(char *str, t_set *set)
 				set->y++;
 				while (str[set->y] && str[set->y] != '\'')
 				{
-					if (str[set->y] == '\\' && str[set->y + 1] == '\'')
-					{
-						word = add_letter(word, str[set->y + 1]);
-						set->y = set->y + 2;
-					}
-					else
-					{
-						word = add_letter(word, str[set->y]);
-						set->y++;
-					}
+					word = add_letter(word, str[set->y]);
+					set->y++;
 				}
 				if (str[set->y] != '\'')
 					exit = -1;
