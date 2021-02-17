@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 13:45:43 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:34:05 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,18 +142,18 @@ int ft_hideenv(char *str, t_set *set)
     i = 0;
     int r = 0;
     int j = 0;
-    while(str[i] != '=' && str[i])
-        i++;
+   // while(str[i] != '=' && str[i])
+    //    i++;
     // printf("[%d][%d]\n",i, (int)ft_strlen(str));
-    if (i != (int)ft_strlen(str))
-        str = recup_new(str, i + 1);
+    //if (i != (int)ft_strlen(str))
+       // str = recup_new(str, i + 1);
 	i = 0;
     while (set->hide_envp[i] != NULL)
         i++;
-	free(set->envp[i]);
-    set->envp[i] = ft_strdup(str);
-	set->envp[i + 1] = malloc(sizeof(char) * 1);
-    set->envp[i + 1] = NULL;
+	free(set->hide_envp[i]);
+    set->hide_envp[i] = ft_strdup(str);
+	set->hide_envp[i + 1] = malloc(sizeof(char) * 1);
+    set->hide_envp[i + 1] = NULL;
     return (0);
 }
 
@@ -164,11 +164,11 @@ int ft_modenv(char *str, t_set *set)
     i = 0;
     int r = 0;
     int j = 0;
-    while(str[i] != '=' && str[i])
-        i++;
+   // while(str[i] != '=' && str[i])
+     //   i++;
     // printf("[%d][%d]\n",i, (int)ft_strlen(str));
-    if (i != (int)ft_strlen(str))
-        str = recup_new(str, i + 1);
+    //if (i != (int)ft_strlen(str))
+     //   str = recup_new(str, i + 1);
 	//set->envp = addword(set->envp, i, set, str)
 	i = 0;
     while (set->envp[i] != NULL)

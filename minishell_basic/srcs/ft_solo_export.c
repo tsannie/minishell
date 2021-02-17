@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/15 10:56:17 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:00:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,28 @@ void		ft_sort_dbtab(t_set *set)
 int ft_disp_export(t_set *set)
 {
     int i;
-	
-	i = -1;
+	int x;
+	int egl;
+	char *var;
+
+	egl = 0;
+	x = 0;
+	i = 0;
 	ft_sort_dbtab(set);
-    while (set->hide_envp[++i] != NULL)
-        printf("declare -x %s\n", set->hide_envp[i]);
+    while (set->hide_envp[i])
+	{
+		var = before_equal(set->hide_envp[i]);
+		var = add_letter(var, '\"');
+		printf("declare -x %s", var);
+		free(var);
+		x = 0;
+		while (set->hide_envp[i][x] != '=' && set->hide_envp[i])
+		{
+			x++;
+		}
+		printf("%s\"\n", &set->hide_envp[i][x + 1]);
+		i++;
+	}
+        //printf("declare -x %s\n", set->hide_envp[i]);
     return (0);
 }

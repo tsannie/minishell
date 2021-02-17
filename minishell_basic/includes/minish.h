@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 15:39:53 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:53:53 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	start_cmd(  t_set *set);
 char	**search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
+char	*before_equal(char *str);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
