@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 08:49:58 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 09:34:40 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ int		antislash_pair(char *src, int i)
 
 void	dolars_find(char *src, int i, t_set *set)
 {
+	int e;
 
+	e = 0;
+	while (set->envp[e])
+	{
+		printf("%s\n", set->envp[e]);
+		e++;
+	}
 }
 
 char	*search_dolars(char *src, t_set *set)
@@ -40,11 +47,12 @@ char	*search_dolars(char *src, t_set *set)
 	{
 		if (src[i] == '\\' && src[i + 1] == '$')
 		{
-			if (antislash_pair == 0)
+			if (antislash_pair(src, i) == 0)
 				i = i + 2;
 		}
 		if (src[i] == '$')
-			dolars_find():
+			dolars_find(src, i, set);
 		i++;
 	}
+	return (src);
 }

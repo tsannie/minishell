@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 08:06:39 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 09:32:11 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		clean(char *src, t_set *set)
 	set->cmd = search_cmd(src, set);
 	//printf("set-cmd = {%s}\nsrc = {%s}\n", set->cmd, src);
 	set->arg = search_arg(src, set);
-	free(cpy);
+
 
 	return (0);
 }
@@ -175,7 +175,7 @@ int check_list(const char *str)
 	return (0);
 }
 
-void	treat_cmd(t_set *set, char **envp)
+void	treat_cmd(t_set *set)
 {
 	char **list;
 	int i;
@@ -190,7 +190,7 @@ void	treat_cmd(t_set *set, char **envp)
 			e = 0;
 			set->err_quote = 0;
 			clean(list[i], set);
-			start_cmd(envp, set);
+			start_cmd(set);
 			free(set->cmd);
 			while (set->arg[e])
 			{

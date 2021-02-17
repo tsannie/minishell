@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/16 15:24:05 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:56:41 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*maj_to_min(char *str)
 	return (res);
 }
 
-void	start_cmd(char **envp, t_set *set)
+void	start_cmd(t_set *set)
 {
 	char *min;
 
@@ -84,11 +84,11 @@ void	start_cmd(char **envp, t_set *set)
 	else if (ft_streql(min, "pwd") == 1)
 		ft_pwd(set);
 	else if (ft_streql(min, "export") == 1)
-		ft_export(set, envp);
+		ft_export(set);
 	else if (ft_streql(min, "unset") == 1)
-		ft_unset(set, envp);
+		ft_unset(set);
 	else if (ft_streql(min, "env") == 1)
-		ft_env(set, envp);
+		ft_env(set);
 	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_strlen(min) != 0 && check_cmd(min) == 0)
@@ -99,12 +99,12 @@ void	start_cmd(char **envp, t_set *set)
 	free(min);
 }
 
-void	start_shell(int ac, char **av, char **envp, t_set *set)
+void	start_shell(int ac, char **av, t_set *set)
 {
 	if (ac == 3)
 		set->str = av[2];// for testeur
 	else
 		set->str = get_val();
-	treat_cmd(set, envp);
+	treat_cmd(set);
 }
 

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 13:18:56 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:55:50 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,20 @@ int main(int ac, char **av, char **envp)
 		return (-1);
 	if (ac == 3)		// for testeur
 	{
+		set->envp = ft_strdup_tabl(envp);
 		set->hide_envp = ft_strdup_tabl(envp);
-		start_shell(ac, av, envp, set);
+		start_shell(ac, av, set);
 	}
 	else
 	{
 		set->exit_val = 0;
+		set->envp = ft_strdup_tabl(envp);
 		set->hide_envp = ft_strdup_tabl(envp);
 		while (set->exit_val == 0)
 		{
 			disp_prompt();
 			signal(SIGINT, int_handler);
-			start_shell(ac, av, envp, set);
+			start_shell(ac, av, set);
 		}
 	}
 	free(set);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 15:35:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:59:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int ft_unsetenv(char *str, char * envp[])
     return (0);
 }*/
 
-int ft_unset(t_set *set, char **envp)
+int ft_unset(t_set *set)
 {
     int j;
 	int i;
@@ -47,13 +47,13 @@ int ft_unset(t_set *set, char **envp)
 	j = 0;
 	while (set->arg[j])
 	{
-		while (envp[i] != NULL)
+		while (set->envp[i] != NULL)
 		{
-			if (ft_streql(set->str, envp[i]) == 1)
+			if (ft_streql(set->str, set->envp[i]) == 1)
 			{
-				while (envp[i] != NULL)
+				while (set->envp[i] != NULL)
 				{
-					envp[i] = envp[i+1];
+					set->envp[i] = set->envp[i+1];
 					i++;
 				}
 				return (0);

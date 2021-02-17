@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/16 08:32:40 by tsannie          ###   ########.fr        #
+#    Updated: 2021/02/17 09:27:46 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
 SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
 ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c ft_exit.c \
-split_semicolon.c tools_dev_DELETE.c \
+split_semicolon.c ft_dolars.c tools_dev_DELETE.c \
 
 
 
