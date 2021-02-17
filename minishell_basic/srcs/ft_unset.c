@@ -6,34 +6,84 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 10:15:00 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:11:34 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
+int	ncmpel(char *s1, char *s2)
+{
+	int		i;
+
+	i = 0;
+	while ((s2[i] || s1[i]) && s2[i] != '=')
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int ft_unsetenv(t_set *set, int j)
+{
+	int i;
+
+	i = 0;
+	while (set->envp[i] != NULL)
+	{
+		//printf("[%s][%s][%d]\n", set->arg[j], set->envp[i],ncmpel(set->arg[j], set->envp[i]));
+		if (ncmpel(set->arg[j], set->envp[i]) == 0)
+		{
+			while (set->envp[i] != NULL)
+			{
+				set->envp[i] = set->envp[i+1];
+				i++;
+			}
+			set->envp[i] = NULL;
+			return (0);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int ft_unsethideenv(t_set *set, int j)
+{
+	int i;
+
+	i = 0;
+	while (set->hide_envp[i] != NULL)
+	{
+		//printf("[%s][%s][%d]\n", set->arg[j], set->hide_envp[i],ncmpel(set->arg[j], set->hide_envp[i]));
+		if (ncmpel(set->arg[j], set->hide_envp[i]) == 0)
+		{
+			while (set->hide_envp[i] != NULL)
+			{
+				set->hide_envp[i] = set->hide_envp[i+1];
+				i++;
+			}
+			set->hide_envp[i] = NULL;
+			return (0);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int ft_unset(t_set *set)
 {
     int j;
 	int i;
+	char *tmp;
 
 	i = 0;
 	j = 0;
 	while (set->arg[j])
 	{
-		while (set->envp[i] != NULL)
-		{
-			if (ft_streql(set->str, set->envp[i]) == 1)
-			{
-				while (set->envp[i] != NULL)
-				{
-					set->envp[i] = set->envp[i+1];
-					i++;
-				}
-				return (0);
-			}
-			i++;
-		}
+		ft_unsethideenv(set, j);
+		ft_unsetenv(set, j);
 		j++;
 	}
     return (0);
