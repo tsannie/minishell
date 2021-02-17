@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 09:27:01 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/17 14:34:15 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_set
 	char	**arg;
 	char	*cmd;
 	int		y;
+	int		l_dol;
 	int		err_quote;
 	int 	exit_val;
 
