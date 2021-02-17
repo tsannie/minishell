@@ -6,7 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/02/17 14:01:40 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/02/17 14:34:15 by tsannie          ###   ########.fr       */
+>>>>>>> 94a6454ffcf3964df04735ec5c9458d50e239ef0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +38,7 @@ typedef struct	s_set
 	char	**arg;
 	char	*cmd;
 	int		y;
+	int		l_dol;
 	int		err_quote;
 	int 	exit_val;
 
