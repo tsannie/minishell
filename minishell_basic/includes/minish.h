@@ -6,7 +6,11 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/02/18 10:24:04 by tsannie          ###   ########.fr       */
+=======
+/*   Updated: 2021/02/18 09:14:50 by phbarrad         ###   ########.fr       */
+>>>>>>> 6a3fc32049da286f77e656fdab5cb3656d5c45a8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +75,7 @@ int 	ft_export(t_set *set);
 int 	ft_unset(t_set *set);
 int 	ft_pwd(t_set *set);
 //
+int		ncmpel(char *s1, char *s2);
 char	**addword(char **res, int nb_word, t_set *set, char *word);
 char	**split_semicolon(char *str, t_set *set);
 

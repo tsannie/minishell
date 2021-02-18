@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 16:34:05 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 10:04:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,11 @@ int ft_hideenv(char *str, t_set *set)
     //if (i != (int)ft_strlen(str))
        // str = recup_new(str, i + 1);
 	i = 0;
-    while (set->hide_envp[i] != NULL)
+    while (set->hide_envp[i] != NULL && ncmpel(str, set->hide_envp[i]) != 0)
+	{
+		//printf("[%d][%s][%s]\n", ncmpel(str, set->hide_envp[i]), str, set->hide_envp[i]);
         i++;
+	}
 	free(set->hide_envp[i]);
     set->hide_envp[i] = ft_strdup(str);
 	set->hide_envp[i + 1] = malloc(sizeof(char) * 1);
@@ -171,7 +174,7 @@ int ft_modenv(char *str, t_set *set)
      //   str = recup_new(str, i + 1);
 	//set->envp = addword(set->envp, i, set, str)
 	i = 0;
-    while (set->envp[i] != NULL)
+    while (set->envp[i] != NULL && ncmpel(str, set->envp[i]) != 0)
         i++;
 	free(set->envp[i]);
     set->envp[i] = ft_strdup(str);
