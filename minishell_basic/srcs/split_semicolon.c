@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 07:47:01 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/18 08:58:20 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/18 11:21:59 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int		open_quote(char *str, t_set *set, char a)
 		set->y++;
 		while (str[set->y] && str[set->y] != a)
 		{
-			if (str[set->y] == '\\' && str[set->y + 1] == a && a != '\'')
+			if (str[set->y] == '\\'  && (str[set->y + 1] == '\\' || str[set->y + 1] == '$') && a == '\"')
+			{
+				set->word_tmp = add_letter(set->word_tmp, str[set->y]);
+				set->word_tmp = add_letter(set->word_tmp, str[set->y + 1]);
+				set->y = set->y + 2;
+			}
+			else if (str[set->y] == '\\' && str[set->y + 1] == a && a != '\'')
 			{
 				set->word_tmp = add_letter(set->word_tmp, str[set->y]);
 				set->word_tmp = add_letter(set->word_tmp, str[set->y + 1]);

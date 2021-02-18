@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 11:26:49 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:28:08 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	**search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
 char	*before_equal(char *str);
+int		search_quotes(const char *src, t_set *set, char a);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
@@ -73,6 +74,7 @@ int 	ft_pwd(t_set *set);
 int	ncmpel(char *s1, char *s2);
 int checkenvp(char *str);
 //
+int		ncmpel(char *s1, char *s2);
 char	**addword(char **res, int nb_word, t_set *set, char *word);
 char	**split_semicolon(char *str, t_set *set);
 
