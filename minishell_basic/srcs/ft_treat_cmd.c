@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 16:58:45 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/18 09:35:51 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,41 @@ int	error_list(int a)
 	return (-1);
 }
 
-int check_list(const char *str)
+int 	first_semicon(const char *str)
 {
 	int	i;
 	int	e;
 
+	e = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ';')
+		{
+			if (str[i] == ';' && str[i + 1] == ';')
+				return (2);
+			if (str[i] == ';' && e == 0)
+				return (1);
+			else
+				return (0);
+		}
+		if (ft_iswhite(str[i]) == 0)
+			e++;
+		i++;
+	}
+	return (0);
+}
+
+int		check_list(const char *str)
+{
+	int	i;
+	int	e;
+
+	e = first_semicon(str);
+	if (e != 0)
+	{
+		return (error_list(e));
+	}
 	e = 0;
 	i = 0;
 	while (str[i])
@@ -159,7 +189,7 @@ int check_list(const char *str)
 					e++;
 				i++;
 			}
-			if (e == 0)
+			if (e == 0 && str[i])
 				return (error_list(1));
 		}
 		i++;
