@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 11:28:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 13:54:35 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_set
 	int		l_dol;
 	int		err_quote;
 	int 	exit_val;
+	int		shlvl;
 
 	char 	*path;
 	char	*pwd;

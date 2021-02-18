@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 16:04:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 14:12:25 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ void  ft_init_env(t_set *set, char **envp, char **av)
  */
 	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
-	tmp = set->envp[0];
-	set->envp[0] = set->envp[1];
-	set->envp[1] = tmp;
+	//tmp = set->envp[0];
+	//set->envp[0] = set->envp[1];
+	//set->envp[1] = tmp;
 /* 	 r = -1;
 	while (set->envp[++r])
 		printf("/[%s]\n", set->envp[r]);
@@ -157,7 +157,7 @@ void  ft_init_env(t_set *set, char **envp, char **av)
  	if (pwd == 0)
 		ft_menv(joinf("PWD=", set->pwd, "", ""), set);
  	if (shlvl == 0)
-		ft_menv("SHLVL=1", set);
+		ft_menv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
 	set->hide_envp = ft_strdup_tabl(set->envp);
 	if (bar == 0)
 		ft_menv(joinf("_=", set->path,"/", ""), set);
