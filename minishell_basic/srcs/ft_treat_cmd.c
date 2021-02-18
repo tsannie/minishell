@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/18 09:35:51 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/18 10:27:18 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ char	*add_letter(char *str, char a)
 
 char	*search_cmd(const char *src, t_set *set)
 {
-	char	*res;
 	int		quot;
 	int		exit;
+	char	*res;
 
 	set->y = 0;
 	quot = 0;
-	res = ft_strdup("");
+	set->word_tmp = ft_strdup("");
 	while ((ft_iswhite(src[set->y]) == 1 && quot == 0) || (src[set->y] == '\"' && src[set->y + 1] == '\"')
 		|| (src[set->y] == '\'' && src[set->y + 1] == '\''))
 	{
@@ -58,49 +58,21 @@ char	*search_cmd(const char *src, t_set *set)
 	while (exit == 0)
 	{
 		if (src[set->y] == '\'')
-		{
-			set->y++;
-			while (src[set->y] && src[set->y] != '\'')
-			{
-				res = add_letter(res, src[set->y]);
-				set->y++;
-			}
-			if (src[set->y] != '\'')
-				exit = -1;
-			set->y++;
-		}
+			exit = search_quotes(src, set, '\'');
 		else if (src[set->y] == '\"')
-		{
-			set->y++;
-			while (src[set->y] && src[set->y] != '\"')
-			{
-				if ((src[set->y] == '\\' && src[set->y + 1] == '\"'))
-				{
-					res = add_letter(res, src[set->y + 1]);
-					set->y = set->y + 2;
-				}
-				else
-				{
-					res = add_letter(res, src[set->y]);
-					set->y++;
-				}
-			}
-			if (src[set->y] != '\"')
-				exit = -1;
-			set->y++;
-		}
+			exit = search_quotes(src, set, '\"');
 		else if (ft_iswhite(src[set->y]) != 1)
 		{
 			while (src[set->y] && ft_iswhite(src[set->y]) != 1 && src[set->y] != '\'' && src[set->y] != '\"')
 			{
 				if ((src[set->y] == '\\' && src[set->y + 1]))
 				{
-					res = add_letter(res, src[set->y + 1]);
+					set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
 					set->y = set->y + 2;
 				}
 				else
 				{
-					res = add_letter(res, src[set->y]);
+					set->word_tmp = add_letter(set->word_tmp, src[set->y]);
 					set->y++;
 				}
 			}
@@ -111,7 +83,9 @@ char	*search_cmd(const char *src, t_set *set)
 	if (exit == -1)
 		set->err_quote = 1;
 	/* TODO if exit == -1 = {problème de quote} */
-	//printf("cmd  = |%s|\nexit = %d\n", res, exit);
+	//printf("cmd  = |%s|\nexit = %d\n", set->word_tmp, exit);
+	res = ft_strdup(set->word_tmp);
+	free(set->word_tmp);
 	return (res);
 }
 

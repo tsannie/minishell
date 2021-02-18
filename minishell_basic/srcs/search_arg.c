@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 16:57:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/18 10:23:54 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,31 @@ char	**addword(char **res, int nb_word, t_set *set, char *word)
 	return (new);
 }
 
+int		search_quotes(const char *src, t_set *set, char a)
+{
+	if (src[set->y] == a)
+	{
+		set->y++;
+		while (src[set->y] && src[set->y] != a)
+		{
+			if ((src[set->y] == '\\' && src[set->y + 1] == a && a == '\"'))
+			{
+				set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
+				set->y = set->y + 2;
+			}
+			else
+			{
+				set->word_tmp = add_letter(set->word_tmp, src[set->y]);
+				set->y++;
+			}
+		}
+		if (src[set->y] != a)
+			return (-1);
+		set->y++;
+	}
+	return (0);
+}
+
 char	**search_arg(char *str, t_set *set)
 {
 	//printf("\nstart parcing arg :\n");
@@ -57,41 +82,16 @@ char	**search_arg(char *str, t_set *set)
 	while(str[set->y])
 	{
 		exit = 0;
-		word = ft_strdup("");
+		set->word_tmp = ft_strdup("");
 		while (exit == 0)
 		{
 			if (str[set->y] == '\'')
 			{
-				set->y++;
-				while (str[set->y] && str[set->y] != '\'')
-				{
-					word = add_letter(word, str[set->y]);
-					set->y++;
-				}
-				if (str[set->y] != '\'')
-					exit = -1;
-				set->y++;
+				exit = search_quotes(str, set, '\'');
+				//printf("set->word_tmp = (%s)\n", set->word_tmp);
 			}
 			else if (str[set->y] == '\"')
-			{
-				set->y++;
-				while (str[set->y] && str[set->y] != '\"')
-				{
-					if (str[set->y] == '\\' && str[set->y + 1] == '\"')
-					{
-						word = add_letter(word, str[set->y + 1]);
-						set->y = set->y + 2;
-					}
-					else
-					{
-						word = add_letter(word, str[set->y]);
-						set->y++;
-					}
-				}
-				if (str[set->y] != '\"')
-					exit = -1;
-				set->y++;
-			}
+				exit = search_quotes(str, set, '\"');
 			else if (ft_iswhite(str[set->y]) != 1 && str[set->y])
 			{
 				while (str[set->y] && ft_iswhite(str[set->y]) != 1
@@ -99,12 +99,12 @@ char	**search_arg(char *str, t_set *set)
 				{
 					if ((str[set->y] == '\\' && str[set->y + 1]))
 					{
-						word = add_letter(word, str[set->y + 1]);
+						set->word_tmp = add_letter(set->word_tmp, str[set->y + 1]);
 						set->y = set->y + 2;
 					}
 					else
 					{
-						word = add_letter(word, str[set->y]);
+						set->word_tmp = add_letter(set->word_tmp, str[set->y]);
 						set->y++;
 					}
 				}
@@ -117,10 +117,10 @@ char	**search_arg(char *str, t_set *set)
 		if (!str[set->y] && exit == 0)
 			exit = 1;
 		nb_word++;
-		res = addword(res, nb_word, set, word);
+		res = addword(res, nb_word, set, set->word_tmp);
 		//print_args(res);
 		//printf("\n\n");
-		free(word);
+		free(set->word_tmp);
 	}
 	//print_args(res);
 	if (exit == -1)
