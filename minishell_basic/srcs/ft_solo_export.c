@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solo_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 16:00:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:56:29 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,20 @@ int ft_disp_export(t_set *set)
 	ft_sort_dbtab(set);
     while (set->hide_envp[i])
 	{
-		var = before_equal(set->hide_envp[i]);
-		var = add_letter(var, '\"');
-		printf("declare -x %s", var);
-		free(var);
+		ft_putstr_fd("declare -x ", 1);
 		x = 0;
 		while (set->hide_envp[i][x] != '=' && set->hide_envp[i])
 		{
+			ft_putchar_fd(set->hide_envp[i][x], 1);
 			x++;
 		}
-		printf("%s\"\n", &set->hide_envp[i][x + 1]);
+		if (set->hide_envp[i][x])
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(&set->hide_envp[i][x + 1], 1);
+			ft_putstr_fd("\"\n", 1);
+		}
+
 		i++;
 	}
         //printf("declare -x %s\n", set->hide_envp[i]);
