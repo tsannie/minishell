@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 09:14:50 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:26:49 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int 	ft_unset(t_set *set);
 int 	ft_pwd(t_set *set);
 //
 int	ncmpel(char *s1, char *s2);
+int checkenvp(char *str);
+//
 char	**addword(char **res, int nb_word, t_set *set, char *word);
 char	**split_semicolon(char *str, t_set *set);
 

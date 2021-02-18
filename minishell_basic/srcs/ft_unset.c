@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 17:11:34 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:25:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ int ft_unsethideenv(t_set *set, int j)
 int ft_unset(t_set *set)
 {
     int j;
-	int i;
-	char *tmp;
 
-	i = 0;
 	j = 0;
 	while (set->arg[j])
 	{
+		 if (checkenvp(set->arg[j]) == 1)
+        {
+            printf("minishell: unset: `%s': not a valid identifier\n", set->arg[j]);
+            set->exit_val = 1; // a retirer 
+            return (1);
+        }
 		ft_unsethideenv(set, j);
 		ft_unsetenv(set, j);
 		j++;

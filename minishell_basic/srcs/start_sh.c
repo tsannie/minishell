@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 08:56:41 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:20:00 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	start_cmd(t_set *set)
 		ft_pwd(set);
 	else if (ft_streql(min, "export") == 1)
 		ft_export(set);
-	else if (ft_streql(min, "unset") == 1)
+	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
 	else if (ft_streql(min, "env") == 1)
 		ft_env(set);
@@ -94,7 +94,7 @@ void	start_cmd(t_set *set)
 	else if (ft_strlen(min) != 0 && check_cmd(min) == 0)
 	{
 		ft_putstr_not_found(set->cmd);
-		set->exit_val = 0;
+		set->exit_val = 127;
 	}
 	free(min);
 }
