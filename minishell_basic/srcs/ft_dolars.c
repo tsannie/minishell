@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/17 15:17:50 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/18 14:59:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ char	*change_dol(char *dol, t_set *set)
 		{
 			while(set->hide_envp[i][e] != '=')
 				e++;
-
 			res = ft_strdup(&set->hide_envp[i][e + 1]);
 		}
 		free(var);
 		i++;
 	}
 	free(dol);
+	if (e == 0)
+		res = ft_strdup("");
 	return (res);
 }
 
@@ -154,6 +155,7 @@ char	*search_dolars(char *src, t_set *set)
 		if (res[i] == '$')
 		{
 			dol = dolars_find(res, set, i);
+			//printf("\nICI dol = %s\n", dol);
 			set->l_dol = ft_strlen(dol);
 			//printf("\n\ndol_b = {%s}\n\n", dol);
 			dol = change_dol(dol, set);
