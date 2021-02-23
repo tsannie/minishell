@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/14 16:32:35 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/23 11:03:27 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ int is_noret(char *str)
 	return (1);
 }
 
+int		disp_exit_val(t_set *set)
+{
+	int x;
+
+	x = -1;
+	while (set->str[++x])
+	{
+		if (ft_streql(set->str + x, "$?") == 1)
+		{
+			ft_putnbr_fd(set->exit_val, 1);
+			ft_putchar_fd('\n', 1);
+			set->exit_val = 0;
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int		ft_echo(t_set *set)
 {
 	int	i;
@@ -42,6 +60,15 @@ int		ft_echo(t_set *set)
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
+/* 	int x = -1;
+	while (set->arg[++x])
+		printf("[%s]\n", set->arg[x]);
+	printf("str = [%s]\n", set->cmd);
+	printf("word = [%s]\n", set->word_tmp);
+	printf("str = [%s]\n", set->str);
+ */
+	if (disp_exit_val(set) == 1)
+		return (set->exit_val);
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;
@@ -59,5 +86,6 @@ int		ft_echo(t_set *set)
 	}
 	if (n == 0)
 		ft_putchar_fd('\n', 1);
+	set->exit_val = 0;
 	return (0);
 }

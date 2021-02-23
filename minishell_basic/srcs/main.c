@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 12:43:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/23 10:41:19 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ int main(int ac, char **av, char **envp)
     set->pwd = getcwd(buff, 4097);
 	set->cmd = NULL;
 	set->shlvl = 1;
+	set->exit_val = 0;
 	ft_init_env(set, envp, av);
 	if (ac == 3)		// for testeur
 	{
-		set->exit_val = 0;
 		start_shell(ac, av, set);
 	}
 	else
 	{
-		set->exit_val = 0;
-		while (set->exit_val == 0)
+		while (1)
 		{
 			disp_prompt();
 			signal(SIGINT, int_handler);

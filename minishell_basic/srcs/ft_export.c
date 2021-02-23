@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 15:48:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/23 10:52:30 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ int ft_export(t_set *set)
         set->exit_val = 127; // a retirer 
         return (1);
     }
-	
     if (set->arg[0] == NULL)
         ft_disp_export(set);
 	else
@@ -254,7 +253,7 @@ int ft_export(t_set *set)
 			}
 			if (checkenvp(set->arg[i]) == 1)
 			{
-				//printf("minishell: export: `%s': not a valid identifier\n", set->arg[i]);
+				printf("minishell: export: `%s': not a valid identifier\n", set->arg[i]);
 				set->exit_val = 1; // a retirer 
 				return (1);
 			}
@@ -264,7 +263,7 @@ int ft_export(t_set *set)
 			    ft_modenv(set->arg[i], set);
 		 	}
 			else
-		     ft_hideenv(set->arg[i], set);
+		    	ft_hideenv(set->arg[i], set);
 			egl = 0;
 			j = -1;
 		}

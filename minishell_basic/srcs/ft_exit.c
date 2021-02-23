@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/16 11:29:21 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/23 10:28:13 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,16 @@ void	ft_eexit(t_set *set)
 	int len;
 
 	len = 0;
+    if (ft_streql(set->cmd, "exit") != 1)
+    {
+        ft_putstr_not_found(set->cmd);
+        set->exit_val = 127; // a retirer 
+		exit(set->exit_val);
+    }
 	while (set->arg[len])
 		len++;
 	if (set->arg[0] == NULL)
-		exit(0);
+		exit(set->exit_val);
 	else if (ft_check_valid_exit(set) == 1)
 	{
 		printf("minishell: %s: %s: numeric argument required\n", set->cmd, set->arg[0]);
