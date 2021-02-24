@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/23 10:52:30 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/23 12:56:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,15 @@ int ft_export(t_set *set)
 				set->exit_val = 1; // a retirer 
 				return (1);
 			}
-			if (egl == 1)
+			//printf("[%s]=[SHLVL=]\n", set->arg[i]);
+			if (ft_strncmp(set->arg[i], "SHLVL=", 6) == 0)
+			{
+				set->shlvl = ft_atoi(set->arg[i] + 6) + 1;
+				//if (set->shlvl <= 0)
+				//	set->shlvl = 0;
+				//printf("{%d}\n", set->shlvl);
+			}
+			else if (egl == 1)
 			{
 				ft_hideenv(set->arg[i], set);
 			    ft_modenv(set->arg[i], set);

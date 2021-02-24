@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 14:12:25 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/24 12:15:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 	while (set->envp[++i])
 	{
 		if (ft_strncmp("SHLVL=", set->envp[i], 6) == 0)
-			shlvl = 1;
+			set->shlvl = 1;
 		if (ft_strncmp("_=", set->envp[i], 2) == 0)
 			bar = 1;
 		if (ft_strncmp("PWD=", set->envp[i], 4) == 0)
