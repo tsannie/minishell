@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/23 22:01:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/24 23:02:53 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*dolars_find(char *src, t_set *set, int i)
 	}
 	else
 	{
-		while (src[i] && ft_isalnum(src[i]) == 1) // ATTENTION Y'EN A D'AUTRES !
+		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_')) // ATTENTION Y'EN A D'AUTRES !
 		{
 			dol = add_letter(dol, src[i]);
 			i++;
