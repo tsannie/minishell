@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/24 14:45:02 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:31:53 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,6 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 		printf("////[%s]\n", envp[r]);
 	printf("\n\n\n\n\n"); 
  */
-    set->pwd = getcwd(buff, 4097);
-	set->cmd = NULL;
-	set->shlvl = 1;
-	set->exit_val = 0;
-	set->envp = ft_strdup_tabl(envp);
-	set->path = ft_get_path(envp);
 	//tmp = set->envp[0];
 	//set->envp[0] = set->envp[1];
 	//set->envp[1] = tmp;

@@ -6,10 +6,9 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/24 12:47:34 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:16:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISH_H
 # define MINISH_H
@@ -35,6 +34,7 @@ typedef struct	s_set
 	char	*str;
 	char	*word_tmp;
 
+	int		exit;
 	char	**arg;
 	char	*cmd;
 	int		y;
@@ -43,6 +43,8 @@ typedef struct	s_set
 	int 	exit_val;
 	int		shlvl;
 	int		run;
+	int		pid;
+
 	char 	*path;
 	char	*pwd;
 	int		cwplen;
@@ -85,9 +87,9 @@ char	**split_semicolon(char *str, t_set *set);
 // init
 char	*joinf(char *s1, char *s2, char *s3, char *s4);
 int ft_menv(char *str, t_set *set);
-
-
+char *ft_get_path(char **envp);
 //
+
 
 /* TOOLS TO DELETE WHEN ITS END */
 void	print_args(char **str);

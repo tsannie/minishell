@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/24 14:48:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/02/25 16:14:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,40 @@ volatile int run = 1;
 void int_handler(int sig)
 {
 	run = 0;
+	ft_putstr_fd("\b\b  ", STDERR);
+	ft_putstr_fd("\n", STDERR);
+	exit(0);
 }
 
-void disp_prompt(void)
+void		disp_prompt(void)
 {
 	ft_putstr_fd("{MINISHELL}$> ", 1);
 }
 
-int main(int ac, char **av, char **envp)
+int			main(int ac, char **av, char **envp)
 {
-	t_set *set;
+	t_set	*set;
+	char	buff[4096 + 1];
 
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
+	set->pwd = getcwd(buff, 4097);
+	set->cmd = NULL;
+	set->shlvl = 1;
+	set->exit_val = 0;
+	set->envp = ft_strdup_tabl(envp);
+	set->path = ft_get_path(envp);
+	set->exit = 0;
+	set->pid = 0;
 	ft_init_env(set, envp, av);
 	if (ac == 3)		// for testeur
 		start_shell(ac, av, set);
 	else
 	{
 		signal(SIGINT, int_handler);
-		while (1)
+		while (set->exit == 0)
 		{
-			printf("pid = %d\n", getpid());
+			//printf("pid = %d\n", getpid());
 			disp_prompt();
 			start_shell(ac, av, set);
 			ft_hideenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
