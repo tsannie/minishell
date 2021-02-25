@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/26 00:55:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/02/26 00:58:20 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		antislash_pair(char *src, int i)
 }
 
 
-int		quotes_dol(const char *src, t_set *set)
+/*int		quotes_dol(const char *src, t_set *set)
 {
 	int i;
 
@@ -51,11 +51,11 @@ int		quotes_dol(const char *src, t_set *set)
 			set->y++;
 		}
 	}
-	if (src[set->y] != a)
+	if (src[set->y] != a='\'')
 		return (-1);
 	set->y++;
 	return (0);
-}
+}*/
 
 char	*dolars_find(char *src, t_set *set, int i)
 {
@@ -65,11 +65,11 @@ char	*dolars_find(char *src, t_set *set, int i)
 	set->word_tmp = ft_strdup("");
 	err = 0;
 	i++;
-	if (src[i] == '\'')
+	/*if (src[i] == '\'')
 		err = quotes_dol(&src[i], set);
 	else if (src[i] == '\"')
 		err = quotes_dol(&src[i], set);
-	else
+	else*/
 	{
 		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_')) // ATTENTION Y'EN A D'AUTRES !
 		{
