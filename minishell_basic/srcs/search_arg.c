@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/18 11:21:23 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/01 11:21:33 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,8 @@ int		search_quotes(const char *src, t_set *set, char a)
 		set->y++;
 		while (src[set->y] && src[set->y] != a)
 		{
-			if (src[set->y] == '\\' && (src[set->y + 1] == '\\' || src[set->y + 1] == '$') && a == '\"')
-			{
-				set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
-				set->y = set->y + 2;
-			}
-			else if ((src[set->y] == '\\' && src[set->y + 1] == a && a == '\"'))
+			if (src[set->y] == '\\' && (src[set->y + 1] == '\\' || src[set->y + 1] == '$'
+				|| src[set->y + 1] == '\"') && a == '\"')
 			{
 				set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
 				set->y = set->y + 2;

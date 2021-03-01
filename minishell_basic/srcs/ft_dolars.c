@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/26 00:58:20 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/01 10:46:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,59 +26,23 @@ int		antislash_pair(char *src, int i)
 	return (ft_ispair(n) == 1 ? 1 : 0);
 }
 
-
-/*int		quotes_dol(const char *src, t_set *set)
-{
-	int i;
-
-	i = 0;
-	set->y++;
-	while (src[set->y] && src[set->y] != '\'')
-	{
-		if (src[set->y] == '\\' && (src[set->y + 1] == '\\' || src[set->y + 1] == '$'))
-		{
-			set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
-			set->y = set->y + 2;
-		}
-		else if ((src[set->y] == '\\' && src[set->y + 1] == a && a == '\"'))
-		{
-			set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
-			set->y = set->y + 2;
-		}
-		else
-		{
-			set->word_tmp = add_letter(set->word_tmp, src[set->y]);
-			set->y++;
-		}
-	}
-	if (src[set->y] != a='\'')
-		return (-1);
-	set->y++;
-	return (0);
-}*/
-
-char	*dolars_find(char *src, t_set *set, int i)
+char	*dolars_find(char *src, t_set *set)
 {
 	char	*res;
 	int		err;
+	int		i;
 
-	set->word_tmp = ft_strdup("");
+	i = 1;
+	res = ft_strdup("");
 	err = 0;
-	i++;
-	/*if (src[i] == '\'')
-		err = quotes_dol(&src[i], set);
-	else if (src[i] == '\"')
-		err = quotes_dol(&src[i], set);
-	else*/
+	if (src[i] != '\"' &&  src[i] != '\'')
 	{
 		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_')) // ATTENTION Y'EN A D'AUTRES !
 		{
-			set->word_tmp = add_letter(set->word_tmp, src[i]);
+			res = add_letter(res, src[i]);
 			i++;
 		}
 	}
-	res = ft_strdup(set->word_tmp);
-	free(set->word_tmp);
 	return (res);
 }
 
@@ -195,7 +159,7 @@ char	*search_dolars(char *src, t_set *set)
 		}
 		if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_'))
 		{
-			dol = dolars_find(res, set, i);
+			dol = dolars_find(&res[i], set);
 			//printf("\nICI dol = %s\n", dol);
 			set->l_dol = ft_strlen(dol);
 			//printf("\n\ndol_b = {%s}\n\n", dol);
