@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/25 13:31:53 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 13:30:23 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 char **ft_strdup_tabl(char **envp)
 {
 	char **hide_envp;
-	int x;
 	int y;
 	int len;
 
 	len = 0;
 	y = 0;
-	x = 0;
 	while (envp[len] != NULL)
 		len++;
-	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
+	if (!(hide_envp = malloc(sizeof(char *) * (len + 10))))
 		return (NULL);
 	while (envp[y])
 	{
@@ -32,6 +30,14 @@ char **ft_strdup_tabl(char **envp)
 		y++;
 	}
 	hide_envp[y] = NULL;
+/*  	int x = -1;
+	while (envp[++x])
+		printf("{%s}\n", envp[x]);
+	printf("1\n\n");
+	x = -1;
+	while (hide_envp[++x])
+		printf("[%s]\n", hide_envp[x]);
+	printf("2\n\n");  */
 	return (hide_envp);
 }
 
@@ -47,18 +53,18 @@ int ft_menv(char *str, t_set *set)
 
     while (set->envp[i] != NULL)
 	    i++;
-	free(set->envp[i]);
+	//free(set->envp[i]);
     set->envp[i] = ft_strdup(str);
 	set->envp[i + 1] = malloc(sizeof(char) * 1);
     set->envp[i + 1] = NULL;
 
-/* 	 i = 0;
+/*   	 i = 0;
 	while (set->envp[i] != NULL)
     {
-		printf("[%s]\n",set->envp[i]);
+		printf("menv = [%s]\n",set->envp[i]);
 	    i++;
-	}
-	printf("\n\n\n");  */
+	} */
+	//printf("\n\n\n");
     return (0);
 }
 
@@ -147,15 +153,16 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 	while (set->envp[++i])
 	{
 		if (ft_strncmp("SHLVL=", set->envp[i], 6) == 0)
-			set->shlvl = 1;
+			shlvl = 1;
 		if (ft_strncmp("_=", set->envp[i], 2) == 0)
 			bar = 1;
 		if (ft_strncmp("PWD=", set->envp[i], 4) == 0)
 			pwd = 1;
-	} 
+	}
+	//printf("[%d][%d][%d]\n", pwd, shlvl, bar);
  	if (pwd == 0)
 		ft_menv(joinf("PWD=", set->pwd, "", ""), set);
- 	if (shlvl == 0)
+	if (shlvl == 0)
 		ft_menv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
 	set->hide_envp = ft_strdup_tabl(set->envp);
 	if (bar == 0)

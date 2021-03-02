@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/23 10:13:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:10:17 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int ft_disp_export(t_set *set)
 	egl = 0;
 	x = 0;
 	i = 0;
-	ft_sort_dbtab(set);
     while (set->hide_envp[i])
 	{
 		ft_putstr_fd("declare -x ", 1);

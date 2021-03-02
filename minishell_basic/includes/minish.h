@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/25 16:16:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:02:28 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int ft_hideenv(char *str, t_set *set);
 void  ft_init_env(t_set *set, char **envp, char **av);
 char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
+void		ft_sort_dbtab(t_set *set);
 //
 void	ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);

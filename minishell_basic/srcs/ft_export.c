@@ -6,62 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/23 12:56:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:19:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
-
-char *concaenv(char *str)
-{
-    int j = 0;
-    int y = 0;
-
-    while (str[j]) {
-        if (str[j] == ' ')
-        {
-            str[j] = '=';
-            return (str);
-        }
-        j++;
-    }
-    str[j] = '=';
-    str[j+1] = '\0';
-    return (str);
-}
-
-char *remplir_space(int av, int fin, char *str, char *str2)
-{
-    str[av+1] =  '\0';
-    while (str2[fin] != ' ' && str2[fin] != '\t')
-    {
-        str[av] = str2[fin];
-        av--;
-        fin--;
-    }
-    return (str);
-}
-
-char *space(char *str)
-{
-    int e = -1, av = 0, inc = 0;
-    int fin = ft_strlen(str);
-    char *str2 = malloc(sizeof(char) * ft_strlen(str)+1);
-
-    while (str[e++])
-        str2[e] = str[e];
-    while (str[av])
-    {
-        if (str[av] == ' ' || str[av] == '\t')
-            inc++;
-        av++;
-    }
-    av = av - inc + 1;
-    if (inc == 0)
-        return (str);
-    return (remplir_space(av, fin, str, str2));
-    return (str);
-}
 
 int checkenvp(char *str)
 {
@@ -85,27 +34,6 @@ int checkenvp(char *str)
     }
     return (0);
 }
-
-/* int ft_setenv(t_set *set)
-{
-    int i = 0;
-    int j = 1;
-
-    while (set->str[j] != 't' && set->str[j - 1] != 'r' && set->str[j])
-        j++;
-    j++;
-    while (set->str[j] == ' ' || set->str[j] == '\t')
-        j++;
-    while (set->envp[i] != NULL)
-        i++;
-    if (checkenvp(set->str+j) == 1)
-        return (1);
-
-    set->envp[i]    = set->envp[i - 1];
-    set->envp[i - 1] = set->str + j;
-    set->envp[i + 1] = NULL;
-    return (0);
-} */
 
 char *recup_new(char *str, int x)
 {
@@ -276,5 +204,6 @@ int ft_export(t_set *set)
 			j = -1;
 		}
 	}
+	ft_sort_dbtab(set);
     return (0);
 }
