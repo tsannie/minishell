@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/01 10:46:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/02 15:35:27 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ int		antislash_pair(char *src, int i)
 {
 	int n;
 
-	n = 1;
-	i--;
-	while (src[i] && src[i] == '\\')
+	n = 0;
+	if (src[i - 1] == '\\')
 	{
 		i--;
-		n++;
+		while (src[i] && src[i] == '\\')
+		{
+			i--;
+			n++;
+		}
 	}
+	//printf("n = %d\n", n);
 	return (ft_ispair(n) == 1 ? 1 : 0);
 }
 
@@ -152,12 +156,14 @@ char	*search_dolars(char *src, t_set *set)
 	res = ft_strdup(src);
 	while (res[i])
 	{
-		if (res[i] == '\\' && res[i + 1] == '$')
+		if (res[i] == '\'' && antislash_pair(res, i) == 1)
 		{
-			if (antislash_pair(res, i) == 0)
-				i = i + 2;
+			i++;
+			while (res[i] && res[i] != '\'')
+				i++;
+			i++;
 		}
-		if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_'))
+		else if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_') && antislash_pair(res, i) == 1)
 		{
 			dol = dolars_find(&res[i], set);
 			//printf("\nICI dol = %s\n", dol);
