@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 13:30:39 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:12:49 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ volatile int run = 1;
 void int_handler(int sig)
 {
 	run = 0;
-	ft_putstr_fd("\b\b  ", STDERR);
-	ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd("\b\b  \n", STDERR);
 	exit(0);
 }
 
@@ -56,7 +55,7 @@ int			main(int ac, char **av, char **envp)
 		signal(SIGINT, int_handler);
 		while (set->exit == 0)
 		{
-			//printf("pid = %d\n", getpid());
+			//printf("pid = %d", getpid());
 			disp_prompt();
 			start_shell(ac, av, set);
 			//ft_hideenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);

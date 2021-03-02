@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 13:30:23 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 15:46:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ char **ft_strdup_tabl(char **envp)
 
 int ft_menv(char *str, t_set *set)
 {
-    int i;
-    
-    i = 0;
-    int r = 0;
-    int j = 0;
 	char *tmp;
+    int i;
+	int r;
+	int j;
 
-
+    i = 0;
+    r = 0;
+    j = 0;
     while (set->envp[i] != NULL)
 	    i++;
 	//free(set->envp[i]);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/25 16:28:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:13:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,16 @@ void ft_putstr_error_quote(void)
 char *get_val(void)
 {
 	char **line;
+	int gnl;
 
-	line = malloc(sizeof(char *) * 2);
-	get_next_line(0, line);
+	gnl = 0;
+	line = malloc(sizeof(char *) * 1);		
+	gnl = get_next_line(0, line);
+	if (gnl == 0)
+	{
+		ft_putstr_fd("  \n", 1);
+		//exit(0);
+	}
 	return (*line);
 }
 
@@ -104,7 +111,12 @@ void	start_shell(int ac, char **av, t_set *set)
 	if (ac == 3)
 		set->str = av[2];// for testeur
 	else
+	{
+		//ft_putstr_fd("avant", 1);
 		set->str = get_val();
+	}
+	//set->str[ft_strlen(set->str) - 1] = '\0';
+	//printf("[%s]\n", set->str);
 	treat_cmd(set);
 }
 

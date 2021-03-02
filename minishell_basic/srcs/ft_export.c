@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 11:19:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 15:48:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int checkenvp(char *str)
 {
-    int i = 0;
-    int avn = 0;
+    int i;
+    int avn;
 
+	i = 0;
+	avn = 0;
     if (str[i] == '=')
         return (1);
     while (str[i] && str[i] != '=')
@@ -67,11 +69,13 @@ int ft_hideenv(char *str, t_set *set)
 {
     int i;
 	int act;
-
+	int r;
+	int j;
+    
 	act = 0;
     i = 0;
-    int r = 0;
-    int j = 0;
+    r = 0;
+    j = 0;
    // while(str[i] != '=' && str[i])
     //    i++;
     // printf("[%d][%d]\n",i, (int)ft_strlen(str));
@@ -111,10 +115,14 @@ int ft_hideenv(char *str, t_set *set)
 int ft_modenv(char *str, t_set *set)
 {
     int i;
-    int act = 0;
+	int act;
+	int r;
+	int j;
+    
+	act = 0;
     i = 0;
-    int r = 0;
-    int j = 0;
+    r = 0;
+    j = 0;
    // while(str[i] != '=' && str[i])
      //   i++;
     // printf("[%d][%d]\n",i, (int)ft_strlen(str));
@@ -186,14 +194,15 @@ int ft_export(t_set *set)
 				return (1);
 			}
 			//printf("[%s]=[SHLVL=]\n", set->arg[i]);
-			if (ft_strncmp(set->arg[i], "SHLVL=", 6) == 0)
+/* 			if (ft_strncmp(set->arg[i], "SHLVL=", 6) == 0)
 			{
-				set->shlvl = ft_atoi(set->arg[i] + 6) + 1;
+				set->shlvl = ft_atoi(set->arg[i] + 6);
+				//printf("oui = {%d}\n", set->shlvl);
 				//if (set->shlvl <= 0)
 				//	set->shlvl = 0;
 				//printf("{%d}\n", set->shlvl);
-			}
-			else if (egl == 1)
+			} */
+			if (egl == 1)
 			{
 				ft_hideenv(set->arg[i], set);
 			    ft_modenv(set->arg[i], set);
