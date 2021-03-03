@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 15:44:49 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/03 15:51:01 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int ft_hideenv(char *str, t_set *set)
 		}
         i++;
 	}
-	printf("hide = [%s]\n", str);
+	//printf("hide = [%s]\n", str);
 	if (act == 0)
 	{
 		set->hide_envp = addword(set->hide_envp,i + 1, set, str);
@@ -109,11 +109,11 @@ int ft_hideenv(char *str, t_set *set)
 	//set->hide_envp[12 + 1] = malloc(sizeof(char) * 1);
     //set->hide_envp[12 + 1] = NULL;
  	i = 0;
-	 while (set->hide_envp[i] != NULL)
+	/* while (set->hide_envp[i] != NULL)
 	{
 		printf("{%s}\n", set->hide_envp[i]);
 		i++;
-	}
+	}*/
 
     return (0);
 }
