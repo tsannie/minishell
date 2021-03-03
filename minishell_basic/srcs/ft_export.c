@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/03 14:51:22 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/03 13:10:03 by tsannie          ###   ########.fr       */
+>>>>>>> 7777ef462172715868297c3100bc00f6eba4f161
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +75,7 @@ int ft_hideenv(char *str, t_set *set)
 	int act;
 	int r;
 	int j;
-    
+
 	act = 0;
     i = 0;
     r = 0;
@@ -119,7 +123,7 @@ int ft_modenv(char *str, t_set *set)
 	int act;
 	int r;
 	int j;
-    
+
 	act = 0;
     i = 0;
     r = 0;
@@ -152,6 +156,49 @@ int ft_modenv(char *str, t_set *set)
     return (0);
 }
 
+int		there_is_slash(char *word)
+{
+	int		i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] == '\\')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	double_slash(t_set *set)
+{
+	int		i;
+	int		e;
+	char	*str;
+
+	i = 0;
+	while (set->arg[i])
+	{
+		//printf("arg = |%s|\n", set->arg[i]);
+		if (there_is_slash(set->arg[i]) == 1)
+		{
+			e = 0;
+			str = ft_strdup("");
+			while (set->arg[i][e])
+			{
+				if (set->arg[i][e] == '\\')
+					str = add_letter(str, '\\');
+				str = add_letter(str, set->arg[i][e]);
+				e++;
+			}
+			free(set->arg[i]);
+			set->arg[i] = ft_strdup(str);
+			free(str);
+		}
+		i++;
+	}
+}
+
 int ft_export(t_set *set)
 {
     int i;
@@ -161,7 +208,7 @@ int ft_export(t_set *set)
     egl = 0;
     j = -1;
     i = -1;
-    
+
 /*      printf("str = [%s]\n", set->str);
     int r = -1;
     while (set->arg[++r])
@@ -171,14 +218,18 @@ int ft_export(t_set *set)
     //= exp & env
     // -= exp
 	//printf("salutation\n");
+	double_slash(set);
+	//print_args(set->arg);
     if (ft_streql(set->cmd, "export") != 1)
     {
         ft_putstr_not_found(set->cmd);
-        set->exit_val = 127; // a retirer 
+        set->exit_val = 127; // a retirer
         return (1);
     }
-    if (set->arg[0] == NULL)
-        ft_disp_export(set);
+	//print_args(set->arg);
+	//print_args(set->arg);
+	if (set->arg[0] == NULL)
+		ft_disp_export(set);
 	else
 	{
 		while (set->arg[++i])
@@ -192,7 +243,7 @@ int ft_export(t_set *set)
 			if (checkenvp(set->arg[i]) == 1)
 			{
 				printf("minishell: export: `%s': not a valid identifier\n", set->arg[i]);
-				set->exit_val = 1; // a retirer 
+				set->exit_val = 1; // a retirer
 				return (1);
 			}
 			//printf("[%s]=[SHLVL=]\n", set->arg[i]);
@@ -209,7 +260,7 @@ int ft_export(t_set *set)
 				ft_hideenv(set->arg[i], set);
 			    ft_modenv(set->arg[i], set);
 		 	}
-			else 
+			else
 		    	ft_hideenv(set->arg[i], set);
 			egl = 0;
 			j = -1;
