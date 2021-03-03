@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 15:31:29 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 15:44:49 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int ft_hideenv(char *str, t_set *set)
 		set->hide_envp = addword(set->hide_envp,i + 1, set, str);
 		//set->hide_envp = addword(set->hide_envp, i + 2, set, NULL);
 	}
-/* 
+/*
 		free(set->hide_envp[i]);
     	set->hide_envp[i] = ft_strdup(str);
 	}
@@ -113,8 +113,8 @@ int ft_hideenv(char *str, t_set *set)
 	{
 		printf("{%s}\n", set->hide_envp[i]);
 		i++;
-	} 
-	
+	}
+
     return (0);
 }
 
@@ -151,12 +151,12 @@ int ft_modenv(char *str, t_set *set)
 		set->envp = addword(set->envp, i + 1, set, str);
 		set->envp[i + 1] = NULL;
 		//set->hide_envp = addword(set->hide_envp, i + 2, set, NULL);
-	}		
+	}
 /* 		free(set->envp[i]);
     	set->envp[i] = ft_strdup(str);
 	}
 	set->envp[i + 1] = malloc(sizeof(char) * 1);
-    set->envp[i + 1] = NULL; */ 
+    set->envp[i + 1] = NULL; */
     return (0);
 }
 
@@ -271,10 +271,10 @@ int ft_export(t_set *set)
 		}
 	}
 
-	printf("\n\n\n");
-	print_args(set->hide_envp);
+	//printf("\n\n\n");
+	//print_args(set->hide_envp);
 	ft_sort_dbtab(set);
-	printf("\n\n\n");
-	print_args(set->hide_envp);
+	//printf("\n\n\n");
+	//print_args(set->hide_envp);
     return (0);
 }
