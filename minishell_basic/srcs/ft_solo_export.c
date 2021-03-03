@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solo_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 10:24:45 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:07:00 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int ft_disp_export(t_set *set)
 		if (set->hide_envp[i][x])
 		{
 			ft_putstr_fd("=\"", 2);
-			if (set->hide_envp[i][x + 1] == '\"' || set->hide_envp[i][x + 1] == '\\' || set->hide_envp[i][x + 1] == '$')
-				ft_putchar_fd('\\', 1);
+			//if (set->hide_envp[i][x + 1] == '\"' || set->hide_envp[i][x + 1] == '\\' || set->hide_envp[i][x + 1] == '$')
+			//	ft_putchar_fd('\\', 1);
 			ft_putstr_fd(set->hide_envp[i] + x + 1, 1);
 			ft_putstr_fd("\"", 1);
 			ft_putchar_fd('\n', 1);
