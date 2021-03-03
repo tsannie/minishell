@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 14:52:30 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 15:31:29 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,12 @@ int ft_hideenv(char *str, t_set *set)
 		}
         i++;
 	}
+	printf("hide = [%s]\n", str);
 	if (act == 0)
-		set->hide_envp = addword(set->hide_envp, i + 1, set, str);
+	{
+		set->hide_envp = addword(set->hide_envp,i + 1, set, str);
+		//set->hide_envp = addword(set->hide_envp, i + 2, set, NULL);
+	}
 /* 
 		free(set->hide_envp[i]);
     	set->hide_envp[i] = ft_strdup(str);
@@ -101,15 +105,16 @@ int ft_hideenv(char *str, t_set *set)
 	set->hide_envp[i + 1] = malloc(sizeof(char) * 1);
     set->hide_envp[i + 1] = NULL; */
 
-	i = 0;
 	//printf("\n\n\n\n\n");
 	//set->hide_envp[12 + 1] = malloc(sizeof(char) * 1);
     //set->hide_envp[12 + 1] = NULL;
-/* 	while (set->hide_envp[i] != NULL)
+ 	i = 0;
+	 while (set->hide_envp[i] != NULL)
 	{
 		printf("{%s}\n", set->hide_envp[i]);
 		i++;
-	} */
+	} 
+	
     return (0);
 }
 
@@ -142,13 +147,16 @@ int ft_modenv(char *str, t_set *set)
         i++;
 	}
 	if (act == 0)
+	{
 		set->envp = addword(set->envp, i + 1, set, str);
-/* 		
-		free(set->envp[i]);
+		set->envp[i + 1] = NULL;
+		//set->hide_envp = addword(set->hide_envp, i + 2, set, NULL);
+	}		
+/* 		free(set->envp[i]);
     	set->envp[i] = ft_strdup(str);
 	}
 	set->envp[i + 1] = malloc(sizeof(char) * 1);
-    set->envp[i + 1] = NULL; */
+    set->envp[i + 1] = NULL; */ 
     return (0);
 }
 
@@ -262,6 +270,11 @@ int ft_export(t_set *set)
 			j = -1;
 		}
 	}
+
+	printf("\n\n\n");
+	print_args(set->hide_envp);
 	ft_sort_dbtab(set);
+	printf("\n\n\n");
+	print_args(set->hide_envp);
     return (0);
 }
