@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 15:46:06 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 10:25:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char **ft_strdup_tabl(char **envp)
 	y = 0;
 	while (envp[len] != NULL)
 		len++;
-	if (!(hide_envp = malloc(sizeof(char *) * (len + 10))))
+	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	while (envp[y])
 	{
@@ -54,9 +54,10 @@ int ft_menv(char *str, t_set *set)
     while (set->envp[i] != NULL)
 	    i++;
 	//free(set->envp[i]);
-    set->envp[i] = ft_strdup(str);
-	set->envp[i + 1] = malloc(sizeof(char) * 1);
-    set->envp[i + 1] = NULL;
+    //set->envp[i] = ft_strdup(str);
+	//set->envp[i + 1] = malloc(sizeof(char) * 1);
+    //set->envp[i + 1] = NULL;
+	set->envp = addword(set->envp, i + 1, set, str);
 
 /*   	 i = 0;
 	while (set->envp[i] != NULL)

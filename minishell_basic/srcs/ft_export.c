@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 15:48:36 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 09:59:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int ft_export(t_set *set)
 				ft_hideenv(set->arg[i], set);
 			    ft_modenv(set->arg[i], set);
 		 	}
-			else
+			else 
 		    	ft_hideenv(set->arg[i], set);
 			egl = 0;
 			j = -1;

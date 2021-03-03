@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 16:12:49 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:54:34 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void int_handler(int sig)
 {
 	run = 0;
 	ft_putstr_fd("\b\b  \n", STDERR);
-	exit(0);
+	//exit(0);
 }
 
 void		disp_prompt(void)
@@ -37,13 +37,12 @@ int			main(int ac, char **av, char **envp)
 	set->cmd = NULL;
 	set->shlvl = 1;
 	set->exit_val = 0;
-	int e = -1;
-	/* while (envp[++e])
+	/*int e = -1;
+	 while (envp[++e])
 		printf("-[%s]-\n", envp[e]);
 	printf("\n\n"); */
 	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
-	//printf("[%s]\n", set->path);
 	set->exit = 0;
 	set->pid = 0;
 	ft_init_env(set, envp, av);
@@ -57,7 +56,9 @@ int			main(int ac, char **av, char **envp)
 		{
 			//printf("pid = %d", getpid());
 			disp_prompt();
-			start_shell(ac, av, set);
+			if (run == 1)
+				start_shell(ac, av, set);
+			run = 1;
 			//ft_hideenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
 			//ft_modenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
 		}
