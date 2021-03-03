@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/03 10:27:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 12:18:11 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	start_cmd(t_set *set)
 		ft_env(set);
 	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
-	else if (ft_strlen(min) != 0 && check_cmd(min) == 0)
+	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) == 1)
 	{
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;

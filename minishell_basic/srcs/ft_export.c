@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:10:21 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 09:59:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:51:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,13 @@ int ft_hideenv(char *str, t_set *set)
         i++;
 	}
 	if (act == 0)
-	{
+		set->hide_envp = addword(set->hide_envp, i + 1, set, str);
+/* 
 		free(set->hide_envp[i]);
     	set->hide_envp[i] = ft_strdup(str);
 	}
 	set->hide_envp[i + 1] = malloc(sizeof(char) * 1);
-    set->hide_envp[i + 1] = NULL;
+    set->hide_envp[i + 1] = NULL; */
 
 	i = 0;
 	//printf("\n\n\n\n\n");
@@ -141,12 +142,13 @@ int ft_modenv(char *str, t_set *set)
         i++;
 	}
 	if (act == 0)
-	{
+		set->envp = addword(set->envp, i + 1, set, str);
+/* 		
 		free(set->envp[i]);
     	set->envp[i] = ft_strdup(str);
 	}
 	set->envp[i + 1] = malloc(sizeof(char) * 1);
-    set->envp[i + 1] = NULL;
+    set->envp[i + 1] = NULL; */
     return (0);
 }
 

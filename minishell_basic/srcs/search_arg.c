@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/01 11:21:33 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/03 10:49:20 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**addword(char **res, int nb_word, t_set *set, char *word)
 	i = 0;
 	while (res[i])
 	{
-			//printf("set.cmd = {%s}\n", set->cmd);
+		//printf("set.cmd = {%s}\n", set->cmd);
 		new[i] = ft_strdup(res[i]);
 		i++;
 	}

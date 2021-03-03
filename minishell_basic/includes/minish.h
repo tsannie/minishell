@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 11:02:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/03 13:22:48 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ char	*joinf(char *s1, char *s2, char *s3, char *s4);
 int ft_menv(char *str, t_set *set);
 char *ft_get_path(char **envp);
 //
+//bin
+int		bash_cmd(t_set *set);
 
-
+int			ft_strcmp(char *s1, char *s2);
 /* TOOLS TO DELETE WHEN ITS END */
 void	print_args(char **str);
 
