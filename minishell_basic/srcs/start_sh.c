@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/04 10:10:36 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:13:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
@@ -50,11 +51,13 @@ char *get_val(void)
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
 	gnl = get_next_line(0, line);
-	//printf("[%s]\n", *line);
+	//if (gnl == 0 && ft_strlen(*line) != 0)
+	//	get_val();
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
-		ft_putstr_fd("  \n", 1);
-		exit(0);
+		//ft_putstr_fd("\nok\n", 1);
+		//ft_putstr_fd("oui\n", 1);
+		exit(127);
 	}
 	//printf("[%d]\n", gnl);
 	return (*line);
@@ -65,8 +68,8 @@ char	*maj_to_min(char *str)
 	int i;
 	char *res;
 
-	res = ft_strdup(str);
 	i = 0;
+	res = ft_strdup(str);
 	while (res[i])
 	{
 		if (res[i] >= 'A' && res[i] <= 'Z')
@@ -86,12 +89,10 @@ void	start_cmd(t_set *set)
 		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
-	else if (ft_streql(min, "echo") == 1 || ft_streql(min, "/bin/echo") == 1)
+	else if (ft_streql(min, "echo") == 1)
 		ft_echo(set);
 	else if (ft_streql(min, "cd") == 1)
 		ft_cd(set);
-	else if (ft_streql(min, "pwd") == 1 || ft_streql(min, "/bin/pwd") == 1)
-		ft_pwd(set);
 	else if (ft_streql(min, "export") == 1)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
@@ -100,8 +101,9 @@ void	start_cmd(t_set *set)
 		ft_env(set);
 	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
-	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) == 1)
+	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) != 0)
 	{
+		//printf("[%d]\n",bash_cmd(set));
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
