@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/04 10:17:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:53:17 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ char **new_args(char **args)
 		x++;
 	}
 	str[x + 1] = NULL;
-  	x = -1;
+/*   	x = -1;
 	while (args[++x])
 		printf("arg = [%s]\n", args[x]);
-	printf("\n");
+	printf("\n"); */
 /* 
 	x = -1;
 	while (str[++x])
@@ -163,7 +163,7 @@ char 	*get_path(t_set *set, char **old_args, char **envp)
 	return (NULL);
 }
 
-char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int x)
+char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int len)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -172,15 +172,23 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int x)
 	char **args;
 	args = new_args(old_args);
 	valid = 0;
+	int i = 0;
 
-
-	printf("cmd = [%s][%s][%d]\n", set->cmd - x, set->cmd, x);
-	folder = opendir("/bin/");
+	if (!(path = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (set->cmd[i] && ft_strncmp(set->cmd + i, set->cmd + len, ft_strlen(set->cmd + len)))
+	{
+		path[i] = set->cmd[i];
+		i++;
+	}
+	path[i] = '\0';
+	//printf("cmd = [%s][%s][%d]\n", path , set->cmd + len, len);
+	folder = opendir(path);
 	if (!folder)
 		return (NULL);
 	while ((item = readdir(folder)))
 	{
-		if (ft_strcmp(item->d_name, set->cmd) == 0)
+		if (ft_strcmp(item->d_name, set->cmd + len) == 0)
 			valid = 1;
 	}
 	closedir(folder);
@@ -196,7 +204,7 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int x)
 	if (valid == 1 )//&& pid == 0)
 	{
 		//printf("OUI\n");
-		set->exit_val = execve(ft_strjoin("/bin/", set->cmd), args , envp);
+		set->exit_val = execve(ft_strjoin(path, set->cmd + len), args , envp);
 		//printf("exit = [%d]\n", set->exit_val);
 		//return (set->cmd);
 		exit(0);
@@ -209,17 +217,21 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int x)
 int		bash_cmd(t_set *set)
 {
 	char *path;
-	int x = -1;
+	int x = 0;
+	int len = 0;
 	int chemin = 0;
-	while (set->cmd[++x])
+	while (set->cmd[x])
 	{
 		if (ft_strncmp("/bin/", set->cmd + x, 5) == 0)
 			chemin = 1;
+		if (chemin == 0)
+			len++;
+		x++;
 	}
 	if (chemin == 0)
 		path = get_path(set, set->arg, set->envp);
 	else
-		path = get_path_chemin(set, set->arg, set->envp, ft_strlen(set->cmd) - (x + 5));
+		path = get_path_chemin(set, set->arg, set->envp, len + 5);
 
 	//if (path == NULL)
 	//	return (1); 

@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/03 16:53:42 by phbarrad         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/04 10:10:36 by tsannie          ###   ########.fr       */
->>>>>>> f0cff363e28179f51f3b8fd45a3e609135cb9a95
+/*   Updated: 2021/03/04 10:18:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
