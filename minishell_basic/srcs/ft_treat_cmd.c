@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/04 10:12:44 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:16:37 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ int		clean(char *src, t_set *set)
 {
 	char	*cpy;
 
-	cpy = search_dolars(src, set);
+	cpy = redirection(src, set);
+	printf("cpy_redirection = |%s|\n", cpy);
+	cpy = search_dolars(cpy, set); // attention pas oublier de free cpy dans crt file
+	printf("cpy_dolars = |%s|\n", cpy);
 	//printf("\n\n\n\n-------------------------------------------\nStart to clean cmd : |%s|\n", src);
 	set->cmd = search_cmd(cpy, set);
 	//printf("set-cmd = {%s}\nsrc = {%s}\n", set->cmd, src);
 	set->arg = search_arg(cpy, set);
-
 
 	return (0);
 }

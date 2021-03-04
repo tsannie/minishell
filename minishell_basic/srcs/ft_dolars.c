@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/03 16:47:48 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:15:54 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	*place_dol(char *src, char *dol, t_set *set)
 	//printf("src = {%s}\n", src);
 	while (src[i])
 	{
-
 		if (src[i] == '\'')
 		{
 			res = add_letter(res, src[i]);
@@ -136,6 +135,7 @@ char	*place_dol(char *src, char *dol, t_set *set)
 		}
 		else if (src[i] == '$' && e == 0)
 		{
+			//res = add_letter(res, '\"');
 			if (src[i + 1] == '\'' || src[i + 1] == '\"')
 				i = i + 2;
 			while (dol[e])
@@ -143,6 +143,7 @@ char	*place_dol(char *src, char *dol, t_set *set)
 				res = add_letter(res, dol[e]);
 				e++;
 			}
+			//res = add_letter(res, '\"');
 			//printf("\nl_dol = %d\n", set->l_dol);
 			i = set->l_dol + i + 1;
 			//printf("\nsrc[i] = %d\n", set->l_dol);
@@ -197,5 +198,6 @@ char	*search_dolars(char *src, t_set *set)
 		}
 		i++;
 	}
+	free(src);
 	return (res);
 }

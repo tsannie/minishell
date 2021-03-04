@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 13:22:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:46:20 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
 char	*before_equal(char *str);
 int		search_quotes(const char *src, t_set *set, char a);
+char	*redirection(char *src, t_set *set);
+char	*change_dol(char *dol, t_set *set);
+char	*dolars_find(char *src, t_set *set);
+int		antislash_pair(char *src, int i);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
