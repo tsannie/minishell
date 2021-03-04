@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/18 10:27:18 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 10:12:44 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,13 @@ int		clean(char *src, t_set *set)
 	return (0);
 }
 
-int	error_list(int a)
+int	error_list(int a, t_set *set)
 {
 	if (a == 1)
 		ft_putstr_fd("minishell: syntax error near unexpected token `;'\n",1);
 	if (a == 2)
 		ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n",1);
+	set->exit_val = 2;
 	return (-1);
 }
 
@@ -137,7 +138,7 @@ int 	first_semicon(const char *str)
 	return (0);
 }
 
-int		check_list(const char *str)
+int		check_list(const char *str, t_set *set)
 {
 	int	i;
 	int	e;
@@ -145,14 +146,14 @@ int		check_list(const char *str)
 	e = first_semicon(str);
 	if (e != 0)
 	{
-		return (error_list(e));
+		return (error_list(e, set));
 	}
 	e = 0;
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == ';' && str[i + 1] == ';')
-			return (error_list(2));
+			return (error_list(2, set));
 		if (str[i] == ';')
 		{
 			i++;
@@ -164,7 +165,7 @@ int		check_list(const char *str)
 				i++;
 			}
 			if (e == 0 && str[i])
-				return (error_list(1));
+				return (error_list(1, set));
 		}
 		i++;
 	}
@@ -178,7 +179,7 @@ void	treat_cmd(t_set *set)
 	int e;
 
 	i = 0;
-	if (check_list(set->str) == 0)
+	if (check_list(set->str, set) == 0)
 	{
 		list = split_semicolon(set->str, set);
 		while (list[i])

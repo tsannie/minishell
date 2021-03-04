@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/03 12:18:11 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:10:36 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char *get_val(void)
 	int gnl;
 
 	gnl = 0;
-	line = malloc(sizeof(char *) * 1);		
+	line = malloc(sizeof(char *) * 1);
 	gnl = get_next_line(0, line);
 	//printf("[%s]\n", *line);
 	if (gnl == 0 && ft_strlen(*line) == 0)
