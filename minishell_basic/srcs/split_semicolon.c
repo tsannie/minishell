@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 07:47:01 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/18 11:21:59 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 10:06:22 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ char	**split_semicolon(char *str, t_set *set)
 	}
 	//print_args(res);
 	if (exit == -1)
+	{
+		//set->exit_val = 2;
 		set->err_quote = 1;
+	}
 	//printf("exit = %d\n", exit);		// if exit == -1 error quote
 	return (res);
 }
