@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/04 10:53:17 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:33:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	*ft_strdup_p(char *str)
 	return (NULL);
 } 
 */
+
 char **new_args(char **args)
 {
 	char **str;
@@ -97,37 +98,40 @@ char **new_args(char **args)
 	x = 0;
 	while (args[x])
 		x++;
-	if (!(str = malloc(sizeof(x + 2))))
+	if (!(str = malloc(sizeof(char *) * (x + 2))))
 		return (NULL);
 	x = 0;
-	str[x] = "";
+	str[x] = ft_strdup("");
 	while (args[x])
 	{
-		str[x + 1] = args[x];
+		str[x + 1] = ft_strdup(args[x]);
 		x++;
 	}
 	str[x + 1] = NULL;
-/*   	x = -1;
+
+	
+ /*   	x = -1;
 	while (args[++x])
 		printf("arg = [%s]\n", args[x]);
 	printf("\n"); */
-/* 
-	x = -1;
+ 
+/* 	x = -1;
 	while (str[++x])
 		printf("str = [%s]\n", str[x]);
-	//printf("str = [%s]\n", str[x + 1]);  */
+	printf("str = [%s]\n", str[x + 1]);
+
+	printf("\n\n"); */
+	//printf("str = [%s]\n", str[x + 1]);  
 	return (str);
 }
- 
 
-char 	*get_path(t_set *set, char **old_args, char **envp)
+char 	*get_path(t_set *set)
 {
 	DIR				*folder;
 	struct dirent	*item;
 	char			*path;
 	int 			valid;
-	char **args;
-	args = new_args(old_args);
+
 	valid = 0;
 	//printf("\n\n[%s]--[%s]\n\n\n", cmd_m, cmd_p);
 /* 	if (cmd_p == NULL && cmd_m == NULL)
@@ -141,36 +145,21 @@ char 	*get_path(t_set *set, char **old_args, char **envp)
 			valid = 1;
 	}
 	closedir(folder);
-
+	if (valid == 0)
+		return (NULL);
+	return (ft_strjoin("/bin/", set->cmd));
 	
-/* 	int x = -1;
-	while (args[++x])
-		printf("arg = [%s]\n", args[x]);
-	printf("arg = [%s]\n", args[x + 1]); */
-	int ret = 0;
-	//int pid = fork();
-	//printf("[%d]\n", pid);
-	if (valid == 1 )//&& pid == 0)
-	{
-		//printf("OUI\n");
-		set->exit_val = execve(ft_strjoin("/bin/", set->cmd), args , envp);
-		//printf("exit = [%d]\n", set->exit_val);
-		//return (set->cmd);
-		exit(0);
-	}
-	//else
-	//	waitpid(pid, &ret, 0);
-	return (NULL);
+	
+	//return (NULL);
 }
 
-char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int len)
+char 	*get_path_chemin(t_set *set, int len)
 {
 	DIR				*folder;
 	struct dirent	*item;
 	char			*path;
 	int 			valid;
-	char **args;
-	args = new_args(old_args);
+
 	valid = 0;
 	int i = 0;
 
@@ -182,7 +171,6 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int len)
 		i++;
 	}
 	path[i] = '\0';
-	//printf("cmd = [%s][%s][%d]\n", path , set->cmd + len, len);
 	folder = opendir(path);
 	if (!folder)
 		return (NULL);
@@ -192,12 +180,14 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int len)
 			valid = 1;
 	}
 	closedir(folder);
+	if (valid == 0)
+		return (NULL);
+	return (ft_strjoin(path, set->cmd + len));
 
-	
-/* 	int x = -1;
+/*== 	int x = -1;
 	while (args[++x])
 		printf("arg = [%s]\n", args[x]);
-	printf("arg = [%s]\n", args[x + 1]); */
+	printf("arg = [%s]\n", args[x + 1]); 
 	int ret = 0;
 	//int pid = fork();
 	//printf("[%d]\n", pid);
@@ -211,15 +201,21 @@ char 	*get_path_chemin(t_set *set, char **old_args, char **envp, int len)
 	}
 	//else
 	//	waitpid(pid, &ret, 0);
-	return (NULL);
+	return (NULL);*/
 }
 
 int		bash_cmd(t_set *set)
 {
 	char *path;
-	int x = 0;
-	int len = 0;
-	int chemin = 0;
+	int x;
+	int len;
+	int chemin;
+	char **args;
+	
+	x = 0;
+	len = 0;
+	chemin = 0;
+	args = new_args(set->arg);
 	while (set->cmd[x])
 	{
 		if (ft_strncmp("/bin/", set->cmd + x, 5) == 0)
@@ -228,19 +224,47 @@ int		bash_cmd(t_set *set)
 			len++;
 		x++;
 	}
-	if (chemin == 0)
-		path = get_path(set, set->arg, set->envp);
-	else
-		path = get_path_chemin(set, set->arg, set->envp, len + 5);
-
-	//if (path == NULL)
-	//	return (1); 
-	//printf("{%s}{%s}\n", path, set->str);
+	x = -1;
+	int r = -1;
 /* 	while (set->arg[++x])
-		//printf("arg = [%s]\n", set->arg[x]);
-	if	(path != NULL)
+		printf("setaarg = [%s]\n", set->arg[x]);
+	printf("\n"); */
+	if (chemin == 0)
+		path = get_path(set);
+	else
+		path = get_path_chemin(set, len + 5);
+	if (path == NULL)
+		return (1);
+	int ret = 0;
+	int pid = fork();
+	//printf("[%d]\n", pid);
+/* 	int i = -1;
+		printf("path = [%s]\n", path);
+		while (args[++i])
+			printf("exe [%s]\n", args[i]);
+		printf("exe [%s]\n\n\n", args[i + 1]);
+  */
+	if (path != NULL && pid == 0)
 	{
-		execve(path, set->arg, set->envp);
-	} */
-	return (1);
+
+		set->exit_val = execve(path, args, set->envp);
+		//ft_putstr_fd("\nici\n", 1);
+		//printf("exit = [%d]\n", set->exit_val);
+		//return (set->cmd)
+		r = -1;
+		while (args[++r])
+			free(args[r]);
+		free(args);
+		free(path);
+		exit(0);
+	}
+	else
+		waitpid(pid, &ret, 0);
+
+ /* 	  */
+	r = -1;
+	while (args[++r])
+		free(args[r]);
+	free(args);
+	return (0);
 }

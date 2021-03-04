@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/04 10:18:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/04 12:16:23 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void	start_cmd(t_set *set)
 		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
-	else if (ft_streql(min, "echo") == 1 || ft_streql(min, "/bin/echo") == 1)
+	else if (ft_streql(min, "echo") == 1)
 		ft_echo(set);
 	else if (ft_streql(min, "cd") == 1)
 		ft_cd(set);
-	else if (ft_streql(min, "pwd") == 1 || ft_streql(min, "/bin/pwd") == 1)
+	else if (ft_streql(min, "pwd") == 1)
 		ft_pwd(set);
 	else if (ft_streql(min, "export") == 1)
 		ft_export(set);
@@ -101,8 +101,9 @@ void	start_cmd(t_set *set)
 		ft_env(set);
 	else if (ft_streql(min, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
-	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) == 1)
+	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) != 0)
 	{
+		//printf("[%d]\n",bash_cmd(set));
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
