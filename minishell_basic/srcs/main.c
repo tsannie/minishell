@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 13:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:08:56 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 volatile int run = 1;
 
+void		disp_prompt(void)
+{
+	ft_putstr_fd("{MINISHELL}$> ", 1);
+}
+
 void int_handler(int sig)
 {
 	run = 0;
 	ft_putstr_fd("\b\b  \n", STDERR);
+	disp_prompt();
 	//exit(0);
-}
-
-void		disp_prompt(void)
-{
-	ft_putstr_fd("{MINISHELL}$> ", 1);
 }
 
 int			main(int ac, char **av, char **envp)
