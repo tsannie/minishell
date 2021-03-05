@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/04 16:14:50 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:27:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,15 +135,15 @@ char	*redirection(char *src, t_set *set)
 	int		a;
 
 	a = is_present(src, '>');
-	printf("\n\n\na = %d\n\n\n", a);
+	//printf("\n\n\na = %d\n\n\n", a);
 	if (a != 0)
 	{
-		printf("ex cmd = {%s}\n", src);
+	//	printf("ex cmd = {%s}\n", src);
 		namefile = get_namefile(src, set, a);			// pas bien test
-		printf("\n\nnamefile = |%s|\n\n", namefile);
+		//printf("\n\nnamefile = |%s|\n\n", namefile);
 		free(namefile); 			// en vrai faut free
 		res = get_newcmd(src, set, a);
-		printf("new cmd = {%s}\n", res);
+		//printf("new cmd = {%s}\n", res);
 	}
 	else
 		res = ft_strdup(src);
