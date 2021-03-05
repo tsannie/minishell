@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/05 13:38:27 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:13:39 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			main(int ac, char **av, char **envp)
 	set->cmd = NULL;
 	set->shlvl = 1;
 	set->exit_val = 0;
+	set->fd = 1;
 	/*int e = -1;
 	 while (envp[++e])
 		printf("-[%s]-\n", envp[e]);

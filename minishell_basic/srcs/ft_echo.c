@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/02/23 11:03:27 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:19:40 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		disp_exit_val(t_set *set)
 	{
 		if (ft_streql(set->str + x, "$?") == 1)
 		{
-			ft_putnbr_fd(set->exit_val, 1);
-			ft_putchar_fd('\n', 1);
+			ft_putnbr_fd(set->exit_val, set->fd);
+			ft_putchar_fd('\n', set->fd);
 			set->exit_val = 0;
 			return (1);
 		}
@@ -57,7 +57,7 @@ int		ft_echo(t_set *set)
 	n = 0;
 	if (!set->arg[0])
 	{
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', set->fd);
 		return (0);
 	}
 /* 	int x = -1;
@@ -78,14 +78,14 @@ int		ft_echo(t_set *set)
 	}
 	while (set->arg[i])
 	{
-		ft_putstr_fd(set->arg[i], 1);
+		ft_putstr_fd(set->arg[i], set->fd);
 		if (set->arg[i + 1])
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', set->fd);
 		w_print++;
 		i++;
 	}
 	if (n == 0)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', set->fd);
 	set->exit_val = 0;
 	return (0);
 }

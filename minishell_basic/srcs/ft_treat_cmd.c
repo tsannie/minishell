@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 10:43:38 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:17:52 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,11 @@ void	treat_cmd(t_set *set)
 		while (list[i])
 		{
 			e = 0;
+			if (set->fd != 1)
+			{
+				close(set->fd);
+				set->fd = 1;
+			}
 			set->err_quote = 0;
 			clean(list[i], set);
 			start_cmd(set);

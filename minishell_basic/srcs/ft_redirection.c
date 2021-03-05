@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 13:18:24 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/05 15:29:50 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		is_present(char *src, char a)
 		}
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 char	*dolars_redirect(char *src, t_set *set)
@@ -158,16 +158,14 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
-void	create_file(char *namefile)
+void	create_file(char *namefile, t_set *set)
 {
 	int fd;
 
 	if (namefile)
 	{
-		if ((fd = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // do directory
+		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // do directory
 			return ;
-		write(fd, "zizi caca\n", 9);
-		close(fd);
 		free(namefile);
 	}
 }
@@ -180,13 +178,13 @@ char	*redirection(char *src, t_set *set)
 
 	a = is_present(src, '>');
 	//printf("\n\n\na = %d\n\n\n", a);
-	if (a != 0)
+	if (a != -1)
 	{
 		//printf("ex cmd = {%s}\n", src);
 		namefile = get_namefile(src, set, a);			// pas bien test
 		//printf("\n\nnamefile = |%s|\n\n", namefile);
 		res = get_newcmd(src, set, a);
-		create_file(namefile);
+		create_file(namefile, set);
 		//printf("new cmd = {%s}\n", res);
 	}
 	else
