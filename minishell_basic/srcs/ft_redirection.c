@@ -6,13 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/04 16:27:04 by phbarrad         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/05 10:35:31 by tsannie          ###   ########.fr       */
->>>>>>> 15d7368af785d3a15646ef31ed2caa0c9a93ab0f
+/*   Updated: 2021/03/05 10:44:31 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
@@ -185,19 +182,11 @@ char	*redirection(char *src, t_set *set)
 	//printf("\n\n\na = %d\n\n\n", a);
 	if (a != 0)
 	{
-<<<<<<< HEAD
-	//	printf("ex cmd = {%s}\n", src);
-		namefile = get_namefile(src, set, a);			// pas bien test
-		//printf("\n\nnamefile = |%s|\n\n", namefile);
-		free(namefile); 			// en vrai faut free
-		res = get_newcmd(src, set, a);
-=======
 		//printf("ex cmd = {%s}\n", src);
 		namefile = get_namefile(src, set, a);			// pas bien test
 		//printf("\n\nnamefile = |%s|\n\n", namefile);
 		res = get_newcmd(src, set, a);
 		create_file(namefile);
->>>>>>> 15d7368af785d3a15646ef31ed2caa0c9a93ab0f
 		//printf("new cmd = {%s}\n", res);
 	}
 	else
