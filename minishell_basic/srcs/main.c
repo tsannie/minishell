@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/05 10:11:53 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:38:27 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int			main(int ac, char **av, char **envp)
 
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
-	set->pwd = getcwd(buff, 4097);
+	set->pwd = ft_strdup(getcwd(buff, 4097));
+	set->old_pwd = NULL;
 	set->cmd = NULL;
 	set->shlvl = 1;
 	set->exit_val = 0;
@@ -62,8 +63,16 @@ int			main(int ac, char **av, char **envp)
 			if (run == 1)
 				start_shell(ac, av, set);
 			run = 1;
-			//ft_hideenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
-			//ft_modenv(joinf("SHLVL=", ft_itoa(set->shlvl), "", ""), set);
+
+			if (set->old_pwd)
+				free(set->old_pwd);
+			set->old_pwd = ft_strdup(set->pwd);
+			free(set->pwd);
+			set->pwd = ft_strdup(getcwd(buff, 4097));
+			ft_hideenv(ft_strjoin("PWD=", set->pwd), set);
+			ft_modenv(ft_strjoin("PWD=", set->pwd), set);
+			ft_hideenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
+			ft_modenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
 		}
 	}
 	free(set);

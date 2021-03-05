@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 13:16:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:17:16 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ char *get_val(void)
 		ft_putstr_fd("\b\b  ", STDERR);
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
-		//ft_putstr_fd("\nok\n", 1);
 		ft_putstr_fd("exit\n", 1);
 		exit(0);
 	}
-	//printf("[%d]\n", gnl);
 	return (*line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/04 13:33:43 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:56:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,6 @@ int		bash_cmd(t_set *set)
   */
 	if (path != NULL && pid == 0)
 	{
-
 		set->exit_val = execve(path, args, set->envp);
 		//ft_putstr_fd("\nici\n", 1);
 		//printf("exit = [%d]\n", set->exit_val);
