@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 10:33:33 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/05 10:43:38 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 

@@ -6,12 +6,12 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 18:36:09 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/02 15:50:35 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:15:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*res;
@@ -77,6 +77,24 @@ char	*dup_free(char *stock, char **line)
 	return (stock);
 }
 
+int          newline_check(char *stock, int read_size)
+{
+        int     i;
+
+        i = 0;
+        if (read_size == 0 && stock[0] == '\0')
+                return (2);
+        if (read_size == 0 || stock == NULL)
+                return (0);
+        while (stock[i] != '\0')
+        {
+                if (stock[i] == '\n')
+                        return (1);
+                i++;
+        }
+        return (0);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	static char	*stock;
@@ -90,11 +108,14 @@ int		get_next_line(int fd, char **line)
 	i = searchreturn(stock);
 	if (stock && (i != -1))
 		return (write_line(line, stock, i));
-	while (((res = read(fd, buff, BUFFER_SIZE)) > 0))
+	while (((res = read(fd, buff, BUFFER_SIZE)) >= 0))
 	{
+
 		buff[res] = '\0';
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
+		if (res == 0 || buff[res - 1] != '\n')
+			ft_putstr_fd("  \b\b", 1);
 		if (stock && (i != -1))
 			return (write_line(line, stock, i));
 	}

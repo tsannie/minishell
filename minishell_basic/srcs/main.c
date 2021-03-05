@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/04 15:08:56 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:11:53 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void		disp_prompt(void)
 void int_handler(int sig)
 {
 	run = 0;
-	ft_putstr_fd("\b\b  \n", STDERR);
+	ft_putstr_fd("\b\b  ", STDERR);
+	ft_putstr_fd("\n", STDERR);
 	disp_prompt();
 	//exit(0);
 }
