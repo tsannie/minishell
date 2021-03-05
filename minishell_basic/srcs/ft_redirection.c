@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 10:35:31 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/05 13:17:24 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,9 @@ void	create_file(char *namefile)
 
 	if (namefile)
 	{
-		if ((fd = open(namefile, O_CREAT)) == -1)
+		if ((fd = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // do directory
 			return ;
+		write(fd, "zizi caca\n", 9);
 		close(fd);
 		free(namefile);
 	}

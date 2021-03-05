@@ -1,4 +1,5 @@
 minishell
+minishell_test.log
 
 libft/*.o
 libft/*.a
