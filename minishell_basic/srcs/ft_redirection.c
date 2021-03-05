@@ -6,7 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/04 16:27:04 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/05 10:35:31 by tsannie          ###   ########.fr       */
+>>>>>>> 15d7368af785d3a15646ef31ed2caa0c9a93ab0f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +51,43 @@ int		is_present(char *src, char a)
 	return (0);
 }
 
-void	dolars_namefile(const char *src, t_set *set)
+char	*dolars_redirect(char *src, t_set *set)
+{
+	char	*res;
+	int		err;
+
+	set->y++;
+	res = ft_strdup("");
+	err = 0;
+	if (src[set->y] != '\"' &&  src[set->y] != '\'')
+	{
+		while (src[set->y] && (ft_isalnum(src[set->y]) == 1 || src[set->y] == '_')) // ATTENTION Y'EN A D'AUTRES !
+		{
+			res = add_letter(res, src[set->y]);
+			set->y++;
+		}
+	}
+	return (res);
+}
+
+void	dolars_namefile(char *src, t_set *set)
 {
 	char	*dol;
 	int		i;
 
-	dol = dolars_find((char*)&src[set->y], set);
+	//printf("start string : {%s}\n", src);
+	dol = dolars_redirect(src, set);
+	//printf("dol = {%s}\n", dol);
 	dol = change_dol(dol, set);
+	//printf("dol = {%s}\n", dol);
 	i = 0;
 	while (dol[i])
 	{
 		set->word_tmp = add_letter(set->word_tmp, dol[i]);
 		i++;
 	}
+	if (dol)
+		free(dol);
 }
 
 char	*get_namefile(char *src, t_set *set, int i)
@@ -79,7 +107,10 @@ char	*get_namefile(char *src, t_set *set, int i)
 		else if (src[set->y] == '\"')
 			exit = search_quotes(src, set, '\"');
 		else if (src[set->y] == '$')
+		{
 			dolars_namefile(src, set);
+			//printf("set->word_tmp = {%c}\n", set->word_tmp[set->y]);
+		}
 		else if (src[set->y] != ' ')
 		{
 			while (src[set->y] && src[set->y] != ' ' && src[set->y] != '\'' && src[set->y] != '\"' && src[set->y] != '$')
@@ -97,11 +128,15 @@ char	*get_namefile(char *src, t_set *set, int i)
 			}
 		}
 		if ((src[set->y] == ' ' || !src[set->y]) && exit == 0)
+		{
+			//printf("\n\nENTER\n\n");
 			exit = 1;
+		}
 	}
 	if (exit == -1)
 		set->err_quote = 1;
 	res = ft_strdup(set->word_tmp);
+	//printf("res = {%s}\n", res);
 	free(set->word_tmp);
 	return (res);
 }
@@ -124,8 +159,20 @@ char	*get_newcmd(char *src, t_set *set, int i)
 		res = add_letter(res, src[e]);
 		e++;
 	}
-	free(src);
 	return (res);
+}
+
+void	create_file(char *namefile)
+{
+	int fd;
+
+	if (namefile)
+	{
+		if ((fd = open(namefile, O_CREAT)) == -1)
+			return ;
+		close(fd);
+		free(namefile);
+	}
 }
 
 char	*redirection(char *src, t_set *set)
@@ -138,11 +185,19 @@ char	*redirection(char *src, t_set *set)
 	//printf("\n\n\na = %d\n\n\n", a);
 	if (a != 0)
 	{
+<<<<<<< HEAD
 	//	printf("ex cmd = {%s}\n", src);
 		namefile = get_namefile(src, set, a);			// pas bien test
 		//printf("\n\nnamefile = |%s|\n\n", namefile);
 		free(namefile); 			// en vrai faut free
 		res = get_newcmd(src, set, a);
+=======
+		//printf("ex cmd = {%s}\n", src);
+		namefile = get_namefile(src, set, a);			// pas bien test
+		//printf("\n\nnamefile = |%s|\n\n", namefile);
+		res = get_newcmd(src, set, a);
+		create_file(namefile);
+>>>>>>> 15d7368af785d3a15646ef31ed2caa0c9a93ab0f
 		//printf("new cmd = {%s}\n", res);
 	}
 	else
