@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/08 09:47:37 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:11:28 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		clean(char *src, t_set *set)
 	char	*cpy;
 
 	cpy = redirection(src, set);
+	//err_redirection();
 	//printf("cpy_redirection = |%s|\n", cpy);
 	cpy = search_dolars(cpy, set); // attention pas oublier de free cpy dans crt file
 	//printf("cpy_dolars = |%s|\n", cpy);
@@ -194,6 +195,7 @@ void	treat_cmd(t_set *set)
 				set->fd = 1;
 			}
 			set->err_quote = 0;
+			set->err_redi = 0;
 			clean(list[i], set);
 			start_cmd(set);
 			free(set->cmd);

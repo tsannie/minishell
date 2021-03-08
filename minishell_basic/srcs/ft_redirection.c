@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 15:29:50 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:17:39 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,13 @@ int		is_present(char *src, char a)
 	int		i;
 
 	i = 0;
-	//printf("src = {%s}\n", src);
 	while (src[i])
 	{
-		//printf("src[i] = {%c}", src[i]);
 		if (src[i] == '\'' && antislash_pair(src, i) == 1)
 		{
 			i++;
 			while (src[i] && src[i] != '\'')
-			{
 				i++;
-			}
 		}
 		else if (src[i] == '\"' && antislash_pair(src, i) == 1)
 		{
@@ -35,11 +31,12 @@ int		is_present(char *src, char a)
 			while (src[i] && src[i] != '\"')
 			{
 				i++;
+				i = src[i] == '\\' ? i + 2 : i;
 			}
 		}
-		else if (src[i] == a)
+		else if (src[i - 1] != a && src[i] == a && src[i + 1] != a)
 		{
-			//printf("i = %d\n", i);
+			//printf("src[i] = {%c} | src[i+1] = {%c}\n", src[i], src[i+1]);
 			return (i);
 		}
 		i++;
@@ -109,7 +106,7 @@ char	*get_namefile(char *src, t_set *set, int i)
 		}
 		else if (src[set->y] != ' ')
 		{
-			while (src[set->y] && src[set->y] != ' ' && src[set->y] != '\'' && src[set->y] != '\"' && src[set->y] != '$')
+			while (src[set->y] && src[set->y] != ' ' && src[set->y] != '\'' && src[set->y] != '\"' && src[set->y] != '$' && src[set->y] != '<' && src[set->y] != '>')
 			{
 				if ((src[set->y] == '\\' && src[set->y + 1]))
 				{
@@ -123,7 +120,7 @@ char	*get_namefile(char *src, t_set *set, int i)
 				}
 			}
 		}
-		if ((src[set->y] == ' ' || !src[set->y]) && exit == 0)
+		if ((src[set->y] == ' ' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)
 		{
 			//printf("\n\nENTER\n\n");
 			exit = 1;
@@ -155,39 +152,79 @@ char	*get_newcmd(char *src, t_set *set, int i)
 		res = add_letter(res, src[e]);
 		e++;
 	}
+	free(src);
 	return (res);
 }
 
-void	create_file(char *namefile, t_set *set)
+void	create_file(char *namefile, t_set *set, int a)
 {
 	int fd;
 
-	if (namefile)
+	if (namefile && a == 1)
 	{
-		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // do directory
+		if (set->fd != 1)
+			close(set->fd);
+		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // do file
 			return ;
 		free(namefile);
 	}
+	else if (namefile && a == 2)
+	{
+		if (set->fd != 1)
+			close(set->fd);
+		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // do file
+			return ;
+		free(namefile);
+	}
+	else
+	{
+		set->err_redi = 1;				// TODO msg error
+	}
+
 }
 
 char	*redirection(char *src, t_set *set)
 {
+	int		i;
 	char	*res;
 	char	*namefile;
 	int		a;
 
-	a = is_present(src, '>');
-	//printf("\n\n\na = %d\n\n\n", a);
-	if (a != -1)
+	res = ft_strdup(src);
+	i = 0;
+	while (res[i])
 	{
-		//printf("ex cmd = {%s}\n", src);
-		namefile = get_namefile(src, set, a);			// pas bien test
-		//printf("\n\nnamefile = |%s|\n\n", namefile);
-		res = get_newcmd(src, set, a);
-		create_file(namefile, set);
-		//printf("new cmd = {%s}\n", res);
+		if (res[i] == '\'' && antislash_pair(res, i) == 1)
+		{
+			i++;
+			while (res[i] && res[i] != '\'')
+				i++;
+		}
+		else if (res[i] == '\"' && antislash_pair(res, i) == 1)
+		{
+			i++;
+			while (res[i] && res[i] != '\"')
+			{
+				i++;
+				i = res[i] == '\\' ? i + 2 : i;
+			}
+		}
+		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] == '>' && res[i + 2] != '>')
+		{
+			namefile = get_namefile(res, set, i + 1);
+			res = get_newcmd(res, set, i);
+			create_file(namefile, set, 2);
+			i = -1;
+		}
+		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] != '>')
+		{
+			namefile = get_namefile(res, set, i);
+			res = get_newcmd(res, set, i);
+			create_file(namefile, set, 1);
+			i = -1;
+		}
+		i++;
 	}
-	else
-		res = ft_strdup(src);
+	//printf("res = {%s}\n", res);
 	return (res);
 }
