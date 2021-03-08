@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/05 15:11:54 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/08 17:09:25 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1

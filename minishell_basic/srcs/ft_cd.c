@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/08 13:49:53 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:18:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,20 @@ int		real_path(char *str)
 	return (i);
 }
 
+
+void	error_msg(t_set *set)
+{
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(set->arg[0], STDERR);
+	if (errno == EACCES)
+		ft_putstr_fd(": Permission denied\n", STDERR);
+	else
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+}
+
 int		ft_chem(t_set *set)
 {
 	int valid;
-	int len_arg;
-	
-	len_arg = 0;
-	while (set->arg[len_arg])
-		len_arg++;
-
 /* 
 	 int x = -1;
 	while (set->arg[++x])
@@ -72,12 +77,13 @@ int		ft_chem(t_set *set)
 		
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
-	//printf("[%s][%d]\n", set->arg[0], valid, len_arg);
+	//printf("valid = [%d]\n", valid);
 	if (valid == -1 && set->arg[0] != NULL)
 	{
 		if (ft_strlen(set->arg[0]) == 0)
 			return (-4);
-		printf("minishell: cd: %s: No such file or directory\n", set->arg[0]);
+		error_msg(set);
+		return (-1);
 	}
 	if (set->arg[0] == NULL)
 		return (chdir(ft_getenv()));
@@ -87,6 +93,8 @@ int		ft_chem(t_set *set)
 char *parc_env(t_set *set) //trouve PWD dans env et le copie
 {
 	int x;
+
+	x = 0;
 	while (set->envp[x])
 	{
 		if (ft_strncmp(set->envp[x], "PWD=", 4) == 0)
@@ -96,7 +104,7 @@ char *parc_env(t_set *set) //trouve PWD dans env et le copie
 		}
 		x++;
 	}
-	return (ft_strdup(""));
+	return (NULL);
 }
 
 int ft_cd(t_set *set)
@@ -107,10 +115,10 @@ int ft_cd(t_set *set)
 
 
 	set->pwd = parc_env(set);
-	
 	ret = ft_chem(set); // cd
-	//if (ret != -4)
-	//{
+	
+	if (ret != -1)
+	{
 		temp = ft_strdup(set->pwd);
 		set->old_pwd = ft_strjoin("OLDPWD=", temp);
 		ft_hideenv(set->old_pwd, set);
@@ -118,9 +126,8 @@ int ft_cd(t_set *set)
 		
 		free(temp);
 		free(set->old_pwd);
-	//}
-	//else
-		//ret = 0;
+	}
+	
 	free(set->pwd);
 	set->pwd = ft_strdup(getcwd(buff, 4097));
 	temp = ft_strdup(set->pwd);
