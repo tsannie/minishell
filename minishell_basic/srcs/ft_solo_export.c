@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solo_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/03 15:53:32 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/08 09:45:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ int ft_disp_export(t_set *set)
 	i = 0;
 	while (set->hide_envp[i])
 	{
-		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd("declare -x ", set->fd);
  		x = 0;
 		while (set->hide_envp[i][x] != '=' && set->hide_envp[i][x])
 		{
-			ft_putchar_fd(set->hide_envp[i][x], 1);
+			ft_putchar_fd(set->hide_envp[i][x], set->fd);
 			x++;
 		}
 		if (set->hide_envp[i][x])
 		{
-			ft_putstr_fd("=\"", 2);
-			ft_putstr_fd(&set->hide_envp[i][x + 1] , 1);
-			ft_putstr_fd("\"", 1);
+			ft_putstr_fd("=\"", set->fd);
+			ft_putstr_fd(&set->hide_envp[i][x + 1] , set->fd);
+			ft_putstr_fd("\"", set->fd);
 		}
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', set->fd);
 		i++;
 	}
     //printf("declare -x %s\n", set->hide_envp[i]);

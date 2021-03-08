@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:18:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/17 08:57:24 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:55:08 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int ft_env(t_set *set)
 	
 	i = -1;
     while (set->envp[++i] != NULL)
-        printf("%s\n", set->envp[i]);
+        ft_putstr_fd(set->envp[i], set->fd);
     return (0);
 }

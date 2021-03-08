@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 15:17:52 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/08 09:47:37 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ int		clean(char *src, t_set *set)
 int	error_list(int a, t_set *set)
 {
 	if (a == 1)
-		ft_putstr_fd("minishell: syntax error near unexpected token `;'\n",1);
+		ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 1);
 	if (a == 2)
-		ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n",1);
+		ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 1);
 	set->exit_val = 2;
 	return (-1);
 }

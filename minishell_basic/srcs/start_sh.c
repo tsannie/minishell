@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 13:17:16 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:52:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	start_cmd(t_set *set)
 		ft_eexit(set);
 	else if (ft_streql(min, "echo") == 1)
 		ft_echo(set);
+	else if (ft_streql(min, "pwd") == 1)
+		ft_pwd(set);
 	else if (ft_streql(min, "cd") == 1)
 		ft_cd(set);
 	else if (ft_streql(min, "export") == 1)
@@ -114,7 +116,7 @@ void	start_shell(int ac, char **av, t_set *set)
 		set->str = av[2];// for testeur
 	else
 	{
-		//ft_putstr_fd("avant", 1);
+		//ft_putstr_fd("avant",  set->fd);
 		set->str = get_val();
 	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
