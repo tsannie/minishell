@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 18:36:09 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 13:15:54 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:22:21 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,17 @@ int		get_next_line(int fd, char **line)
 		return (write_line(line, stock, i));
 	while (((res = read(fd, buff, BUFFER_SIZE)) >= 0))
 	{
-
 		buff[res] = '\0';
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
 		if (res == 0 || buff[res - 1] != '\n')
-			ft_putstr_fd("  \b\b", 1);
+		{
+			if (stock[0] == '\0')
+			{
+				stock = dup_free(stock, line);
+				return (0);	
+			}
+		}
 		if (stock && (i != -1))
 			return (write_line(line, stock, i));
 	}

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/02 14:21:38 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:34:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,21 @@ int		real_path(char *str)
 int		ft_cd(t_set *set)
 {
 	int valid;
+	char	buff[4096 + 1];
 
 /* 	int x = -1;
 	while (set->arg[++x])
 		printf("[%s]\n", set->arg[x]);
 	printf("[%s]\n", set->arg[x]); */
+	if (set->old_pwd)
+		free(set->old_pwd);
+	set->old_pwd = ft_strdup(set->pwd);
+	free(set->pwd);
+	set->pwd = ft_strdup(getcwd(buff, 4097));
+	ft_hideenv(ft_strjoin("PWD=", set->pwd), set);
+	ft_modenv(ft_strjoin("PWD=", set->pwd), set);
+	ft_hideenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
+	ft_modenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
 	if (valid == -1 && set->arg[0] != NULL)

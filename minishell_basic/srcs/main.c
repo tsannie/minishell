@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/05 15:13:39 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/08 10:33:34 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,6 @@ int			main(int ac, char **av, char **envp)
 			if (run == 1)
 				start_shell(ac, av, set);
 			run = 1;
-
-			if (set->old_pwd)
-				free(set->old_pwd);
-			set->old_pwd = ft_strdup(set->pwd);
-			free(set->pwd);
-			set->pwd = ft_strdup(getcwd(buff, 4097));
-			ft_hideenv(ft_strjoin("PWD=", set->pwd), set);
-			ft_modenv(ft_strjoin("PWD=", set->pwd), set);
-			ft_hideenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
-			ft_modenv(ft_strjoin("OLDPWD=", set->old_pwd), set);
 		}
 	}
 	free(set);

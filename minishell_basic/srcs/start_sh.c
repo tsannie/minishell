@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/08 09:52:02 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:22:46 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char *get_val(void)
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
 	gnl = get_next_line(0, line);
+	//printf("[%d][%s]\n", gnl, *line);
 	if (gnl == 0 && ft_strlen(*line) != 0)
 		ft_putstr_fd("\b\b  ", STDERR);
 	if (gnl == 0 && ft_strlen(*line) == 0)
