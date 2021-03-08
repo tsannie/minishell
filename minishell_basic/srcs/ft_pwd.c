@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:18:32 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/08 09:53:21 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/08 09:58:58 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int ft_pwd(t_set *set)
 	} */
     set->pwd = getcwd(buff, 4097);
     ft_putstr_fd(set->pwd, set->fd);
-	ft_putchar_fd("\n", set->fd);
+	ft_putchar_fd('\n', set->fd);
     return (0);
 }
