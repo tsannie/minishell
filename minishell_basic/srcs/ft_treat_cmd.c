@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 12:20:26 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 13:48:43 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,20 +146,34 @@ int		correct_redirecion(char *src, t_set *set)
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
 			i = forwar_quote(src, set, i);
-		else if (src[i] == '>')
+		else if (src[i] == '>' || src[i] == '<')
 		{
-			while (src[i] == '>')		// possible seg fault
-				i++;
-			while (src[i] == ' ')		// possible seg fault
+			if (src[i] == '>')
+			{
+				while (src[i] == '>')
+					i++;
+			}
+			else
+			{
+				while (src[i] == '<')
+					i++;
+			}
+			while (src[i] == ' ')
 				i++;
 			if (src[i] == '>' && src[i + 1] == '>')
 				return (1);
-			if (src[i] == '>')
+			if (src[i] == '<' && src[i + 1] == '<')
 				return (2);
-			if (src[i] == ';')
+			if (src[i] == '<' && src[i + 1] == '>')
 				return (3);
+			if (src[i] == '>')
+				return (5);
+			if (src[i] == '<')
+				return (6);
+			if (src[i] == ';')
+				return (7);
 			if (!(src[i]))
-				return (4);
+				return (8);
 		}
 		i++;
 	}
@@ -176,8 +190,14 @@ int	error_list(int a, t_set *set)
 	if (a == 3)
 		ft_putstr_fd("`>>'", STDERR);
 	if (a == 4)
-		ft_putstr_fd("`>'", STDERR);
+		ft_putstr_fd("`<<'", STDERR);
 	if (a == 5)
+		ft_putstr_fd("`<>'", STDERR);
+	if (a == 7)
+		ft_putstr_fd("`>'", STDERR);
+	if (a == 8)
+		ft_putstr_fd("`<'", STDERR);
+	if (a == 9)
 		ft_putstr_fd("`newline'", STDERR);
 	ft_putstr_fd("\n", STDERR);
 	set->exit_val = 2;
@@ -192,16 +212,23 @@ int		err_redirection(char *src, t_set *set)
 	if (e > 3)
 		return (error_list(3, set));
 	else if (e > 2)
-		return (error_list(4, set));
+		return (error_list(7, set));
+
 	e = correct_redirecion(src, set);
 	if (e == 1)
 		return (error_list(3, set));
 	else if (e == 2)
 		return (error_list(4, set));
 	else if (e == 3)
-		return (error_list(1, set));
-	else if (e == 4)
 		return (error_list(5, set));
+	else if (e == 5)
+		return (error_list(7, set));
+	else if (e == 6)
+		return (error_list(8, set));
+	else if (e == 7)
+		return (error_list(1, set));
+	else if (e == 8)
+		return (error_list(9, set));
 	return (0);
 }
 
