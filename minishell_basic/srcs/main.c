@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:52:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:55:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void			init_struct(t_set *set, char **av, char **envp)
 {
 	char		buff[4096 + 1];
 	char		*tmp;
-
+	char		*tmp2;
+	
 	set->cmd = NULL;
 	set->exit_val = 0;
 	set->fd = 1;
@@ -39,20 +40,36 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
 	set->pwd = ft_strjoin("PWD=", getcwd(buff, 4097));
 	tmp = ft_strjoin("SHLVL=", set->shlvl);
-	set->exit_v = ft_strjoin("?=", ft_itoa(set->exit_val));
+	tmp2 = ft_itoa(set->exit_val);
+	set->exit_v = ft_strjoin("?=", tmp2);
+	
 
 	ft_init_env(set, envp, av);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	//$?
+	//	$?
 	ft_hideenv(set->exit_v, set);
 	ft_modenv(set->exit_v, set);
-	//$SHLVL
+	//	$SHLVL
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
+	free(tmp2);
 	free(tmp);
 	free(set->old_pwd);
 	free(set->pwd);
+}
+
+void			add_exval(t_set *set)
+{
+	char *tmp;
+
+	tmp = ft_itoa(set->exit_val);
+	if (set->exit_v)
+		free(set->exit_v);
+	set->exit_v = ft_strjoin("?=", tmp);
+	free(tmp);
+	ft_hideenv(set->exit_v, set);
+	ft_modenv(set->exit_v, set);
 }
 
 int				main(int ac, char **av, char **envp)
@@ -74,11 +91,7 @@ int				main(int ac, char **av, char **envp)
 		{
 			disp_prompt();
 			start_shell(ac, av, set);
-			if (set->exit_v)
-				free(set->exit_v);
-			set->exit_v = ft_strjoin("?=", ft_itoa(set->exit_val));
-			ft_hideenv(set->exit_v, set);
-			ft_modenv(set->exit_v, set);
+			add_exval(set);
 		}
 	}
 	free(set);

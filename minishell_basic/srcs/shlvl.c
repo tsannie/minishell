@@ -6,15 +6,18 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:41:18 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:09:17 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:33:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-void						init_shlvl(long long max, unsigned long long val,
+void						init_shlvl(unsigned long long val,
 t_set *set, int value)
 {
+	long long				max;
+
+	max = 9223372036854775807;
 	if (val > max)
 		value = 0;
 	if (value > 2147483646 || value < -2147483648)
@@ -39,10 +42,8 @@ int							check_shlvl(t_set *set, char **envp)
 {
 	int						i;
 	int						value;
-	long long				max;
 	unsigned long long		val;
 
-	max = 9223372036854775807;
 	val = 0;
 	value = 0;
 	set->shlvl = NULL;
@@ -55,6 +56,6 @@ int							check_shlvl(t_set *set, char **envp)
 			value = ft_atoi(envp[i] + 6);
 		}
 	}
-	init_shlvl(max, val, set, value);
+	init_shlvl(val, set, value);
 	return (0);
 }
