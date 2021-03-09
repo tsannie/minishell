@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/08 12:51:57 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:09:59 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int			main(int ac, char **av, char **envp)
 
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	ft_hideenv(set->old_pwd, set);
-	ft_modenv(set->old_pwd, set);
+	//ft_hideenv(set->old_pwd, set);
+	//ft_modenv(set->old_pwd, set);
 
 	free(set->old_pwd);
 	free(set->pwd);

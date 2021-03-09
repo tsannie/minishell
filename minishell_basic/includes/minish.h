@@ -6,13 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/08 17:09:25 by phbarrad         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/08 17:10:58 by tsannie          ###   ########.fr       */
->>>>>>> a6bfa2f6757901f00eb8870c20a37ffb49adc254
+/*   Updated: 2021/03/08 17:19:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISH_H
 # define MINISH_H
