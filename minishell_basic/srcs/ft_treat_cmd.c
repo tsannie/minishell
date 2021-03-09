@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 13:48:43 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:47:45 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,11 @@ int		forwar_quote(char *src, t_set *set, int i)
 		i++;
 		while (src[i] && src[i] != '\"')
 		{
-			i++;
-			i = src[i] == '\\' ? i + 2 : i;
+			//printf("src[i] = {%c}\n", src[i]);
+			if (src[i] == '\\')
+				i = i + 2;
+			else
+				i++;
 		}
 	}
 	return (i);
