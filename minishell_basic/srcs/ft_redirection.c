@@ -6,43 +6,11 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/08 17:17:39 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 12:40:23 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
-
-int		is_present(char *src, char a)
-{
-	int		i;
-
-	i = 0;
-	while (src[i])
-	{
-		if (src[i] == '\'' && antislash_pair(src, i) == 1)
-		{
-			i++;
-			while (src[i] && src[i] != '\'')
-				i++;
-		}
-		else if (src[i] == '\"' && antislash_pair(src, i) == 1)
-		{
-			i++;
-			while (src[i] && src[i] != '\"')
-			{
-				i++;
-				i = src[i] == '\\' ? i + 2 : i;
-			}
-		}
-		else if (src[i - 1] != a && src[i] == a && src[i + 1] != a)
-		{
-			//printf("src[i] = {%c} | src[i+1] = {%c}\n", src[i], src[i+1]);
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
-}
 
 char	*dolars_redirect(char *src, t_set *set)
 {
@@ -176,11 +144,6 @@ void	create_file(char *namefile, t_set *set, int a)
 			return ;
 		free(namefile);
 	}
-	else
-	{
-		set->err_redi = 1;				// TODO msg error
-	}
-
 }
 
 char	*redirection(char *src, t_set *set)
@@ -194,21 +157,8 @@ char	*redirection(char *src, t_set *set)
 	i = 0;
 	while (res[i])
 	{
-		if (res[i] == '\'' && antislash_pair(res, i) == 1)
-		{
-			i++;
-			while (res[i] && res[i] != '\'')
-				i++;
-		}
-		else if (res[i] == '\"' && antislash_pair(res, i) == 1)
-		{
-			i++;
-			while (res[i] && res[i] != '\"')
-			{
-				i++;
-				i = res[i] == '\\' ? i + 2 : i;
-			}
-		}
+		if ((res[i] == '\'' || res[i] == '\"') && antislash_pair(res, i) == 1)
+			i = forwar_quote(res, set, i);
 		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] == '>' && res[i + 2] != '>')
 		{
 			namefile = get_namefile(res, set, i + 1);

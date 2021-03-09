@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/09 09:55:18 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/09 09:37:56 by tsannie          ###   ########.fr       */
+>>>>>>> cea08c4ab9221a8b271794560ac449bed31ff762
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +119,7 @@ void	start_cmd(t_set *set)
 void	start_shell(int ac, char **av, t_set *set)
 {
 	if (ac == 3)
-		set->str = av[2];// for testeur
+		set->str = av[2];		// for testeur
 	else
 	{
 		//ft_putstr_fd("avant",  set->fd);

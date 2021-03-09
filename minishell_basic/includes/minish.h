@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/09 12:55:02 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/09 12:38:13 by tsannie          ###   ########.fr       */
+>>>>>>> cea08c4ab9221a8b271794560ac449bed31ff762
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +50,11 @@ typedef struct	s_set
 	int		y;
 	int		l_dol;
 	int		err_quote;
+<<<<<<< HEAD
 	int		err_redi;
 	
+=======
+>>>>>>> cea08c4ab9221a8b271794560ac449bed31ff762
 	int 	exit_val;
 	char 	*exit_v;
 
@@ -72,6 +79,7 @@ char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 //
+int		forwar_quote(char *src, t_set *set, int i);
 void	ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
