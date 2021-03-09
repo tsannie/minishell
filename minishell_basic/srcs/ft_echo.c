@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 09:56:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:46:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		ft_echo(t_set *set)
 	printf("word = [%s]\n", set->word_tmp);
 	printf("str = [%s]\n", set->str);
  */
-	if (disp_exit_val(set) == 1)
-		return (set->exit_val);
+	//if (disp_exit_val(set) == 1)
+	//	return (set->exit_val);
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;

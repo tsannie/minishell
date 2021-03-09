@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:04:05 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:45:51 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	//$?
+	ft_hideenv(set->exit_v, set);
 	ft_modenv(set->exit_v, set);
 	//$SHLVL
 	ft_hideenv(tmp, set);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/08 09:45:14 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:48:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,9 @@ void		ft_sort_dbtab(t_set *set)
 	int		i;
 	char	*temp;
 
-/* 	i = 0;
-	//set->hide_envp[12 + 1] = malloc(sizeof(char) * 1);
-    //set->hide_envp[12 + 1] = NULL;
-	while (set->hide_envp[i] != NULL)
-	{
-		printf("{%s}\n", set->hide_envp[i]);
-		i++;
-	} */
 	i = 0;
 	while (set->hide_envp[i + 1] != NULL)
 	{
-		//printf("[%d][%s][%s]\n", i,set->hide_envp[i], set->hide_envp[i + 1]);
 		if (ft_strcmp(set->hide_envp[i], set->hide_envp[i + 1]) > 0)
 		{
 			temp = set->hide_envp[i];
@@ -62,22 +53,24 @@ int ft_disp_export(t_set *set)
 	i = 0;
 	while (set->hide_envp[i])
 	{
-		ft_putstr_fd("declare -x ", set->fd);
- 		x = 0;
-		while (set->hide_envp[i][x] != '=' && set->hide_envp[i][x])
+		if (ft_strncmp(set->hide_envp[i], "?=", 2) != 0)
 		{
-			ft_putchar_fd(set->hide_envp[i][x], set->fd);
-			x++;
+			ft_putstr_fd("declare -x ", set->fd);
+			x = 0;
+			while (set->hide_envp[i][x] != '=' && set->hide_envp[i][x])
+			{
+				ft_putchar_fd(set->hide_envp[i][x], set->fd);
+				x++;
+			}
+			if (set->hide_envp[i][x])
+			{
+				ft_putstr_fd("=\"", set->fd);
+				ft_putstr_fd(&set->hide_envp[i][x + 1] , set->fd);
+				ft_putstr_fd("\"", set->fd);
+			}
+			ft_putchar_fd('\n', set->fd);
 		}
-		if (set->hide_envp[i][x])
-		{
-			ft_putstr_fd("=\"", set->fd);
-			ft_putstr_fd(&set->hide_envp[i][x + 1] , set->fd);
-			ft_putstr_fd("\"", set->fd);
-		}
-		ft_putchar_fd('\n', set->fd);
 		i++;
 	}
-    //printf("declare -x %s\n", set->hide_envp[i]);
     return (0);
 }
