@@ -6,15 +6,15 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/18 15:20:54 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:03:16 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-int	ncmpel(char *s1, char *s2)
+int				ncmpel(char *s1, char *s2)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while ((s2[i] || s1[i]) && s2[i] != '=')
@@ -26,9 +26,9 @@ int	ncmpel(char *s1, char *s2)
 	return (0);
 }
 
-int ft_unsetenv(t_set *set, int j)
+int				ft_unsetenv(t_set *set, int j)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (set->envp[i] != NULL)
@@ -49,9 +49,9 @@ int ft_unsetenv(t_set *set, int j)
 	return (0);
 }
 
-int ft_unsethideenv(t_set *set, int j)
+int				ft_unsethideenv(t_set *set, int j)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (set->hide_envp[i] != NULL)
@@ -72,9 +72,9 @@ int ft_unsethideenv(t_set *set, int j)
 	return (0);
 }
 
-int ft_unset(t_set *set)
+int				ft_unset(t_set *set)
 {
-    int j;
+    int			j;
 
 	j = 0;
 	while (set->arg[j])

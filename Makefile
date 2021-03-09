@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/04 10:52:57 by tsannie          ###   ########.fr        #
+#    Updated: 2021/03/09 13:43:13 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ NAMELIB		= ${BLUE}${BOLD}Libft${END}
 SRC			= main.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
 ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c ft_exit.c \
 split_semicolon.c ft_dolars.c tools_dev_DELETE.c ft_init_env.c bin.c \
-ft_redirection.c
+ft_redirection.c shlvl.c
 
 
 

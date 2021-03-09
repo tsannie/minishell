@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/09 12:55:02 by phbarrad         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/09 12:38:13 by tsannie          ###   ########.fr       */
->>>>>>> cea08c4ab9221a8b271794560ac449bed31ff762
+/*   Updated: 2021/03/09 13:42:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISH_H
@@ -50,11 +47,7 @@ typedef struct	s_set
 	int		y;
 	int		l_dol;
 	int		err_quote;
-<<<<<<< HEAD
 	int		err_redi;
-	
-=======
->>>>>>> cea08c4ab9221a8b271794560ac449bed31ff762
 	int 	exit_val;
 	char 	*exit_v;
 
@@ -116,7 +109,7 @@ char *ft_get_path(char **envp);
 //
 //bin
 int		bash_cmd(t_set *set);
-
+int		check_shlvl(t_set *set, char **envp);
 int			ft_strcmp(char *s1, char *s2);
 /* TOOLS TO DELETE WHEN ITS END */
 void	print_args(char **str);

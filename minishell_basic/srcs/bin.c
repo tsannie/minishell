@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/05 13:56:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:20:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ char	*ft_strdup_p(char *str)
 } 
 */
 
-char **new_args(char **args)
+char				**new_args(char **args)
 {
-	char **str;
-	int x;
+	char			**str;
+	int				x;
 
 	x = 0;
 	while (args[x])
@@ -125,7 +125,7 @@ char **new_args(char **args)
 	return (str);
 }
 
-char 	*get_path(t_set *set)
+char				*get_path(t_set *set)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -153,7 +153,7 @@ char 	*get_path(t_set *set)
 	//return (NULL);
 }
 
-char 	*get_path_chemin(t_set *set, int len)
+char				*get_path_chemin(t_set *set, int len)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -183,34 +183,15 @@ char 	*get_path_chemin(t_set *set, int len)
 	if (valid == 0)
 		return (NULL);
 	return (ft_strjoin(path, set->cmd + len));
-
-/*== 	int x = -1;
-	while (args[++x])
-		printf("arg = [%s]\n", args[x]);
-	printf("arg = [%s]\n", args[x + 1]); 
-	int ret = 0;
-	//int pid = fork();
-	//printf("[%d]\n", pid);
-	if (valid == 1 )//&& pid == 0)
-	{
-		//printf("OUI\n");
-		set->exit_val = execve(ft_strjoin(path, set->cmd + len), args , envp);
-		//printf("exit = [%d]\n", set->exit_val);
-		//return (set->cmd);
-		exit(0);
-	}
-	//else
-	//	waitpid(pid, &ret, 0);
-	return (NULL);*/
 }
 
-int		bash_cmd(t_set *set)
+int					bash_cmd(t_set *set)
 {
-	char *path;
-	int x;
-	int len;
-	int chemin;
-	char **args;
+	char			*path;
+	int				x;
+	int				len;
+	int				chemin;
+	char			**args;
 	
 	x = 0;
 	len = 0;
