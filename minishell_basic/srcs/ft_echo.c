@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 15:46:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:51:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int is_noret(char *str)
 	return (1);
 }
 
-int		disp_exit_val(t_set *set)
+/* int		disp_exit_val(t_set *set)
 {
 	int x;
 
@@ -45,6 +45,7 @@ int		disp_exit_val(t_set *set)
 	}
 	return (0);
 }
+ */
 
 int		ft_echo(t_set *set)
 {
