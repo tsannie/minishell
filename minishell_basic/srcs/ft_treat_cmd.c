@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/08 17:11:28 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 12:20:26 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,126 @@ char	*search_cmd(const char *src, t_set *set)
 	return (res);
 }
 
+int		forwar_quote(char *src, t_set *set, int i)
+{
+	if (src[i] == '\'')
+	{
+		i++;
+		while (src[i] && src[i] != '\'')
+			i++;
+	}
+	else if (src[i] == '\"')
+	{
+		i++;
+		while (src[i] && src[i] != '\"')
+		{
+			i++;
+			i = src[i] == '\\' ? i + 2 : i;
+		}
+	}
+	return (i);
+}
+
+int		multi_redirecion(char *src, t_set *set)
+{
+	int	i;
+	int	e;
+
+	i = 0;
+	e = 0;
+	while (src[i])
+	{
+		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
+			i = forwar_quote(src, set, i);
+		else if (src[i] == '>')
+		{
+			while (src[i] == '>')		// possible seg fault
+			{
+				i++;
+				e++;
+			}
+			if (e > 2)
+				return (e);
+			e = 0;
+		}
+		i++;
+	}
+	return (e);
+}
+
+int		correct_redirecion(char *src, t_set *set)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
+			i = forwar_quote(src, set, i);
+		else if (src[i] == '>')
+		{
+			while (src[i] == '>')		// possible seg fault
+				i++;
+			while (src[i] == ' ')		// possible seg fault
+				i++;
+			if (src[i] == '>' && src[i + 1] == '>')
+				return (1);
+			if (src[i] == '>')
+				return (2);
+			if (src[i] == ';')
+				return (3);
+			if (!(src[i]))
+				return (4);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	error_list(int a, t_set *set)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token ", STDERR);
+	if (a == 1)
+		ft_putstr_fd("`;'", STDERR);
+	if (a == 2)
+		ft_putstr_fd("`;;'", STDERR);
+	if (a == 3)
+		ft_putstr_fd("`>>'", STDERR);
+	if (a == 4)
+		ft_putstr_fd("`>'", STDERR);
+	if (a == 5)
+		ft_putstr_fd("`newline'", STDERR);
+	ft_putstr_fd("\n", STDERR);
+	set->exit_val = 2;
+	return (-1);
+}
+
+int		err_redirection(char *src, t_set *set)
+{
+	int e;
+
+	e = multi_redirecion(src, set);
+	if (e > 3)
+		return (error_list(3, set));
+	else if (e > 2)
+		return (error_list(4, set));
+	e = correct_redirecion(src, set);
+	if (e == 1)
+		return (error_list(3, set));
+	else if (e == 2)
+		return (error_list(4, set));
+	else if (e == 3)
+		return (error_list(1, set));
+	else if (e == 4)
+		return (error_list(5, set));
+	return (0);
+}
+
 int		clean(char *src, t_set *set)
 {
 	char	*cpy;
 
 	cpy = redirection(src, set);
-	//err_redirection();
 	//printf("cpy_redirection = |%s|\n", cpy);
 	cpy = search_dolars(cpy, set); // attention pas oublier de free cpy dans crt file
 	//printf("cpy_dolars = |%s|\n", cpy);
@@ -105,16 +219,6 @@ int		clean(char *src, t_set *set)
 	set->arg = search_arg(cpy, set);
 
 	return (0);
-}
-
-int	error_list(int a, t_set *set)
-{
-	if (a == 1)
-		ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 1);
-	if (a == 2)
-		ft_putstr_fd("minishell: syntax error near unexpected token `;;'\n", 1);
-	set->exit_val = 2;
-	return (-1);
 }
 
 int 	first_semicon(const char *str)
@@ -176,6 +280,15 @@ int		check_list(const char *str, t_set *set)
 	return (0);
 }
 
+int		correct_cmd(char *str, t_set *set)
+{
+	if (check_list(str, set) == -1)
+		return (-1);
+	if (err_redirection(str, set) == -1)
+		return (-1);
+	return(0);
+}
+
 void	treat_cmd(t_set *set)
 {
 	char **list;
@@ -183,7 +296,7 @@ void	treat_cmd(t_set *set)
 	int e;
 
 	i = 0;
-	if (check_list(set->str, set) == 0)
+	if (correct_cmd(set->str, set) == 0)
 	{
 		list = split_semicolon(set->str, set);
 		while (list[i])
@@ -195,7 +308,6 @@ void	treat_cmd(t_set *set)
 				set->fd = 1;
 			}
 			set->err_quote = 0;
-			set->err_redi = 0;
 			clean(list[i], set);
 			start_cmd(set);
 			free(set->cmd);
