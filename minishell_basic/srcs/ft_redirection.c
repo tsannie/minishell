@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 13:50:02 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:41:09 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,12 @@ char	*redirection(char *src, t_set *set)
 	i = 0;
 	while (res[i])
 	{
+		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
 		if ((res[i] == '\'' || res[i] == '\"') && antislash_pair(res, i) == 1)
 			i = forwar_quote(res, set, i);
 		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] == '>' && res[i + 2] != '>')
 		{
+			//printf("SALUT\n");
 			namefile = get_namefile(res, set, i + 1);
 			res = get_newcmd(res, set, i);
 			create_file(namefile, set, 2);

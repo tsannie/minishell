@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dolars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 10:17:43 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:06:13 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ char	*change_dol(char *dol, t_set *set)
 		//printf("\n\nvar = %s\n\n", var);
 		if (ft_streql(var, dol) == 1)
 		{
-			while(set->hide_envp[i][e] != '=')
+			while(set->hide_envp[i][e] != '=' && set->hide_envp[i][e])
 				e++;
-			res = ft_strdup(&set->hide_envp[i][e + 1]);
+			if (set->hide_envp[i][e])
+				res = ft_strdup(&set->hide_envp[i][e + 1]);
+			else
+				res = ft_strdup("");
 		}
 		free(var);
 		i++;
@@ -186,11 +189,10 @@ char	*search_dolars(char *src, t_set *set)
 		else if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_' || res[i + 1] == '?') && antislash_pair(res, i) == 1)
 		{
 			dol = dolars_find(&res[i], set);
-			//printf("\nICI dol = %s\n", dol);
+			//printf("\ndol = {%s}\n", dol);
 			set->l_dol = ft_strlen(dol);
-			//printf("\n\ndol_b = {%s}\n\n", dol);
 			dol = change_dol(dol, set);
-			//printf("\n\ndol_a = {%s}\n\n", dol);
+			//printf("\n\nchange_dol = {%s}\n\n", dol);
 			res = place_dol(res, dol, set);
 			//printf("RES = |%s|\n", res);
 			free(dol);
