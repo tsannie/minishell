@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/08 10:22:46 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:55:18 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	start_cmd(t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
+	set->exit_val = 0;
 	//printf("min = {%s}\n", min);
 	if (set->err_quote == 1)
 		ft_putstr_error_quote();

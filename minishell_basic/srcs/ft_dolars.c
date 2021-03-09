@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dolars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/05 10:00:42 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/09 10:17:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*dolars_find(char *src, t_set *set)
 	err = 0;
 	if (src[i] != '\"' &&  src[i] != '\'')
 	{
-		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_')) // ATTENTION Y'EN A D'AUTRES !
+		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_' || src[i] == '?')) // ATTENTION Y'EN A D'AUTRES !
 		{
 			res = add_letter(res, src[i]);
 			i++;
@@ -183,7 +183,7 @@ char	*search_dolars(char *src, t_set *set)
 			//ft_putstr_fd("}",1);
 			//printf(" | res[i] = %c | i = %d\n", res[i], i);
 		}
-		else if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_') && antislash_pair(res, i) == 1)
+		else if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_' || res[i + 1] == '?') && antislash_pair(res, i) == 1)
 		{
 			dol = dolars_find(&res[i], set);
 			//printf("\nICI dol = %s\n", dol);

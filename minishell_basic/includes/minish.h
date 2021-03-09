@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/08 17:19:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:55:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+# define LLU_MAX 18446744073709551615
+# define LLU_MIN -9223372036854775809 
 
 typedef struct	s_set
 {
@@ -45,8 +47,11 @@ typedef struct	s_set
 	int		l_dol;
 	int		err_quote;
 	int		err_redi;
+	
 	int 	exit_val;
-	int		shlvl;
+	char 	*exit_v;
+
+	char	*shlvl;
 	int		run;
 	int		pid;
 
@@ -59,6 +64,7 @@ typedef struct	s_set
 }				t_set;
 
 //env
+unsigned long long		ft_atoill(const char *str);
 int ft_modenv(char *str, t_set *set);
 int ft_hideenv(char *str, t_set *set);
 void  ft_init_env(t_set *set, char **envp, char **av);
