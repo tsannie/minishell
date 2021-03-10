@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 13:42:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:58:17 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,11 @@ void	change_stdin(char *namefile, t_set *set)
 	close(set->fdin);
 	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
 	{
-		printf("error\n"); // error
+		ft_putstr_fd("minishell: ", STDERR); // error
+		ft_putstr_fd(namefile, STDERR);
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+		set->stop = 1;
+		set->exit_val = 1;
 	}
 	free(namefile);
 	dup2(set->fdin, STDIN);
