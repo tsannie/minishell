@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 13:53:13 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:53:11 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_set
 	int		fdin;
 	int		save_stdout;
 	int		save_stdin;
+	int		stop;
 
 	int		exit;
 	char	**arg;

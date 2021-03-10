@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 13:22:58 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:09:58 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		forwar_quote(char *src, t_set *set, int i)
 	return (i);
 }
 
-int		multi_redirecion(char *src, t_set *set)
+int		multi_redirecion(char *src, t_set *set, char a)
 {
 	int	i;
 	int	e;
@@ -124,14 +124,16 @@ int		multi_redirecion(char *src, t_set *set)
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
 			i = forwar_quote(src, set, i);
-		else if (src[i] == '>')
+		else if (src[i] == a)
 		{
-			while (src[i] == '>')		// possible seg fault
+			while (src[i] == a)		// possible seg fault
 			{
 				i++;
 				e++;
 			}
-			if (e > 2)
+			if (e > 2 && a == '>')
+				return (e);
+			if (e > 3 && a == '<')
 				return (e);
 			e = 0;
 		}
@@ -211,11 +213,17 @@ int		err_redirection(char *src, t_set *set)
 {
 	int e;
 
-	e = multi_redirecion(src, set);
+	e = multi_redirecion(src, set, '>');
 	if (e > 3)
 		return (error_list(3, set));
 	else if (e > 2)
 		return (error_list(7, set));
+
+	e = multi_redirecion(src, set, '<');
+	if (e > 4)
+		return (error_list(4, set));
+	else if (e > 3)
+		return (error_list(8, set));
 
 	e = correct_redirecion(src, set);
 	if (e == 1)
@@ -347,10 +355,12 @@ void	treat_cmd(t_set *set)
 		list = split_semicolon(set->str, set);
 		while (list[i])
 		{
+			set->stop = 0;
 			e = 0;
 			set->err_quote = 0;
 			clean(list[i], set);
-			start_cmd(set);
+			if (set->stop == 0)
+				start_cmd(set);
 			free(set->cmd);
 			while (set->arg[e])
 			{
