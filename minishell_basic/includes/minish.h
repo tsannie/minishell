@@ -6,10 +6,9 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 12:57:55 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:53:13 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 
 #ifndef MINISH_H
@@ -48,6 +47,8 @@ typedef struct	s_set
 	int		exit;
 	char	**arg;
 	char	*cmd;
+	char	*lastcmd;
+
 	int		y;
 	int		l_dol;
 	int		err_quote;
@@ -87,6 +88,7 @@ char	**search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
 char	*before_equal(char *str);
+char	*before_equale(char *str);
 int		search_quotes(const char *src, t_set *set, char a);
 char	*redirection(char *src, t_set *set);
 char	*change_dol(char *dol, t_set *set);
@@ -111,6 +113,8 @@ char	*joinf(char *s1, char *s2, char *s3, char *s4);
 int ft_menv(char *str, t_set *set);
 char *ft_get_path(char **envp);
 //
+char	*maj_to_min(char *str);
+
 //bin
 int		bash_cmd(t_set *set);
 int		check_shlvl(t_set *set, char **envp);

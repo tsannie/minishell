@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 13:01:27 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:52:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	char		*tmp2;
 
 	set->cmd = NULL;
+	set->lastcmd = NULL;
 	set->exit_val = 0;
 	set->save_stdout = dup(STDOUT);			// ok
 	set->save_stdin = dup(STDIN);			// check that
@@ -54,6 +55,10 @@ void			init_struct(t_set *set, char **av, char **envp)
 	//	$SHLVL
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
+	// $last_cmd
+	ft_hideenv(tmp, set);
+	ft_modenv(tmp, set);
+	//
 	free(tmp2);
 	free(tmp);
 	free(set->old_pwd);
@@ -92,7 +97,7 @@ int				main(int ac, char **av, char **envp)
 		{
 			disp_prompt();
 			start_shell(ac, av, set);
-			add_exval(set);
+			//add_exval(set);
 		}
 	}
 	free(set);

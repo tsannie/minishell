@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:36:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:36:10 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,28 @@ char				**new_args(char **args)
 	}
 	str[x + 1] = NULL;
 	return (str);
+}
+
+char				*get_path_usr(t_set *set)
+{
+	DIR				*folder;
+	struct dirent	*item;
+	char			*path;
+	int				valid;
+
+	valid = 0;
+	folder = opendir("/usr/bin/");
+	if (!folder)
+		return (NULL);
+	while ((item = readdir(folder)))
+	{
+		if (ft_strcmp(item->d_name, set->cmd) == 0)
+			valid = 1;
+	}
+	closedir(folder);
+	if (valid == 0)
+		return (NULL);
+	return (ft_strjoin("/usr/bin/", set->cmd));
 }
 
 char				*get_path(t_set *set)
@@ -136,14 +158,18 @@ int					bash_cmd(t_set *set)
 	{
 		if (ft_strncmp("/bin/", set->cmd + x, 5) == 0)
 			chemin = 1;
+		if (ft_strncmp("/usr/bin/", set->cmd + x, 9) == 0)
+			chemin = 2;
 		if (chemin == 0)
 			len++;
 		x++;
 	}
 	if (chemin == 0)
 		path = get_path(set);
-	else
+	else 
 		path = get_path_chemin(set, len + 5);
+	if (path == NULL)
+		path = get_path_usr(set);
 	if (path == NULL)
 		return (1);
 	return (exec_bin(set, path));
