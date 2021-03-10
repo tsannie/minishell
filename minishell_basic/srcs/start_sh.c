@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 15:23:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:41:56 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	start_cmd(t_set *set)
 		ft_putstr_error_quote(set);
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
-	else if (ft_streql(min, "echo") == 1)
+	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
 	else if (ft_streql(min, "pwd") == 1)
 		ft_pwd(set);
