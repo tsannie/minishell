@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 13:36:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:17:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ char				*get_path(t_set *set)
 			valid = 1;
 	}
 	closedir(folder);
+	if (ft_strncmp(set->cmd, "./", 2) == 0 ||
+	ft_strncmp(set->cmd, "../", 3) == 0)
+		return ft_strdup(set->cmd);
 	if (valid == 0)
 		return (NULL);
 	return (ft_strjoin("/bin/", set->cmd));
@@ -125,9 +128,11 @@ int					exec_bin(t_set *set, char *path)
 	pid = fork();
 	args = new_args(set->arg);
 	r = 0;
+		//printf("exit = [%d]\n", set->exit_val);
 	if (path != NULL && pid == 0)
 	{
 		set->exit_val = execve(path, args, set->envp);
+		//printf("exit = [%d]\n", set->exit_val);
 		r = -1;
 		while (args[++r])
 			free(args[r]);
@@ -164,13 +169,15 @@ int					bash_cmd(t_set *set)
 			len++;
 		x++;
 	}
+	//printf("[%d]\n", chemin);
 	if (chemin == 0)
 		path = get_path(set);
-	else 
+	else if (chemin == 1)
 		path = get_path_chemin(set, len + 5);
-	if (path == NULL)
+	else if (chemin == 2)
 		path = get_path_usr(set);
 	if (path == NULL)
 		return (1);
+	//printf("path = [%s]\n", path);
 	return (exec_bin(set, path));
 }
