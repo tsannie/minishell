@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 16:55:02 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:16:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	char		*tmp2;
 	
 	set->cmd = NULL;
+	set->lastcmd = NULL;
 	set->exit_val = 0;
 	set->fd = 1;
 	set->envp = ft_strdup_tabl(envp);
@@ -53,6 +54,10 @@ void			init_struct(t_set *set, char **av, char **envp)
 	//	$SHLVL
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
+	// $last_cmd
+	ft_hideenv(tmp, set);
+	ft_modenv(tmp, set);
+	//
 	free(tmp2);
 	free(tmp);
 	free(set->old_pwd);
@@ -91,7 +96,7 @@ int				main(int ac, char **av, char **envp)
 		{
 			disp_prompt();
 			start_shell(ac, av, set);
-			add_exval(set);
+			//add_exval(set);
 		}
 	}
 	free(set);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 13:36:23 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:04:27 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,64 @@ char	*maj_to_min(char *str)
 	return (res);
 }
 
+int		eglinstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	get_lastcmd(t_set *set)
+{
+	int i;
+	char *tmp;
+
+	i = 0;
+	while (set->str[i])
+	{
+		if (ft_strncmp(set->str + i, "$_", 2) == 0 && set->lastcmd != NULL)
+		{
+			//printf("oui = [%s]\n", set->lastcmd);
+			ft_hideenv(set->lastcmd, set);
+			ft_modenv(set->lastcmd, set);
+			return ;
+		}
+		i++;
+	}
+	i = 0;
+	if (set->lastcmd)
+		free(set->lastcmd);
+	while (set->arg[i])
+		i++;
+	if (set->arg[0] == NULL)
+		tmp = ft_strdup(set->cmd);
+	else if (i != 0)
+		tmp = ft_strdup(set->arg[i - 1]);
+ 	if (ft_strncmp(set->cmd, "export", ft_strlen(set->cmd)) == 0 && eglinstr(tmp) == 1 && i != 0)
+	{
+		if (tmp)
+			free(tmp);
+		tmp = before_equale(set->arg[i - 1]);
+		//printf("[%s]\n", tmp);
+	}
+	
+	// $last_cmd
+	set->lastcmd = ft_strjoin("_=", tmp);
+	free(tmp);
+	//ft_hideenv(set->lastcmd, set);
+	ft_hideenv(set->lastcmd, set);
+	ft_modenv(set->lastcmd, set);
+	//
+	//printf("last = [%s]\n", set->lastcmd);
+}
+
 void	start_cmd(t_set *set)
 {
 	char *min;
@@ -85,6 +143,7 @@ void	start_cmd(t_set *set)
 	min = maj_to_min(set->cmd);
 	set->exit_val = 0;
 	//printf("min = {%s}\n", min);
+	get_lastcmd(set);
 	if (set->err_quote == 1)
 		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
@@ -109,6 +168,7 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
+	//printf("after = [%s]\n", set->lastcmd);
 	free(min);
 }
 

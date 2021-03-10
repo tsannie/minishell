@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dolars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 16:06:13 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 12:49:46 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,26 @@ char	*before_equal(char *str)
 	}
 	res[i] = '=';
 	res[i + 1] = '\0';
+	return (res);
+}
+
+char	*before_equale(char *str)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	while (str[i] != '=' && str[i])
+		i++;
+	if (!(res = malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (str[i] != '=' && str[i])
+	{
+		res[i] = str[i];
+		i++;
+	}
+	res[i] = '\0';
 	return (res);
 }
 
