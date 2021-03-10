@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 14:28:16 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 15:36:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,52 @@ char *ft_get_path(char **envp)
 	return (str);
 }
 
+char	*change_slash(char *str)
+{
+	int			i;
+	char		*res;
+
+	i = 0;
+	res = ft_strdup("");
+	while (str[i])
+	{
+		if (str[i] == '\\')
+			res = add_letter(res, '\\');
+		res = add_letter(res, str[i]);
+		i++;
+	}
+	return (res);
+}
+
+char **ft_strdup_dslash(char **envp)
+{
+	char **hide_envp;
+	int y;
+	int len;
+
+	len = 0;
+	y = 0;
+	while (envp[len] != NULL)
+		len++;
+	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	while (envp[y])
+	{
+		hide_envp[y] = change_slash(envp[y]);  // double slash
+		y++;
+	}
+	hide_envp[y] = NULL;
+/*  	int x = -1;
+	while (envp[++x])
+		printf("{%s}\n", envp[x]);
+	printf("1\n\n");
+	x = -1;
+	while (hide_envp[++x])
+		printf("[%s]\n", hide_envp[x]);
+	printf("2\n\n");  */
+	return (hide_envp);
+}
+
 void  ft_init_env(t_set *set, char **envp, char **av)
 {
 	int i;
@@ -142,7 +188,7 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 /* 	 int r = -1;
 	while (envp[++r])
 		printf("////[%s]\n", envp[r]);
-	printf("\n\n\n\n\n"); 
+	printf("\n\n\n\n\n");
  */
 	//tmp = set->envp[0];
 	//set->envp[0] = set->envp[1];
@@ -165,7 +211,7 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 		ft_menv(joinf("PWD=", set->pwd, "", ""), set);
 	if (shlvl == 0)
 		ft_menv(joinf("SHLVL=", set->shlvl, "", ""), set);
-	set->hide_envp = ft_strdup_tabl(set->envp);
+	set->hide_envp = ft_strdup_dslash(set->envp);
 	if (bar == 0)
 		ft_menv(joinf("_=", set->path,"/", ""), set);
 }

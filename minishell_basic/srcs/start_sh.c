@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 14:03:20 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:23:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ void ft_putstr_not_found(char *str)
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd(": command not found\n", 1);
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
+	ft_putstr_fd(str, STDERR);
+	ft_putstr_fd(": command not found\n", STDERR);
 }
 
-void ft_putstr_error_quote(void)
+void ft_putstr_error_quote(t_set *set)
 {
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
-	ft_putstr_fd("syntax error with open quotes\n", 1);
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
+	ft_putstr_fd("syntax error with open quotes\n", STDERR);
+	set->exit_val = 2;
 }
 
 char *get_val(void)
@@ -144,7 +145,7 @@ void	start_cmd(t_set *set)
 	//printf("min = {%s}\n", min);
 	get_lastcmd(set);
 	if (set->err_quote == 1)
-		ft_putstr_error_quote();
+		ft_putstr_error_quote(set);
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
 	else if (ft_streql(min, "echo") == 1)
