@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 16:47:45 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:22:58 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,22 @@ int		correct_cmd(char *str, t_set *set)
 	return(0);
 }
 
+void	reset_fd(t_set *set)
+{
+	if (set->fdout > 0)			// check fd
+	{
+		close(set->fdout);
+		set->fdout = -1;
+	}
+	if (set->fdin > 0)			// check fd
+	{
+		close(set->fdin);
+		set->fdin = -1;
+	}
+	dup2(set->save_stdin, STDIN);
+	dup2(set->save_stdout, STDOUT);
+}
+
 void	treat_cmd(t_set *set)
 {
 	char **list;
@@ -332,11 +348,6 @@ void	treat_cmd(t_set *set)
 		while (list[i])
 		{
 			e = 0;
-			if (set->fd != 1)
-			{
-				close(set->fd);
-				set->fd = 1;
-			}
 			set->err_quote = 0;
 			clean(list[i], set);
 			start_cmd(set);
@@ -348,6 +359,7 @@ void	treat_cmd(t_set *set)
 				e++;
 			}
 			free(set->arg);
+			reset_fd(set);
 			i++;
 		}
 		e = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 13:42:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:57:55 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,18 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
 # define LLU_MAX 18446744073709551615
-# define LLU_MIN -9223372036854775809 
+# define LLU_MIN -9223372036854775809
 
 typedef struct	s_set
 {
 	char	*str;
 	char	*word_tmp;
-	int		fd;
+	int		fdout;
+	int		fdin;
+	int		save_stdout;
+	int		save_stdin;
 
 	int		exit;
 	char	**arg;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 15:51:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:16:10 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_echo(t_set *set)
 	n = 0;
 	if (!set->arg[0])
 	{
-		ft_putchar_fd('\n', set->fd);
+		ft_putchar_fd('\n', STDOUT);
 		return (0);
 	}
 /* 	int x = -1;
@@ -79,14 +79,14 @@ int		ft_echo(t_set *set)
 	}
 	while (set->arg[i])
 	{
-		ft_putstr_fd(set->arg[i], set->fd);
+		ft_putstr_fd(set->arg[i], STDOUT);
 		if (set->arg[i + 1])
-			ft_putchar_fd(' ', set->fd);
+			ft_putchar_fd(' ', STDOUT);
 		w_print++;
 		i++;
 	}
 	if (n == 0)
-		ft_putchar_fd('\n', set->fd);
+		ft_putchar_fd('\n', STDOUT);
 	set->exit_val = 0;
 	return (0);
 }

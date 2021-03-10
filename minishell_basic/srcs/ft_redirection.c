@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 16:41:09 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:42:57 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ char	*get_namefile(char *src, t_set *set, int i)
 				}
 			}
 		}
-		if ((src[set->y] == ' ' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)
+		if ((src[set->y] == ' ' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
 		{
 			//printf("\n\nENTER\n\n");
 			exit = 1;
 		}
 	}
 	if (exit == -1)
-		set->err_quote = 1;
+		set->err_quote = 1;				// mouais
 	res = ft_strdup(set->word_tmp);
 	//printf("res = {%s}\n", res);
 	free(set->word_tmp);
@@ -126,24 +126,30 @@ char	*get_newcmd(char *src, t_set *set, int i)
 
 void	create_file(char *namefile, t_set *set, int a)
 {
-	int fd;
+	close(set->fdout);
+	if (a == 1)
+	{
+		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout
+			return ;
+	}
+	else if (a == 2)
+	{
+		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // check fdout
+			return ;
+	}
+	free(namefile);
+	dup2(set->fdout, STDOUT);
+}
 
-	if (namefile && a == 1)
+void	change_stdin(char *namefile, t_set *set)
+{
+	close(set->fdin);
+	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
 	{
-		if (set->fd != 1)
-			close(set->fd);
-		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // do file
-			return ;
-		free(namefile);
+		printf("error\n"); // error
 	}
-	else if (namefile && a == 2)
-	{
-		if (set->fd != 1)
-			close(set->fd);
-		if ((set->fd = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // do file
-			return ;
-		free(namefile);
-	}
+	free(namefile);
+	dup2(set->fdin, STDIN);
 }
 
 char	*redirection(char *src, t_set *set)
@@ -173,6 +179,15 @@ char	*redirection(char *src, t_set *set)
 			namefile = get_namefile(res, set, i);
 			res = get_newcmd(res, set, i);
 			create_file(namefile, set, 1);
+			i = -1;
+		}
+		else if (res[i - 1] != '<' && res[i] == '<' && res[i + 1] != '<')
+		{
+			namefile = get_namefile(res, set, i);
+			//printf("namefile = {%s}\n", namefile);
+			res = get_newcmd(res, set, i);
+			//printf("new cmd = {%s}\n", res);
+			change_stdin(namefile, set);
 			i = -1;
 		}
 		i++;

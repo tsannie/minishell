@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 13:36:23 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/10 11:30:27 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void ft_putstr_not_found(char *str)
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
 	ft_putstr_fd(str, 1);
 	ft_putstr_fd(": command not found\n", 1);
 }
 
 void ft_putstr_error_quote(void)
 {
-	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
 	ft_putstr_fd("syntax error with open quotes\n", 1);
 }
 
@@ -56,7 +56,7 @@ char *get_val(void)
 		ft_putstr_fd("\b\b  ", STDERR);
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
-		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("exit\n", 1);			// peut etre placer sous STDER
 		exit(0);
 	}
 	return (*line);
