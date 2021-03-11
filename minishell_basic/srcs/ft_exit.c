@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/02/23 10:28:13 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:15:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_eexit(t_set *set)
 	while (set->arg[len])
 		len++;
 	if (set->arg[0] == NULL)
-		exit(set->exit_val);
+		exit(0);
 	else if (ft_check_valid_exit(set) == 1)
 	{
 		printf("minishell: %s: %s: numeric argument required\n", set->cmd, set->arg[0]);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/11 08:07:49 by tsannie           #+#    #+#              #
-#    Updated: 2021/02/11 08:35:04 by tsannie          ###   ########.fr        #
+#    Updated: 2021/03/11 10:52:12 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ ft_putuihex.c ft_nbcharint.c ft_nbcharhex.c ft_nbcharuint.c ft_lstnew.c \
 ft_nbcharuihex.c ft_putstrn_fd.c ft_minvalue.c ft_maxvalue.c ft_putuihexm.c \
 get_next_line.c ft_lstadd_back.c ft_lstlast.c ft_lstsize.c ft_lstmap.c \
 ft_lstadd_front.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
-ft_iscolor.c ft_ispair.c ft_streql.c ft_iswhite.c ft_realloc.c
+ft_iscolor.c ft_ispair.c ft_streql.c ft_iswhite.c ft_realloc.c ft_free_dbtab.c
 
 OBJ			= $(SRC:.c=.o)
 

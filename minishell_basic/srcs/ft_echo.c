@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 11:16:10 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 13:38:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,6 @@ int is_noret(char *str)
 	return (1);
 }
 
-/* int		disp_exit_val(t_set *set)
-{
-	int x;
-
-	x = -1;
-	while (set->str[++x])
-	{
-		if (ft_streql(set->str + x, "$?") == 1)
-		{
-			ft_putnbr_fd(set->exit_val, set->fd);
-			ft_putchar_fd('\n', set->fd);
-			set->exit_val = 0;
-			return (1);
-		}
-	}
-	return (0);
-}
- */
-
 int		ft_echo(t_set *set)
 {
 	int	i;
@@ -56,9 +37,11 @@ int		ft_echo(t_set *set)
 	i = 0;
 	w_print = 0;
 	n = 0;
+	//printf("[Notre echo]\n");
 	if (!set->arg[0])
 	{
 		ft_putchar_fd('\n', STDOUT);
+		set->exit_val = 0;
 		return (0);
 	}
 /* 	int x = -1;
@@ -75,7 +58,10 @@ int		ft_echo(t_set *set)
 		i++;
 		n = 1;
 		if (!set->arg[i])
+		{
+			set->exit_val = 0;
 			return (0);
+		}
 	}
 	while (set->arg[i])
 	{

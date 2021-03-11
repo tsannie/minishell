@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 14:53:11 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 13:08:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct	s_set
 
 	int		exit;
 	char	**arg;
+
+	char	**all_path;
+
 	char	*cmd;
 	char	*lastcmd;
 
@@ -69,6 +72,9 @@ typedef struct	s_set
 	char	**envp;
 }				t_set;
 
+//lib
+char	**ft_splitbc(const char *str, char charset);
+void			add_exval(t_set *set);
 //env
 unsigned long long		ft_atoill(const char *str);
 int ft_modenv(char *str, t_set *set);
@@ -117,7 +123,7 @@ char *ft_get_path(char **envp);
 char	*maj_to_min(char *str);
 
 //bin
-int		bash_cmd(t_set *set);
+int					bash_cmd(t_set *set, char *cmd);
 int		check_shlvl(t_set *set, char **envp);
 int			ft_strcmp(char *s1, char *s2);
 /* TOOLS TO DELETE WHEN ITS END */

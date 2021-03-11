@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin.c                                              :+:      :+:    :+:   */
+/*   binn.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:40:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:44:56 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-char				**new_args(char **args, t_set *set, char *cmd)
+char				**new_args(char **args, t_set *set)
 {
 	char			**str;
 	int				x;
@@ -23,7 +23,7 @@ char				**new_args(char **args, t_set *set, char *cmd)
 	if (!(str = malloc(sizeof(char *) * (x + 2))))
 		return (NULL);
 	x = 0;
-	str[x] = ft_strdup(cmd);
+	str[x] = ft_strdup(set->cmd);
 	while (args[x])
 	{
 		str[x + 1] = ft_strdup(args[x]);
@@ -33,7 +33,54 @@ char				**new_args(char **args, t_set *set, char *cmd)
 	return (str);
 }
 
-char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
+char				*get_path_usr(t_set *set)
+{
+	DIR				*folder;
+	struct dirent	*item;
+	char			*path;
+	int				valid;
+
+	valid = 0;
+	folder = opendir("/usr/bin/");
+	if (!folder)
+		return (NULL);
+	while ((item = readdir(folder)))
+	{
+		if (ft_strcmp(item->d_name, set->cmd) == 0)
+			valid = 1;
+	}
+	closedir(folder);
+	if (valid == 0)
+		return (NULL);
+	return (ft_strjoin("/usr/bin/", set->cmd));
+}
+
+char				*get_path(t_set *set)
+{
+	DIR				*folder;
+	struct dirent	*item;
+	char			*path;
+	int				valid;
+
+	valid = 0;
+	folder = opendir("/bin/");
+	if (!folder)
+		return (NULL);
+	while ((item = readdir(folder)))
+	{
+		if (ft_strcmp(item->d_name, set->cmd) == 0)
+			valid = 1;
+	}
+	closedir(folder);
+	if (ft_strncmp(set->cmd, "./", 2) == 0 ||
+	ft_strncmp(set->cmd, "../", 3) == 0)
+		return ft_strdup(set->cmd);
+	if (valid == 0)
+		return (NULL);
+	return (ft_strjoin("/bin/", set->cmd));
+}
+
+char				*ee_dir(t_set *set, char *path, int len)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -45,49 +92,41 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 		return (NULL);
 	while ((item = readdir(folder)))
 	{
-		if (ft_strcmp(item->d_name, cmd + len) == 0)
+		if (ft_strcmp(item->d_name, set->cmd + len) == 0)
 			valid = 1;
 	}
 	closedir(folder);
 	if (valid == 0)
 		return (NULL);
-	return (ft_strjoin(path, cmd + len));
+	return (ft_strjoin(path, set->cmd + len));
 }
 
-char				*get_path(t_set *set, char *path, char *cmd)
+char				*get_path_chemin(t_set *set, int len)
 {
-	DIR				*folder;
-	struct dirent	*item;
-	int				valid;
+	char			*path;
+	int				i;
 
-	valid = 0;
-	//printf("pt = [%s]\n", path);
-	folder = opendir(path);
-	if (!folder)
+	i = 0;
+	if (!(path = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	while ((item = readdir(folder)))
+	while (set->cmd[i] && ft_strncmp(set->cmd + i,
+	set->cmd + len, ft_strlen(set->cmd + len)))
 	{
-		if (ft_strcmp(item->d_name, cmd) == 0)
-			valid = 1;
-	//	printf("[%s][%s][%d]\n", item->d_name, cmd, ft_strcmp(item->d_name, cmd));
+		path[i] = set->cmd[i];
+		i++;
 	}
-	closedir(folder);
-	if (ft_strncmp(cmd, "./", 2) == 0 ||
-	ft_strncmp(cmd, "../", 3) == 0)
-		return ft_strdup(cmd);
-	if (valid == 0)
-		return (NULL);
-	return (ft_strjoin(path, cmd));
+	path[i] = '\0';
+	return(ee_dir(set, path, len));
 }
 
-int					exec_bin(t_set *set, char *path, char *cmd)
+int					exec_bin(t_set *set, char *path)
 {
 	int				pid;
 	char			**args;
 	int				r;
 
 	pid = fork();
-	args = new_args(set->arg, set, cmd);
+	args = new_args(set->arg, set);
 	int ret = 0;
 	r = 0;
 		//printf("exit = [%d]\n", set->exit_val);
@@ -112,8 +151,6 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 		waitpid(pid, &ret, 0);
 	if (ret == 256)
 		set->exit_val = 1;
-	else
-		set->exit_val = 0;
 	//printf("pid [%d]ret [%d]ex[%d]\n", pid , ret, set->exit_val);
 	r = -1;
 	while (args[++r])
@@ -122,48 +159,35 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	return (0);
 }
 
-int					bash_cmd(t_set *set, char *cmd)
+int					bash_cmd(t_set *set)
 {
 	char			*path;
 	int				x;
-	int				y;
 	int				len;
 	int				chemin;
 
-	y = 0;
 	x = 0;
 	len = 0;
 	chemin = 0;
-	path = NULL;
-	while (cmd[x])
+	while (set->cmd[x])
 	{
-		while (set->all_path[y])
-		{
-			if (ft_strncmp(set->all_path[y], cmd + x,
-			ft_strlen(set->all_path[y])) == 0)
-			{
-				chemin = 1;
-				len = ft_strlen(set->all_path[y]);
-				path = ft_strdup(set->all_path[y]);
-			}	 	 
-			y++;
-		} 
+		if (ft_strncmp("/bin/", set->cmd + x, 5) == 0)
+			chemin = 1;
+		if (ft_strncmp("/usr/bin/", set->cmd + x, 9) == 0)
+			chemin = 2;
+		if (chemin == 0)
+			len++;
 		x++;
 	}
-	//printf("chemin = [%d]\n", chemin);
-	y = -1;
+	//printf("[%d]\n", chemin);
 	if (chemin == 0)
-	{
-		while (set->all_path[++y] && path == NULL)
-		{
-			path = get_path(set, set->all_path[y], cmd);
-		}
-	//	printf("act path = [%s]\n", path);
-	}
+		path = get_path(set);
 	else if (chemin == 1)
-		path = get_path_chemin(set, path, len, cmd);
+		path = get_path_chemin(set, len + 5);
+	else if (chemin == 2)
+		path = get_path_usr(set);
 	if (path == NULL)
 		return (1);
-	//printf("final path = [%s]\n", path);
-	return (exec_bin(set, path, cmd));
+	//printf("path = [%s]\n", path);
+	return (exec_bin(set, path));
 }

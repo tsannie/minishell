@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 16:41:56 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 13:41:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ void ft_putstr_not_found(char *str)
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
-	ft_putstr_fd(str, STDERR);
-	ft_putstr_fd(": command not found\n", STDERR);
+	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
+	ft_putstr_fd(str, 1);
+	ft_putstr_fd(": command not found\n", 1);
 }
 
-void ft_putstr_error_quote(t_set *set)
+void ft_putstr_error_quote(void)
 {
-	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
-	ft_putstr_fd("syntax error with open quotes\n", STDERR);
-	set->exit_val = 2;
+	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
+	ft_putstr_fd("syntax error with open quotes\n", 1);
 }
 
 char *get_val(void)
@@ -141,33 +140,36 @@ void	start_cmd(t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
-	set->exit_val = 0;
 	//printf("min = {%s}\n", min);
 	get_lastcmd(set);
-	if (set->err_quote == 1)
-		ft_putstr_error_quote(set);
+	if (bash_cmd(set, min) == 0)
+		;
+	else if (set->err_quote == 1)
+		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
-	else if (ft_streql(set->cmd, "echo") == 1)
-		ft_echo(set);
-	else if (ft_streql(min, "pwd") == 1)
+	else if (ft_streql(set->cmd, "pwd") == 1)
 		ft_pwd(set);
-	else if (ft_streql(min, "cd") == 1)
+	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
-	else if (ft_streql(min, "export") == 1)
+	else if (ft_streql(set->cmd, "export") == 1)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
-	else if (ft_streql(min, "env") == 1)
+	else if (ft_streql(set->cmd, "env") == 1)
 		ft_env(set);
-	else if (ft_streql(min, "clear") == 1)
+	else if (ft_streql(set->cmd, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
-	else if (ft_strlen(min) != 0 && check_cmd(min) == 0 && bash_cmd(set) != 0)
+	else if (ft_streql(set->cmd, "echo") == 1)
+		ft_echo(set);
+	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
-		//printf("[%d]\n",bash_cmd(set));
+		//printf("MON\n");
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
+	add_exval(set);
+	//printf("nf[%d]\n", set->exit_val);
 	//printf("after = [%s]\n", set->lastcmd);
 	free(min);
 }

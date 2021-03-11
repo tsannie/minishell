@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 15:36:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 12:29:38 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,5 +213,5 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 		ft_menv(joinf("SHLVL=", set->shlvl, "", ""), set);
 	set->hide_envp = ft_strdup_dslash(set->envp);
 	if (bar == 0)
-		ft_menv(joinf("_=", set->path,"/", ""), set);
+		ft_menv(joinf("_=", set->path, "/", ""), set);
 }
