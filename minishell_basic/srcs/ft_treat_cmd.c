@@ -6,10 +6,9 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 15:09:58 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/12 09:29:27 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minish.h"
 
@@ -90,7 +89,7 @@ char	*search_cmd(const char *src, t_set *set)
 	return (res);
 }
 
-int		forwar_quote(char *src, t_set *set, int i)
+int		forwar_quote(char *src, int i)
 {
 	if (src[i] == '\'')
 	{
@@ -123,7 +122,7 @@ int		multi_redirecion(char *src, t_set *set, char a)
 	while (src[i])
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
-			i = forwar_quote(src, set, i);
+			i = forwar_quote(src, i);
 		else if (src[i] == a)
 		{
 			while (src[i] == a)		// possible seg fault
@@ -150,7 +149,7 @@ int		correct_redirecion(char *src, t_set *set)
 	while (src[i])
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
-			i = forwar_quote(src, set, i);
+			i = forwar_quote(src, i);
 		else if (src[i] == '>' || src[i] == '<')
 		{
 			if (src[i] == '>')
@@ -343,6 +342,22 @@ void	reset_fd(t_set *set)
 	dup2(set->save_stdout, STDOUT);
 }
 
+int		is_pipe(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
+		if ((str[i] == '\'' || str[i] == '\"') && antislash_pair(str, i) == 1)
+			i = forwar_quote(str, i);
+		if (str[i] == '|')
+			return (1);
+	}
+	return (0);
+}
+
 void	treat_cmd(t_set *set)
 {
 	char **list;
@@ -358,6 +373,10 @@ void	treat_cmd(t_set *set)
 			set->stop = 0;
 			e = 0;
 			set->err_quote = 0;
+
+			if (is_pipe(list[i]) == 1)
+				start_pipe(list[i], set);
+
 			clean(list[i], set);
 			if (set->stop == 0)
 				start_cmd(set);

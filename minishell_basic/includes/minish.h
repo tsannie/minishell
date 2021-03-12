@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 14:53:11 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/12 09:31:18 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_set
 	char	*word_tmp;
 	int		fdout;
 	int		fdin;
+	int		pipeout;
+	int		pipein;
 	int		save_stdout;
 	int		save_stdin;
 	int		stop;
@@ -78,7 +80,7 @@ char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 //
-int		forwar_quote(char *src, t_set *set, int i);
+int		forwar_quote(char *src, int i);
 void	ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
