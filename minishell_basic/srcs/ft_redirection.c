@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/10 14:58:17 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/12 12:43:16 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ char	*redirection(char *src, t_set *set)
 	{
 		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
 		if ((res[i] == '\'' || res[i] == '\"') && antislash_pair(res, i) == 1)
-			i = forwar_quote(res, set, i);
+			i = forwar_quote(res, i);
 		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] == '>' && res[i + 2] != '>')
 		{
 			//printf("SALUT\n");

@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/12 14:26:09 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/12 12:10:36 by tsannie          ###   ########.fr       */
+>>>>>>> bceb50a27b00ffd28990a27522723819f54c5c9e
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISH_H
 # define MINISH_H
@@ -41,6 +44,8 @@ typedef struct	s_set
 	char	*word_tmp;
 	int		fdout;
 	int		fdin;
+	int		pipeout;
+	int		pipein;
 	int		save_stdout;
 	int		save_stdin;
 	int		stop;
@@ -54,6 +59,7 @@ typedef struct	s_set
 	char	*lastcmd;
 
 	int		y;
+	int		p;
 	int		l_dol;
 	int		err_quote;
 	int		err_redi;
@@ -85,7 +91,8 @@ char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 //
-int		forwar_quote(char *src, t_set *set, int i);
+int		is_pipe(char *str);
+int		forwar_quote(char *src, int i);
 void	ft_putstr_not_found(char *str);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
@@ -102,6 +109,7 @@ char	*redirection(char *src, t_set *set);
 char	*change_dol(char *dol, t_set *set);
 char	*dolars_find(char *src, t_set *set);
 int		antislash_pair(char *src, int i);
+char	*start_pipe(char *str, t_set *set);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
