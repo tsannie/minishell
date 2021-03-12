@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 14:55:26 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 13:38:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,21 @@ void			init_struct(t_set *set, char **av, char **envp)
 	tmp = ft_strjoin("SHLVL=", set->shlvl);
 	tmp2 = ft_itoa(set->exit_val);
 	set->exit_v = ft_strjoin("?=", tmp2);
+	set->all_path = ft_splitbc(set->path, ':');
+/* 	int x = -1;
 
+
+	printf("[%s]\n\n", set->path);
+	while (set->all_path[++x])
+		printf("[%s]\n", set->all_path[x]);
+	printf("end [%s]\n", set->all_path[x]); */
 
 	ft_init_env(set, envp, av);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	//	$?
 	ft_hideenv(set->exit_v, set);
-	ft_modenv(set->exit_v, set);
+	//ft_modenv(set->exit_v, set);
 	//	$SHLVL
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
@@ -75,7 +82,7 @@ void			add_exval(t_set *set)
 	set->exit_v = ft_strjoin("?=", tmp);
 	free(tmp);
 	ft_hideenv(set->exit_v, set);
-	ft_modenv(set->exit_v, set);
+	//ft_modenv(set->exit_v, set);
 }
 
 int				main(int ac, char **av, char **envp)
@@ -97,6 +104,7 @@ int				main(int ac, char **av, char **envp)
 		{
 			disp_prompt();
 			start_shell(ac, av, set);
+			//printf("ev[%d]\n", set->exit_val);
 			//add_exval(set);
 		}
 	}

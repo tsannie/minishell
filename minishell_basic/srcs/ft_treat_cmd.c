@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 09:29:27 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/12 12:52:51 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,27 +342,12 @@ void	reset_fd(t_set *set)
 	dup2(set->save_stdout, STDOUT);
 }
 
-int		is_pipe(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
-		if ((str[i] == '\'' || str[i] == '\"') && antislash_pair(str, i) == 1)
-			i = forwar_quote(str, i);
-		if (str[i] == '|')
-			return (1);
-	}
-	return (0);
-}
-
 void	treat_cmd(t_set *set)
 {
 	char **list;
+	char *push;
 	int i;
-	int e;
+	int simple;
 
 	i = 0;
 	if (correct_cmd(set->str, set) == 0)
@@ -370,33 +355,30 @@ void	treat_cmd(t_set *set)
 		list = split_semicolon(set->str, set);
 		while (list[i])
 		{
-			set->stop = 0;
-			e = 0;
-			set->err_quote = 0;
-
-			if (is_pipe(list[i]) == 1)
-				start_pipe(list[i], set);
-
-			clean(list[i], set);
-			if (set->stop == 0)
-				start_cmd(set);
-			free(set->cmd);
-			while (set->arg[e])
+			simple = (is_pipe(list[i]) == 0) ? 1 : 0;
+			set->p = 0;
+			while ((is_pipe(list[i]) == 1 || simple == 1) && (set->p != -1))
 			{
-				//printf("\n\n\nset->arg[e] = %s\n\n\n", set->arg[e]);
-				free(set->arg[e]);
-				e++;
+				set->stop = 0;
+				set->err_quote = 0;
+
+				//printf("list_before = {%s}\n", list[i]);
+				push = start_pipe(list[i], set);
+				//printf("list_after = {%s}\n", list[i]);
+
+				clean(push, set);
+				if (set->stop == 0)
+					start_cmd(set);
+				free(set->cmd);
+				free(push);
+				ft_free_dbtab(set->arg);
+				simple--;\
+				//printf("p = %d\n\n", set->p);
+				//printf("salut");
 			}
-			free(set->arg);
 			reset_fd(set);
 			i++;
 		}
-		e = 0;
-		while (list[e])
-		{
-			free(list[e]);
-			e++;
-		}
-		free(list);
+		ft_free_dbtab(list);
 	}
 }

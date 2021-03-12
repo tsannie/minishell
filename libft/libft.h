@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 07:41:37 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/09 12:28:48 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/11 10:51:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int					ft_memcmp(const void *pt1, const void *pt2, size_t size);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memmove(void *destination, const void *source,
 						size_t size);
+void				ft_free_dbtab(char **tab);
 void				*ft_memset(void *b, int c, size_t len);
 char				*ft_strchr(const char *s, int c);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);

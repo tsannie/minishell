@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:02:40 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:54:50 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,12 @@ int				ft_export(t_set *set)
 	//printf("\n\n\n");
 	//print_args(set->hide_envp);
 	ft_sort_dbtab(set);
+
+	if (set->path)
+		free(set->path);
+	ft_free_dbtab(set->all_path);
+	set->path = ft_get_path(set->envp);
+	set->all_path = ft_splitbc(set->path, ':');
 	//printf("\n\n\n");
 	//print_args(set->hide_envp);
 	return (0);
