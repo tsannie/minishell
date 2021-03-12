@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/11 13:41:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 14:31:35 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ void	get_lastcmd(t_set *set)
 		i++;
 	}
 	i = 0;
-	if (set->lastcmd)
-		free(set->lastcmd);
+
 	while (set->arg[i])
 		i++;
 	if (set->arg[0] == NULL)
@@ -124,15 +123,30 @@ void	get_lastcmd(t_set *set)
 		tmp = before_equale(set->arg[i - 1]);
 		//printf("[%s]\n", tmp);
 	}
-
-	// $last_cmd
-	set->lastcmd = ft_strjoin("_=", tmp);
-	free(tmp);
-	//ft_hideenv(set->lastcmd, set);
-	ft_hideenv(set->lastcmd, set);
-	ft_modenv(set->lastcmd, set);
-	//
-	//printf("last = [%s]\n", set->lastcmd);
+	
+	//printf("pathbc = [%s]\n", set->pathbc);
+/*  	if (set->pathbc != NULL)
+	{
+		free(set->pathbc);
+		set->pathbc = NULL;
+	}
+ 	else
+	{*/
+		//set->lastcmd = joinf("_=", set->pwd + 4, "/", tmp);
+		if (set->lastcmd)
+			free(set->lastcmd);
+		set->lastcmd = ft_strjoin("_=", tmp);
+		if (tmp)
+			free(tmp);
+		//ft_hideenv(set->lastcmd, set);
+		ft_modenv(set->lastcmd, set);
+		//printf("last = [%s]\n", set->lastcmd);
+		if (set->lastcmd)
+		{
+			free(set->lastcmd);
+			set->lastcmd = NULL;
+		}
+	//}
 }
 
 void	start_cmd(t_set *set)
@@ -168,7 +182,21 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
+/* 	char *tmp;
+	if (set->pathbc)
+		free(set->pathbc);
+	else
+	{
+		tmp = joinf("_=", set->pwd, "/", set->lastcmd);
+		ft_modenv(tmp, set);
+		free(tmp);
+	} */
 	add_exval(set);
+/* 	if (set->pathbc != NULL)
+	{
+		free(set->pathbc);
+		set->pathbc = NULL;
+	}  */
 	//printf("nf[%d]\n", set->exit_val);
 	//printf("after = [%s]\n", set->lastcmd);
 	free(min);

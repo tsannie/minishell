@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:38:43 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:17:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	char		*tmp2;
 
 	set->cmd = NULL;
+	set->pathbc = NULL;
 	set->lastcmd = NULL;
 	set->exit_val = 0;
 	set->save_stdout = dup(STDOUT);			// ok
@@ -63,13 +64,11 @@ void			init_struct(t_set *set, char **av, char **envp)
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
 	// $last_cmd
-	ft_hideenv(tmp, set);
-	ft_modenv(tmp, set);
+	//ft_hideenv(tmp, set);
+	//ft_modenv(tmp, set);
 	//
 	free(tmp2);
 	free(tmp);
-	free(set->old_pwd);
-	free(set->pwd);
 }
 
 void			add_exval(t_set *set)

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 09:00:31 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:57:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int ft_cd(t_set *set)
 		free(temp);
 		free(set->old_pwd);
 	}
-	
 	free(set->pwd);
 	set->pwd = ft_strdup(getcwd(buff, 4097));
 	temp = ft_strdup(set->pwd);

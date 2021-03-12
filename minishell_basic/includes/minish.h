@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:08:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 14:26:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_set
 	int		run;
 	int		pid;
 
+	char 	*pathbc;
 	char 	*path;
 	char	*pwd;
 	char	*old_pwd;
@@ -123,6 +124,7 @@ char *ft_get_path(char **envp);
 char	*maj_to_min(char *str);
 
 //bin
+void	get_lastcmd(t_set *set);
 int					bash_cmd(t_set *set, char *cmd);
 int		check_shlvl(t_set *set, char **envp);
 int			ft_strcmp(char *s1, char *s2);

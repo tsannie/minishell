@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:40:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 14:28:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (valid == 0)
 		return (NULL);
+	set->pathbc = ft_strdup(path);
 	return (ft_strjoin(path, cmd + len));
 }
 
@@ -77,6 +78,7 @@ char				*get_path(t_set *set, char *path, char *cmd)
 		return ft_strdup(cmd);
 	if (valid == 0)
 		return (NULL);
+	set->pathbc = ft_strdup(path);
 	return (ft_strjoin(path, cmd));
 }
 
@@ -85,22 +87,32 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	int				pid;
 	char			**args;
 	int				r;
-
+	char			*ttm;
+	int g = 0;
 	pid = fork();
 	args = new_args(set->arg, set, cmd);
 	int ret = 0;
+
 	r = 0;
 		//printf("exit = [%d]\n", set->exit_val);
 	if (path != NULL && pid == 0)
 	{
-/* 		int x = -1;
+/*  		int x = -1;
 		while (args[++x])
 			printf("args[%s]\n", args[x]);
 		x = -1;
 		while (set->envp[++x])
-			printf("args[%s]\n", set->envp[x]);
-		printf("[%s]\n", path);	 */
-		set->exit_val = execve(path, args, set->envp);
+			printf("env[%s]\n", set->envp[x]);
+		printf("path [%s]\n cmd = [%s]\n", path, cmd);	 */
+		if (ft_strncmp(cmd, "env", ft_strlen(cmd) == 0) == 0)
+		{
+			ttm = joinf("_=", set->pathbc, set->cmd, "");
+			ft_modenv(ttm, set);
+			g = 1;
+			set->exit_val = execve(path, args, set->envp);
+		}
+		else
+			set->exit_val = execve(path, args, set->envp);
 /*		r = -1;
 		while (args[++r])
 			free(args[r]);
@@ -115,6 +127,16 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	else
 		set->exit_val = 0;
 	//printf("pid [%d]ret [%d]ex[%d]\n", pid , ret, set->exit_val);
+	if (g == 1)
+	{
+		if (set->pathbc != NULL)
+		{
+			free(set->pathbc);
+			set->pathbc = NULL;
+		} 
+		free(ttm);
+		get_lastcmd(set);	
+	}
 	r = -1;
 	while (args[++r])
 		free(args[r]);
@@ -164,6 +186,20 @@ int					bash_cmd(t_set *set, char *cmd)
 		path = get_path_chemin(set, path, len, cmd);
 	if (path == NULL)
 		return (1);
+
+
+/* 	char *ttm;
+	ttm = joinf("_=", set->pathbc, set->cmd, "");
+	ft_modenv(ttm, set);
+	ft_hideenv(ttm, set);
+ 	if (set->pathbc != NULL)
+	{
+		free(set->pathbc);
+		set->pathbc = NULL;
+	} 
+	free(ttm); */
 	//printf("final path = [%s]\n", path);
+
+	
 	return (exec_bin(set, path, cmd));
 }

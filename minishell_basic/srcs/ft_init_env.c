@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 12:29:38 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:04:13 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*joinf(char *s1, char *s2, char *s3, char *s4)
 	int		i;
 	int		e;
 
-	globalsize = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	globalsize = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + ft_strlen(s4);
 	if (!(res = malloc(sizeof(char) * globalsize + 1)))
 		return (NULL);
 	i = 0;
@@ -93,7 +93,7 @@ char	*joinf(char *s1, char *s2, char *s3, char *s4)
 	while (s4[e])
 		res[i++] = s4[e++];
 	res[i] = '\0';
-	//printf("[%s]\n", res);
+	//printf("[{%s}]\n", res);
 	return (res);
 }
 
@@ -212,6 +212,6 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 	if (shlvl == 0)
 		ft_menv(joinf("SHLVL=", set->shlvl, "", ""), set);
 	set->hide_envp = ft_strdup_dslash(set->envp);
-	if (bar == 0)
-		ft_menv(joinf("_=", set->path, "/", ""), set);
+	//if (bar == 0)
+	//	ft_menv(joinf("_=", set->path, "/", set->lastcmd), set);
 }
