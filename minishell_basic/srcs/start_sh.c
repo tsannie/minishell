@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 14:31:35 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/13 17:02:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,24 @@ void	start_cmd(t_set *set)
 	char *min;
 
 	min = maj_to_min(set->cmd);
-	//printf("min = {%s}\n", min);
-	get_lastcmd(set);
-	if (bash_cmd(set, min) == 0)
+
+	if (set->arg[0])
+	{
+		if (ft_strncmp(set->arg[0], "PATH=", 5) == 0)
+		{ 
+			 if (set->path)
+				free(set->path);
+			set->path = ft_get_path(set->envp);
+			//printf("set->path[%s]\n", set->path);
+			//printf("----------oui---------\n");
+			ft_free_dbtab(set->all_path);
+			set->all_path = ft_splitbc(set->path, ':');
+ 		}
+	}
+	
+	if (ft_streql(set->cmd, "export") == 1)
+		ft_export(set);
+	else if (bash_cmd(set, min) == 0)
 		;
 	else if (set->err_quote == 1)
 		ft_putstr_error_quote();
@@ -166,8 +181,6 @@ void	start_cmd(t_set *set)
 		ft_pwd(set);
 	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
-	else if (ft_streql(set->cmd, "export") == 1)
-		ft_export(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
 	else if (ft_streql(set->cmd, "env") == 1)
@@ -182,6 +195,8 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd);
 		set->exit_val = 127;
 	}
+	get_lastcmd(set);
+
 /* 	char *tmp;
 	if (set->pathbc)
 		free(set->pathbc);

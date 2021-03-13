@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 10:49:31 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 10:55:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/13 12:43:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void		ft_free_dbtab(char **tab)
 	int i;
 
 	i = -1;
-	while (tab[++i])
-		free(tab[i]);
 	if (tab)
+	{
+		while (tab[++i])
+			free(tab[i]);
 		free(tab);
+	}
 }

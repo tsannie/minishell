@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/12 14:28:24 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/13 16:52:35 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,28 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	int				valid;
 	
 	valid = 0;
-	folder = opendir(path);
+	int r = 0;
+	//printf("pt = [%s][%s]\n", path, cmd);
+	if (path != NULL)
+	{
+		if (path[r] == '.' && path[r + 1] == '/')
+			r = 1;
+	}
+	folder = opendir(path + r);
 	if (!folder)
 		return (NULL);
-	while ((item = readdir(folder)))
+	while ((item = readdir(folder)) && valid == 0)
 	{
 		if (ft_strcmp(item->d_name, cmd + len) == 0)
 			valid = 1;
+		//printf("i[%s]cl[%s]c[%s]\n", item->d_name, cmd + len, cmd);
 	}
 	closedir(folder);
 	if (valid == 0)
 		return (NULL);
-	set->pathbc = ft_strdup(path);
-	return (ft_strjoin(path, cmd + len));
+	set->pathbc = ft_strdup(path + r);
+	return (ft_strjoin(path + r, cmd + len));
+	//return (cmd);
 }
 
 char				*get_path(t_set *set, char *path, char *cmd)
@@ -63,23 +72,30 @@ char				*get_path(t_set *set, char *path, char *cmd)
 
 	valid = 0;
 	//printf("pt = [%s]\n", path);
-	folder = opendir(path);
+	int r = 0;
+	if (path != NULL)
+	{
+		if (path[r] == '.' && path[r + 1] == '/')
+			r = 1;
+	}
+	folder = opendir(path + r);
 	if (!folder)
 		return (NULL);
 	while ((item = readdir(folder)))
 	{
 		if (ft_strcmp(item->d_name, cmd) == 0)
 			valid = 1;
-	//	printf("[%s][%s][%d]\n", item->d_name, cmd, ft_strcmp(item->d_name, cmd));
+		//printf("item[%s][%s][%d]\n", item->d_name, cmd, ft_strcmp(item->d_name, cmd));
 	}
 	closedir(folder);
-	if (ft_strncmp(cmd, "./", 2) == 0 ||
-	ft_strncmp(cmd, "../", 3) == 0)
-		return ft_strdup(cmd);
+	//if (ft_strncmp(cmd, "./", 2) == 0 ||
+	//ft_strncmp(cmd, "../", 3) == 0)
+	//	return ft_strdup(cmd);
+	//printf("v = [%d]\n", valid);
 	if (valid == 0)
 		return (NULL);
-	set->pathbc = ft_strdup(path);
-	return (ft_strjoin(path, cmd));
+	set->pathbc = ft_strdup(path + r);
+	return (ft_strjoin(path + r, cmd));
 }
 
 int					exec_bin(t_set *set, char *path, char *cmd)
@@ -94,7 +110,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	int ret = 0;
 
 	r = 0;
-		//printf("exit = [%d]\n", set->exit_val);
+	//printf("exe= [%s]\n", path);
 	if (path != NULL && pid == 0)
 	{
 /*  		int x = -1;
@@ -102,12 +118,14 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 			printf("args[%s]\n", args[x]);
 		x = -1;
 		while (set->envp[++x])
-			printf("env[%s]\n", set->envp[x]);
-		printf("path [%s]\n cmd = [%s]\n", path, cmd);	 */
-		if (ft_strncmp(cmd, "env", ft_strlen(cmd) == 0) == 0)
+			printf("env[%s]\n", set->envp[x]); */
+		//printf("patheqwqwe [%s]\n cmd = [%s]\n", path, cmd);	
+		if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 		{
-			ttm = joinf("_=", set->pathbc, set->cmd, "");
+			ttm = joinf("_=/", set->pathbc + 1, set->cmd, "");
 			ft_modenv(ttm, set);
+			//printf("ENV\n");
+			//printf("ttm = [%s]\n", ttm);
 			g = 1;
 			set->exit_val = execve(path, args, set->envp);
 		}
@@ -122,6 +140,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	}
 	else
 		waitpid(pid, &ret, 0);
+	//printf("ret============%d", ret);
 	if (ret == 256)
 		set->exit_val = 1;
 	else
@@ -157,33 +176,44 @@ int					bash_cmd(t_set *set, char *cmd)
 	len = 0;
 	chemin = 0;
 	path = NULL;
-	while (cmd[x])
+	int r = 0;
+
+	while (cmd[x] && len == 0)
 	{
-		while (set->all_path[y])
+		while (set->all_path[y] && len == 0)
 		{
-			if (ft_strncmp(set->all_path[y], cmd + x,
-			ft_strlen(set->all_path[y])) == 0)
+			if (set->all_path[y][r] == '.' && set->all_path[y][r + 1] == '/')
+				r = 1;
+			if (ft_strncmp(set->all_path[y] + r, cmd + x,
+			ft_strlen(set->all_path[y] + r)) == 0 && path == NULL)
 			{
 				chemin = 1;
-				len = ft_strlen(set->all_path[y]);
-				path = ft_strdup(set->all_path[y]);
-			}	 	 
+				len = ft_strlen(set->all_path[y] + r);
+				path = ft_strdup(set->all_path[y] + r);
+			}
+			r = 0;
+		//	printf("oo[%s][%s][%s]oo\n", set->all_path[y] + r, cmd + x, path); 	 
+		//	printf("----p[%s]cmd[%s]alp[%s]-+--\n",path,cmd + x, set->all_path[y]); 	 
 			y++;
-		} 
+		}
+		y = 0;
 		x++;
 	}
-	//printf("chemin = [%d]\n", chemin);
+	//printf("chemin = [%d]p[%s]cmd[%s]\n", chemin, path, cmd);
 	y = -1;
-	if (chemin == 0)
+	if (chemin == 0 && path == NULL)
 	{
 		while (set->all_path[++y] && path == NULL)
 		{
 			path = get_path(set, set->all_path[y], cmd);
+		//printf("oo[%s][%s]oo\n", path, set->all_path[y]);
 		}
-	//	printf("act path = [%s]\n", path);
 	}
 	else if (chemin == 1)
+	{
 		path = get_path_chemin(set, path, len, cmd);
+		//printf("cmd = [%s]p[%s]\n", cmd, path);
+	}
 	if (path == NULL)
 		return (1);
 
