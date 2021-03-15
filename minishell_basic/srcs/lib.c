@@ -1,28 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   lib.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 13:18:32 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/15 15:50:29 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/03/15 15:30:07 by phbarrad          #+#    #+#             */
+/*   Updated: 2021/03/15 15:30:17 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-int ft_pwd(t_set *set)
+char	*ft_strduplen(const char *s1, int len)
 {
-    char buff[4096 + 1];
+	char	*res;
+	size_t	i;
 
-/* 	if (ft_streql(set->cmd, "pwd") != 1)
+	i = 0;
+	if (!(res = malloc(sizeof(char) * (len))))
+		return (NULL);
+	while (s1[i] && i < len)
 	{
-		ft_putstr_not_found(set->cmd);
+		res[i] = s1[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+int			is_dir(char *arg)
+{
+	int		file;
+
+	file = open(arg, O_DIRECTORY);
+	//printf("file = %d, str = %s\n", file, arg);
+	if (file != -1)
+	{
+		close(file);
 		return (1);
-	} */
-    set->pwd = getcwd(buff, 4097);
-    ft_putstr_fd(set->pwd, STDOUT);
-	ft_putchar_fd('\n', STDOUT);
-    return (0);
+	}
+	close(file);
+	return (0);
 }

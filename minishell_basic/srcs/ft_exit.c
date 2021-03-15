@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:15:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:50:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void	ft_eexit(t_set *set)
 	len = 0;
     if (ft_streql(set->cmd, "exit") != 1)
     {
-        ft_putstr_not_found(set->cmd);
-        set->exit_val = 127; // a retirer 
+        ft_putstr_not_found(set->cmd, set);
 		exit(set->exit_val);
     }
 	while (set->arg[len])

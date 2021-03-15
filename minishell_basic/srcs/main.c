@@ -6,11 +6,13 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/12 10:17:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:07:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
+
+volatile int run = 0;
 
 void			disp_prompt(void)
 {
@@ -21,6 +23,8 @@ void			int_handler(int sig)
 {
 	ft_putstr_fd("\b\b  ", STDERR);
 	ft_putstr_fd("\n", STDERR);
+	printf("sig = [%d]\n", sig);
+	run = 1;
 	disp_prompt();
 }
 
@@ -99,11 +103,22 @@ int				main(int ac, char **av, char **envp)
 	else
 	{
 		signal(SIGINT, int_handler);
-		while (set->exit == 0)
-		{
+		set->exit = run;
+		while (1)
+		{			//set->exit_val = 0;
+			set->exit = run;
 			disp_prompt();
-			start_shell(ac, av, set);
+			//printf("run = [%d]\n", run);
+/* 			if (run == 1)
+			{
+				run = 0;
+				//printf("run = [%d]\n", run);
+				set->exit_val = 1;
+			} */
 			//printf("ev[%d]\n", set->exit_val);
+
+			start_shell(ac, av, set);
+
 			//add_exval(set);
 		}
 	}

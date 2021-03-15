@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/12 14:33:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:30:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ typedef struct	s_set
 }				t_set;
 
 //lib
-char	**ft_splitbc(const char *str, char charset);
+char			**ft_splitbc(const char *str, char charset);
 void			add_exval(t_set *set);
+char			*ft_strduplen(const char *s1, int len);
+int				is_dir(char *arg);
 //env
 unsigned long long		ft_atoill(const char *str);
 int ft_modenv(char *str, t_set *set);
@@ -89,7 +91,7 @@ void		ft_sort_dbtab(t_set *set);
 //
 int		is_pipe(char *str);
 int		forwar_quote(char *src, int i);
-void	ft_putstr_not_found(char *str);
+void	ft_putstr_not_found(char *str, t_set *set);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
 void	start_shell(int ac, char **av,   t_set *set);
