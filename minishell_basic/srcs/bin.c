@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/15 15:47:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:18:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 		return (NULL);
 	}
 	if (valid == 0)
+	{
+		set->exit_val = 4;
 		return (NULL);
+	}
 	set->pathbc = ft_strdup(cmd);
 	return (set->pathbc);
 	//return (cmd);
@@ -152,9 +155,9 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 		if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0) //  ../../../../usr/bin/env
 		{
 			//printf("----------cmd = end-----------\n");
-			ttm = joinf("_=/", set->pathbc + 1, set->lastcmd + 2, "");
+			ttm = joinf("_=", path, "", "");
 			ft_modenv(ttm, set);
-			//printf("ENV\n");
+			//printf("\n\n----ENV----\n\n");
 			//printf("ttm = [%s]\n", ttm);
 			g = 1;
 			set->exit_val = execve(path, args, set->envp);

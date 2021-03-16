@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/15 16:05:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:05:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,32 @@ void ft_putstr_not_found(char *str, t_set *set)
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd(str, 1);
 	if (set->exit_val == 3)
 	{
-		ft_putstr_fd(": is a directory\n", 1);
+		ft_putstr_fd(": is a directory\n", STDERR);
 		set->exit_val = 126;
 	}
 	else if (set->exit_val == 4)
 	{
-		ft_putstr_fd(": No such file or directory\n", 1);
+		ft_putstr_fd(": No such file or directory\n", STDERR);
 		set->exit_val = 126;
 	}
 	else
 	{
-		ft_putstr_fd(": command not found\n", 1);
+		ft_putstr_fd(": command not found\n", STDERR);
 		set->exit_val = 127;
 	}
 }
 
 void ft_putstr_error_quote(void)
 {
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
-	ft_putstr_fd("syntax error with open quotes\n", 1);
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
+	ft_putstr_fd("syntax error with open quotes\n", STDERR);
 }
 
-char *get_val(void)
+char *get_val(t_set *set)
 {
 	char **line;
 	int gnl;
@@ -64,14 +64,20 @@ char *get_val(void)
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
 	gnl = get_next_line(0, line);
+	//printf("sx gnl= [%d]\n", set->exit);
 	//printf("[%d][%s]\n", gnl, *line);
 	if (gnl == 0 && ft_strlen(*line) != 0)
+	{
 		ft_putstr_fd("\b\b  ", STDERR);
+	//	set->exit_val = 0;
+	//	add_exval(set);
+	}
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
 		ft_putstr_fd("exit\n", 1);			// peut etre placer sous STDER
 		exit(0);
 	}
+	// printf("line = [%s]\n", *line);
 	return (*line);
 }
 
@@ -165,7 +171,6 @@ void	get_lastcmd(t_set *set)
 	}
  	else
 	{*/
-		//set->lastcmd = joinf("_=", set->pwd + 4, "/", tmp);
 		if (set->lastcmd)
 			free(set->lastcmd);
 		set->lastcmd = ft_strjoin("_=", tmp);
@@ -177,21 +182,19 @@ void	get_lastcmd(t_set *set)
 	//}
 }
 
-void	start_cmd(t_set *set)
+void	start_cmd(t_set *set, int g_run)
 {
 	char *min;
 
 	min = maj_to_min(set->cmd);
 	get_lastcmd(set);
 	//printf("last2 = [%s]\n", set->lastcmd);
-
+	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
 
 	if (ft_streql(set->cmd, "export") == 1)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
-	else if (bash_cmd(set, min) == 0)
-		;
 	else if (set->err_quote == 1)
 		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
@@ -200,35 +203,39 @@ void	start_cmd(t_set *set)
 		ft_pwd(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
-	else if (ft_streql(set->cmd, "env") == 1)
-		ft_env(set);
 	else if (ft_streql(set->cmd, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
+	else if (bash_cmd(set, min) == 0)
+		;
+	else if (ft_streql(set->cmd, "env") == 1)
+		ft_env(set);		
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
 		//printf("MON\n");
 		ft_putstr_not_found(set->cmd, set);
 	}
-
-/* 	char *tmp;
-	if (set->pathbc)
-		free(set->pathbc);
-	else
+/* 	else
+		set->exit_val = 1; */
+	if (set->arg[0])
 	{
-		tmp = joinf("_=", set->pwd, "/", set->lastcmd);
-		ft_modenv(tmp, set);
-		free(tmp);
-	} */
-		printf("[%d]oui[%d]\n", set->exit_val, set->exit);
-
-	if (set->exit == 1)
-	{
-		set->exit_val = set->exit;
+		if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
+		ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
+		{ 
+			if (set->path)
+				free(set->path);
+			set->path = ft_get_path(set->envp);
+			printf("----------oui---------\n");
+			printf("set->path[%s]\n", set->path);
+		//	printf("----------oui---------\n");
+			ft_free_dbtab(set->all_path);
+			set->all_path = ft_splitbc(set->path, ':');
+ 		}
 	}
+	//printf("[%d]oui[%d]\n", set->exit_val, set->exit);
 	add_exval(set);
-	set->exit = 0;
+	//set->exit = 0;
 /* 	if (set->pathbc != NULL)
 	{
 		free(set->pathbc);
@@ -239,17 +246,23 @@ void	start_cmd(t_set *set)
 	free(min);
 }
 
-void	start_shell(int ac, char **av, t_set *set)
+void	start_shell(int ac, char **av, t_set *set, int g_run)
 {
 	if (ac == 3)
 		set->str = av[2];		// for testeur
 	else
 	{
-		//ft_putstr_fd("avant",  set->fd);
-		set->str = get_val();
+		set->str = get_val(set);
+	}
+	if (g_run == 1)
+	{
+		//printf("oui\n");
+		set->exit_val = g_run;
+		add_exval(set);
+		g_run = 0;
 	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
-	treat_cmd(set);
+	treat_cmd(set, g_run);
 }
 

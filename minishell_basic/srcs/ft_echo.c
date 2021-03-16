@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/15 15:45:44 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:09:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int is_noret(char *str)
 	return (1);
 }
 
-void		put_last_cmd(char *str)
+/* void		put_last_cmd(char *str)
 {
 	int i;
 
@@ -39,7 +39,7 @@ void		put_last_cmd(char *str)
 	while (i > 0 && str[i] != '/')
 		i--;
 	ft_putstr_fd(str + i, STDOUT);
-}
+} */
 
 int		ft_echo(t_set *set)
 {

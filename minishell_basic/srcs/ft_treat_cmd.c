@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 12:52:51 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/16 12:48:51 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,7 @@ void	reset_fd(t_set *set)
 	dup2(set->save_stdout, STDOUT);
 }
 
-void	treat_cmd(t_set *set)
+void	treat_cmd(t_set *set, int g_run)
 {
 	char **list;
 	char *push;
@@ -368,11 +368,11 @@ void	treat_cmd(t_set *set)
 
 				clean(push, set);
 				if (set->stop == 0)
-					start_cmd(set);
+					start_cmd(set, g_run);
 				free(set->cmd);
 				free(push);
 				ft_free_dbtab(set->arg);
-				simple--;\
+				simple--;
 				//printf("p = %d\n\n", set->p);
 				//printf("salut");
 			}
