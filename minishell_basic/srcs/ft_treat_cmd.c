@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treat_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/17 10:52:37 by tsannie          ###   ########.fr       */
+=======
+/*   Updated: 2021/03/16 12:48:51 by phbarrad         ###   ########.fr       */
+>>>>>>> e4e7b33ca3d66a119984979be21622412cc755f6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +361,7 @@ void	exec_cmd(t_set *set, char *cmd)
 
 }
 
-void	treat_cmd(t_set *set)
+void	treat_cmd(t_set *set, int g_run)
 {
 	char **list;
 	int i;

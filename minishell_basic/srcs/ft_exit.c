@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/11 13:15:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:57:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void	ft_eexit(t_set *set)
 	len = 0;
     if (ft_streql(set->cmd, "exit") != 1)
     {
-        ft_putstr_not_found(set->cmd);
-        set->exit_val = 127; // a retirer 
+        ft_putstr_not_found(set->cmd, set);
 		exit(set->exit_val);
     }
 	while (set->arg[len])
@@ -92,14 +91,29 @@ void	ft_eexit(t_set *set)
 		exit(0);
 	else if (ft_check_valid_exit(set) == 1)
 	{
-		printf("minishell: %s: %s: numeric argument required\n", set->cmd, set->arg[0]);
+		//ft_putstr_fd(set->cmd, STDERR);
+		//ft_putstr_fd("\n", STDERR);
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd(set->cmd, STDERR);
+		ft_putstr_fd(": ", STDERR);
+		ft_putstr_fd(set->arg[0], STDERR);
+		ft_putstr_fd(": numeric argument required\n", STDERR);
 		exit(255);
 	}
 	if (len > 1)
 	{
-		printf("minishell: %s: too many arguments\n", set->cmd);
-		exit (1);
+		//ft_putstr_fd(set->cmd, STDERR);
+	//	ft_putstr_fd("\n", STDERR);
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd(set->cmd, STDERR);
+		ft_putstr_fd(": too many arguments\n", STDERR);
+		set->exit_val = 1;
+		//exit (1); jsp
 	}
 	else
+	{
+		//ft_putstr_fd(set->cmd, STDERR);
+		//ft_putstr_fd("\n", STDERR);
 		exit(ft_atoi(set->arg[0]));
+	}
 }

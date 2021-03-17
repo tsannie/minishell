@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solo_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 09:36:45 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/10 11:17:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/15 10:25:50 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int ft_disp_export(t_set *set)
 	i = 0;
 	while (set->hide_envp[i])
 	{
-		if (ft_strncmp(set->hide_envp[i], "?=", 2) != 0)
+		if (ft_strncmp(set->hide_envp[i], "?=", 2) != 0 &&
+		ft_strncmp(set->hide_envp[i], "_=", 2) != 0)
 		{
 			ft_putstr_fd("declare -x ", STDOUT);
 			x = 0;

@@ -6,7 +6,11 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/17 10:53:55 by tsannie          ###   ########.fr       */
+=======
+/*   Updated: 2021/03/17 10:37:12 by phbarrad         ###   ########.fr       */
+>>>>>>> e4e7b33ca3d66a119984979be21622412cc755f6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +30,42 @@ int check_cmd(char *str)
 	return (1);
 }
 
-void ft_putstr_not_found(char *str)
+void ft_putstr_not_found(char *str, t_set *set)
 {
 	int i;
 
 	i = 0;
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
+	//printf("paath = [%s]\n", set->path);
+	if (set->path == NULL)
+	{
+		set->exit_val = 4;
+	}
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd(str, 1);
-	ft_putstr_fd(": command not found\n", 1);
+	if (set->exit_val == 3)
+	{
+		ft_putstr_fd(": is a directory\n", STDERR);
+		set->exit_val = 126;
+	}
+	else if (set->exit_val == 4)
+	{
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+		set->exit_val = 126;
+	}
+	else
+	{
+		ft_putstr_fd(": command not found\n", STDERR);
+		set->exit_val = 127;
+	}
 }
 
 void ft_putstr_error_quote(void)
 {
-	ft_putstr_fd("minishell: ", 1);							// peut etre placer sous STDER
-	ft_putstr_fd("syntax error with open quotes\n", 1);
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
+	ft_putstr_fd("syntax error with open quotes\n", STDERR);
 }
 
-char *get_val(void)
+char *get_val(t_set *set)
 {
 	char **line;
 	int gnl;
@@ -50,14 +73,20 @@ char *get_val(void)
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
 	gnl = get_next_line(0, line);
+	//printf("sx gnl= [%d]\n", set->exit);
 	//printf("[%d][%s]\n", gnl, *line);
 	if (gnl == 0 && ft_strlen(*line) != 0)
+	{
 		ft_putstr_fd("\b\b  ", STDERR);
+	//	set->exit_val = 0;
+	//	add_exval(set);
+	}
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
 		ft_putstr_fd("exit\n", 1);			// peut etre placer sous STDER
 		exit(0);
 	}
+	// printf("line = [%s]\n", *line);
 	return (*line);
 }
 
@@ -91,25 +120,44 @@ int		eglinstr(char *str)
 	return (0);
 }
 
+
+int		check_last(t_set *set)
+{
+	int i;
+	// $_ && echo $_ && qwe qwe qwe $_
+	if (ft_strncmp(set->str, "$_", ft_strlen(set->str)) == 0)//&& set->lastcmd != NULL)
+	{
+			//printf("oui 1\n");
+			return (1);
+	}
+
+	i = ft_strlen(set->str) - 1;
+	//printf("c = [%c]\n", set->str[i]);
+	while (set->str[i] == ' ' || set->str[i] == '\t')
+		i--;
+	//printf("s - 1 = [%s]\n", set->str + i - 1);
+	if (ft_strncmp(set->str + i - 1, "$_", 2) == 0)//&& set->lastcmd != NULL)
+	{
+		//printf("oui 2\n");
+		return (1);
+	}	
+	return (0);
+}
+
 void	get_lastcmd(t_set *set)
 {
 	int i;
 	char *tmp;
+	
+	i = 0;
+	//printf("cmd = [%s]\n", set->cmd);
+	//if (check_last(set) == 1)
+	//	return ;
+	//
+
+
 
 	i = 0;
-	while (set->str[i])
-	{
-		if (ft_strncmp(set->str + i, "$_", 2) == 0 && set->lastcmd != NULL)
-		{
-			//printf("oui = [%s]\n", set->lastcmd);
-			ft_hideenv(set->lastcmd, set);
-			ft_modenv(set->lastcmd, set);
-			return ;
-		}
-		i++;
-	}
-	i = 0;
-
 	while (set->arg[i])
 		i++;
 	if (set->arg[0] == NULL)
@@ -132,68 +180,78 @@ void	get_lastcmd(t_set *set)
 	}
  	else
 	{*/
-		//set->lastcmd = joinf("_=", set->pwd + 4, "/", tmp);
 		if (set->lastcmd)
 			free(set->lastcmd);
 		set->lastcmd = ft_strjoin("_=", tmp);
 		if (tmp)
 			free(tmp);
-		//ft_hideenv(set->lastcmd, set);
+		ft_hideenv(set->lastcmd, set);
 		ft_modenv(set->lastcmd, set);
-		//printf("last = [%s]\n", set->lastcmd);
-		if (set->lastcmd)
-		{
-			free(set->lastcmd);
-			set->lastcmd = NULL;
-		}
+		//printf("las1 = [%s]\n", set->lastcmd);
 	//}
 }
 
-void	start_cmd(t_set *set)
+void	start_cmd(t_set *set, int g_run)
 {
 	char *min;
 
 	//print_args(set->arg);
 	min = maj_to_min(set->cmd);
 	get_lastcmd(set);
-	if (bash_cmd(set, min) == 0)
-		;
+	//printf("last2 = [%s]\n", set->lastcmd);
+	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
+
+	if (ft_streql(set->cmd, "export") == 1)
+		ft_export(set);
+	else if (ft_streql(set->cmd, "cd") == 1)
+		ft_cd(set);
 	else if (set->err_quote == 1)
 		ft_putstr_error_quote();
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
 	else if (ft_streql(set->cmd, "pwd") == 1)
 		ft_pwd(set);
-	else if (ft_streql(set->cmd, "cd") == 1)
-		ft_cd(set);
-	else if (ft_streql(set->cmd, "export") == 1)
-		ft_export(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
-	else if (ft_streql(set->cmd, "env") == 1)
-		ft_env(set);
 	else if (ft_streql(set->cmd, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
 	{
 		ft_echo(set);
+<<<<<<< HEAD
 	}
+=======
+	else if (bash_cmd(set, min) == 0)
+		;
+	else if (ft_streql(set->cmd, "env") == 1)
+		ft_env(set);		
+>>>>>>> e4e7b33ca3d66a119984979be21622412cc755f6
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
 		//printf("MON\n");
-		ft_putstr_not_found(set->cmd);
-		set->exit_val = 127;
+		ft_putstr_not_found(set->cmd, set);
 	}
-/* 	char *tmp;
-	if (set->pathbc)
-		free(set->pathbc);
-	else
-	{
-		tmp = joinf("_=", set->pwd, "/", set->lastcmd);
-		ft_modenv(tmp, set);
-		free(tmp);
-	} */
+/* 	else
+		set->exit_val = 1; */
+//	if (set->arg[0])
+//	{
+	//	if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
+	//	ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
+	//	{ 
+			if (set->path != NULL)
+				free(set->path);
+			set->path = ft_get_path(set->envp);
+			//printf("set->path[%s]\n", set->path);
+		//	printf("----------oui---------\n");
+			//if (set->all_path != NULL)
+				ft_free_dbtab(set->all_path);
+			//if (set->path != NULL)
+				set->all_path = ft_splitbc(set->path, ':');
+ 	//}
+	//}
+	//printf("[%d]oui[%d]\n", set->exit_val, set->exit);
 	add_exval(set);
+	//set->exit = 0;
 /* 	if (set->pathbc != NULL)
 	{
 		free(set->pathbc);
@@ -210,17 +268,23 @@ void	start_cmd(t_set *set)
 	set->pipeout = -1;
 }
 
-void	start_shell(int ac, char **av, t_set *set)
+void	start_shell(int ac, char **av, t_set *set, int g_run)
 {
 	if (ac == 3)
 		set->str = av[2];		// for testeur
 	else
 	{
-		//ft_putstr_fd("avant",  set->fd);
-		set->str = get_val();
+		set->str = get_val(set);
+	}
+	if (g_run == 1)
+	{
+		//printf("oui\n");
+		set->exit_val = g_run;
+		add_exval(set);
+		g_run = 0;
 	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
-	treat_cmd(set);
+	treat_cmd(set, g_run);
 }
 

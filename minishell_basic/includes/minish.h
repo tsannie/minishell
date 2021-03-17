@@ -6,11 +6,10 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:25:46 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 10:54:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISH_H
 # define MINISH_H
 
 # include "../../libft/libft.h"
@@ -84,8 +83,10 @@ typedef struct	s_set
 }				t_set;
 
 //lib
-char	**ft_splitbc(const char *str, char charset);
+char			**ft_splitbc(const char *str, char charset);
 void			add_exval(t_set *set);
+char			*ft_strduplen(const char *s1, int len);
+int				is_dir(char *arg);
 //env
 unsigned long long		ft_atoill(const char *str);
 int ft_modenv(char *str, t_set *set);
@@ -98,12 +99,12 @@ void		ft_sort_dbtab(t_set *set);
 void	ifclose(int fd);
 int		is_pipe(char *str);
 int		forwar_quote(char *src, int i);
-void	ft_putstr_not_found(char *str);
+void	ft_putstr_not_found(char *str, t_set *set);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
-void	start_shell(int ac, char **av,   t_set *set);
-void	treat_cmd(t_set *set);
-void	start_cmd(  t_set *set);
+void	start_shell(int ac, char **av, t_set *set, int f_run);
+void	treat_cmd(t_set *set, int g_run);
+void	start_cmd(  t_set *set, int g_run);
 char	**search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
@@ -146,4 +147,6 @@ int			ft_strcmp(char *s1, char *s2);
 /* TOOLS TO DELETE WHEN ITS END */
 void	print_args(char **str);
 
+
+char *get_val(t_set *set);
 #endif
