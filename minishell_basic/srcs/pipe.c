@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 10:53:10 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 16:27:44 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ char	**split_pipe(char *str, t_set *set)
 int		pipe_exec_son(t_set *set, int fdpipe[2], int fd_in)
 {
 	dup2(fd_in, STDIN_FILENO); //if there was a pipe before, connecting this command to previous one
-	if (!set->push[set->p + 1]) //if there is an other pipe after this command we redirect its output into the fdpipe
+	if (set->push[set->p + 1]) //if there is an other pipe after this command we redirect its output into the fdpipe
+	{
 		dup2(fdpipe[1], STDOUT_FILENO); //otherwise this command is the last one and will print to stdout
+		//printf("LEAVE\n");
+	}
 	close(fd_in);     //now saved in STDIN
 	close(fdpipe[0]); //son is taking the input previously save from STDIN / or a previous pipe (fd_in)
 	close(fdpipe[1]); //now saved in STDOUT if there is a next command
 	exec_cmd(set, set->push[set->p]);
+	//printf("exit\n");
 	exit(set->ret_value); //sets in execve_part
 }
 
@@ -90,20 +94,25 @@ int		start_pipe(t_set *set)
 	int			fdpipe[2];
 	int			fd_in; //for saving the input of next command to be executed
 	int			status;
+	pid_t		pid;
 	int			nb_wait;
 
 	status = 0;
 	nb_wait = 0;
+	pid = -1;
 	fd_in = dup(STDIN_FILENO);
-	while (set->push[set->p])
+	while (set->push[set->p] && pid != 0)
 	{
-		printf("set->push[set->p] = {%s}\n", set->push[set->p]);
+		//printf("set->push[set->p] = {%s}\n", set->push[set->p]);
 		if (pipe(fdpipe) == -1)
 			return (set->ret_value = 1);
-		if ((set->pid = fork()) == -1)
-			return (set->ret_value = 1);
-		else if (!set->pid)		//son
+		pid = fork();
+		//printf("set->pid\t=\t%d\n", pid);
+		if (pid == 0)		//son
+		{
+			//printf("\t\t\tenter HERE\n");
 			pipe_exec_son(set, fdpipe, fd_in);
+		}
 		else				//parent
 		{
 			close(fd_in);			//we will copy pipe_intput inside
@@ -115,10 +124,11 @@ int		start_pipe(t_set *set)
 		set->p++;
 	}
 	close(fd_in); //close last save of fdpipe[0]
+	reset_fd(set);
 	while (nb_wait-- >= 0) //waiting that all the processes launched end
-		if (wait(&status) == set->pid)
+		if (wait(&status) == pid)
 		{
-			printf("now wait\n");
+			//printf("now wait\n");
 			set->ret_value = WEXITSTATUS(status);
 		}
 

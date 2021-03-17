@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:57:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:22:59 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
 	set->exit = 0;
-	set->pid = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
 	set->pwd = ft_strjoin("PWD=", getcwd(buff, 4097));
 	tmp = ft_strjoin("SHLVL=", set->shlvl);
@@ -91,7 +90,7 @@ void			add_exval(t_set *set)
 }
 
 int				main(int ac, char **av, char **envp)
-{	
+{
 	t_set	*set;
 
 	if (!(set = malloc(sizeof(t_set))))
@@ -106,7 +105,7 @@ int				main(int ac, char **av, char **envp)
 	{
 		signal(SIGINT, int_handler);
 		while (1)
-		{		
+		{
 			//set->exit = run;
 			if (g_run == 0)
 				disp_prompt();
@@ -139,7 +138,7 @@ int				main(int ac, char **av, char **envp)
 			//printf("[%s]\n", set->str);
 			//printf("run1[%d]\n", g_run);
 
-			
+
 			treat_cmd(set, g_run); 			 *///if (run == 1)
 			//{
 			//	run = 0;
