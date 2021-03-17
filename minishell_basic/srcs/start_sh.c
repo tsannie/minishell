@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 14:31:35 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:53:55 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	get_lastcmd(t_set *set)
 		tmp = before_equale(set->arg[i - 1]);
 		//printf("[%s]\n", tmp);
 	}
-	
+
 	//printf("pathbc = [%s]\n", set->pathbc);
 /*  	if (set->pathbc != NULL)
 	{
@@ -153,8 +153,8 @@ void	start_cmd(t_set *set)
 {
 	char *min;
 
+	//print_args(set->arg);
 	min = maj_to_min(set->cmd);
-	//printf("min = {%s}\n", min);
 	get_lastcmd(set);
 	if (bash_cmd(set, min) == 0)
 		;
@@ -175,7 +175,9 @@ void	start_cmd(t_set *set)
 	else if (ft_streql(set->cmd, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
+	{
 		ft_echo(set);
+	}
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
 		//printf("MON\n");
@@ -200,6 +202,12 @@ void	start_cmd(t_set *set)
 	//printf("nf[%d]\n", set->exit_val);
 	//printf("after = [%s]\n", set->lastcmd);
 	free(min);
+	free(set->cmd);
+	ft_free_dbtab(set->arg);
+	ifclose(set->pipein);
+	ifclose(set->pipeout);
+	set->pipein = -1;
+	set->pipeout = -1;
 }
 
 void	start_shell(int ac, char **av, t_set *set)

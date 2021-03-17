@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 13:01:17 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 10:53:10 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,9 @@ int		is_pipe(char *str)
 	return (0);
 }
 
-/*	pid_t	pid;
-	int		pipefd[2];
-
-	printf("Salut\n");
-	pipe(pipefd);
-	pid = fork();
-	printf("pip = %d\n", pid);
-	if (pid == 0)
-	{
-		ft_close(pipefd[1]);
-		dup2(pipefd[0], STDIN);
-		set->pipein = pipefd[0];
-		set->pid = -1;
-		return (2);
-	}
-	else
-	{
-		ft_close(pipefd[0]);
-		dup2(pipefd[1], STDOUT);
-		set->pipeout = pipefd[1];
-		set->pid = pid;
-		return (1);
-	}*/
-
-char	*nextcmd(char *str, t_set *set)
+char	*new_pipe(char *str, t_set *set)
 {
-	char	*res;
+	char	*tmp;
 	int		len;
 
 	len = set->p;
@@ -68,29 +44,83 @@ char	*nextcmd(char *str, t_set *set)
 	}
 	len = (set->p - len) + 1;
 	set->p++;
-	//printf("set->p = %d\n", set->p);
-	if (!(res = malloc(sizeof(char) * len)))
+	//printf("i = %d\n", i);
+	if (!(tmp = malloc(sizeof(char) * len)))
 		return (NULL);
-	ft_strlcpy(res, &str[set->p - (len)], len);
-	//printf("str = {%s} | push = {%s} | p = %d\n\n", &str[set->p], res, set->p);
-	if (!(str[set->p]))
-		set->p = -1;
+	ft_strlcpy(tmp, &str[set->p - (len)], len);
 
+	return (tmp);
+}
+
+char	**split_pipe(char *str, t_set *set)
+{
+	char	**res;
+	char	*add_this;
+	int		i;
+
+	if (!(res = malloc(sizeof(char*) * 1)))
+		return (NULL);
+	res[0] = 0;
+	i = 1;
+	while (set->p < ft_strlen(str))
+	{
+		add_this = new_pipe(str, set);
+		res = addword(res, i, set, add_this);
+		i++;
+		free(add_this);
+	}
+	//print_args(res);
 	return(res);
 }
 
-char	*start_pipe(char *str, t_set *set)
+int		pipe_exec_son(t_set *set, int fdpipe[2], int fd_in)
 {
-	char	*push;
+	dup2(fd_in, STDIN_FILENO); //if there was a pipe before, connecting this command to previous one
+	if (!set->push[set->p + 1]) //if there is an other pipe after this command we redirect its output into the fdpipe
+		dup2(fdpipe[1], STDOUT_FILENO); //otherwise this command is the last one and will print to stdout
+	close(fd_in);     //now saved in STDIN
+	close(fdpipe[0]); //son is taking the input previously save from STDIN / or a previous pipe (fd_in)
+	close(fdpipe[1]); //now saved in STDOUT if there is a next command
+	exec_cmd(set, set->push[set->p]);
+	exit(set->ret_value); //sets in execve_part
+}
 
-	if (is_pipe(str) == 1)
+int		start_pipe(t_set *set)
+{
+	int			fdpipe[2];
+	int			fd_in; //for saving the input of next command to be executed
+	int			status;
+	int			nb_wait;
+
+	status = 0;
+	nb_wait = 0;
+	fd_in = dup(STDIN_FILENO);
+	while (set->push[set->p])
 	{
-		push = nextcmd(str, set);
-		//printf("str = {%s} | push = {%s} | p = %d\n\n", &str[set->p], push, set->p);
-		//change_in_out;
+		printf("set->push[set->p] = {%s}\n", set->push[set->p]);
+		if (pipe(fdpipe) == -1)
+			return (set->ret_value = 1);
+		if ((set->pid = fork()) == -1)
+			return (set->ret_value = 1);
+		else if (!set->pid)		//son
+			pipe_exec_son(set, fdpipe, fd_in);
+		else				//parent
+		{
+			close(fd_in);			//we will copy pipe_intput inside
+			fd_in = dup(fdpipe[0]);	//saving pipe_input, will be use in the next loop
+			close(fdpipe[0]);		//saved in fd_in
+			close(fdpipe[1]);		//not used
+			nb_wait++;
+		}
+		set->p++;
 	}
-	else
-		push = ft_strdup(str);
+	close(fd_in); //close last save of fdpipe[0]
+	while (nb_wait-- >= 0) //waiting that all the processes launched end
+		if (wait(&status) == set->pid)
+		{
+			printf("now wait\n");
+			set->ret_value = WEXITSTATUS(status);
+		}
 
-	return (push);
+	return (0);
 }

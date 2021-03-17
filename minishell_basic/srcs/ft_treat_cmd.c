@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 12:52:51 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 10:52:37 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,28 +326,42 @@ int		correct_cmd(char *str, t_set *set)
 	return(0);
 }
 
+void ifclose(int fd)
+{
+	if (fd > 0)
+		close(fd);
+}
+
 void	reset_fd(t_set *set)
 {
-	if (set->fdout > 0)			// check fd
-	{
-		close(set->fdout);
-		set->fdout = -1;
-	}
-	if (set->fdin > 0)			// check fd
-	{
-		close(set->fdin);
-		set->fdin = -1;
-	}
+	ifclose(set->fdout);
+	ifclose(set->fdin);
+	ifclose(set->pipein);
+	ifclose(set->pipeout);
+	set->fdin = -1;
+	set->fdout = -1;
+	set->pipein = -1;
+	set->pipeout = -1;
 	dup2(set->save_stdin, STDIN);
 	dup2(set->save_stdout, STDOUT);
+}
+
+void	exec_cmd(t_set *set, char *cmd)
+{
+	//ft_putstr_fd("enter\n",1);
+	set->stop = 0;
+	set->err_quote = 0;
+	clean(cmd, set);
+	if (set->stop == 0)
+		start_cmd(set);
+
 }
 
 void	treat_cmd(t_set *set)
 {
 	char **list;
-	char *push;
 	int i;
-	int simple;
+	int	status;
 
 	i = 0;
 	if (correct_cmd(set->str, set) == 0)
@@ -355,28 +369,26 @@ void	treat_cmd(t_set *set)
 		list = split_semicolon(set->str, set);
 		while (list[i])
 		{
-			simple = (is_pipe(list[i]) == 0) ? 1 : 0;
 			set->p = 0;
-			while ((is_pipe(list[i]) == 1 || simple == 1) && (set->p != -1))
+			set->simple = (is_pipe(list[i]) == 0) ? 1 : 0;
+			//printf("simple = %d\n", set->simple);
+			set->push = split_pipe(list[i], set);
+			set->p = 0;
+
+			if (set->simple == 1)
 			{
-				set->stop = 0;
-				set->err_quote = 0;
-
-				//printf("list_before = {%s}\n", list[i]);
-				push = start_pipe(list[i], set);
-				//printf("list_after = {%s}\n", list[i]);
-
-				clean(push, set);
-				if (set->stop == 0)
-					start_cmd(set);
-				free(set->cmd);
-				free(push);
-				ft_free_dbtab(set->arg);
-				simple--;\
-				//printf("p = %d\n\n", set->p);
-				//printf("salut");
+				exec_cmd(set, set->push[0]);
 			}
+			else
+			{
+				start_pipe(set);
+			}
+			//printf("list_before = {%s}\n", list[i]);
+			//printf("list_after = {%s}\n", list[i]);
+			//printf("set->simple = %d\n", set->simple);
+
 			reset_fd(set);
+			ft_free_dbtab(set->push);
 			i++;
 		}
 		ft_free_dbtab(list);

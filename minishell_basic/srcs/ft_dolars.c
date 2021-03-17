@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dolars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 13:46:30 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/13 10:34:57 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*change_dol(char *dol, t_set *set)
 			if (set->hide_envp[i][e])
 				res = ft_strdup(&set->hide_envp[i][e + 1]);
 			else
-				res = ft_strdup("");
+				res = ft_strdup("");				// enorme leak ?
 		}
 		free(var);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/12 14:33:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:25:46 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,22 @@ typedef struct	s_set
 {
 	char	*str;
 	char	*word_tmp;
+	char	**push;
 	int		fdout;
 	int		fdin;
 	int		pipeout;
 	int		pipein;
+	int		ex_pi;
+	int		start_end;
 	int		save_stdout;
 	int		save_stdin;
 	int		stop;
+	int		parents;
+	int		last;
+	int		no_exec;
+	int		simple;
+	int		ret_value;
+	pid_t	pid;
 
 	int		exit;
 	char	**arg;
@@ -64,7 +73,6 @@ typedef struct	s_set
 
 	char	*shlvl;
 	int		run;
-	int		pid;
 
 	char 	*pathbc;
 	char 	*path;
@@ -87,6 +95,7 @@ char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 //
+void	ifclose(int fd);
 int		is_pipe(char *str);
 int		forwar_quote(char *src, int i);
 void	ft_putstr_not_found(char *str);
@@ -105,7 +114,9 @@ char	*redirection(char *src, t_set *set);
 char	*change_dol(char *dol, t_set *set);
 char	*dolars_find(char *src, t_set *set);
 int		antislash_pair(char *src, int i);
-char	*start_pipe(char *str, t_set *set);
+int		start_pipe(t_set *set);
+char	**split_pipe(char *str, t_set *set);
+void	exec_cmd(t_set *set, char *cmd);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);
