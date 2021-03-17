@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 10:37:12 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:57:49 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	get_lastcmd(t_set *set)
 	//}
 }
 
-void	start_cmd(t_set *set, int g_run)
+void	start_cmd(t_set *set)
 {
 	char *min;
 
@@ -252,7 +252,7 @@ void	start_cmd(t_set *set, int g_run)
 	free(min);
 }
 
-void	start_shell(int ac, char **av, t_set *set, int g_run)
+void	start_shell(int ac, char **av, t_set *set)
 {
 	if (ac == 3)
 		set->str = av[2];		// for testeur
@@ -260,15 +260,8 @@ void	start_shell(int ac, char **av, t_set *set, int g_run)
 	{
 		set->str = get_val(set);
 	}
-	if (g_run == 1)
-	{
-		//printf("oui\n");
-		set->exit_val = g_run;
-		add_exval(set);
-		g_run = 0;
-	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
-	treat_cmd(set, g_run);
+	treat_cmd(set);
 }
 
