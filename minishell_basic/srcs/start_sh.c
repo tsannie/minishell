@@ -6,11 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/17 10:53:55 by tsannie          ###   ########.fr       */
-=======
-/*   Updated: 2021/03/17 10:37:12 by phbarrad         ###   ########.fr       */
->>>>>>> e4e7b33ca3d66a119984979be21622412cc755f6
+/*   Updated: 2021/03/17 11:05:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +136,7 @@ int		check_last(t_set *set)
 	{
 		//printf("oui 2\n");
 		return (1);
-	}	
+	}
 	return (0);
 }
 
@@ -148,7 +144,7 @@ void	get_lastcmd(t_set *set)
 {
 	int i;
 	char *tmp;
-	
+
 	i = 0;
 	//printf("cmd = [%s]\n", set->cmd);
 	//if (check_last(set) == 1)
@@ -191,7 +187,7 @@ void	get_lastcmd(t_set *set)
 	//}
 }
 
-void	start_cmd(t_set *set, int g_run)
+void	start_cmd(t_set *set)
 {
 	char *min;
 
@@ -218,14 +214,11 @@ void	start_cmd(t_set *set, int g_run)
 	else if (ft_streql(set->cmd, "echo") == 1)
 	{
 		ft_echo(set);
-<<<<<<< HEAD
 	}
-=======
 	else if (bash_cmd(set, min) == 0)
 		;
 	else if (ft_streql(set->cmd, "env") == 1)
-		ft_env(set);		
->>>>>>> e4e7b33ca3d66a119984979be21622412cc755f6
+		ft_env(set);
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
 		//printf("MON\n");
@@ -237,7 +230,7 @@ void	start_cmd(t_set *set, int g_run)
 //	{
 	//	if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
 	//	ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
-	//	{ 
+	//	{
 			if (set->path != NULL)
 				free(set->path);
 			set->path = ft_get_path(set->envp);
@@ -268,7 +261,7 @@ void	start_cmd(t_set *set, int g_run)
 	set->pipeout = -1;
 }
 
-void	start_shell(int ac, char **av, t_set *set, int g_run)
+void	start_shell(int ac, char **av, t_set *set)
 {
 	if (ac == 3)
 		set->str = av[2];		// for testeur
@@ -276,15 +269,8 @@ void	start_shell(int ac, char **av, t_set *set, int g_run)
 	{
 		set->str = get_val(set);
 	}
-	if (g_run == 1)
-	{
-		//printf("oui\n");
-		set->exit_val = g_run;
-		add_exval(set);
-		g_run = 0;
-	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
-	treat_cmd(set, g_run);
+	treat_cmd(set);
 }
 

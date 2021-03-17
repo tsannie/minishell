@@ -6,10 +6,11 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:54:47 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 11:03:31 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISH_H
 # define MINISH_H
 
 # include "../../libft/libft.h"
@@ -102,9 +103,9 @@ int		forwar_quote(char *src, int i);
 void	ft_putstr_not_found(char *str, t_set *set);
 void 	ft_eexit(t_set *set);
 int		ft_disp_export(t_set *set);
-void	start_shell(int ac, char **av, t_set *set, int f_run);
-void	treat_cmd(t_set *set, int g_run);
-void	start_cmd(  t_set *set, int g_run);
+void	start_shell(int ac, char **av, t_set *set);
+void	treat_cmd(t_set *set);
+void	start_cmd(  t_set *set);
 char	**search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);

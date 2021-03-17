@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:04:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:57:48 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int				main(int ac, char **av, char **envp)
 	init_struct(set, av, envp);
 	ft_sort_dbtab(set);
 	if (ac == 3)		// for testeur
-		start_shell(ac, av, set, g_run);
+		start_shell(ac, av, set);
 	else
 	{
 		signal(SIGINT, int_handler);
@@ -125,7 +125,7 @@ int				main(int ac, char **av, char **envp)
 			}
 			//set->str[ft_strlen(set->str) - 1] = '\0';
 			//printf("[%s]\n", set->str);
-			treat_cmd(set, g_run);
+			treat_cmd(set);
 
 			//set->exit_val = run;
 			//printf("sx = [%d]\n", set->exit);
