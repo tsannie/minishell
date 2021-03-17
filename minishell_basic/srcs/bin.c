@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/16 16:18:24 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:29:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,11 @@ int					bash_cmd(t_set *set, char *cmd)
 	path = NULL;
 	int r = 0;
 
+	if (set->path == NULL)
+	{
+		//printf("oui null\n");
+		return (1);
+	}
 	if (cmd[x] == '.' && cmd[x + 1] == '/')
 	{
 		chemin = 1;
@@ -228,7 +233,7 @@ int					bash_cmd(t_set *set, char *cmd)
 		while (set->all_path[y] && len == 0)
 		{
 			r = 0;
-			//printf("oo[%s][%s][%s]oo\n", set->all_path[y] + r, cmd + x, path);
+			//printf("[%s]\t[%s]\t[%s]\n", set->all_path[y] + r, cmd + x, path);
 			if (ft_strncmp(set->all_path[y] + r, cmd + x,
 			ft_strlen(set->all_path[y] + r)) == 0 && path == NULL)
 			{
@@ -246,7 +251,7 @@ int					bash_cmd(t_set *set, char *cmd)
 	}
 	//printf("chemin = [%d] path[%s] cmd[%s] r = [%d]\n", chemin, path, cmd, r);
 	y = -1;
-	if (chemin == 0 && path == NULL)
+	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/16 15:35:11 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:04:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	tmp2 = ft_itoa(set->exit_val);
 	set->exit_v = ft_strjoin("?=", tmp2);
 	set->all_path = ft_splitbc(set->path, ':');
-/* 	int x = -1;
 
-
-	printf("[%s]\n\n", set->path);
-	while (set->all_path[++x])
-		printf("[%s]\n", set->all_path[x]);
-	printf("end [%s]\n", set->all_path[x]); */
 
 	ft_init_env(set, envp, av);
 	ft_hideenv(set->pwd, set);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/16 16:05:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:37:12 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void ft_putstr_not_found(char *str, t_set *set)
 	int i;
 
 	i = 0;
+	//printf("paath = [%s]\n", set->path);
+	if (set->path == NULL)
+	{
+		set->exit_val = 4;
+	}
 	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd(str, 1);
 	if (set->exit_val == 3)
@@ -218,21 +223,22 @@ void	start_cmd(t_set *set, int g_run)
 	}
 /* 	else
 		set->exit_val = 1; */
-	if (set->arg[0])
-	{
-		if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
-		ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
-		{ 
-			if (set->path)
+//	if (set->arg[0])
+//	{
+	//	if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
+	//	ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
+	//	{ 
+			if (set->path != NULL)
 				free(set->path);
 			set->path = ft_get_path(set->envp);
-			printf("----------oui---------\n");
-			printf("set->path[%s]\n", set->path);
+			//printf("set->path[%s]\n", set->path);
 		//	printf("----------oui---------\n");
-			ft_free_dbtab(set->all_path);
-			set->all_path = ft_splitbc(set->path, ':');
- 		}
-	}
+			//if (set->all_path != NULL)
+				ft_free_dbtab(set->all_path);
+			//if (set->path != NULL)
+				set->all_path = ft_splitbc(set->path, ':');
+ 	//}
+	//}
 	//printf("[%d]oui[%d]\n", set->exit_val, set->exit);
 	add_exval(set);
 	//set->exit = 0;

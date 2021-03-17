@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/16 16:18:33 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:36:29 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,26 +103,22 @@ char *ft_get_path(char **envp)
 	char *str;
 	int j;
 	int e;
-	int len;
 
-	len = 0;
 	e = 0;
 	j = 0;
 	i = 0;
 
-
-	while (envp[len])
-		len++;
-	//printf("len = [%d]\n", len);
-	while (ft_strncmp("PATH=", envp[i], 5) != 0 && envp[i + 1])
+ 	while (ft_strncmp("PATH=", envp[i], 5) != 0 && envp[i + 1])
 	{
-		printf("envp = [%s]\n", envp[i]);
+		//printf("envp = [%s]\n", envp[i]);
 		i++;
 	}
-	//return (NULL);
-	printf("envp = [%s]\n", envp[i]);
-	if (envp[i] == NULL)
+	//printf("envp = [%s]\n", envp[i]); 
+	if (envp[i + 1] == NULL && ft_strncmp("PATH=", envp[i], 5) != 0)
+	{
+		//printf("NULLICI [%d] [%s]\n",ft_strncmp("PATH=", envp[i], 5) != 0, envp[i]);
 		return (NULL);
+	}
 	while (envp[i][j] != '=' && envp[i][j])
 		j++;
 	j++;
