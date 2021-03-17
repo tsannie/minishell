@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 11:05:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 14:14:57 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void ft_putstr_not_found(char *str, t_set *set)
 		set->exit_val = 126;
 	}
 	else if (set->exit_val == 4)
+	{
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+		set->exit_val = 126;
+	}
+	else if (set->exit_val == 5)
 	{
 		ft_putstr_fd(": No such file or directory\n", STDERR);
 		set->exit_val = 126;

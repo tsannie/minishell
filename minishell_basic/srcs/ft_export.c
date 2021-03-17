@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:16:34 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/17 11:13:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int				checkenvp(char *str)
 
 	i = 0;
 	avn = 0;
+	if (ft_strlen(str) == 0)
+		return (1);
 	if (str[i] == '=')
 		return (1);
 	while (str[i] && str[i] != '=')
@@ -27,9 +29,7 @@ int				checkenvp(char *str)
 			return (1);
 		if (((str[i] < 48) || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
 		|| (str[i] >= 91 && str[i] <= 96) )  && (str[i] != '_'))
-		{
 			return (1);
-		}
 		else
 			avn = 1;
 		i++;
@@ -212,12 +212,12 @@ int				ft_export(t_set *set)
 	j = -1;
 	i = -1;
 
-/*	  printf("str = [%s]\n", set->str);
+/* 	  printf("str = [%s]\n", set->str);
 	int r = -1;
 	while (set->arg[++r])
 		printf("arg = [%s]\n", set->arg[r]);
 	printf("arg = [%s]\n", set->arg[r]);
-	*/
+ */
 	//= exp & env
 	// -= exp
 	//printf("salutation\n");
