@@ -6,7 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/17 14:19:42 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/17 14:20:42 by tsannie          ###   ########.fr       */
+>>>>>>> d5ae792088ad806bda2bb190aa1e5841483414ac
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +58,6 @@ typedef struct	s_set
 	int		no_exec;
 	int		simple;
 	int		ret_value;
-	pid_t	pid;
 
 	int		exit;
 	char	**arg;
@@ -120,6 +123,7 @@ int		antislash_pair(char *src, int i);
 int		start_pipe(t_set *set);
 char	**split_pipe(char *str, t_set *set);
 void	exec_cmd(t_set *set, char *cmd);
+void	reset_fd(t_set *set);
 //cmd
 int		ft_cd(t_set *set);
 int 	ft_echo(t_set *set);

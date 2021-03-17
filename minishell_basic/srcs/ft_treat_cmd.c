@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 11:06:04 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/17 16:30:52 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int	error_list(int a, t_set *set)
 	if (a == 4)
 		ft_putstr_fd("`<<'", STDERR);
 	if (a == 5)
-		ft_putstr_fd("`<>'", STDERR);
+		ft_putstr_fd("`<>'", STDERR);			// ptite verif quand mem
 	if (a == 7)
 		ft_putstr_fd("`>'", STDERR);
 	if (a == 8)
@@ -348,7 +348,7 @@ void	reset_fd(t_set *set)
 
 void	exec_cmd(t_set *set, char *cmd)
 {
-	//ft_putstr_fd("enter\n",1);
+	//ft_putstr_fd("enter\n\n",1);
 	set->stop = 0;
 	set->err_quote = 0;
 	clean(cmd, set);
