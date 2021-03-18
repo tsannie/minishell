@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 16:27:44 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/18 12:43:35 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int		is_pipe(char *str)
 		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
 		if ((str[i] == '\'' || str[i] == '\"') && antislash_pair(str, i) == 1)
 			i = forwar_quote(str, i);
-		if (str[i] == '|')
+		else if (str[i] == '|' && antislash_pair(str, i) == 1)				//	warn backslash
+		{
+
 			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -41,6 +44,8 @@ char	*new_pipe(char *str, t_set *set)
 			set->p = forwar_quote(str, set->p);
 		else
 			set->p++;
+		if (str[set->p] == '|' && antislash_pair(str, set->p) == 0)
+			set->p += 2;
 	}
 	len = (set->p - len) + 1;
 	set->p++;

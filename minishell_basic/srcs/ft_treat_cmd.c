@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 16:30:52 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/18 15:51:12 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int		multi_redirecion(char *src, t_set *set, char a)
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
 			i = forwar_quote(src, i);
-		else if (src[i] == a)
+		else if (src[i] == a && antislash_pair(src, i) == 1)
 		{
 			while (src[i] == a)		// possible seg fault
 			{
@@ -150,7 +150,7 @@ int		correct_redirecion(char *src, t_set *set)
 	{
 		if ((src[i] == '\'' || src[i] == '\"') && antislash_pair(src, i) == 1)
 			i = forwar_quote(src, i);
-		else if (src[i] == '>' || src[i] == '<')
+		else if ((src[i] == '>' || src[i] == '<') && antislash_pair(src, i) == 1)
 		{
 			if (src[i] == '>')
 			{
@@ -178,6 +178,8 @@ int		correct_redirecion(char *src, t_set *set)
 				return (7);
 			if (!(src[i]))
 				return (8);
+			if (src[i] == '|')
+				return (9);
 		}
 		i++;
 	}
@@ -203,6 +205,8 @@ int	error_list(int a, t_set *set)
 		ft_putstr_fd("`<'", STDERR);
 	if (a == 9)
 		ft_putstr_fd("`newline'", STDERR);
+	if (a == 10)
+		ft_putstr_fd("`|'", STDERR);
 	ft_putstr_fd("\n", STDERR);
 	set->exit_val = 2;
 	return (-1);
@@ -211,18 +215,6 @@ int	error_list(int a, t_set *set)
 int		err_redirection(char *src, t_set *set)
 {
 	int e;
-
-	e = multi_redirecion(src, set, '>');
-	if (e > 3)
-		return (error_list(3, set));
-	else if (e > 2)
-		return (error_list(7, set));
-
-	e = multi_redirecion(src, set, '<');
-	if (e > 4)
-		return (error_list(4, set));
-	else if (e > 3)
-		return (error_list(8, set));
 
 	e = correct_redirecion(src, set);
 	if (e == 1)
@@ -239,6 +231,25 @@ int		err_redirection(char *src, t_set *set)
 		return (error_list(1, set));
 	else if (e == 8)
 		return (error_list(9, set));
+	else if (e == 9)
+		return (error_list(10, set));
+
+	//printf("correct_redirection\n\n");
+
+	e = multi_redirecion(src, set, '>');
+	if (e > 3)
+		return (error_list(3, set));
+	else if (e > 2)
+	{
+		return (error_list(7, set));
+	}
+
+	e = multi_redirecion(src, set, '<');
+	if (e > 4)
+		return (error_list(4, set));
+	else if (e > 3)
+		return (error_list(8, set));
+
 	return (0);
 }
 
@@ -302,6 +313,7 @@ int		check_list(const char *str, t_set *set)
 		if (str[i] == ';')
 		{
 			i++;
+			//check_pipe();
 			e = 0;
 			while (str[i] != ';' && str[i])
 			{
@@ -317,7 +329,7 @@ int		check_list(const char *str, t_set *set)
 	return (0);
 }
 
-int		correct_cmd(char *str, t_set *set)
+int		correct_cmd(char *str, t_set *set)			// check all antislash
 {
 	if (check_list(str, set) == -1)
 		return (-1);
@@ -367,6 +379,7 @@ void	treat_cmd(t_set *set)
 	if (correct_cmd(set->str, set) == 0)
 	{
 		list = split_semicolon(set->str, set);
+		//print_args(list);
 		while (list[i])
 		{
 			set->p = 0;

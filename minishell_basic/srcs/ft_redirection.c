@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/12 12:43:16 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/18 15:21:04 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,26 +167,30 @@ char	*redirection(char *src, t_set *set)
 	i = 0;
 	while (res[i])
 	{
-		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
+
 		if ((res[i] == '\'' || res[i] == '\"') && antislash_pair(res, i) == 1)
 			i = forwar_quote(res, i);
-		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] == '>' && res[i + 2] != '>')
+		else if (res[i] == '>' && res[i + 1] == '>' && antislash_pair(res, i) == 1)
 		{
+			//printf("ENTER1\n");
 			//printf("SALUT\n");
 			namefile = get_namefile(res, set, i + 1);
 			res = get_newcmd(res, set, i);
 			create_file(namefile, set, 2);
 			i = -1;
 		}
-		else if (res[i - 1] != '>' && res[i] == '>' && res[i + 1] != '>')
+		else if (res[i] == '>' && antislash_pair(res, i) == 1)
 		{
+			//printf("ENTER2\n");
 			namefile = get_namefile(res, set, i);
 			res = get_newcmd(res, set, i);
+			//printf("res = {%s}\n", res);
 			create_file(namefile, set, 1);
 			i = -1;
 		}
-		else if (res[i - 1] != '<' && res[i] == '<' && res[i + 1] != '<')
+		else if (res[i] == '<' && antislash_pair(res, i) == 1)
 		{
+			//printf("ENTER3\n");
 			namefile = get_namefile(res, set, i);
 			//printf("namefile = {%s}\n", namefile);
 			res = get_newcmd(res, set, i);
@@ -194,6 +198,7 @@ char	*redirection(char *src, t_set *set)
 			change_stdin(namefile, set);
 			i = -1;
 		}
+		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
 		i++;
 	}
 	//printf("res = {%s}\n", res);

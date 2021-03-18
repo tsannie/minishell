@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/17 14:14:57 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:36:57 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void ft_putstr_not_found(char *str, t_set *set)
 	{
 		set->exit_val = 4;
 	}
-	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(str, STDERR);
 	if (set->exit_val == 3)
 	{
 		ft_putstr_fd(": is a directory\n", STDERR);
@@ -60,10 +60,11 @@ void ft_putstr_not_found(char *str, t_set *set)
 	}
 }
 
-void ft_putstr_error_quote(void)
+void ft_putstr_error_quote(t_set *set)
 {
 	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd("syntax error with open quotes\n", STDERR);
+	set->exit_val = 2;
 }
 
 char *get_val(t_set *set)
@@ -196,18 +197,18 @@ void	start_cmd(t_set *set)
 {
 	char *min;
 
+	//printf("cmd = {%s}\n", set->cmd);
 	//print_args(set->arg);
 	min = maj_to_min(set->cmd);
 	get_lastcmd(set);
 	//printf("last2 = [%s]\n", set->lastcmd);
 	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
-
 	if (ft_streql(set->cmd, "export") == 1)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
 	else if (set->err_quote == 1)
-		ft_putstr_error_quote();
+		ft_putstr_error_quote(set);
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
 	else if (ft_streql(set->cmd, "pwd") == 1)

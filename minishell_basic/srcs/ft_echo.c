@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/16 10:09:09 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:59:35 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,9 @@ int		ft_echo(t_set *set)
 	}
 	while (set->arg[i])
 	{
-		//printf("[%s][%d]\n",set->arg[i], ft_strncmp(set->arg[i],"$_", ft_strlen(set->arg[i])));
-		//if (ft_strncmp(set->arg[i],"$_", ft_strlen(set->arg[i])) == 0)
-		//	put_last_cmd(set->arg[i]);
-		//else
-		//{
-			ft_putstr_fd(set->arg[i], STDOUT);
-			if (set->arg[i + 1])
-				ft_putchar_fd(' ', STDOUT);
-		//}
+		ft_putstr_fd(set->arg[i], STDOUT);
+		if (set->arg[i + 1])
+			ft_putchar_fd(' ', STDOUT);
 		i++;
 	}
 	if (n == 0)
