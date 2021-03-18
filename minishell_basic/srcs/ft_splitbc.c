@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 21:25:36 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/13 13:26:38 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:04:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	fill(char **res, const char *str, char charset)
 				res[word][n + 1] = '\0';
 			}
 			else
-				res[word][n + 1] = '\0';
+				res[word][n] = '\0';
 			word++;
 		}
 	}
