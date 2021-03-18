@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 14:22:59 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/18 15:55:27 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->cmd = NULL;
 	set->pathbc = NULL;
 	set->lastcmd = NULL;
+	set->all_path = NULL;
 	set->exit_val = 0;
 	set->save_stdout = dup(STDOUT);			// ok
 	set->save_stdin = dup(STDIN);			// check that
@@ -150,6 +151,8 @@ int				main(int ac, char **av, char **envp)
 		}
 		//printf("after = [%d]\n", run);
 	}
+	//if (set->all_path)
+	//	ft_free_dbtab(set->all_path);
 	free(set);
 	return (set->exit_val);
 }

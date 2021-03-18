@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/18 15:36:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/18 16:22:51 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void ft_putstr_not_found(char *str, t_set *set)
 	//printf("paath = [%s]\n", set->path);
 	if (set->path == NULL)
 	{
+		//printf("ici4\n");
 		set->exit_val = 4;
 	}
 	ft_putstr_fd("minishell: ", STDERR);
@@ -50,7 +51,7 @@ void ft_putstr_not_found(char *str, t_set *set)
 	}
 	else if (set->exit_val == 5)
 	{
-		ft_putstr_fd(": No such file or directory\n", STDERR);
+		ft_putstr_fd(": Permission denied\n", STDERR);
 		set->exit_val = 126;
 	}
 	else
@@ -218,47 +219,29 @@ void	start_cmd(t_set *set)
 	else if (ft_streql(set->cmd, "clear") == 1)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
-	{
 		ft_echo(set);
-	}
 	else if (bash_cmd(set, min) == 0)
 		;
 	else if (ft_streql(set->cmd, "env") == 1)
 		ft_env(set);
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
-		//printf("MON\n");
+		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",
+		ft_strlen(set->cmd + ft_strlen(set->cmd) - 1)) == 0 &&
+		set->exit_val != 3)
+			set->exit_val = 4;
 		ft_putstr_not_found(set->cmd, set);
 	}
-/* 	else
-		set->exit_val = 1; */
-//	if (set->arg[0])
-//	{
-	//	if (ft_strncmp(set->arg[0], "PATH=", 5) == 0 ||
-	//	ft_strncmp(set->arg[0], "PATH", ft_strlen(set->arg[0])) == 0)
-	//	{
-			if (set->path != NULL)
-				free(set->path);
-			set->path = ft_get_path(set->envp);
-			//printf("set->path[%s]\n", set->path);
-		//	printf("----------oui---------\n");
-			//if (set->all_path != NULL)
-				ft_free_dbtab(set->all_path);
-			//if (set->path != NULL)
-				set->all_path = ft_splitbc(set->path, ':');
- 	//}
-	//}
-	//printf("[%d]oui[%d]\n", set->exit_val, set->exit);
+	if (set->path)
+		free(set->path);
+	set->path = ft_get_path(set->envp);
+	if (set->all_path)
+		ft_free_dbtab(set->all_path);
+	set->all_path = ft_splitbc(set->path, ':');
 	add_exval(set);
-	//set->exit = 0;
-/* 	if (set->pathbc != NULL)
-	{
-		free(set->pathbc);
-		set->pathbc = NULL;
-	}  */
-	//printf("nf[%d]\n", set->exit_val);
-	//printf("after = [%s]\n", set->lastcmd);
-	free(min);
+
+
+ 	free(min);
 	free(set->cmd);
 	ft_free_dbtab(set->arg);
 	ifclose(set->pipein);

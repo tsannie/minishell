@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 10:36:29 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:11:48 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char *ft_get_path(char **envp)
 		j++;
 		e++;
 	}
-	//printf("[{%s}]\n", str);
+	str[e] = '\0';
 	return (str);
 }
 

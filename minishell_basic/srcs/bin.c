@@ -6,11 +6,28 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/18 09:52:54 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:17:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
+
+int			ft_strcmpsl(char *s1, char *s2)
+{
+	int	i;
+	int len;
+
+	len = 0;
+	i = 0;
+	while (s1[len])
+		len++;
+	if (s1[len - 1] == '/')
+		len--;
+	while (s1[i] == s2[i] && s1[i] && i < len)
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 
 char				**new_args(char **args, t_set *set, char *cmd)
 {
@@ -43,12 +60,6 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	int r = 0;
 	char *op;
 	
-/* 	if (ft_strncmp(cmd + len, ".", ft_strlen(cmd + len)) == 0 ||
-	ft_strncmp(cmd + len, "..", ft_strlen(cmd + len)) == 0)
-	{
-		set->exit_val = 3;
-		return (NULL);
-	} */
 	op = ft_strduplen(cmd, len);
 	//printf("op = [%s]\n cmd + len[%s]\n", op,cmd + len);
 	if (op == NULL)
@@ -69,17 +80,25 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	}
 	while ((item = readdir(folder)) && valid == 0)
 	{
-		if (ft_strcmp(item->d_name, cmd + len) == 0)
+		if (ft_strcmpsl(item->d_name, cmd + len) == 0)
 			valid = 1;
 		//printf("[%s]=====[%s]\n", item->d_name, cmd + len);
 	}
-	//printf("valid = [%d]\n", valid);
+	//printf("valid2 = [%d]path = [%s]\n", valid, path);
 	closedir(folder);
 	//printf("is_dir = [%d]\n",  is_dir(op));
+	if (valid == 0 && is_dir(cmd) == 1 &&
+	ft_strncmp(cmd + ft_strlen(cmd) - 1, "/", ft_strlen(cmd + ft_strlen(cmd) - 1)) == 0)
+	{
+		//printf("cmd = [%s]\n", cmd);
+		set->exit_val = 3;
+		return (NULL);
+	}
 	if (path != NULL)
 	{
 		if (valid == 1 && ft_strncmp(path, "./", ft_strlen(path)) == 0 && is_dir(cmd + len) == 1)
 		{
+			//printf("oui\n");
 			set->exit_val = 3;
 			return (NULL);
 		}
@@ -89,7 +108,8 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 			return (NULL);
 		}
 		if (valid == 0)
-		{
+		{		
+
 			set->exit_val = 4;
 			return (NULL);
 		}
@@ -116,6 +136,15 @@ char				*get_path(t_set *set, char *path, char *cmd)
 		//printf("item[%s]==[%s]==[%d]\n", item->d_name, cmd, ft_strcmp(item->d_name, cmd));
 	}
 	closedir(folder);
+	//printf("valid = [%d]\n", valid);
+	//printf("is_dir = [%d]\n\n", is_dir(cmd));
+	if (valid == 0 && is_dir(cmd) == 1 &&
+	ft_strncmp(cmd + ft_strlen(cmd) - 1, "/", ft_strlen(cmd + ft_strlen(cmd) - 1)) == 0)
+	{
+		//printf("cmd = [%s]\n", cmd);
+		set->exit_val = 3;
+		return (NULL);
+	}
 	if (valid == 1 && ft_strncmp(path, "./", ft_strlen(path)) == 0 && is_dir(cmd) == 1)
 	{
 		set->exit_val = 3;
@@ -135,6 +164,12 @@ char				*get_path(t_set *set, char *path, char *cmd)
 int					check_stat_file(t_set *set, char *path, char *cmd)
 {
     struct stat fileStat;
+	int r;
+	int w;
+	int x;
+	int d;
+	int st;
+
 
 	//printf("check_sta\n");
 	//printf("sp[%s]p[%s]\n", set->path, path);
@@ -149,27 +184,60 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
 	//	return (1);
 	///if (is_dir(cmd) == 1)
 	//	return (1);
-    if(stat(cmd, &fileStat) < 0)    
-        return (1);
- 
-    printf("Information for %s\n", cmd);
-    printf("---------------------------\n");
+	st = stat(path, &fileStat);
+	//printf("st = [%d]\n", st);    
+        //return (0);
+   // printf("Information for %s\n", path);
+    //printf("---------------------------\n");
+  	r = (fileStat.st_mode & S_IRUSR);
+	w = (fileStat.st_mode & S_IWUSR);
+    x = (fileStat.st_mode & S_IXUSR);
+	d = (S_ISDIR(fileStat.st_mode));
+/*      printf("r[%d]", r);
+    printf("w[%d]", w);
+    printf("x[%d]\n", x);
+    printf("d[%d]\n", d);  
+    printf("exit[%d]\n", set->exit_val);   */
+
+	if (x == 0 && d != 0)
+	{
+		if (set->exit_val != 4)
+			set->exit_val = 3;
+		return (1);
+	}
+ 	if (x == 0)
+	{
+		set->exit_val = 5;
+		return (1);
+	}
+	if (x != 0 && w == 0 && r == 0)
+	{
+		set->exit_val = 5;
+		return (1);
+	}
+	if (x != 0 && r == 0 && w != 0)
+	{
+		set->exit_val = 5;
+		return (1);
+	}
    // printf("File Size: \t\t%d bytes\n",fileStat.st_size);
    // printf("Number of Links: \t%d\n",fileStat.st_nlink);
    // printf("File inode: \t\t%d\n",fileStat.st_ino);
- 
-    printf("File Permissions: \t");
-    printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+
+   // printf("File Permissions: \t");
+/*     printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
+
     printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
+
     printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
-    printf("\n\n");
+    printf("\n\n"); */
 	return (0);
  
 }
@@ -352,13 +420,13 @@ int					bash_cmd(t_set *set, char *cmd)
 	}
 	else if (chemin == 1)
 	{
-		//printf("ici44\n");
+		//printf("1\n");
 		path = get_path_chemin(set, path, len, cmd);
 		//printf("g_p_c = [%s]p[%s]\n", cmd, path);
 	}
 	if (chemin == 0 && path == NULL)
 	{
-		//printf("path = [%s] len[%d] cmd[%s}\n", path, len, cmd);
+		//printf("2\n");
 		path = get_path_chemin(set, path, ft_strlenbc(cmd), cmd);
 	}
 	if (path == NULL && set->pwd != NULL && set->path == NULL)
@@ -391,9 +459,7 @@ int					bash_cmd(t_set *set, char *cmd)
 	//	return (1);
 		//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
 
-/* 	if (check_stat_file(set, path, cmd) == 1)
-	{
+	if (check_stat_file(set, path, cmd) == 1)
 		return (1);
-	} */
 	return (exec_bin(set, path, cmd));
 }
