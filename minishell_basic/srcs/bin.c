@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/18 09:43:05 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:52:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,16 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
 	} */
 	//else if (ft_strlen(set->str) == 0)
 	//	return (1);
-	if (is_dir(cmd) == 1)
-		return (1);
+	///if (is_dir(cmd) == 1)
+	//	return (1);
     if(stat(cmd, &fileStat) < 0)    
         return (1);
  
-/*     printf("Information for %s\n", cmd);
+    printf("Information for %s\n", cmd);
     printf("---------------------------\n");
-    printf("File Size: \t\t%d bytes\n",fileStat.st_size);
-    printf("Number of Links: \t%d\n",fileStat.st_nlink);
-    printf("File inode: \t\t%d\n",fileStat.st_ino);
+   // printf("File Size: \t\t%d bytes\n",fileStat.st_size);
+   // printf("Number of Links: \t%d\n",fileStat.st_nlink);
+   // printf("File inode: \t\t%d\n",fileStat.st_ino);
  
     printf("File Permissions: \t");
     printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
@@ -169,7 +169,7 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
     printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
     printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
-    printf("\n\n"); */
+    printf("\n\n");
 	return (0);
  
 }
@@ -361,11 +361,12 @@ int					bash_cmd(t_set *set, char *cmd)
 		//printf("path = [%s] len[%d] cmd[%s}\n", path, len, cmd);
 		path = get_path_chemin(set, path, ft_strlenbc(cmd), cmd);
 	}
-	if (path == NULL && set->pwd != NULL)
+	if (path == NULL && set->pwd != NULL && set->path == NULL)
 	{
 		path = cmd_in_pwd(set, cmd);
-		//printf("ppw = [%s]\n", path);
-		//len = ft_strlen(set->pwd);
+		//printf("---ici---\n");
+		if (is_dir(cmd) == 1)
+			return (1);
 	}
 	if (path == NULL)
 		return (1);
@@ -383,13 +384,15 @@ int					bash_cmd(t_set *set, char *cmd)
 	} 
 	free(ttm); */
 	//printf("final path = [%s]\n", path);
-
-	//return (1);
+	//if (check_stat_file(set, path, cmd) == 1)
+	//	return (1);
+	////return (1);
 	//if (ft_strncmp(cmd, "..", ft_strlen(cmd)) == 0)
 	//	return (1);
+		//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
+
 /* 	if (check_stat_file(set, path, cmd) == 1)
 	{
-		//printf("check_stat = 1, set->path[%s]\npath = [%s]\n", set->path, path);
 		return (1);
 	} */
 	return (exec_bin(set, path, cmd));
