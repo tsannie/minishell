@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 16:47:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:43:05 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,11 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
 	//printf("sp[%s]p[%s]\n", set->path, path);
 	//if (path != NULL)
 	//	return (0);
-	if (set->path != NULL)
+/* 	if (set->path != NULL)
 	{
-		//printf("set->pth = null\n");
+		printf("set->pth != null\n");
 		return (1);
-	}
+	} */
 	//else if (ft_strlen(set->str) == 0)
 	//	return (1);
 	if (is_dir(cmd) == 1)
@@ -364,7 +364,8 @@ int					bash_cmd(t_set *set, char *cmd)
 	if (path == NULL && set->pwd != NULL)
 	{
 		path = cmd_in_pwd(set, cmd);
-		len = ft_strlen(set->pwd);
+		//printf("ppw = [%s]\n", path);
+		//len = ft_strlen(set->pwd);
 	}
 	if (path == NULL)
 		return (1);
@@ -386,10 +387,10 @@ int					bash_cmd(t_set *set, char *cmd)
 	//return (1);
 	//if (ft_strncmp(cmd, "..", ft_strlen(cmd)) == 0)
 	//	return (1);
-	if (check_stat_file(set, path, cmd) == 1)
+/* 	if (check_stat_file(set, path, cmd) == 1)
 	{
-		//printf("check_stat = 1, set->path[%s]\n", set->path);
+		//printf("check_stat = 1, set->path[%s]\npath = [%s]\n", set->path, path);
 		return (1);
-	}
+	} */
 	return (exec_bin(set, path, cmd));
 }
