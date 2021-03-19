@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/19 15:06:42 by phbarrad         ###   ########.fr       */
+=======
+/*   Updated: 2021/03/19 15:53:19 by tsannie          ###   ########.fr       */
+>>>>>>> f0c0f86d4854a1dc443009dff87cf70e4d380353
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +26,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/wait.h> 
-#include <sys/stat.h> 
+#include <sys/wait.h>
+#include <sys/stat.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -54,6 +58,8 @@ typedef struct	s_set
 	int		no_exec;
 	int		simple;
 	int		ret_value;
+	char	*dol_amb;
+	int		amb;
 
 	int		pid;
 	int		exit;
