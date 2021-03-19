@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 10:59:18 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 12:37:13 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*search_cmd(const char *src, t_set *set)
 	set->y = 0;
 	quot = 0;
 	set->word_tmp = ft_strdup("");
-	while ((ft_iswhite(src[set->y]) == 1 && quot == 0) || (src[set->y] == '\"' && src[set->y + 1] == '\"')
+	while ((ft_istab(src[set->y]) == 1 && quot == 0) || (src[set->y] == '\"' && src[set->y + 1] == '\"')
 		|| (src[set->y] == '\'' && src[set->y + 1] == '\''))
 	{
 		if ((src[set->y] == '\"' && src[set->y + 1] == '\"') || (src[set->y] == '\'' && src[set->y + 1] == '\''))
@@ -61,9 +61,9 @@ char	*search_cmd(const char *src, t_set *set)
 			exit = search_quotes(src, set, '\'');
 		else if (src[set->y] == '\"')
 			exit = search_quotes(src, set, '\"');
-		else if (ft_iswhite(src[set->y]) != 1)
+		else if (ft_istab(src[set->y]) != 1)
 		{
-			while (src[set->y] && ft_iswhite(src[set->y]) != 1 && src[set->y] != '\'' && src[set->y] != '\"')
+			while (src[set->y] && ft_istab(src[set->y]) != 1 && src[set->y] != '\'' && src[set->y] != '\"')
 			{
 				if ((src[set->y] == '\\' && src[set->y + 1]))
 				{
@@ -77,7 +77,7 @@ char	*search_cmd(const char *src, t_set *set)
 				}
 			}
 		}
-		if ((ft_iswhite(src[set->y]) == 1 || !src[set->y]) && exit == 0)
+		if ((ft_istab(src[set->y]) == 1 || !src[set->y]) && exit == 0)
 			exit = 1;
 	}
 	if (exit == -1)
@@ -162,7 +162,7 @@ int		correct_redirecion(char *src, t_set *set)
 				while (src[i] == '<')
 					i++;
 			}
-			while (src[i] == ' ')
+			while (src[i] == ' ' || src[i] == '\t')
 				i++;
 			if (src[i] == '>' && src[i + 1] == '>')
 				return (1);
@@ -291,7 +291,7 @@ int 	first_semicon(const char *str)
 			else
 				return (0);
 		}
-		else if (ft_iswhite(str[i]) == 0)
+		else if (ft_istab(str[i]) == 0)
 			e++;
 		i++;
 	}
@@ -342,9 +342,9 @@ int		after_pipe(const char *str , int i)
 		return (2);
 	if (str[e] == ';')
 		return (1);
-	if (!str[e] && str[i + 1] == '|')
+	if ((!str[e] || str[e] == '|') && str[i + 1] == '|')
 		return (11);
-	if (!str[e])
+	if (!str[e] || str[e] == '|')
 		return (10);
 	return (0);
 }

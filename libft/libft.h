@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 07:41:37 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/11 10:51:54 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:38:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int					get_next_line(int fd, char **line);
 int					ft_iscolor(int a, int b, int c);
 int					ft_ispair(int a);
 int					ft_iswhite(char a);
+int					ft_istab(char a);
 int					ft_streql(const char *s1, const char *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_realloc(char *src);
