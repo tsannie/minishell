@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/03 10:49:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:37:16 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**search_arg(char *str, t_set *set)
 
 	nb_word = 0;
 	exit = 2;
-	while (ft_iswhite(str[set->y]) == 1 && str[set->y])
+	while (ft_istab(str[set->y]) == 1 && str[set->y])
 		set->y++;
 	if (!(res = malloc(sizeof(char*) * 1)))
 		return (NULL);
@@ -93,9 +93,9 @@ char	**search_arg(char *str, t_set *set)
 			}
 			else if (str[set->y] == '\"')
 				exit = search_quotes(str, set, '\"');
-			else if (ft_iswhite(str[set->y]) != 1 && str[set->y])
+			else if (ft_istab(str[set->y]) != 1 && str[set->y])
 			{
-				while (str[set->y] && ft_iswhite(str[set->y]) != 1
+				while (str[set->y] && ft_istab(str[set->y]) != 1
 					&& str[set->y] != '\'' && str[set->y] != '\"')
 				{
 					if ((str[set->y] == '\\' && str[set->y + 1]))
@@ -110,10 +110,10 @@ char	**search_arg(char *str, t_set *set)
 					}
 				}
 			}
-			if ((ft_iswhite(str[set->y]) == 1 || !str[set->y]) && exit == 0)
+			if ((ft_istab(str[set->y]) == 1 || !str[set->y]) && exit == 0)
 				exit = 1;
 		}
-		while (ft_iswhite(str[set->y]) == 1 && str[set->y])
+		while (ft_istab(str[set->y]) == 1 && str[set->y])
 			set->y++;
 		if (!str[set->y] && exit == 0)
 			exit = 1;

@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/18 15:21:04 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 12:39:21 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_namefile(char *src, t_set *set, int i)
 
 	set->y = i + 1;
 	set->word_tmp = ft_strdup("");
-	while (src[set->y] == ' ' && src[set->y])
+	while ((src[set->y] == ' ' || src[set->y] == '\t') && src[set->y])
 		set->y++;
 	exit = 0;
 	while (exit == 0)
@@ -88,7 +88,7 @@ char	*get_namefile(char *src, t_set *set, int i)
 				}
 			}
 		}
-		if ((src[set->y] == ' ' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
+		if ((src[set->y] == ' ' || src[set->y] == '\t' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
 		{
 			//printf("\n\nENTER\n\n");
 			exit = 1;
