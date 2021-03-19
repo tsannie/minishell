@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/18 15:51:12 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 10:59:18 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ int	error_list(int a, t_set *set)
 		ft_putstr_fd("`newline'", STDERR);
 	if (a == 10)
 		ft_putstr_fd("`|'", STDERR);
+	if (a == 11)
+		ft_putstr_fd("`||'", STDERR);
 	ft_putstr_fd("\n", STDERR);
 	set->exit_val = 2;
 	return (-1);
@@ -278,7 +280,9 @@ int 	first_semicon(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ';')
+		if (str[i] == '\\')
+			i += 2;
+		else if (str[i] == ';')
 		{
 			if (str[i] == ';' && str[i + 1] == ';')
 				return (2);
@@ -287,10 +291,118 @@ int 	first_semicon(const char *str)
 			else
 				return (0);
 		}
-		if (ft_iswhite(str[i]) == 0)
+		else if (ft_iswhite(str[i]) == 0)
 			e++;
 		i++;
 	}
+	return (0);
+}
+
+int		first_pipe(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' && str[i])
+		i++;
+	if (str[i] == '|' && str[i + 1] == '|')
+		return (11);
+
+	if (str[i] == '|')
+		return (10);
+	return (0);
+}
+
+int		before_pipe(const char *str , int i)
+{
+	int		e;
+
+	e = i;
+	e--;
+	while (str[e] == ' ' && e >= 0)
+		e--;
+	//printf("str[e] = %c\ne = %d\n", str[e], e);
+	if (str[e] == ';' && str[i + 1] == '|')
+		return (11);
+	if (str[e] == ';')
+		return (10);
+	return (0);
+}
+
+int		after_pipe(const char *str , int i)
+{
+	int		e;
+
+	e = i;
+	while (str[e] == '|')
+		e++;
+	while (str[e] == ' ' && str[e])
+		e++;
+	if (str[e] == ';' && str[e + 1] == ';')
+		return (2);
+	if (str[e] == ';')
+		return (1);
+	if (!str[e] && str[i + 1] == '|')
+		return (11);
+	if (!str[e])
+		return (10);
+	return (0);
+}
+
+int		nb_pipe(const char *str , int i)
+{
+	int	nb;
+
+	nb = 0;
+	while (str[i] == '|' && str[i])
+	{
+		i++;
+		nb++;
+	}
+	if (nb >= 4)
+		return (11);
+	if (nb >= 2)
+		return (10);
+	return (0);
+}
+
+int		check_pipe(const char *str, int i)
+{
+	int e;
+
+
+	if ((e = before_pipe(str , i)) != 0)
+	{
+		//printf("problem before e = %d\n",e);
+		return (e);
+	}
+	if ((e = nb_pipe(str , i)) != 0)
+	{
+		//printf("problem nbpipe = %d\n",e);
+		return (e);
+	}
+	if ((e = after_pipe(str , i)) != 0)
+	{
+		//printf("problem after = %d\n",e);
+		return (e);
+	}
+	return (0);
+}
+
+int		between_semico(const char *str, int i)
+{
+	int e;
+
+	i++;
+	e = 0;
+	while (str[i] != ';' && str[i])
+	{
+		if (str[i] == ' ' == 0)
+			e++;
+		i++;
+	}
+	if (e == 0 && str[i])
+		return (1);
 	return (0);
 }
 
@@ -298,31 +410,34 @@ int		check_list(const char *str, t_set *set)
 {
 	int	i;
 	int	e;
+	int cpy;
 
-	e = first_semicon(str);
-	if (e != 0)
-	{
+	if ((e = first_pipe(str)) != 0)
 		return (error_list(e, set));
-	}
+
+	if ((e = first_semicon(str)) != 0)
+		return (error_list(e, set));
 	e = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ';' && str[i + 1] == ';')
-			return (error_list(2, set));
-		if (str[i] == ';')
+		if (str[i] == '\\')
+			i+= 2;
+		else if (str[i] == '|')
 		{
-			i++;
-			//check_pipe();
-			e = 0;
-			while (str[i] != ';' && str[i])
-			{
-				if (ft_iswhite(str[i]) == 0)
-					e++;
-				i++;
-			}
-			if (e == 0 && str[i])
-				return (error_list(1, set));
+			//printf("ENTER\n");
+			if ((e = check_pipe(str, i)) != 0)
+				return (error_list(e, set));
+			//printf("SORTIE\n");
+		}
+		else if (str[i] == ';' && str[i + 1] == ';')
+		{
+			return (error_list(2, set));
+		}
+		else if (str[i] == ';')
+		{
+			if ((e = between_semico(str, i)) != 0)
+				return (error_list(e, set));
 		}
 		i++;
 	}
