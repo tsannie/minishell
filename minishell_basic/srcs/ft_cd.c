@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/12 09:57:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 14:46:16 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ int ft_cd(t_set *set)
 		set->old_pwd = ft_strjoin("OLDPWD=", temp);
 		ft_hideenv(set->old_pwd, set);
 		ft_modenv(set->old_pwd, set);
-		
 		free(temp);
 		free(set->old_pwd);
 	}

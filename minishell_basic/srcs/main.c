@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 12:45:01 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:08:18 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,18 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->all_path = ft_splitbc(set->path, ':');
 
 	ft_init_env(set, envp, av);
+
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
+	
 	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
+	
 	ft_modenv(tmp, set);
+	
+	ft_unsethideenv(set, "OLDPWD");
+	ft_unsetenv(set, "OLDPWD");
+	
 	free(tmp2);
 	free(tmp);
 }

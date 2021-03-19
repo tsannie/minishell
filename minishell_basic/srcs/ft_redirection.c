@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 12:39:21 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 16:06:03 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,45 @@ char	*get_newcmd(char *src, t_set *set, int i)
 
 void	create_file(char *namefile, t_set *set, int a)
 {
-	close(set->fdout);
+	ifclose(set->fdout);
+	char **args;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
+	int i;
+
+	tmp3 = ft_strdup("");
+	tmp = ft_strdup("");
+	tmp2 = NULL;
+	i = 0;
+	args = ft_split(namefile, '/');
+
+/* 	int x = -1;
+	while (args[++x])
+		printf("ar = [%s]\n", args[x]);
+ */
+	while (args[i + 1])
+	{
+		if (i > 0)
+			tmp = ft_strjoin(tmp3, "/");
+		free(tmp3);
+		tmp2 = ft_strjoin(tmp, args[i]);
+		tmp3 = ft_strdup(tmp2);
+		free(tmp);
+		//printf("isdir = [%d]\nargs = [%s]\ntmp2 = [%s]\n", is_dir(args[i]), args[i], tmp2);
+		if (is_dir(tmp2) == 0)
+		{
+			//printf("ERREUR\n");
+			ft_free_dbtab(args);
+			//free(tmp);
+			//free(tmp2);
+			//free(tmp3);
+			return ;
+		}
+		free(tmp2);
+		i++;
+	}
+
 	if (a == 1)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout

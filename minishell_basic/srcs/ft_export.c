@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/17 11:13:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:22:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,9 @@ int				ft_export(t_set *set)
 			}
 			if (checkenvp(set->arg[i]) == 1)
 			{
-				printf("minishell: export: `%s': not a valid identifier\n", set->arg[i]);
+				ft_putstr_fd("minishell: export: `", STDERR);
+				ft_putstr_fd(set->arg[i], STDERR);
+				ft_putstr_fd("': not a valid identifier\n", STDERR);
 				set->exit_val = 1; // a retirer
 			}
 			else if (egl == 1)
