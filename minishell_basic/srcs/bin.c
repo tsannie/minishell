@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/18 15:17:14 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 10:22:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	{
 		if (valid == 1 && ft_strncmp(path, "./", ft_strlen(path)) == 0 && is_dir(cmd + len) == 1)
 		{
-			//printf("oui\n");
 			set->exit_val = 3;
 			return (NULL);
 		}
@@ -242,26 +241,67 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
  
 }
 
+int					check_sh(t_set *set, char *path)
+{
+	int i;
+	int pwd;
+	int sh;
+	int len;
+
+
+	len = ft_strlen(path);
+	pwd = 0;
+	sh = 0;
+	i = 0;
+	if (ft_strncmp(path, "./", 2) == 0)
+		pwd = 1;
+	if (ft_strncmp(path + len - 3, ".sh", ft_strlen(path + len - 3)) == 0)
+		sh = 1;
+	//printf("[%d][%d][%s][%d]\n", pwd, sh, path + len - 3,ft_strlen(path + len - 3));
+	if (pwd == 1 && sh == 1)
+	{
+		//printf("sh.sh./\n");
+		set->exit_val = 5;
+		return (1);
+	}
+	return (0);
+}
+
 int					exec_bin(t_set *set, char *path, char *cmd)
 {
 	int				pid;
 	char			**args;
 	int				r;
 	char			*ttm;
-	int g = 0;
+	int 			g;
+	int 			ret;
+
+/* 	int x = -1;
+	while (set->arg[++x])
+		printf("1args = [%s]\n", set->arg[x]);
+	printf("1cmd = [%s]\n\n", cmd);
+	 */
+	if (check_sh(set, path) == 1)
+		return (1);
+
+
 	pid = fork();
 	args = new_args(set->arg, set, cmd);
-	int ret = 0;
-	//printf("ici5\n");
+	ret = 0;
+	g = 0;
 	r = 0;
-	//printf("\n\nexe[%s]\tcmd[%s]\n", path, cmd);
-	//printf("stat = [%d] lstat = [%d]\n", stat(cmd), lstat(cmd));
+
+
+/* 	x = -1;
+	while (args[++x])
+		printf("2args = [%s]\n", args[x]);
+	printf("2cmd = [%s]\n\n", cmd); */
 	if (path != NULL && pid == 0)
 	{
-/*  		int x = -1;
+ 	/* 	int x = -1;
 		while (args[++x])
-			printf("args[%s]\n", args[x]);
-		x = -1;
+			printf("args[%s]\n", args[x]); */
+		/* x = -1;
 		while (set->envp[++x])
 			printf("env[%s]\n", set->envp[x]); */
 		
@@ -279,6 +319,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 		}
 		else
 			set->exit_val = execve(path, args, set->envp);
+		//ret = 32256;
 /*		r = -1;
 		while (args[++r])
 			free(args[r]);
@@ -457,8 +498,7 @@ int					bash_cmd(t_set *set, char *cmd)
 	////return (1);
 	//if (ft_strncmp(cmd, "..", ft_strlen(cmd)) == 0)
 	//	return (1);
-		//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
-
+	//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
 	if (check_stat_file(set, path, cmd) == 1)
 		return (1);
 	return (exec_bin(set, path, cmd));

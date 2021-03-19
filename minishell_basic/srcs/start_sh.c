@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/18 16:22:51 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 11:08:58 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ char *get_val(t_set *set)
 
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
+	//printf("avant1?");
 	gnl = get_next_line(0, line);
 	//printf("sx gnl= [%d]\n", set->exit);
-	//printf("[%d][%s]\n", gnl, *line);
+	//printf("===[%d]===[%s]===\n", gnl, *line);
 	if (gnl == 0 && ft_strlen(*line) != 0)
 	{
 		ft_putstr_fd("\b\b  ", STDERR);
