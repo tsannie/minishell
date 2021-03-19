@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/19 15:06:42 by phbarrad         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/19 15:53:19 by tsannie          ###   ########.fr       */
->>>>>>> f0c0f86d4854a1dc443009dff87cf70e4d380353
+/*   Updated: 2021/03/19 16:07:39 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISH_H
 # define MINISH_H
