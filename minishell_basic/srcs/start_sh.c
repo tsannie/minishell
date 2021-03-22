@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 15:27:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:05:20 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void ft_putstr_error_quote(t_set *set)
 	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd("syntax error with open quotes\n", STDERR);
 	set->exit_val = 2;
+	set->bleu = 1;
 }
 
 char *get_val(t_set *set)
@@ -205,6 +206,12 @@ void	start_cmd(t_set *set)
 	get_lastcmd(set);
 	//printf("last2 = [%s]\n", set->lastcmd);
 	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
+
+	if (set->bleu == 1)
+	{
+		set->exit_val = 0;
+		set->bleu = 0;
+	}
 	if (set->err_quote == 1)
 		ft_putstr_error_quote(set);
 	else if (ft_streql(set->cmd, "export") == 1)
@@ -232,7 +239,9 @@ void	start_cmd(t_set *set)
 		set->exit_val != 3)
 			set->exit_val = 4;
 		ft_putstr_not_found(set->cmd, set);
+		set->bleu = 1;
 	}
+	//if (ft_strlen(set->cmd) != 0)
 	if (set->path)
 		free(set->path);
 	set->path = ft_get_path(set->envp);

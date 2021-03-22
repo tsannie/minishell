@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 13:29:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 13:46:15 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		ft_echo(t_set *set)
 	if (!set->arg[0])
 	{
 		ft_putchar_fd('\n', STDOUT);
-		set->exit_val = 0;
 		return (0);
 	}
 /* 	 	int x = -1;
@@ -65,10 +64,7 @@ int		ft_echo(t_set *set)
 		i++;
 		n = 1;
 		if (!set->arg[i])
-		{
-			set->exit_val = 0;
 			return (0);
-		}
 	}
 	while (set->arg[i])
 	{

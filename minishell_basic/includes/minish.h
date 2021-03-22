@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 12:49:49 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 14:57:49 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISH_H
@@ -26,6 +27,8 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <curses.h>
+#include <term.h>
 #include <fcntl.h>
 #include <errno.h>
 
@@ -59,6 +62,7 @@ typedef struct	s_set
 	int		amb;
 	int		not_exist;
 
+	int		bleu;
 	int		pid;
 	int		exit;
 	char	**arg;
@@ -148,6 +152,7 @@ int ft_menv(char *str, t_set *set);
 char *ft_get_path(char **envp);
 //
 char	*maj_to_min(char *str);
+int		is_dir_present(char *arg, char *cmd);
 
 //bin
 void	get_lastcmd(t_set *set);

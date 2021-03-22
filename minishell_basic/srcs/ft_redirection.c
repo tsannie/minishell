@@ -6,10 +6,9 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 14:53:01 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:06:25 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minish.h"
 
@@ -235,6 +234,7 @@ void	change_stdin(char *namefile, t_set *set)
 		ft_putstr_fd(": No such file or directory\n", STDERR);
 		set->stop = 1;
 		set->exit_val = 1;
+		set->bleu = 1;
 	}
 	if (set->not_exist == 0)
 		free(namefile);
@@ -249,6 +249,7 @@ void	err_amb(t_set *set)
 	free(set->dol_amb);
 	set->stop = 1;
 	set->exit_val = 1;
+	set->bleu = 1;
 }
 
 void	err_notexist(t_set *set, char *namefile)
@@ -258,7 +259,8 @@ void	err_notexist(t_set *set, char *namefile)
 	ft_putstr_fd(": No such file or directory\n", STDERR);
 	free(namefile);
 	set->stop = 1;
-	set->exit_val = 1;
+	set->exit_val = 4;
+	set->bleu = 1;
 }
 
 char	*redirection(char *src, t_set *set)

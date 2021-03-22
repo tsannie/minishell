@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:18:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/16 16:18:12 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:54:08 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int ft_env(t_set *set)
 			if (ft_strncmp(set->envp[i], "_=", 2) == 0)
 			{
 				ft_putstr_fd("_=", STDOUT);//modif
-				//ft_putstr_fd(set->path, STDOUT);
+				ft_putstr_fd(set->path, STDOUT);
 				ft_putstr_fd("/", STDOUT);
 		   		ft_putstr_fd(set->envp[i] + 2, STDOUT);
 				ft_putchar_fd('\n', STDOUT);

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 14:46:16 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:07:28 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,20 @@ void	error_msg(t_set *set)
 	ft_putstr_fd(set->arg[0], STDERR);
 	if (errno == EACCES)
 		ft_putstr_fd(": Permission denied\n", STDERR);
+	else if (is_dir_present(set->pwd, set->arg[0]) == 1)
+		ft_putstr_fd(": Not a directory\n", STDERR);
 	else
 		ft_putstr_fd(": No such file or directory\n", STDERR);
+	set->exit_val = 1;
+	set->bleu = 1;
 }
 
 int		ft_chem(t_set *set)
 {
 	int valid;
-/* 
-	 int x = -1;
-	while (set->arg[++x])
-		printf("[%s]\n", set->arg[x]);
-	printf("[%s]\n", set->arg[x]);
-		 */
-		
+
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
-	//printf("valid = [%d]\n", valid);
 	if (valid == -1 && set->arg[0] != NULL)
 	{
 		if (ft_strlen(set->arg[0]) == 0)

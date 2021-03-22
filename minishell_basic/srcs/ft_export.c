@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:02:33 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:05:29 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,16 +225,18 @@ int				ft_export(t_set *set)
 				ft_putstr_fd("minishell: export: `", STDERR);
 				ft_putstr_fd(set->arg[i], STDERR);
 				ft_putstr_fd("': not a valid identifier\n", STDERR);
-				set->exit_val = 1; // a retirer
+				set->exit_val = 1;
 			}
 			else if (egl == 1)
 			{
 				ft_hideenv(set->arg[i], set);
 				ft_modenv(set->arg[i], set);
+				//set->exit_val = 0;
 		 	}
 			else
 			{
 				ft_hideenv(set->arg[i], set);
+				//set->exit_val = 1;
 			}
 			egl = 0;
 			j = -1;

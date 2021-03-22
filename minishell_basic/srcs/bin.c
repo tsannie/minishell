@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 15:20:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:09:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 			return (NULL);
 		}
 	}
-	set->pathbc = ft_strdup(cmd);
+	set->pathbc = ft_strdup(set->cmd);
 	return (set->pathbc);
 	//return (cmd);
 }
@@ -157,7 +157,7 @@ char				*get_path(t_set *set, char *path, char *cmd)
 	if (valid == 0)
 		return (NULL);
 	set->pathbc = ft_strdup(path);
-	return (ft_strjoin(path, cmd));
+	return (ft_strjoin(path, set->cmd));
 }
 
 int					check_stat_file(t_set *set, char *path, char *cmd)
@@ -291,6 +291,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	g = 0;
 	r = 0;
 
+	//printf("ici[%s]\n", path);	
 
 /* 	x = -1;
 	while (args[++x])
@@ -391,7 +392,7 @@ char 					*cmd_in_pwd(t_set *set, char *cmd)
 		{
 			//printf("[%s]=====[%s]\n", item->d_name, cmd);
 			closedir(folder);
-			return (joinf(set->pwd + 4, "/", cmd, ""));
+			return (joinf(set->pwd + 4, "/", set->cmd, ""));
 		}
 	}
 	return (NULL);
@@ -464,12 +465,21 @@ int					bash_cmd(t_set *set, char *cmd)
 	{
 		path = cmd_in_pwd(set, cmd);
 		if (is_dir(cmd) == 1)
+		{
+			set->bleu = 1;
 			return (1);
+		}
 	}
 	if (path == NULL)
-		return (1);
+		{
+			set->bleu = 1;
+			return (1);
+		}
 	//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
 	if (check_stat_file(set, path, cmd) == 1)
+	{
+		set->bleu = 1;
 		return (1);
+	}
 	return (exec_bin(set, path, cmd));
 }
