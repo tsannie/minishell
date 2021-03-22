@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 15:22:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:02:33 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,38 @@ char			*recup_new(char *str, int x)
 
 }
 
-int				ft_hideenv(char *str, t_set *set)
+char			*double_slash(char *arg)
+{
+	int			i;
+	char		*str;
+
+	if (!arg)
+		return (NULL);
+	i = 0;
+	str = ft_strdup("");
+	while (arg[i])
+	{
+		if (arg[i] == '\\' || arg[i] == '\"' || arg[i] == '$')
+			str = add_letter(str, '\\');
+		str = add_letter(str, arg[i]);
+		i++;
+	}
+	return (str);
+}
+
+int				ft_hideenv(char *arg, t_set *set)
 {
 	int			i;
 	int			act;
 	int			r;
 	int			j;
+	char		*str;
 
 	act = 0;
 	i = 0;
 	r = 0;
 	j = 0;
+	str = double_slash(arg);
    // while(str[i] != '=' && str[i])
 	//	i++;
 	// printf("[%d][%d]\n",i, (int)ft_strlen(str));
@@ -113,7 +134,7 @@ int				ft_hideenv(char *str, t_set *set)
 		printf("{%s}\n", set->hide_envp[i]);
 		i++;
 	}*/
-
+	free(str);
 	return (0);
 }
 
@@ -159,49 +180,6 @@ int 			ft_modenv(char *str, t_set *set)
 	return (0);
 }
 
-int				there_is_slash(char *word)
-{
-	int			i;
-
-	i = 0;
-	while (word[i])
-	{
-		if (word[i] == '\\')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void			double_slash(t_set *set)
-{
-	int			i;
-	int			e;
-	char		*str;
-
-	i = 0;
-	while (set->arg[i])
-	{
-		//printf("arg = |%s|\n", set->arg[i]);
-		if (there_is_slash(set->arg[i]) == 1)
-		{
-			e = 0;
-			str = ft_strdup("");
-			while (set->arg[i][e])
-			{
-				if (set->arg[i][e] == '\\')
-					str = add_letter(str, '\\');
-				str = add_letter(str, set->arg[i][e]);
-				e++;
-			}
-			free(set->arg[i]);
-			set->arg[i] = ft_strdup(str);
-			free(str);
-		}
-		i++;
-	}
-}
-
 int				ft_export(t_set *set)
 {
 	int			i;
@@ -221,7 +199,6 @@ int				ft_export(t_set *set)
 	//= exp & env
 	// -= exp
 	//printf("salutation\n");
-	double_slash(set);
 	//print_args(set->arg);
 	if (ft_streql(set->cmd, "export") != 1)
 	{
@@ -256,7 +233,9 @@ int				ft_export(t_set *set)
 				ft_modenv(set->arg[i], set);
 		 	}
 			else
+			{
 				ft_hideenv(set->arg[i], set);
+			}
 			egl = 0;
 			j = -1;
 		}

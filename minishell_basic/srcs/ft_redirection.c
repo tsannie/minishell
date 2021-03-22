@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 13:21:17 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 14:53:01 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ void	err_notexist(t_set *set, char *namefile)
 	ft_putstr_fd(": No such file or directory\n", STDERR);
 	free(namefile);
 	set->stop = 1;
-	set->exit_val = 4;
+	set->exit_val = 1;
 }
 
 char	*redirection(char *src, t_set *set)
