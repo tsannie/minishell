@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 10:43:47 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:24:16 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	**split_pipe(char *str, t_set *set)
 		i++;
 		free(add_this);
 	}
-	//printf("split pipe -> ");
-	//print_args(res);
+	printf("split pipe -> ");
+	print_args(res);
 	return(res);
 }
 
