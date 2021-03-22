@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 15:08:18 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:06:29 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				g_pid = -1;
 
 void			disp_prompt(void)
 {
-	ft_putstr_fd("{MINISHELL}$> ", 1);
+	ft_putstr_fd("{MINISHELL}$> ", STDERR);
 }
 
 void			int_handler(int sig)
@@ -77,15 +77,15 @@ void			init_struct(t_set *set, char **av, char **envp)
 
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	
+
 	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
-	
+
 	ft_modenv(tmp, set);
-	
+
 	ft_unsethideenv(set, "OLDPWD");
 	ft_unsetenv(set, "OLDPWD");
-	
+
 	free(tmp2);
 	free(tmp);
 }

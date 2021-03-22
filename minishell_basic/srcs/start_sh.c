@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 10:47:05 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 12:47:31 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void	start_cmd(t_set *set)
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
 	else if (ft_streql(set->cmd, "clear") == 1)
-		ft_putstr_fd("\033[H\033[2J", 1);
+		ft_putstr_fd("\033[H\033[2J", 1);			// STDERR ?
 	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
 	else if (ft_streql(set->cmd, "env") == 1)

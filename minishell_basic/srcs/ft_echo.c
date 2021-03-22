@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 15:18:58 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:29:57 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int		ft_echo(t_set *set)
 	}
 	if (n == 0)
 		ft_putchar_fd('\n', STDOUT);
-	set->exit_val = 0;
+	//set->exit_val = 963;
 	return (0);
 }
