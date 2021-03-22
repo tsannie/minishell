@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 10:48:13 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:09:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,12 +465,21 @@ int					bash_cmd(t_set *set, char *cmd)
 	{
 		path = cmd_in_pwd(set, cmd);
 		if (is_dir(cmd) == 1)
+		{
+			set->bleu = 1;
 			return (1);
+		}
 	}
 	if (path == NULL)
-		return (1);
+		{
+			set->bleu = 1;
+			return (1);
+		}
 	//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
 	if (check_stat_file(set, path, cmd) == 1)
+	{
+		set->bleu = 1;
 		return (1);
+	}
 	return (exec_bin(set, path, cmd));
 }

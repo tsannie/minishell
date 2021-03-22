@@ -6,9 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 13:07:02 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:58:00 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
@@ -17,7 +18,7 @@ int				g_pid = -1;
 
 void			disp_prompt(void)
 {
-	ft_putstr_fd("{MINISHELL}$> ", 1);
+	ft_putstr_fd("{MINISHELL}$> ", STDERR);
 }
 
 void			int_handler(int sig)
@@ -60,6 +61,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->lastcmd = NULL;
 	set->all_path = NULL;
 	set->exit_val = 0;
+	set->bleu = 0;
 	set->pid = 0;
 	set->save_stdout = dup(STDOUT);			// ok
 	set->save_stdin = dup(STDIN);			// check that
@@ -77,15 +79,15 @@ void			init_struct(t_set *set, char **av, char **envp)
 
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	
+
 	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
-	
+
 	ft_modenv(tmp, set);
-	
+
 	ft_unsethideenv(set, "OLDPWD");
 	ft_unsetenv(set, "OLDPWD");
-	
+
 	free(tmp2);
 	free(tmp);
 }

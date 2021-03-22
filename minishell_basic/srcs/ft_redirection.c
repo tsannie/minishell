@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 10:26:36 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:04:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int		err_folder(t_set *set, char *namefile)
 	}
 	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
 	{
-		set->exit_val = 4;
+		//set->exit_val = 4;		//plus tard en fait
 		//printf("ouimaisnon\n");
 		free(tmp3);
 		return (1);
@@ -209,18 +209,19 @@ void	create_file(char *namefile, t_set *set, int a)
 {
 	ifclose(set->fdout);
 	if (err_folder(set, namefile) == 1)
-		return ; // to do return err value
+		set->not_exist = 1; // to do return err value	
 	if (a == 1)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout
-			return ;
+			set->not_exist = 1;
 	}
 	else if (a == 2)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // check fdout
-			return ;
+			set->not_exist = 1;
 	}
-	free(namefile);
+	if (set->not_exist == 0)
+		free(namefile);
 	dup2(set->fdout, STDOUT);
 }
 
@@ -235,7 +236,8 @@ void	change_stdin(char *namefile, t_set *set)
 		set->stop = 1;
 		set->exit_val = 1;
 	}
-	free(namefile);
+	if (set->not_exist == 0)
+		free(namefile);
 	dup2(set->fdin, STDIN);
 }
 
@@ -249,6 +251,17 @@ void	err_amb(t_set *set)
 	set->exit_val = 1;
 }
 
+void	err_notexist(t_set *set, char *namefile)
+{
+	ft_putstr_fd("minishell: ", STDERR); // error
+	ft_putstr_fd(namefile, STDERR);
+	ft_putstr_fd(": No such file or directory\n", STDERR);
+	free(namefile);
+	set->stop = 1;
+	set->exit_val = 4;
+	set->bleu = 1;
+}
+
 char	*redirection(char *src, t_set *set)
 {
 	int		i;
@@ -258,6 +271,7 @@ char	*redirection(char *src, t_set *set)
 
 	res = ft_strdup(src);
 	i = 0;
+	set->not_exist = 0;
 	set->amb = 0;
 	while (res[i] && set->stop == 0)
 	{
@@ -306,6 +320,10 @@ char	*redirection(char *src, t_set *set)
 		i++;
 		if (set->amb == 1)
 			err_amb(set);
+		if (set->not_exist == 1)
+			err_notexist(set, namefile);
+		//if (namefile)
+			//free(namefile);
 	}
 	//printf("res = {%s}\n", res);
 	return (res);

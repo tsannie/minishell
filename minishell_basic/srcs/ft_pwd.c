@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:18:32 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/15 15:50:29 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:47:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ int ft_pwd(t_set *set)
 {
     char buff[4096 + 1];
 
-/* 	if (ft_streql(set->cmd, "pwd") != 1)
-	{
-		ft_putstr_not_found(set->cmd);
-		return (1);
-	} */
     set->pwd = getcwd(buff, 4097);
     ft_putstr_fd(set->pwd, STDOUT);
 	ft_putchar_fd('\n', STDOUT);

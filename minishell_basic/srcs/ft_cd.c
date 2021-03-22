@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:39 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 13:38:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:07:28 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	error_msg(t_set *set)
 	else
 		ft_putstr_fd(": No such file or directory\n", STDERR);
 	set->exit_val = 1;
+	set->bleu = 1;
 }
 
 int		ft_chem(t_set *set)

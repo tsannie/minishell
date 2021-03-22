@@ -6,9 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 13:32:47 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:57:49 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISH_H
@@ -59,7 +60,9 @@ typedef struct	s_set
 	int		ret_value;
 	char	*dol_amb;
 	int		amb;
+	int		not_exist;
 
+	int		bleu;
 	int		pid;
 	int		exit;
 	char	**arg;
