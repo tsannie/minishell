@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:06:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:45:17 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	change_stdin(char *namefile, t_set *set)
 		ft_putstr_fd(": No such file or directory\n", STDERR);
 		set->stop = 1;
 		set->exit_val = 1;
-		set->bleu = 1;
+		set->bleu = 2;
 	}
 	if (set->not_exist == 0)
 		free(namefile);

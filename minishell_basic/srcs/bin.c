@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 15:09:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:27:17 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ int					check_sh(t_set *set, char *path)
 	{
 		//printf("sh.sh./\n");
 		set->exit_val = 5;
+		set->bleu = 1;
 		return (1);
 	}
 	return (0);
@@ -316,10 +317,10 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 			//printf("\n\n----ENV----\n\n");
 			//printf("ttm = [%s]\n", ttm);
 			g = 1;
-			set->exit_val = execve(path, args, set->envp);
+			execve(path, args, set->envp);
 		}
 		else
-			set->exit_val = execve(path, args, set->envp);
+			execve(path, args, set->envp);
 		//ret = 32256;
 /*		r = -1;
 		while (args[++r])
@@ -335,6 +336,8 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 		set->exit_val = 1;
 	else if (ret == 54784)
 		set->exit_val = 1;
+	if (set->exit_val == 1)
+		set->bleu = 1;
 /* 	else if (ret == 0)
 	{
 		set->exit_val = 5;

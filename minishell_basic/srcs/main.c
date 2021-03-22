@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:05:31 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:41:37 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,13 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->all_path = ft_splitbc(set->path, ':');
 
 	ft_init_env(set, envp, av);
-
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-
 	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
-
 	ft_modenv(tmp, set);
-
 	ft_unsethideenv(set, "OLDPWD");
 	ft_unsetenv(set, "OLDPWD");
-
 	free(tmp2);
 	free(tmp);
 }
@@ -120,23 +115,35 @@ void			add_exval(t_set *set)
 }
  */
 
-int				main(int ac, char **av, char **envp)
+int				init_all(t_set *set, char **envp, char **av)
 {
-	t_set	*set;
-	int		term;
-    char *term_type;
+	int			term;
+    char		*term_type;
 	
 	term_type = getenv("TERM");
-	//printf("getenv = [%s]\n", term_type);
-    //term = tgetent(NULL, term_type);
 	if (term == -1)
-		return (-1);
-	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, av, envp);
 	ft_sort_dbtab(set);
+}
+
+int				free_all(t_set *set, int ret)
+{
+	free(set);
+	return (ret);
+}
+
+int				main(int ac, char **av, char **envp)
+{
+	t_set	*set;
+
+	if (!(set = malloc(sizeof(t_set))))
+		return (-1);
+	if (init_all(set, envp, av) == -1)
+		return (free_all(set, -1));
+
 	if (ac == 3)		// for testeur
 		start_shell(ac, av, set);
 	else
@@ -169,6 +176,5 @@ int				main(int ac, char **av, char **envp)
 			g_sig.pid = -1;
 		}
 	}
-	free(set);
-	return (set->exit_val);
+	return (free_all(set, set->exit_val));
 }

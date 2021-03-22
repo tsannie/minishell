@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:08:11 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:45:11 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,9 +206,6 @@ void	start_cmd(t_set *set)
 	//print_args(set->arg);
 	min = maj_to_min(set->cmd);
 	get_lastcmd(set);
-	//printf("last2 = [%s]\n", set->lastcmd);
-	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
-
 	if (set->bleu == 1)
 	{
 		set->exit_val = 0;
@@ -226,8 +223,6 @@ void	start_cmd(t_set *set)
 		ft_pwd(set);
 	else if (ft_streql(set->cmd, "unset") == 1)
 		ft_unset(set);
-	else if (ft_streql(set->cmd, "clear") == 1)
-		ft_putstr_fd("\033[H\033[2J", 1);			// STDERR ?
 	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
 	else if (ft_streql(set->cmd, "env") == 1)
@@ -243,7 +238,8 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd, set);
 		set->bleu = 1;
 	}
-	//if (ft_strlen(set->cmd) != 0)
+	if (set->bleu == 2)
+		set->bleu = 1;
 	if (set->path)
 		free(set->path);
 	set->path = ft_get_path(set->envp);
