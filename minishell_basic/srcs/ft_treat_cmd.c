@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:36:51 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 17:13:13 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,17 +279,12 @@ int 	first_semicon(const char *str)
 
 	e = 0;
 	i = 0;
-	printf("ENTER\n");
 	while (str[i])
 	{
 		if (str[i] == '\\')
 			i += 2;
 		else if (str[i] == '\'' || str[i] == '\"')
-		{
-			printf("i_b = %d\n", i);
 			i = forwar_quote((char*)str, i);
-			printf("i_a = %d\n", i);
-		}
 		else if (str[i] == ';')
 		{
 			if (str[i] == ';' && str[i + 1] == ';')
@@ -301,8 +296,7 @@ int 	first_semicon(const char *str)
 		}
 		else if (ft_istab(str[i]) == 0)
 			e++;
-		else
-			i++;
+		i++;
 	}
 	return (0);
 }
@@ -382,17 +376,17 @@ int		check_pipe(const char *str, int i)
 
 	if ((e = before_pipe(str , i)) != 0)
 	{
-		printf("problem before e = %d\n",e);
+		//printf("problem before e = %d\n",e);
 		return (e);
 	}
 	if ((e = nb_pipe(str , i)) != 0)
 	{
-		printf("problem nbpipe = %d\n",e);
+		//printf("problem nbpipe = %d\n",e);
 		return (e);
 	}
 	if ((e = after_pipe(str , i)) != 0)
 	{
-		printf("problem after = %d\n",e);
+		//printf("problem after = %d\n",e);
 		return (e);
 	}
 	return (0);
@@ -454,8 +448,7 @@ int		check_list(const char *str, t_set *set)
 			if ((e = between_semico(str, i)) != 0)
 				return (error_list(e, set));
 		}
-		else
-			i++;
+		i++;
 	}
 	return (0);
 }

@@ -6,17 +6,13 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 14:57:49 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:41:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef MINISH_H
 # define MINISH_H
-
 # include "../../libft/libft.h"
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -36,8 +32,11 @@
 # define STDOUT 1
 # define STDERR 2
 
-# define LLU_MAX 18446744073709551615
-# define LLU_MIN -9223372036854775809
+typedef struct	s_sig
+{
+	int				run;
+	int				pid;
+}				t_sig;
 
 typedef struct	s_set
 {

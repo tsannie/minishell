@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:24:16 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 18:09:18 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		is_pipe(char *str)
 		if (str[i] == '\\')
 			i += 2;
 		else if (str[i] == '\'' || str[i] == '\"')
-			i = forwar_quote(str, i);
+			i = forwar_quote(str, i) + 1;
 		else if (str[i] == '|')
 			return (1);
 		else
@@ -40,10 +40,11 @@ char	*new_pipe(char *str, t_set *set)
 	len = set->p;
 	while (str[set->p] && str[set->p] != '|')
 	{
+		//printf("c = {%c}\n", str[set->p]);
 		if (str[set->p] == '\\')
 			set->p += 2;
 		else if ((str[set->p] == '\'' || str[set->p] == '\"') && antislash_pair(str, set->p) == 1)
-			set->p = forwar_quote(str, set->p);
+			set->p = forwar_quote(str, set->p) + 1;
 		else
 			set->p++;
 	}
@@ -74,8 +75,8 @@ char	**split_pipe(char *str, t_set *set)
 		i++;
 		free(add_this);
 	}
-	printf("split pipe -> ");
-	print_args(res);
+	//printf("split pipe -> ");
+	//print_args(res);
 	return(res);
 }
 

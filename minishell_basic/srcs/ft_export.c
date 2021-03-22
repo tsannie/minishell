@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:05:29 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 16:08:30 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
@@ -226,6 +227,7 @@ int				ft_export(t_set *set)
 				ft_putstr_fd(set->arg[i], STDERR);
 				ft_putstr_fd("': not a valid identifier\n", STDERR);
 				set->exit_val = 1;
+				set->bleu = 1;
 			}
 			else if (egl == 1)
 			{
