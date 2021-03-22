@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 10:31:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 10:47:05 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char *get_val(t_set *set)
 	}
 	if (gnl == 0 && ft_strlen(*line) == 0)
 	{
-		ft_putstr_fd("exit\n", 1);			// peut etre placer sous STDER
+		ft_putstr_fd("exit\n", STDERR) ;			// peut etre placer sous STDER
 		exit(0);
 	}
 	// printf("line = [%s]\n", *line);
@@ -221,10 +221,10 @@ void	start_cmd(t_set *set)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
-	else if (bash_cmd(set, min) == 0)
-		;
 	else if (ft_streql(set->cmd, "env") == 1)
 		ft_env(set);
+	else if (bash_cmd(set, min) == 0)
+		;
 	else if (ft_strlen(set->cmd) != 0)
 	{
 		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",

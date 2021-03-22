@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 15:52:35 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 10:26:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minish.h"
 
@@ -162,9 +163,53 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
+int		err_folder(t_set *set, char *namefile)
+{
+	char **args;
+	char *tmp;
+	char *tmp2;
+	char *tmp3;
+	int i;
+
+	tmp3 = ft_strdup("");
+	tmp = ft_strdup("");
+	tmp2 = NULL;
+	i = 0;
+	args = ft_split(namefile, '/');
+	while (args[i + 1])
+	{
+		if (i > 0)
+			tmp = ft_strjoin(tmp3, "/");
+		free(tmp3);
+		tmp2 = ft_strjoin(tmp, args[i]);
+		tmp3 = ft_strdup(tmp2);
+		free(tmp);
+		if (is_dir(tmp2) == 0)
+		{
+			set->exit_val = 4;
+			ft_free_dbtab(args);
+			free(tmp2);
+			free(tmp3);
+			return (1);
+		}
+		free(tmp2);
+		i++;
+	}
+	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
+	{
+		set->exit_val = 4;
+		//printf("ouimaisnon\n");
+		free(tmp3);
+		return (1);
+	}
+	return (0);
+}
+
 void	create_file(char *namefile, t_set *set, int a)
 {
-	close(set->fdout);
+	ifclose(set->fdout);
+	if (err_folder(set, namefile) == 1)
+		return ; // to do return err value
 	if (a == 1)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout

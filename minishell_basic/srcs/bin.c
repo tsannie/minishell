@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 10:22:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:20:20 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,50 +454,20 @@ int					bash_cmd(t_set *set, char *cmd)
 	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
-		{
 			path = get_path(set, set->all_path[y],cmd);
-			//printf("oo[%s][%s]oo\n", path, set->all_path[y]);
-		}
 	}
 	else if (chemin == 1)
-	{
-		//printf("1\n");
 		path = get_path_chemin(set, path, len, cmd);
-		//printf("g_p_c = [%s]p[%s]\n", cmd, path);
-	}
 	if (chemin == 0 && path == NULL)
-	{
-		//printf("2\n");
 		path = get_path_chemin(set, path, ft_strlenbc(cmd), cmd);
-	}
 	if (path == NULL && set->pwd != NULL && set->path == NULL)
 	{
 		path = cmd_in_pwd(set, cmd);
-		//printf("---ici---\n");
 		if (is_dir(cmd) == 1)
 			return (1);
 	}
 	if (path == NULL)
 		return (1);
-	//printf("ici4\n");
-
-
-/* 	char *ttm;
-	ttm = joinf("_=", set->pathbc, set->cmd, "");
-	ft_modenv(ttm, set);
-	ft_hideenv(ttm, set);
- 	if (set->pathbc != NULL)
-	{
-		free(set->pathbc);
-		set->pathbc = NULL;
-	} 
-	free(ttm); */
-	//printf("final path = [%s]\n", path);
-	//if (check_stat_file(set, path, cmd) == 1)
-	//	return (1);
-	////return (1);
-	//if (ft_strncmp(cmd, "..", ft_strlen(cmd)) == 0)
-	//	return (1);
 	//printf("set->path[%s]\npath = [%s]\n cmd = [%s]\n", set->path, path, cmd);
 	if (check_stat_file(set, path, cmd) == 1)
 		return (1);

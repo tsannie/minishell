@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 15:53:19 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/19 16:07:39 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISH_H
 # define MINISH_H
@@ -99,6 +100,9 @@ void  ft_init_env(t_set *set, char **envp, char **av);
 char *recup_new(char *str, int x);
 char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
+int				ft_unsethideenv(t_set *set, char *str);
+int				ft_unsetenv(t_set *set, char *str);
+
 //
 void	ifclose(int fd);
 int		is_pipe(char *str);

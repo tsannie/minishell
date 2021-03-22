@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/09 15:03:16 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:06:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,40 @@ int				ncmpel(char *s1, char *s2)
 	return (0);
 }
 
-int				ft_unsetenv(t_set *set, int j)
+int				checkenvp_un(char *str)
+{
+	int			i;
+	int			avn;
+
+	i = 0;
+	avn = 0;
+	//printf("str [%s]\n", str);
+	if (ft_strlen(str) == 0)
+		return (1);
+	if (str[i] == '=')
+		return (1);
+	while (str[i])
+	{
+		if (str[i] >= 48 && str[i] <= 59 && avn == 0)
+			return (1);
+		if (((str[i] < 48) || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
+		|| (str[i] >= 91 && str[i] <= 96) )  && (str[i] != '_'))
+			return (1);
+		else
+			avn = 1;
+		i++;
+	}
+	return (0);
+}
+
+int				ft_unsetenv(t_set *set, char *str)
 {
 	int			i;
 
 	i = 0;
 	while (set->envp[i] != NULL)
 	{
-		//printf("[%s][%s][%d]\n", set->arg[j], set->envp[i],ncmpel(set->arg[j], set->envp[i]));
-		if (ncmpel(set->arg[j], set->envp[i]) == 0)
+		if (ncmpel(str, set->envp[i]) == 0)
 		{
 			while (set->envp[i] != NULL)
 			{
@@ -49,15 +74,14 @@ int				ft_unsetenv(t_set *set, int j)
 	return (0);
 }
 
-int				ft_unsethideenv(t_set *set, int j)
+int				ft_unsethideenv(t_set *set, char *str)
 {
 	int			i;
 
 	i = 0;
 	while (set->hide_envp[i] != NULL)
 	{
-		//printf("[%s][%s][%d]\n", set->arg[j], set->hide_envp[i],ncmpel(set->arg[j], set->hide_envp[i]));
-		if (ncmpel(set->arg[j], set->hide_envp[i]) == 0)
+		if (ncmpel(str, set->hide_envp[i]) == 0)
 		{
 			while (set->hide_envp[i] != NULL)
 			{
@@ -79,14 +103,18 @@ int				ft_unset(t_set *set)
 	j = 0;
 	while (set->arg[j])
 	{
-		 if (checkenvp(set->arg[j]) == 1)
+		if (checkenvp_un(set->arg[j]) == 1)
         {
-            printf("minishell: unset: `%s': not a valid identifier\n", set->arg[j]);
-            set->exit_val = 1; // a retirer 
-            return (1);
+            ft_putstr_fd("minishell: unset: `", STDERR);
+			ft_putstr_fd(set->arg[j], STDERR);
+			ft_putstr_fd("': not a valid identifier\n", STDERR);
+            set->exit_val = 1;
         }
-		ft_unsethideenv(set, j);
-		ft_unsetenv(set, j);
+		else
+		{
+			ft_unsethideenv(set, set->arg[j]);
+			ft_unsetenv(set, set->arg[j]);
+		}
 		j++;
 	}
     return (0);
