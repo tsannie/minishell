@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 15:02:27 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:34:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void ft_putstr_error_quote(t_set *set)
 	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd("syntax error with open quotes\n", STDERR);
 	set->exit_val = 2;
+	set->bleu = 1;
 }
 
 char *get_val(t_set *set)
