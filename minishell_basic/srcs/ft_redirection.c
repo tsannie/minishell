@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 15:36:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:06:25 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minish.h"
 
@@ -209,7 +208,7 @@ void	create_file(char *namefile, t_set *set, int a)
 {
 	ifclose(set->fdout);
 	if (err_folder(set, namefile) == 1)
-		set->not_exist = 1; // to do return err value	
+		set->not_exist = 1; // to do return err value
 	if (a == 1)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/18 16:11:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:15:40 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char *ft_get_path(char **envp)
 		//printf("envp = [%s]\n", envp[i]);
 		i++;
 	}
-	//printf("envp = [%s]\n", envp[i]); 
+	//printf("envp = [%s]\n", envp[i]);
 	if (envp[i + 1] == NULL && ft_strncmp("PATH=", envp[i], 5) != 0)
 	{
 		//printf("NULLICI [%d] [%s]\n",ft_strncmp("PATH=", envp[i], 5) != 0, envp[i]);
@@ -143,7 +143,7 @@ char	*change_slash(char *str)
 	res = ft_strdup("");
 	while (str[i])
 	{
-		if (str[i] == '\\')
+		if (str[i] == '\\' || str[i] == '\"' || str[i] == '$')
 			res = add_letter(res, '\\');
 		res = add_letter(res, str[i]);
 		i++;

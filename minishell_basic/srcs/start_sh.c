@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:07:44 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:08:11 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,17 +208,18 @@ void	start_cmd(t_set *set)
 	get_lastcmd(set);
 	//printf("last2 = [%s]\n", set->lastcmd);
 	//printf("exvv = [%d]run[%d]\n", set->exit_val, g_run);
+
 	if (set->bleu == 1)
 	{
 		set->exit_val = 0;
 		set->bleu = 0;
 	}
-	if (ft_streql(set->cmd, "export") == 1)
+	if (set->err_quote == 1)
+		ft_putstr_error_quote(set);
+	else if (ft_streql(set->cmd, "export") == 1)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
-	else if (set->err_quote == 1)
-		ft_putstr_error_quote(set);
 	else if (ft_streql(set->cmd, "exit") == 1)
 		ft_eexit(set);
 	else if (ft_streql(set->cmd, "pwd") == 1)
