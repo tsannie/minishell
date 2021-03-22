@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 15:08:18 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:07:02 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,41 @@ void			add_exval(t_set *set)
 	ft_hideenv(set->exit_v, set);
 }
 
+/* int init_term(void)
+{
+    int ret;
+    char *term_type = getenv("TERM");
+
+    if (term_type == NULL)
+    {
+        fprintf(stderr, "TERM must be set (see 'env').\n");
+        return -1;
+    }
+    ret = tgetent(NULL, term_type);
+    if (ret == -1)
+    {
+        fprintf(stderr, "Could not access to the termcap database..\n");
+        return -1;
+    }
+    else if (ret == 0)
+    {
+        fprintf(stderr, "Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_type);
+        return -1;
+    }
+    return 0;
+}
+ */
 
 int				main(int ac, char **av, char **envp)
 {
 	t_set	*set;
+	int		term;
 
+    //char *term_type = getenv("TERM");
+
+    //term = tgetent(NULL, term_type);
+	if (term == -1)
+		return (-1);
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (check_shlvl(set, envp) != 0)

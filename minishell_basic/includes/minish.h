@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 16:07:39 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 13:32:47 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <curses.h>
+#include <term.h>
 #include <fcntl.h>
 #include <errno.h>
 
@@ -147,6 +149,7 @@ int ft_menv(char *str, t_set *set);
 char *ft_get_path(char **envp);
 //
 char	*maj_to_min(char *str);
+int		is_dir_present(char *arg, char *cmd);
 
 //bin
 void	get_lastcmd(t_set *set);
