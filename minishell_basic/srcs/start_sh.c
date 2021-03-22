@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 15:34:06 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:07:44 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void ft_putstr_not_found(char *str, t_set *set)
 		ft_putstr_fd(": command not found\n", STDERR);
 		set->exit_val = 127;
 	}
+	set->bleu = 1;
 }
 
 void ft_putstr_error_quote(t_set *set)

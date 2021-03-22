@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 15:31:21 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:07:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int				ft_export(t_set *set)
 				ft_putstr_fd(set->arg[i], STDERR);
 				ft_putstr_fd("': not a valid identifier\n", STDERR);
 				set->exit_val = 1;
+				set->bleu = 1;
 			}
 			else if (egl == 1)
 			{

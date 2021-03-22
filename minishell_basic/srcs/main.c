@@ -6,15 +6,13 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 14:58:00 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:05:31 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/minish.h"
 
-int				g_run = 0;
-int				g_pid = -1;
+t_sig			g_sig;
 
 void			disp_prompt(void)
 {
@@ -23,27 +21,20 @@ void			disp_prompt(void)
 
 void			int_handler(int sig)
 {
-	//printf("avant2?");
-	//printf("avant22?");
-	//printf("sig = [%d]\n", sig);
 	ft_putstr_fd("\b\b  ", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	g_run = 1;
+	g_sig.run = 1;
 	disp_prompt();
 }
 
 void	sig_quit(int code)
 {
-	//char	*nbr;
-	//printf("pid = [%d]\n", g_pid);
-
-	//nbr = ft_itoa(code);
-	if (g_pid == 0)
+	if (g_sig.pid == 0)
 	{
 		ft_putstr_fd("Quit: ", STDERR);
 		ft_putnbr_fd(code, STDERR);
 		ft_putstr_fd("\n", STDERR);
-		g_run = 3;
+		g_sig.run = 3;
 		disp_prompt();
 	}
 	else
@@ -133,9 +124,10 @@ int				main(int ac, char **av, char **envp)
 {
 	t_set	*set;
 	int		term;
-
-    //char *term_type = getenv("TERM");
-
+    char *term_type;
+	
+	term_type = getenv("TERM");
+	//printf("getenv = [%s]\n", term_type);
     //term = tgetent(NULL, term_type);
 	if (term == -1)
 		return (-1);
@@ -153,27 +145,28 @@ int				main(int ac, char **av, char **envp)
 		signal(SIGQUIT, sig_quit);
 		while (1)
 		{
-			if (g_run == 0)
+			if (g_sig.run == 0)
 				disp_prompt();
 			if (ac == 3)
 				set->str = av[2];		// for testeur
 			else
 				set->str = get_val(set);
-			if (g_run == 1)
+			if (g_sig.run == 1)
 			{
-				set->exit_val = g_run;
+				set->exit_val = g_sig.run;
 				add_exval(set);
-				g_run = 0;
+				g_sig.run = 0;
 			}
-			else if (g_run == 3)
+			else if (g_sig.run == 3)
 			{
 				set->exit_val = 131;
+				set->bleu = 1;
 				add_exval(set);
-				g_run = 0;
+				g_sig.run = 0;
 			}
-			g_pid = 0;
+			g_sig.pid = 0;
 			treat_cmd(set);
-			g_pid = -1;
+			g_sig.pid = -1;
 		}
 	}
 	free(set);
