@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 16:07:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:26:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,8 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
-void	create_file(char *namefile, t_set *set, int a)
+int		err_folder(t_set *set, char *namefile)
 {
-	ifclose(set->fdout);
 	char **args;
 	char *tmp;
 	char *tmp2;
@@ -177,11 +176,6 @@ void	create_file(char *namefile, t_set *set, int a)
 	tmp2 = NULL;
 	i = 0;
 	args = ft_split(namefile, '/');
-
-/* 	int x = -1;
-	while (args[++x])
-		printf("ar = [%s]\n", args[x]);
- */
 	while (args[i + 1])
 	{
 		if (i > 0)
@@ -190,20 +184,32 @@ void	create_file(char *namefile, t_set *set, int a)
 		tmp2 = ft_strjoin(tmp, args[i]);
 		tmp3 = ft_strdup(tmp2);
 		free(tmp);
-		//printf("isdir = [%d]\nargs = [%s]\ntmp2 = [%s]\n", is_dir(args[i]), args[i], tmp2);
 		if (is_dir(tmp2) == 0)
 		{
-			//printf("ERREUR\n");
+			set->exit_val = 4;
 			ft_free_dbtab(args);
-			//free(tmp);
-			//free(tmp2);
-			//free(tmp3);
-			return ;
+			free(tmp2);
+			free(tmp3);
+			return (1);
 		}
 		free(tmp2);
 		i++;
 	}
+	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
+	{
+		set->exit_val = 4;
+		//printf("ouimaisnon\n");
+		free(tmp3);
+		return (1);
+	}
+	return (0);
+}
 
+void	create_file(char *namefile, t_set *set, int a)
+{
+	ifclose(set->fdout);
+	if (err_folder(set, namefile) == 1)
+		return ; // to do return err value
 	if (a == 1)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout

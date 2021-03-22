@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 15:10:39 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:37:38 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,10 +221,10 @@ void	start_cmd(t_set *set)
 		ft_putstr_fd("\033[H\033[2J", 1);
 	else if (ft_streql(set->cmd, "echo") == 1)
 		ft_echo(set);
-	else if (bash_cmd(set, min) == 0)
-		;
 	else if (ft_streql(set->cmd, "env") == 1)
 		ft_env(set);
+	else if (bash_cmd(set, min) == 0)
+		;
 	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
 	{
 		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",
