@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/18 12:43:35 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 10:43:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int		is_pipe(char *str)
 	while (str[i])
 	{
 		//printf("res[i] = {%c} | res = {%s} | i = %d\n", res[i], res, i);
-		if ((str[i] == '\'' || str[i] == '\"') && antislash_pair(str, i) == 1)
+		if (str[i] == '\\')
+			i += 2;
+		else if (str[i] == '\'' || str[i] == '\"')
 			i = forwar_quote(str, i);
-		else if (str[i] == '|' && antislash_pair(str, i) == 1)				//	warn backslash
-		{
-
+		else if (str[i] == '|')
 			return (1);
-		}
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
@@ -40,12 +40,12 @@ char	*new_pipe(char *str, t_set *set)
 	len = set->p;
 	while (str[set->p] && str[set->p] != '|')
 	{
-		if ((str[set->p] == '\'' || str[set->p] == '\"') && antislash_pair(str, set->p) == 1)
+		if (str[set->p] == '\\')
+			set->p += 2;
+		else if ((str[set->p] == '\'' || str[set->p] == '\"') && antislash_pair(str, set->p) == 1)
 			set->p = forwar_quote(str, set->p);
 		else
 			set->p++;
-		if (str[set->p] == '|' && antislash_pair(str, set->p) == 0)
-			set->p += 2;
 	}
 	len = (set->p - len) + 1;
 	set->p++;
@@ -74,6 +74,7 @@ char	**split_pipe(char *str, t_set *set)
 		i++;
 		free(add_this);
 	}
+	//printf("split pipe -> ");
 	//print_args(res);
 	return(res);
 }

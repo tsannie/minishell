@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 08:17:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 12:37:16 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/22 10:30:49 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char	**search_arg(char *str, t_set *set)
 		//printf("\n\n");
 		free(set->word_tmp);
 	}
+	//printf("arg after_parcing -> ");
 	//print_args(res);
 	if (exit == -1)
 		set->err_quote = 1;

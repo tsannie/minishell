@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/19 11:08:58 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:31:15 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-int check_cmd(char *str)
+/*int check_cmd(char *str)
 {
     int i;
 
@@ -24,7 +24,7 @@ int check_cmd(char *str)
 		i++;
 	}
 	return (1);
-}
+}*/
 
 void ft_putstr_not_found(char *str, t_set *set)
 {
@@ -225,7 +225,7 @@ void	start_cmd(t_set *set)
 		;
 	else if (ft_streql(set->cmd, "env") == 1)
 		ft_env(set);
-	else if (ft_strlen(set->cmd) != 0 && check_cmd(set->cmd) == 0)
+	else if (ft_strlen(set->cmd) != 0)
 	{
 		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",
 		ft_strlen(set->cmd + ft_strlen(set->cmd) - 1)) == 0 &&
