@@ -6,9 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 17:48:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 17:51:04 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISH_H
 # define MINISH_H
@@ -43,6 +44,7 @@ typedef struct	s_set
 	char	*str;
 	char	*word_tmp;
 	char	**push;
+	int		nb_word;
 	int		fdout;
 	int		fdin;
 	int		pipeout;
@@ -108,9 +110,16 @@ char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 int				ft_unsethideenv(t_set *set, char *str);
 int				ft_unsetenv(t_set *set, char *str);
-int		correct_cmd(char *str, t_set *set);
 
 //
+int		first_semicon(const char *str);
+int		multi_redirecion(char *src, t_set *set, char a);
+int		correct_cmd(char *str, t_set *set);
+int		call_err(int e, t_set *set);
+int		check_pipe(const char *str, int i);
+int		first_part(const char *str, t_set *set);
+int		err_code(char *src, int i, t_set *set);
+int		error_list(int a, t_set *set);
 void	ifclose(int fd);
 int		is_pipe(char *str);
 int		forwar_quote(char *src, int i);
@@ -120,12 +129,13 @@ int		ft_disp_export(t_set *set);
 void	start_shell(int ac, char **av, t_set *set);
 void	treat_cmd(t_set *set);
 void	start_cmd(  t_set *set);
-char	**search_arg(char *str, t_set *set);
+void	search_arg(char *str, t_set *set);
 char	*search_dolars(char *src, t_set *set);
 char	*add_letter(char *str, char a);
 char	*before_equal(char *str);
 char	*before_equale(char *str);
 int		search_quotes(const char *src, t_set *set, char a);
+void	search_basic(const char *str, t_set *set);
 char	*redirection(char *src, t_set *set);
 char	*change_dol(char *dol, t_set *set);
 char	*dolars_find(char *src, t_set *set);
