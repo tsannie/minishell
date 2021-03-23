@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 14:14:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 17:26:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,15 +250,9 @@ void	start_cmd(t_set *set)
 		ft_free_dbtab(set->all_path);
 	set->all_path = ft_splitbc(set->path, ':');
 	add_exval(set);
-
-
  	free(min);
 	free(set->cmd);
 	ft_free_dbtab(set->arg);
-	ifclose(set->pipein);
-	ifclose(set->pipeout);
-	set->pipein = -1;
-	set->pipeout = -1;
 }
 
 void	start_shell(int ac, char **av, t_set *set)
