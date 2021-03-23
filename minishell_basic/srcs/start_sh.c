@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 16:45:11 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:55:45 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,9 @@ void	start_cmd(t_set *set)
 	//print_args(set->arg);
 	min = maj_to_min(set->cmd);
 	get_lastcmd(set);
+	add_exval(set);
+	if (ft_streql(set->cmd, "exit") == 1)
+		ft_eexit(set);
 	if (set->bleu == 1)
 	{
 		set->exit_val = 0;
@@ -217,8 +220,6 @@ void	start_cmd(t_set *set)
 		ft_export(set);
 	else if (ft_streql(set->cmd, "cd") == 1)
 		ft_cd(set);
-	else if (ft_streql(set->cmd, "exit") == 1)
-		ft_eexit(set);
 	else if (ft_streql(set->cmd, "pwd") == 1)
 		ft_pwd(set);
 	else if (ft_streql(set->cmd, "unset") == 1)

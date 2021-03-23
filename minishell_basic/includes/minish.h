@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:41:02 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:31:58 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,15 @@ char	*joinf(char *s1, char *s2, char *s3, char *s4);
 int ft_menv(char *str, t_set *set);
 char *ft_get_path(char **envp);
 //
-char	*maj_to_min(char *str);
-int		is_dir_present(char *arg, char *cmd);
-
+char			*maj_to_min(char *str);
+int				is_dir_present(char *arg, char *cmd);
+//export
+int 			ft_egenv(char *str, t_set *set);
+int				ft_eghide(char *arg, t_set *set);
+char			*st_moin_pe(char *str);
+char			*double_slash(char *arg);
+int				ncmpelp(char *s1, char *s2);
+//
 //bin
 void	get_lastcmd(t_set *set);
 int					bash_cmd(t_set *set, char *cmd);

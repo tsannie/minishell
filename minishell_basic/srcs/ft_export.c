@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:27:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:08:30 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:51:50 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,24 @@ int				checkenvp(char *str)
 	avn = 0;
 	if (ft_strlen(str) == 0)
 		return (1);
-	if (str[i] == '=')
+	if (str[i] == '=' || str[ft_strlen(str) - 1] == '+')
 		return (1);
 	while (str[i] && str[i] != '=')
 	{
 		if (str[i] >= 48 && str[i] <= 59 && avn == 0)
 			return (1);
-		if (((str[i] < 48) || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
+		if (((str[i] < 48 && str[i] != '+') || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
 		|| (str[i] >= 91 && str[i] <= 96) )  && (str[i] != '_'))
 			return (1);
 		else
 			avn = 1;
+		i++;
+	}
+	i = 0;
+	while (str[i + 1])
+	{
+		if (str[i] == '+' && str[i + 1] != '=')
+			return (1);
 		i++;
 	}
 	return (0);
@@ -113,11 +120,10 @@ int				ft_hideenv(char *arg, t_set *set)
 		}
 		i++;
 	}
-	//printf("hide = [%s]\n", str);
 	if (act == 0)
-	{
+	{	
 		set->hide_envp = addword(set->hide_envp,i + 1, set, str);
-		//set->hide_envp = addword(set->hide_envp, i + 2, set, NULL);
+		set->hide_envp[i + 1] = NULL;
 	}
 /*
 		free(set->hide_envp[i]);
@@ -218,7 +224,9 @@ int				ft_export(t_set *set)
 			//printf("arg = [%s]\n", set->arg[i]);
 			while (set->arg[i][++j])
 			{
-				if (set->arg[i][j] == '=')
+				if (ft_strncmp(set->arg[i] + j, "+=", 2) == 0 && egl == 0)
+					egl = 2;
+				else if (set->arg[i][j] == '=' && egl == 0)
 					egl = 1;
 			}
 			if (checkenvp(set->arg[i]) == 1)
@@ -229,24 +237,22 @@ int				ft_export(t_set *set)
 				set->exit_val = 1;
 				set->bleu = 1;
 			}
+			else if (egl == 2)
+			{
+				ft_eghide(set->arg[i], set);
+				ft_egenv(set->arg[i], set);
+			}
 			else if (egl == 1)
 			{
 				ft_hideenv(set->arg[i], set);
 				ft_modenv(set->arg[i], set);
-				//set->exit_val = 0;
 		 	}
 			else
-			{
 				ft_hideenv(set->arg[i], set);
-				//set->exit_val = 1;
-			}
 			egl = 0;
 			j = -1;
 		}
 	}
-
-	//printf("\n\n\n");
-	//print_args(set->hide_envp);
 	ft_sort_dbtab(set);
 
 	return (0);

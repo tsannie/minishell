@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/19 12:40:26 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/23 13:54:33 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_eexit(t_set *set)
 	while (set->arg[len])
 		len++;
 	if (set->arg[0] == NULL)
-		exit(0);
+		exit(set->exit_val);
 	else if (ft_check_valid_exit(set) == 1)
 	{
 		//ft_putstr_fd(set->cmd, STDERR);

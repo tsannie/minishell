@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 13:13:23 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 16:09:51 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:31:51 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ int				ncmpel(char *s1, char *s2)
 
 	i = 0;
 	while ((s2[i] || s1[i]) && s2[i] != '=')
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int				ncmpelp(char *s1, char *s2)
+{
+	int			i;
+
+	i = 0;
+	while ((s2[i] || s1[i]) && s2[i] != '=' && s2[i] != '+')
 	{
 		if (s1[i] != s2[i])
 			return (s1[i] - s2[i]);
