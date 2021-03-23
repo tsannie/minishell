@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 14:14:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:42:27 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ void ft_putstr_not_found(char *str, t_set *set)
 	i = 0;
 	//printf("paath = [%s]\n", set->path);
 	if (set->path == NULL)
-	{
-		//printf("ici4\n");
-		set->exit_val = 4;
-	}
+		set->exit_val = 6;
+	else if (ft_strlen(set->path) == 0)
+		set->exit_val = 6;
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(str, STDERR);
 	if (set->exit_val == 3)
@@ -50,6 +49,11 @@ void ft_putstr_not_found(char *str, t_set *set)
 	{
 		ft_putstr_fd(": No such file or directory\n", STDERR);
 		set->exit_val = 126;
+	}
+	else if (set->exit_val == 6)
+	{
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+		set->exit_val = 127;
 	}
 	else if (set->exit_val == 5)
 	{

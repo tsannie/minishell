@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 16:05:42 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 17:48:28 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_set
 	int		not_exist;
 
 	int		ex_er;
+	int		len;
 	int		bleu;
 	int		pid;
 	int		exit;
@@ -162,7 +163,16 @@ char			*double_slash(char *arg);
 int				ncmpelp(char *s1, char *s2);
 //
 //bin
+int				exec_bin(t_set *set, char *path, char *cmd);
 void			get_lastcmd(t_set *set);
+char			*get_path(t_set *set, char *path, char *cmd);
+char			*get_path_chemin(t_set *set, char *path, int len, char *cmd);
+char			*cmd_in_pwd(t_set *set, char *cmd);
+int				ft_strlenbc(char *str);
+int				check_sh(t_set *set, char *path);
+int				check_stat_file(t_set *set, char *path, char *cmd);
+char			**new_args(char **args, t_set *set, char *cmd);
+int				ft_strcmpsl(char *s1, char *s2);
 int				bash_cmd(t_set *set, char *cmd);
 int				check_shlvl(t_set *set, char **envp);
 int				ft_strcmp(char *s1, char *s2);
