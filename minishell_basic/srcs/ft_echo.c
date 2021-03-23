@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 13:46:15 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:21:34 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-int is_noret(char *str)
+int		is_noret(char *str)
 {
 	int i;
 
@@ -28,18 +28,11 @@ int is_noret(char *str)
 	return (1);
 }
 
-/* void		put_last_cmd(char *str)
+int		no_arg(t_set *set)
 {
-	int i;
-
-	i = 0;
-	printf("[oui]ouio[uoi]\n");
-	while (str[i])
-		i++;
-	while (i > 0 && str[i] != '/')
-		i--;
-	ft_putstr_fd(str + i, STDOUT);
-} */
+	ft_putchar_fd('\n', STDOUT);
+	return (0);
+}
 
 int		ft_echo(t_set *set)
 {
@@ -48,17 +41,8 @@ int		ft_echo(t_set *set)
 
 	i = 0;
 	n = 0;
-
-	//printf("[Notre echo]\n");
 	if (!set->arg[0])
-	{
-		ft_putchar_fd('\n', STDOUT);
-		return (0);
-	}
-/* 	 	int x = -1;
-	while (set->arg[++x])
-		printf("arg[%s]\n", set->arg[x]);
-  */
+		return(no_arg(set));
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;
@@ -75,6 +59,5 @@ int		ft_echo(t_set *set)
 	}
 	if (n == 0)
 		ft_putchar_fd('\n', STDOUT);
-	//set->exit_val = 963;
 	return (0);
 }

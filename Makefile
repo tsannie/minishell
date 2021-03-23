@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/23 15:59:24 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/03/23 16:05:06 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,10 @@ END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
-SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
-ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c ft_exit.c \
+SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c ft_exit.c \
+ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
 split_semicolon.c ft_dolars.c tools_dev_DELETE.c ft_init_env.c bin.c \
-ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c exportpe.c \
+ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c exportpe.c ft_correct.c \
 
 
 
