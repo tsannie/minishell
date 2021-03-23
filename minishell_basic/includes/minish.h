@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 13:56:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:09:11 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char **ft_strdup_tabl(char **envp);
 void		ft_sort_dbtab(t_set *set);
 int				ft_unsethideenv(t_set *set, char *str);
 int				ft_unsetenv(t_set *set, char *str);
+int		correct_cmd(char *str, t_set *set);
 
 //
 void	ifclose(int fd);
