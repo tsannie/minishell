@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:55:16 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 13:57:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:07:11 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ void	ft_eexit(t_set *set)
 	int len;
 
 	len = 0;
-    if (ft_streql(set->cmd, "exit") != 1)
-    {
-        ft_putstr_not_found(set->cmd, set);
-		exit(set->exit_val);
-    }
 	while (set->arg[len])
 		len++;
 	if (set->arg[0] == NULL)
@@ -109,7 +104,7 @@ void	ft_eexit(t_set *set)
 		ft_putstr_fd(set->cmd, STDERR);
 		ft_putstr_fd(": too many arguments\n", STDERR);
 		set->exit_val = 1;
-		//exit (1); jsp
+		set->ex_er = 1;
 	}
 	else
 	{
