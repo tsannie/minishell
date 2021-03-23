@@ -6,9 +6,10 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 13:31:58 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:56:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISH_H
 # define MINISH_H
@@ -127,7 +128,7 @@ char	*redirection(char *src, t_set *set);
 char	*change_dol(char *dol, t_set *set);
 char	*dolars_find(char *src, t_set *set);
 int		antislash_pair(char *src, int i);
-int		start_pipe(t_set *set);
+void	start_pipe(t_set *set);
 char	**split_pipe(char *str, t_set *set);
 void	exec_cmd(t_set *set, char *cmd);
 void	reset_fd(t_set *set);

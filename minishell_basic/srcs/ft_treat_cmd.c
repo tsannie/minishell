@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 17:13:13 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/23 12:24:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,10 @@ int	error_list(int a, t_set *set)
 	if (a == 11)
 		ft_putstr_fd("`||'", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	set->exit_val = 2;
+	//printf("ERRROR\n");
+	set->exit_val = 258;
+	set->bleu = 1;
+	add_exval(set);
 	return (-1);
 }
 
@@ -490,7 +493,6 @@ void	exec_cmd(t_set *set, char *cmd)
 	clean(cmd, set);
 	if (set->stop == 0)
 		start_cmd(set);
-
 }
 
 void	treat_cmd(t_set *set)

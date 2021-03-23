@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 10:46:19 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 12:26:11 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
+/*   Updated: 2021/03/23 13:56:44 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->exit_val = 0;
 	set->bleu = 0;
 	set->pid = 0;
+	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);			// ok
-	set->save_stdin = dup(STDIN);			// check that
+	reset_fd(set);
 	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
 	set->exit = 0;
@@ -120,13 +121,18 @@ int				init_all(t_set *set, char **envp, char **av)
 	int			term;
     char		*term_type;
 
+	//ft_putstr_fd("JEFAISTEST1\n", STDERR);
 	term_type = getenv("TERM");
 	if (term == -1)
 		return (-1);
+	//ft_putstr_fd("JEFAISTEST2\n", STDERR);
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
+
 	init_struct(set, av, envp);
+	//ft_putstr_fd("JEFAISTEST4\n", STDERR);
 	ft_sort_dbtab(set);
+	//ft_putstr_fd("JEFAISTEST5\n", STDERR);
 	return (0);
 }
 
