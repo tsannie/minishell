@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:28:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/22 18:09:18 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/23 13:39:08 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,25 @@ char	**split_pipe(char *str, t_set *set)
 	return(res);
 }
 
-int		pipe_exec_son(t_set *set, int fdpipe[2], int fd_in)
+int		son(int pipefd[2], int fd_in, t_set *set)
 {
-	dup2(fd_in, STDIN_FILENO); //if there was a pipe before, connecting this command to previous one
-	if (set->push[set->p + 1]) //if there is an other pipe after this command we redirect its output into the fdpipe
+	dup2(fd_in, STDIN); //if there was a pipe before, connecting this command to previous one
+	if (set->push[set->p + 1]) //if there is an other pipe after this command we redirect its output into the pipefd
 	{
-		dup2(fdpipe[1], STDOUT_FILENO); //otherwise this command is the last one and will print to stdout
+		dup2(pipefd[1], STDOUT); //otherwise this command is the last one and will print to stdout
 		//printf("LEAVE\n");
 	}
-	close(fd_in);     //now saved in STDIN
-	close(fdpipe[0]); //son is taking the input previously save from STDIN / or a previous pipe (fd_in)
-	close(fdpipe[1]); //now saved in STDOUT if there is a next command
+	ifclose(fd_in);     //now saved in STDIN
+	ifclose(pipefd[0]); //son is taking the input previously save from STDIN / or a previous pipe (fd_in)
+	ifclose(pipefd[1]); //now saved in STDOUT if there is a next command
 	exec_cmd(set, set->push[set->p]);
 	//printf("exit\n");
-	exit(set->ret_value); //sets in execve_part
+	exit(set->exit_val); //sets in execve_part
 }
 
-int		start_pipe(t_set *set)
+void		start_pipe(t_set *set)
 {
-	int			fdpipe[2];
+	int			pipefd[2];
 	int			fd_in; //for saving the input of next command to be executed
 	int			status;
 	pid_t		pid;
@@ -107,37 +107,37 @@ int		start_pipe(t_set *set)
 	status = 0;
 	nb_wait = 0;
 	pid = -1;
-	fd_in = dup(STDIN_FILENO);
-	while (set->push[set->p] && pid != 0)
+	fd_in = dup(STDIN);
+	while (set->push[set->p])
 	{
 		//printf("set->push[set->p] = {%s}\n", set->push[set->p]);
-		if (pipe(fdpipe) == -1)
-			return (set->ret_value = 1);
+		pipe(pipefd);
 		pid = fork();
 		//printf("set->pid\t=\t%d\n", pid);
 		if (pid == 0)		//son
 		{
 			//printf("\t\t\tenter HERE\n");
-			pipe_exec_son(set, fdpipe, fd_in);
+			son(pipefd, fd_in, set);
 		}
 		else				//parent
 		{
-			close(fd_in);			//we will copy pipe_intput inside
-			fd_in = dup(fdpipe[0]);	//saving pipe_input, will be use in the next loop
-			close(fdpipe[0]);		//saved in fd_in
-			close(fdpipe[1]);		//not used
+			ifclose(fd_in);			//we will copy pipe_intput inside
+			fd_in = dup(pipefd[0]);	//saving pipe_input, will be use in the next loop
+			ifclose(pipefd[0]);		//saved in fd_in
+			ifclose(pipefd[1]);		//not used
 			nb_wait++;
 		}
 		set->p++;
 	}
-	close(fd_in); //close last save of fdpipe[0]
+	ifclose(fd_in); //close last save of pipefd[0]
 	reset_fd(set);
 	while (nb_wait-- >= 0) //waiting that all the processes launched end
 		if (wait(&status) == pid)
 		{
 			//printf("now wait\n");
-			set->ret_value = WEXITSTATUS(status);
+			set->exit_val = WEXITSTATUS(status);
+			set->bleu = 1;
+			add_exval(set);
+			//printf("ret = %d\n", set->exit_val);
 		}
-
-	return (0);
 }

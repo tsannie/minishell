@@ -6,3 +6,4 @@ libft/*.a
 
 minishell_basic/srcs/*.o
 minishell_basic/srcs/*.a
+minishell_tester
