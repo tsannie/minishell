@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 14:13:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:03:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,23 +134,23 @@ char	**split_pipe(char *str, t_set *set);
 void	exec_cmd(t_set *set, char *cmd);
 void	reset_fd(t_set *set);
 //cmd
-int		ft_cd(t_set *set);
-int 	ft_echo(t_set *set);
-int 	ft_env(t_set *set);
-int 	ft_export(t_set *set);
-int 	ft_unset(t_set *set);
-int 	ft_pwd(t_set *set);
+int				ft_cd(t_set *set);
+int				ft_echo(t_set *set);
+int				ft_env(t_set *set);
+int				ft_export(t_set *set);
+int				ft_unset(t_set *set);
+int				ft_pwd(t_set *set);
 //
-int	ncmpel(char *s1, char *s2);
-int checkenvp(char *str);
+int				ncmpel(char *s1, char *s2);
+int				checkenvp(char *str);
 //
-int		ncmpel(char *s1, char *s2);
-char	**addword(char **res, int nb_word, t_set *set, char *word);
-char	**split_semicolon(char *str, t_set *set);
+int				ncmpel(char *s1, char *s2);
+char			**addword(char **res, int nb_word, t_set *set, char *word);
+char			**split_semicolon(char *str, t_set *set);
 // init
-char	*joinf(char *s1, char *s2, char *s3, char *s4);
-int ft_menv(char *str, t_set *set);
-char *ft_get_path(char **envp);
+char			*joinf(char *s1, char *s2, char *s3, char *s4);
+int				ft_menv(char *str, t_set *set);
+char			*ft_get_path(char **envp);
 //
 char			*maj_to_min(char *str);
 int				is_dir_present(char *arg, char *cmd);
@@ -162,13 +162,14 @@ char			*double_slash(char *arg);
 int				ncmpelp(char *s1, char *s2);
 //
 //bin
-void	get_lastcmd(t_set *set);
-int					bash_cmd(t_set *set, char *cmd);
-int		check_shlvl(t_set *set, char **envp);
-int			ft_strcmp(char *s1, char *s2);
+void			get_lastcmd(t_set *set);
+int				bash_cmd(t_set *set, char *cmd);
+int				check_shlvl(t_set *set, char **envp);
+int				ft_strcmp(char *s1, char *s2);
+//init
+int				init_all(t_set *set, char **envp, char **av);
+int				free_all(t_set *set, int ret);
 /* TOOLS TO DELETE WHEN ITS END */
-void	print_args(char **str);
-
-
+void			print_args(char **str);
 char *get_val(t_set *set);
 #endif
