@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 13:56:44 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:13:59 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->exit_val = 0;
 	set->bleu = 0;
 	set->pid = 0;
+	set->ex_er = 0;
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);			// ok
 	reset_fd(set);

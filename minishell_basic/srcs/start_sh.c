@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 13:56:26 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:14:10 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void	start_cmd(t_set *set)
 		ft_env(set);
 	else if (bash_cmd(set, min) == 0)
 		;
-	else if (ft_strlen(set->cmd) != 0)
+	else if (ft_strlen(set->cmd) != 0 && set->ex_er == 0)
 	{
 		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",
 		ft_strlen(set->cmd + ft_strlen(set->cmd) - 1)) == 0 &&
@@ -240,6 +240,7 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd, set);
 		set->bleu = 1;
 	}
+	set->ex_er = 0;
 	if (set->bleu == 2)
 		set->bleu = 1;
 	if (set->path)

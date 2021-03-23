@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:55:14 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 13:32:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:44:19 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char			*st_moin_pe(char *str)
 {
-	int i;
-	int e;
-	char *new;
+	int			i;
+	int			e;
+	char		*new;
 
 	e = 0;
 	i = 0;
@@ -39,9 +39,9 @@ char			*st_moin_pe(char *str)
 
 char			*st_moin_p(char *str)
 {
-	int i;
-	int e;
-	char *new;
+	int			i;
+	int			e;
+	char		*new;
 
 	e = 0;
 	i = 0;
@@ -58,6 +58,29 @@ char			*st_moin_p(char *str)
 	return (new);
 }
 
+void			check_act(t_set *set, int act, char *str, int i)
+{
+	char		*tmp;
+
+	if (act == 0)
+	{
+		tmp = ft_strdup(str);
+		free(str);
+		str = st_moin_p(tmp);
+		free(tmp);
+		set->envp = addword(set->envp, i + 1, set, str);
+		set->envp[i + 1] = NULL;
+	}
+	else if (act == 2)
+	{
+		tmp = ft_strdup(str);
+		free(str);
+		str = st_moin_p(tmp);
+		free(tmp);
+		set->hide_envp = addword(set->hide_envp, i + 1, set, str);
+		set->hide_envp[i + 1] = NULL;
+	}
+}
 
 int				ft_eghide(char *arg, t_set *set)
 {
@@ -66,12 +89,12 @@ int				ft_eghide(char *arg, t_set *set)
 	char		*str;
 	char		*tmp;
 
-	act = 0;
+	act = 2;
 	str = double_slash(arg);
 	i = 0;
 	while (set->hide_envp[i] != NULL)
 	{
-		if(ncmpelp(str, set->hide_envp[i]) == 0)
+		if (ncmpelp(str, set->hide_envp[i]) == 0)
 		{
 			str = st_moin_pe(str);
 			tmp = ft_strjoin(set->hide_envp[i], str);
@@ -82,21 +105,12 @@ int				ft_eghide(char *arg, t_set *set)
 		}
 		i++;
 	}
-	if (act == 0)
-	{	
-		tmp = ft_strdup(str);
-		free(str);
-		str = st_moin_p(tmp);
-		free(tmp);
-		set->hide_envp = addword(set->hide_envp,i + 1, set, str);
-		set->hide_envp[i + 1] = NULL;
-	}
- 	i = 0;
+	check_act(set, act, str, i);
 	free(str);
 	return (0);
 }
 
-int 			ft_egenv(char *str, t_set *set)
+int				ft_egenv(char *str, t_set *set)
 {
 	int			i;
 	int			act;
@@ -106,7 +120,7 @@ int 			ft_egenv(char *str, t_set *set)
 	i = 0;
 	while (set->envp[i] != NULL)
 	{
-		if(ncmpelp(str, set->envp[i]) == 0)
+		if (ncmpelp(str, set->envp[i]) == 0)
 		{
 			str = st_moin_pe(str);
 			tmp = ft_strjoin(set->envp[i], str);
@@ -117,14 +131,6 @@ int 			ft_egenv(char *str, t_set *set)
 		}
 		i++;
 	}
-	if (act == 0)
-	{
-		tmp = ft_strdup(str);
-		free(str);
-		str = st_moin_p(tmp);
-		free(tmp);
-		set->envp = addword(set->envp, i + 1, set, str);
-		set->envp[i + 1] = NULL;
-	}
+	check_act(set, act, str, i);
 	return (0);
 }
