@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:18:02 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 15:21:34 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/24 10:42:00 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		ft_echo(t_set *set)
 	i = 0;
 	n = 0;
 	if (!set->arg[0])
-		return(no_arg(set));
+		return(no_arg(set));			// poudre aux yeux j'reconnais là
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;
