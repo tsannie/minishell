@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 08:05:14 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/13 10:34:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/24 10:07:00 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		antislash_pair(char *src, int i)
 			n++;
 		}
 	}
-	//printf("n = %d\n", n);
 	return (ft_ispair(n) == 1 ? 1 : 0);
 }
 
@@ -39,6 +38,11 @@ char	*dolars_find(char *src, t_set *set)
 	i = 1;
 	res = ft_strdup("");
 	err = 0;
+	if (ft_isdigit(src[i]) == 1 || src[i] == '?')
+	{
+		res = add_letter(res, src[i]);
+		return (res);
+	}
 	if (src[i] != '\"' &&  src[i] != '\'')
 	{
 		while (src[i] && (ft_isalnum(src[i]) == 1 || src[i] == '_' || src[i] == '?')) // ATTENTION Y'EN A D'AUTRES !
@@ -193,20 +197,15 @@ char	*search_dolars(char *src, t_set *set)
 	res = ft_strdup(src);
 	while (res[i])
 	{
-		//printf("char = {%c}\n", res[i]);
 		if (res[i] == '\'' && antislash_pair(res, i) == 1)
 		{
-			//ft_putstr_fd("\n\nNEXT :{",1);
 			i++;
 			while (res[i] && res[i] != '\'')
 			{
-				//ft_putchar_fd(res[i], 1);
 				i++;
 			}
-			//ft_putstr_fd("}",1);
-			//printf(" | res[i] = %c | i = %d\n", res[i], i);
 		}
-		else if (res[i] == '$' && (res[i + 1] == '\'' || res[i + 1] == '\"' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_' || res[i + 1] == '?') && antislash_pair(res, i) == 1)
+		else if (res[i] == '$' && (res[i + 1] == '\'' || ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_' || res[i + 1] == '?') && antislash_pair(res, i) == 1)
 		{
 			dol = dolars_find(&res[i], set);
 			//printf("\ndol = {%s}\n", dol);
