@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 15:48:09 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:02:45 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct	s_set
 	char	**envp;
 }				t_set;
 
+int						get_next_line(int fd, char **line);
 //lib
 char					**ft_splitbc(const char *str, char charset);
 void					add_exval(t_set *set);

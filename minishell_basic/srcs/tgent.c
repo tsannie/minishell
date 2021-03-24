@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 10:50:36 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:57:37 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			init_tgent(t_set *set)
 {
-	int			term;
+/* 	int			term;
 	char		*term_type;
 	int ret;
 
@@ -27,5 +27,37 @@ int			init_tgent(t_set *set)
 	if (ret != 1)
         return (-1);
 	printf("[%d][%s]\n", ret, term_type);
+
+
+
+
+	char *ku;
+	char *kd;
+
+	char *cl_string;
+	char *cm_string;
+	int auto_wrap;
+	int height;
+	int width;
+	char *temp;
+	char *BC;
+	char *UP;
+	char *DO;
+
+			ku = tgetstr("ku", NULL);
+			kd = tgetstr("kd", NULL);
+
+			printf("\n\n\n\nku  [%s]==[%s]\n\n\n\n\n",set->cmd, ku);
+			printf("\n\n\n\nkd  [%s]==[%s]\n\n\n\n\n",set->cmd, kd);
+
+			//cl_string = tgetstr("cl", NULL);
+			cm_string = tgetstr("cm", NULL);
+			auto_wrap = tgetflag("am");
+			height = tgetnum("li");
+			width = tgetnum("co");
+			temp = tgetstr("pc", NULL);
+			BC = tgetstr("le", NULL);
+			UP = tgetstr("up", NULL);
+			DO = tgetstr("do", NULL); */
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 15:02:35 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:59:20 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				main(int ac, char **av, char **envp)
 	if (init_all(set, envp, av) == -1)
 		return (free_all(set, -1));
 
-	char *ku;
+/* 	char *ku;
 	char *kd;
 
 	char *cl_string;
@@ -62,11 +62,9 @@ int				main(int ac, char **av, char **envp)
 	char *BC;
 	char *UP;
 	char *DO;
-
-	//if (init_tgent(set) == -1)
-	//	return (-1);
-
-
+ */
+	if (init_tgent(set) == -1)
+		return (-1);
 	if (ac == 3)// for testeur
 		start_shell(ac, av, set);
 	else
@@ -100,10 +98,9 @@ int				main(int ac, char **av, char **envp)
 			temp = tgetstr("pc", NULL);
 			BC = tgetstr("le", NULL);
 			UP = tgetstr("up", NULL);
-			DO = tgetstr("do", NULL);
+			DO = tgetstr("do", NULL); */
 
-			printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n", cm_string, auto_wrap,height,width,temp,BC,UP,DO);
-			 */
+			//printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n", cm_string, auto_wrap,height,width,temp,BC,UP,DO);
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;

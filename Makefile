@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/24 10:44:57 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/03/24 17:07:51 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c ft_exit.
 ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
 split_semicolon.c ft_dolars.c tools_dev_DELETE.c ft_init_env.c bin.c bin2.c bin3.c binlib.c \
 ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c exportpe.c ft_correct1.c \
-ft_correct2.c ft_correct3.c tgent.c 
+ft_correct2.c ft_correct3.c tgent.c
 
 
 SRC_BONUS 	= \
