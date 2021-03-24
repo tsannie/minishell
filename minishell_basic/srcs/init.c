@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 16:01:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:18:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,6 @@ void			add_exval(t_set *set)
 
 int				init_all(t_set *set, char **envp, char **av)
 {
-	int			term;
-	char		*term_type;
-
-	term_type = getenv("TERM");
-	if (term == -1)
-		return (-1);
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, av, envp);

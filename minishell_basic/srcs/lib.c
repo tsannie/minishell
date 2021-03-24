@@ -6,26 +6,34 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:30:07 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/22 13:38:06 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:03:07 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-char	*ft_strduplen(const char *s1, int len)
+char	*ft_strdupbc(const char *s1)
 {
 	char	*res;
-	size_t	i;
+	int		len;
+	int		i;
 
+	len = 0;
+	while (s1[len])
+		len++;
+	while (s1[len] != '/' && len > 0)
+		len--;
+	//printf("len = [%d]\n", len);
 	i = 0;
-	if (!(res = malloc(sizeof(char) * (len))))
+	if (!(res = malloc(sizeof(char) * (len + 2))))
 		return (NULL);
-	while (s1[i] && i < len)
+	while (s1[i] && i <= len)
 	{
 		res[i] = s1[i];
 		i++;
 	}
 	res[i] = '\0';
+	//printf("res = [%s]\n", res);
 	return (res);
 }
 
@@ -57,6 +65,29 @@ int		is_dir_present(char *arg, char *cmd)
 	while ((item = readdir(folder)))
 	{
 		if (ft_strcmp(item->d_name, cmd) == 0 && is_dir(item->d_name) == 0)
+		{
+			closedir(folder);
+			return (1);
+		}
+	}
+	closedir(folder);
+	return (0);
+}
+
+int		is_dir_presentsl(char *arg, char *cmd)
+{
+	DIR				*folder;
+	struct dirent	*item;
+	int				valid;
+
+	valid = 0;
+	folder = opendir(arg);
+	if (!folder)
+		return (0);
+	while ((item = readdir(folder)))
+	{
+		printf("[%s] == [%s]\n", cmd, item->d_name);
+		if (ft_strcmpss(cmd, item->d_name) == 0 && is_dir(item->d_name) == 0)
 		{
 			closedir(folder);
 			return (1);

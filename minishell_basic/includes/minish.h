@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 17:51:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:48:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct	s_set
 	int		amb;
 	int		not_exist;
 
+	int		line_count;
+
 	int		ex_er;
 	int		len;
 	int		bleu;
@@ -96,83 +98,85 @@ typedef struct	s_set
 }				t_set;
 
 //lib
-char			**ft_splitbc(const char *str, char charset);
-void			add_exval(t_set *set);
-char			*ft_strduplen(const char *s1, int len);
-int				is_dir(char *arg);
+char					**ft_splitbc(const char *str, char charset);
+void					add_exval(t_set *set);
+char					*ft_strdupbc(const char *s1);
+int						is_dir(char *arg);
 //env
 unsigned long long		ft_atoill(const char *str);
-int ft_modenv(char *str, t_set *set);
-int ft_hideenv(char *str, t_set *set);
-void  ft_init_env(t_set *set, char **envp, char **av);
-char *recup_new(char *str, int x);
-char **ft_strdup_tabl(char **envp);
-void		ft_sort_dbtab(t_set *set);
-int				ft_unsethideenv(t_set *set, char *str);
-int				ft_unsetenv(t_set *set, char *str);
+int						ft_modenv(char *str, t_set *set);
+int						ft_hideenv(char *str, t_set *set);
+void					ft_init_env(t_set *set, char **envp, char **av);
+char					*recup_new(char *str, int x);
+char					**ft_strdup_tabl(char **envp);
+void					ft_sort_dbtab(t_set *set);
+int						ft_unsethideenv(t_set *set, char *str);
+int						ft_unsetenv(t_set *set, char *str);
 
 //
-int		first_semicon(const char *str);
-int		multi_redirecion(char *src, t_set *set, char a);
-int		correct_cmd(char *str, t_set *set);
-int		call_err(int e, t_set *set);
-int		check_pipe(const char *str, int i);
-int		first_part(const char *str, t_set *set);
-int		err_code(char *src, int i, t_set *set);
-int		error_list(int a, t_set *set);
-void	ifclose(int fd);
-int		is_pipe(char *str);
-int		forwar_quote(char *src, int i);
-void	ft_putstr_not_found(char *str, t_set *set);
-void 	ft_eexit(t_set *set);
-int		ft_disp_export(t_set *set);
-void	start_shell(int ac, char **av, t_set *set);
-void	treat_cmd(t_set *set);
-void	start_cmd(  t_set *set);
-void	search_arg(char *str, t_set *set);
-char	*search_dolars(char *src, t_set *set);
-char	*add_letter(char *str, char a);
-char	*before_equal(char *str);
-char	*before_equale(char *str);
-int		search_quotes(const char *src, t_set *set, char a);
-void	search_basic(const char *str, t_set *set);
-char	*redirection(char *src, t_set *set);
-char	*change_dol(char *dol, t_set *set);
-char	*dolars_find(char *src, t_set *set);
-int		antislash_pair(char *src, int i);
-void	start_pipe(t_set *set);
-char	**split_pipe(char *str, t_set *set);
-void	exec_cmd(t_set *set, char *cmd);
-void	reset_fd(t_set *set);
+int						first_semicon(const char *str);
+int						multi_redirecion(char *src, t_set *set, char a);
+int						correct_cmd(char *str, t_set *set);
+int						call_err(int e, t_set *set);
+int						check_pipe(const char *str, int i);
+int						first_part(const char *str, t_set *set);
+int						err_code(char *src, int i, t_set *set);
+int						error_list(int a, t_set *set);
+void					ifclose(int fd);
+int						is_pipe(char *str);
+int						forwar_quote(char *src, int i);
+void					ft_putstr_not_found(char *str, t_set *set);
+void 					ft_eexit(t_set *set);
+int						ft_disp_export(t_set *set);
+void					start_shell(int ac, char **av, t_set *set);
+void					treat_cmd(t_set *set);
+void					start_cmd(  t_set *set);
+void					search_arg(char *str, t_set *set);
+char					*search_dolars(char *src, t_set *set);
+char					*add_letter(char *str, char a);
+char					*before_equal(char *str);
+char					*before_equale(char *str);
+int						search_quotes(const char *src, t_set *set, char a);
+void					search_basic(const char *str, t_set *set);
+char					*redirection(char *src, t_set *set);
+char					*change_dol(char *dol, t_set *set);
+char					*dolars_find(char *src, t_set *set);
+int						antislash_pair(char *src, int i);
+void					start_pipe(t_set *set);
+char					**split_pipe(char *str, t_set *set);
+void					exec_cmd(t_set *set, char *cmd);
+void					reset_fd(t_set *set);
 //cmd
-int				ft_cd(t_set *set);
-int				ft_echo(t_set *set);
-int				ft_env(t_set *set);
-int				ft_export(t_set *set);
-int				ft_unset(t_set *set);
-int				ft_pwd(t_set *set);
+int						ft_cd(t_set *set);
+int						ft_echo(t_set *set);
+int						ft_env(t_set *set);
+int						ft_export(t_set *set);
+int						ft_unset(t_set *set);
+int						ft_pwd(t_set *set);
 //
-int				ncmpel(char *s1, char *s2);
-int				checkenvp(char *str);
+int						ncmpel(char *s1, char *s2);
+int						checkenvp(char *str);
 //
-int				ncmpel(char *s1, char *s2);
-char			**addword(char **res, int nb_word, t_set *set, char *word);
-char			**split_semicolon(char *str, t_set *set);
+int						ncmpel(char *s1, char *s2);
+char					**addword(char **res, int nb_word, t_set *set, char *word);
+char					**split_semicolon(char *str, t_set *set);
 // init
-char			*joinf(char *s1, char *s2, char *s3, char *s4);
-int				ft_menv(char *str, t_set *set);
-char			*ft_get_path(char **envp);
+char					*joinf(char *s1, char *s2, char *s3, char *s4);
+int						ft_menv(char *str, t_set *set);
+char					*ft_get_path(char **envp);
 //
-char			*maj_to_min(char *str);
-int				is_dir_present(char *arg, char *cmd);
+char					*maj_to_min(char *str);
+int						is_dir_present(char *arg, char *cmd);
 //export
-int 			ft_egenv(char *str, t_set *set);
-int				ft_eghide(char *arg, t_set *set);
-char			*st_moin_pe(char *str);
-char			*double_slash(char *arg);
-int				ncmpelp(char *s1, char *s2);
+int 					ft_egenv(char *str, t_set *set);
+int						ft_eghide(char *arg, t_set *set);
+char					*st_moin_pe(char *str);
+char					*double_slash(char *arg);
+int						ncmpelp(char *s1, char *s2);
 //
 //bin
+int				ft_strcmpss(char *s1, char *s2);
+int				is_dir_presentsl(char *arg, char *cmd);
 int				exec_bin(t_set *set, char *path, char *cmd);
 void			get_lastcmd(t_set *set);
 char			*get_path(t_set *set, char *path, char *cmd);
@@ -187,9 +191,10 @@ int				bash_cmd(t_set *set, char *cmd);
 int				check_shlvl(t_set *set, char **envp);
 int				ft_strcmp(char *s1, char *s2);
 //init
+int				init_tgent(t_set *set);
 int				init_all(t_set *set, char **envp, char **av);
 int				free_all(t_set *set, int ret);
 /* TOOLS TO DELETE WHEN ITS END */
 void			print_args(char **str);
-char *get_val(t_set *set);
+char			*get_val(t_set *set);
 #endif
