@@ -16,13 +16,12 @@ char				*cmd_in_pwd(t_set *set, char *cmd)
 {
 	DIR				*folder;
 	struct dirent	*item;
-	int				valid;
-	char			*tmp;
+	// y'avait valid donc ca rentrait pas dans le while la
 
 	folder = opendir(set->pwd + 4);
 	if (!folder)
 		return (NULL);
-	while ((item = readdir(folder)) && valid == 0)
+	while ((item = readdir(folder)))		// condition de valid =0 degage car valid non init
 	{
 		if (ft_strcmp(item->d_name, cmd) == 0)
 		{
@@ -38,11 +37,8 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	DIR				*folder;
 	struct dirent	*item;
 	int				valid;
-	int				ap;
-	int				r;
 	char			*op;
 
-	r = 0;
 	valid = 0;
 	op = ft_strdupbc(cmd);
 

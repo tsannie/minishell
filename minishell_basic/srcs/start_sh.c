@@ -31,9 +31,6 @@
 
 void ft_putstr_not_found(char *str, t_set *set)
 {
-	int i;
-
-	i = 0;
 	//printf("paath = [%s]\n", set->path);
 	if (set->path == NULL)
 		set->exit_val = 6;
@@ -82,7 +79,7 @@ void ft_putstr_error_quote(t_set *set)
 	set->bleu = 1;
 }
 
-char *get_val(t_set *set)
+char *get_val(void)
 {
 	char **line;
 	int gnl;
@@ -271,7 +268,7 @@ void	start_shell(int ac, char **av, t_set *set)
 		set->str = av[2];		// for testeur
 	else
 	{
-		set->str = get_val(set);
+		set->str = get_val();
 	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);

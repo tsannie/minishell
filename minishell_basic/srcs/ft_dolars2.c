@@ -29,7 +29,7 @@ int		antislash_pair(char *src, int i)
 	return (ft_ispair(n) == 1 ? 1 : 0);
 }
 
-char	*dolars_find(char *src, t_set *set)
+char	*dolars_find(char *src)
 {
 	char	*res;
 	int		i;

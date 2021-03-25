@@ -15,10 +15,8 @@
 char			*recup_new(char *str, int x)
 {
 	char		*nstr;
-	int			i;
 	int			j;
 
-	i = 0;
 	j = 0;
 	if (!(nstr = malloc(sizeof(char) * (ft_strlen(str) + 4))))
 		return (0);
@@ -78,7 +76,7 @@ int				ft_hideenv(char *arg, t_set *set)
 	}
 	if (act == 0)
 	{
-		set->hide_envp = addword(set->hide_envp, i + 1, set, str);
+		set->hide_envp = addword(set->hide_envp, i + 1, str);
 		set->hide_envp[i + 1] = NULL;
 	}
 	free(str);
@@ -104,7 +102,7 @@ int				ft_modenv(char *str, t_set *set)
 	}
 	if (act == 0)
 	{
-		set->envp = addword(set->envp, i + 1, set, str);
+		set->envp = addword(set->envp, i + 1, str);
 		set->envp[i + 1] = NULL;
 	}
 	return (0);

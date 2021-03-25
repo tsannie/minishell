@@ -56,9 +56,7 @@ int		is_dir_present(char *arg, char *cmd)
 {
 	DIR				*folder;
 	struct dirent	*item;
-	int				valid;
 
-	valid = 0;
 	folder = opendir(arg);
 	if (!folder)
 		return (0);
@@ -78,9 +76,7 @@ int		is_dir_presentsl(char *arg, char *cmd)
 {
 	DIR				*folder;
 	struct dirent	*item;
-	int				valid;
 
-	valid = 0;
 	folder = opendir(arg);
 	if (!folder)
 		return (0);

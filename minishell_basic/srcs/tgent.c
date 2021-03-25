@@ -14,6 +14,7 @@
 
 int			init_tgent(t_set *set)
 {
+	(void)set;
 /* 	int			term;
 	char		*term_type;
 	int ret;

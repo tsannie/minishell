@@ -40,7 +40,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 		set->bleu = 1;
 		return (1);
 	}
-	if (check_stat_file(set, path, cmd) == 1)
+	if (check_stat_file(set, path) == 1)
 	{
 		set->bleu = 1;
 		return (1);

@@ -91,7 +91,7 @@ char	*place_dol(char *src, char *dol, t_set *set)
 	return (res);
 }
 
-int		simplequot_dol(int i, char *res, t_set *set)
+int		simplequot_dol(int i, char *res)
 {
 	i++;
 	while (res[i] && res[i] != '\'')
@@ -110,13 +110,13 @@ char	*search_dolars(char *src, t_set *set)
 	while (res[i])
 	{
 		if (res[i] == '\'' && antislash_pair(res, i) == 1)
-			i = simplequot_dol(i, res, set);
+			i = simplequot_dol(i, res);
 		else if (res[i] == '$' && (res[i + 1] == '\''
 		|| ft_isalnum(res[i + 1]) == 1 || res[i + 1] == '_'
 		|| res[i + 1] == '?') && antislash_pair(res, i) == 1)
 		{
 			set->dol_found = i;
-			dol = dolars_find(&res[i], set);
+			dol = dolars_find(&res[i]);
 			set->l_dol = ft_strlen(dol);
 			dol = change_dol(dol, set);
 			res = place_dol(res, dol, set);

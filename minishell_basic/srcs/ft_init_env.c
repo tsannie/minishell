@@ -43,21 +43,17 @@ char **ft_strdup_tabl(char **envp)
 
 int ft_menv(char *str, t_set *set)
 {
-	char *tmp;
     int i;
-	int r;
-	int j;
+
 
     i = 0;
-    r = 0;
-    j = 0;
     while (set->envp[i] != NULL)
 	    i++;
 	//free(set->envp[i]);
     //set->envp[i] = ft_strdup(str);
 	//set->envp[i + 1] = malloc(sizeof(char) * 1);
     //set->envp[i + 1] = NULL;
-	set->envp = addword(set->envp, i + 1, set, str);
+	set->envp = addword(set->envp, i + 1, str);
 
 /*   	 i = 0;
 	while (set->envp[i] != NULL)
@@ -180,20 +176,14 @@ char **ft_strdup_dslash(char **envp)
 	return (hide_envp);
 }
 
-void  ft_init_env(t_set *set, char **envp, char **av)
+void  ft_init_env(t_set *set)
 {
 	int i;
-	int j;
 	int shlvl;
-	int bar;
 	int pwd;
-	char *tmp;
-	char buff[4096 + 1];
 
 	shlvl = 0;
-	bar = 0;
 	pwd = 0;
-	j = -1;
 	i = -1;
 /* 	 int r = -1;
 	while (envp[++r])
@@ -211,8 +201,8 @@ void  ft_init_env(t_set *set, char **envp, char **av)
 	{
 		if (ft_strncmp("SHLVL=", set->envp[i], 6) == 0)
 			shlvl = 1;
-		if (ft_strncmp("_=", set->envp[i], 2) == 0)
-			bar = 1;
+		/* if (ft_strncmp("_=", set->envp[i], 2) == 0)
+			bar = 1; */
 		if (ft_strncmp("PWD=", set->envp[i], 4) == 0)
 			pwd = 1;
 	}

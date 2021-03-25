@@ -24,6 +24,7 @@ void			int_handler(int sig)
 	ft_putstr_fd("\b\b  ", STDERR);
 	ft_putstr_fd("\n", STDERR);
 	g_sig.run = 1;
+	(void)sig;
 	disp_prompt();
 }
 
@@ -47,7 +48,7 @@ int				main(int ac, char **av, char **envp)
 
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
-	if (init_all(set, envp, av) == -1)
+	if (init_all(set, envp) == -1)
 		return (free_all(set, -1));
 
 /* 	char *ku;
@@ -78,7 +79,7 @@ int				main(int ac, char **av, char **envp)
 			if (ac == 3)
 				set->str = av[2];// for testeur
 			else
-				set->str = get_val(set);
+				set->str = get_val();
 
 
 

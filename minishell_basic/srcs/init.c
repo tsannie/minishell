@@ -12,7 +12,7 @@
 
 #include "../includes/minish.h"
 
-void			init_structafter(t_set *set, char **av, char **envp)
+void			init_structafter(t_set *set)
 {
 	char		*tmp;
 	char		*tmp2;
@@ -21,7 +21,7 @@ void			init_structafter(t_set *set, char **av, char **envp)
 	tmp2 = ft_itoa(set->exit_val);
 	set->exit_v = ft_strjoin("?=", tmp2);
 	set->all_path = ft_splitbc(set->path, ':');
-	ft_init_env(set, envp, av);
+	ft_init_env(set);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	ft_hideenv(set->exit_v, set);
@@ -33,7 +33,7 @@ void			init_structafter(t_set *set, char **av, char **envp)
 	free(tmp);
 }
 
-void			init_struct(t_set *set, char **av, char **envp)
+void			init_struct(t_set *set, char **envp)
 {
 	char		buff[4096 + 1];
 
@@ -53,7 +53,7 @@ void			init_struct(t_set *set, char **av, char **envp)
 	set->exit = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
 	set->pwd = ft_strjoin("PWD=", getcwd(buff, 4097));
-	init_structafter(set, av, envp);
+	init_structafter(set);
 }
 
 void			add_exval(t_set *set)
@@ -68,11 +68,11 @@ void			add_exval(t_set *set)
 	ft_hideenv(set->exit_v, set);
 }
 
-int				init_all(t_set *set, char **envp, char **av)
+int				init_all(t_set *set, char **envp)
 {
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
-	init_struct(set, av, envp);
+	init_struct(set, envp);
 	ft_sort_dbtab(set);
 	return (0);
 }
