@@ -108,6 +108,7 @@ int		clean(char *src, t_set *set)
 	free(cpy);
 	search_cmd(line_parce, set);
 	search_arg(line_parce, set);
+	free(line_parce);
 	return (0);
 }
 
