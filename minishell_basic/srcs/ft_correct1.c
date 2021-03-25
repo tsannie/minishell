@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:08:32 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 16:26:42 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/25 12:20:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		between_semico(const char *str, int i)
 	e = 0;
 	while (str[i] != ';' && str[i])
 	{
-		if (ft_istab(str[i]) == 1)		// pas sur
+		if (ft_istab(str[i]) == 0)		// pas sur
 			e++;
 		i++;
 	}
