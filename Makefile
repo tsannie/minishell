@@ -6,14 +6,14 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/25 09:18:44 by tsannie          ###   ########.fr        #
+#    Updated: 2021/03/25 14:27:45 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
 CC			= @gcc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=leak 
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
 
 RM			= @rm -rf
 LIBFT		= ./libft

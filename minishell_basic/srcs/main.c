@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 16:59:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:57:37 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ t_sig			g_sig;
 
 void			disp_prompt(void)
 {
-	ft_putstr_fd("{MINISHELL}$> ", STDERR);
+	ft_putstr_fd("\033[1;35mᴍ\033[1;33mɪ\033[1;31mɴ\033[1;36mɪ", STDERR);
+	ft_putstr_fd("\033[1;32msʜᴇʟʟ\033[1;37m ➔\033[0m  ", STDERR);
 }
+
 
 void			int_handler(int sig)
 {
