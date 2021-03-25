@@ -73,6 +73,7 @@ int		ft_chem(t_set *set)
 {
 	int valid;
 
+	valid = 0;
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
 	if (valid == -1 && set->arg[0] != NULL)

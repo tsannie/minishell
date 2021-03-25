@@ -19,7 +19,7 @@ int					fot(t_set *set, char *path, char *cmd)
 		set->bleu = 1;
 		return (1);
 	}
-	if (check_stat_file(set, path, cmd) == 1)
+	if (check_stat_file(set, path) == 1)
 	{
 		set->bleu = 1;
 		return (1);
@@ -50,7 +50,6 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
-<<<<<<< HEAD
 	return (fot(set, path, cmd));
 }
 
@@ -75,14 +74,6 @@ char				*iffexec(t_set *set, char *cmd)
 	set->len = 0;
 	set->chemin = 0;
 	if (cmd[0] == '.' && cmd[1] == '/')
-=======
-	if (path == NULL)
-	{
-		set->bleu = 1;
-		return (1);
-	}
-	if (check_stat_file(set, path) == 1)
->>>>>>> 27a08f624eeb4936678a298ff0eb89373899e0cb
 	{
 		set->chemin = 1;
 		set->len = 2;
@@ -96,7 +87,6 @@ int					bash_cmd(t_set *set, char *cmd)
 	char			*path;
 	int				x;
 	int				y;
-	int				chemin;
 
 	y = 0;
 	path = iffexec(set, cmd);
