@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/25 15:57:37 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:59:52 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int				main(int ac, char **av, char **envp)
 			if (ac == 3)
 				set->str = av[2];// for testeur
 			else
-<<<<<<< HEAD
 				set->str = get_val(set);
 			if (set->str)
 			{
@@ -96,12 +95,6 @@ int				main(int ac, char **av, char **envp)
 			while (set->history[++x])
 				printf("his = [%s]\n", set->history[x]);
 			 */
-=======
-				set->str = get_val();		// leak mais faut l'nregistrer pour le haut bas
-
-
-
->>>>>>> 0f3e42bee90d4839c5f6f6a4723248209eea34a2
 			//set->line_count = tgetnum("li");
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);
