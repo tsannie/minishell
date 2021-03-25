@@ -35,7 +35,7 @@ SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
 ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
 split_semicolon.c ft_dolars1.c ft_dolars2.c tools_dev_DELETE.c ft_init_env.c \
 bin2.c bin3.c binlib.c ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c \
-exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c bin.c tgent.c
+exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c bin.c tgent.c get_next_line.c \
 
 
 SRC_BONUS 	= \

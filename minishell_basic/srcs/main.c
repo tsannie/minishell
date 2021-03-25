@@ -64,6 +64,7 @@ int				main(int ac, char **av, char **envp)
 	char *UP;
 	char *DO;
  */
+	//int x;
 	if (init_tgent(set) == -1)
 		return (-1);
 	if (ac == 3)// for testeur
@@ -79,10 +80,19 @@ int				main(int ac, char **av, char **envp)
 			if (ac == 3)
 				set->str = av[2];// for testeur
 			else
-				set->str = get_val();
-
-
-
+				set->str = get_val(set);
+			if (set->str)
+			{
+				if (ft_strlen(set->str) != 0)
+				{
+					set->inc_his++;
+					set->history = addword(set->history, set->inc_his, set->str);
+				}
+			}
+/* 			x = -1;
+			while (set->history[++x])
+				printf("his = [%s]\n", set->history[x]);
+			 */
 			//set->line_count = tgetnum("li");
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);

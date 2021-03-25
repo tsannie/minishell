@@ -12,6 +12,48 @@
 
 #include "../includes/minish.h"
 
+/* static const t_tab	g_tab_func[] =
+{
+	{"\022", ft_ctrlr},
+	{"\033[A", ft_go_up},
+	{"\033\033[A", ft_alt_up},
+	{"\033[B", ft_go_down},
+	{"\033\033[B", ft_alt_down},
+	{"\033[C", ft_go_right},
+	{"\033\033[C", ft_alt_right},
+	{"\033[D", ft_go_left},
+	{"\033\033[D", ft_alt_left},
+	{"\033[H", ft_home},
+	{"\001", ft_home},
+	{"\033[F", ft_end},
+	{"\005", ft_end},
+	{"\012", ft_return},
+	{"\011", ft_tab},
+	{"\033[3~", ft_delete},
+	{"\177", ft_backspace},
+	{"\004", ft_exit_term},
+	{"\013", ft_cut},
+	{"\031", ft_paste},
+	{"\014", ft_ctrll},
+	{NULL, ft_print}
+}; */
+
+void			init_term(t_set *set)
+{
+	if(!(set->history = malloc(sizeof(char *) * 1)))
+		return ;
+	set->history[0] = 0;
+	set->inc_his = 0;
+	set->tt_up = ft_strdup("\033[A");
+	set->tt_down = ft_strdup("\033[B");
+	set->tt_left = ft_strdup("\033[D");
+	set->tt_right = ft_strdup("\033\033[C");
+	set->tt_home = ft_strdup("\001");
+	set->tt_end = ft_strdup("\005");
+	set->tt_ctl_up = ft_strdup("\033\033[A");
+	set->tt_crl_down = ft_strdup("\033\033[B");
+}
+
 void			init_structafter(t_set *set)
 {
 	char		*tmp;
@@ -31,6 +73,7 @@ void			init_structafter(t_set *set)
 	ft_unsetenv(set, "OLDPWD");
 	free(tmp2);
 	free(tmp);
+	init_term(set);
 }
 
 void			init_struct(t_set *set, char **envp)
@@ -79,6 +122,14 @@ int				init_all(t_set *set, char **envp)
 
 int				free_all(t_set *set, int ret)
 {
+	free(set->tt_up);
+	free(set->tt_down);
+	free(set->tt_left);
+	free(set->tt_right);
+	free(set->tt_home);
+	free(set->tt_end);
+	free(set->tt_ctl_up);
+	free(set->tt_crl_down);
 	free(set);
 	return (ret);
 }

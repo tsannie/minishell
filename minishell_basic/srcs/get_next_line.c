@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minish.h"
 #include <stdio.h>
 
 char	*ft_strjoin_free(char *s1, char *s2)
@@ -96,7 +96,7 @@ int          newline_check(char *stock, int read_size)
         return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line, t_set *set)
 {
 	static char	*stock;
 	char		buff[BUFFER_SIZE + 1];
@@ -147,6 +147,11 @@ int		get_next_line(int fd, char **line)
 		buff[res] = '\0';
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
+ 		//printf("[%s]\n", buff);
+		if (ft_strcmp(buff, set->tt_up) == 0)
+			;
+ 
+
 
 /* 		ku = tgetstr("ku", buff);
 		kd = tgetstr("kd", buff);

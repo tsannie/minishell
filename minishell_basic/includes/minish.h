@@ -91,6 +91,8 @@ typedef struct	s_set
 	char	*shlvl;
 	int		run;
 
+	char	**history;
+	int		inc_his;
 	char	*tt_up;
 	char	*tt_down;
 	char	*tt_left;
@@ -111,7 +113,7 @@ typedef struct	s_set
 	char	**envp;
 }				t_set;
 
-int						get_next_line(int fd, char **line);
+int						get_next_line(int fd, char **line, t_set *set);
 //lib
 char					**ft_splitbc(const char *str, char charset);
 void					add_exval(t_set *set);
@@ -211,5 +213,5 @@ int				init_all(t_set *set, char **envp);
 int				free_all(t_set *set, int ret);
 /* TOOLS TO DELETE WHEN ITS END */
 void			print_args(char **str);
-char			*get_val(void);
+char			*get_val(t_set *set);
 #endif
