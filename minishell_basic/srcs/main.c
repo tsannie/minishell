@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 16:59:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:59:52 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ t_sig			g_sig;
 
 void			disp_prompt(void)
 {
-	ft_putstr_fd("{MINISHELL}$> ", STDERR);
+	ft_putstr_fd("\033[1;35mᴍ\033[1;33mɪ\033[1;31mɴ\033[1;36mɪ", STDERR);
+	ft_putstr_fd("\033[1;32msʜᴇʟʟ\033[1;37m ➔\033[0m  ", STDERR);
 }
+
 
 void			int_handler(int sig)
 {
@@ -95,7 +97,13 @@ int				main(int ac, char **av, char **envp)
 			}
 /* 		x = -1;
 			while (set->history[++x])
+<<<<<<< HEAD
 				printf("his = [%s]\n", set->history[x]); */
+=======
+				printf("his = [%s]\n", set->history[x]);
+			 */
+			//set->line_count = tgetnum("li");
+>>>>>>> 589ae5a7b2fac4b1aa22e5434842c5f8400600f8
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);
 			kd = tgetstr("kd", NULL);
