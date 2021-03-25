@@ -79,7 +79,7 @@ int				main(int ac, char **av, char **envp)
 			if (ac == 3)
 				set->str = av[2];// for testeur
 			else
-				set->str = get_val();
+				set->str = get_val();		// leak mais faut l'nregistrer pour le haut bas
 
 
 

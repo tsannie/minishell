@@ -163,5 +163,5 @@ char				*get_path(t_set *set, char *path, char *cmd)
 	if (valid == 0)
 		return (NULL);
 	set->pathbc = ft_strdup(path);
-	return (ft_strjoin(path, set->cmd));
+	return (ft_strjoin(path, set->cmd));		// peut etre utiliser strjoin_free (leak)
 }

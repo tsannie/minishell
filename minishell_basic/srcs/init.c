@@ -48,7 +48,7 @@ void			init_struct(t_set *set, char **envp)
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);
 	reset_fd(set);
-	set->envp = ft_strdup_tabl(envp);
+	set->envp = ft_strdup_tabl(envp);		// not free (leak)
 	set->path = ft_get_path(envp);
 	set->exit = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
