@@ -79,7 +79,7 @@ void ft_putstr_error_quote(t_set *set)
 	set->bleu = 1;
 }
 
-char *get_val(void)
+char *get_val(t_set *set)
 {
 	char **line;
 	int gnl;
@@ -87,7 +87,7 @@ char *get_val(void)
 	gnl = 0;
 	line = malloc(sizeof(char *) * 1);
 	//printf("avant1?");
-	gnl = get_next_line(0, line);
+	gnl = get_next_line(0, line, set);
 	//printf("sx gnl= [%d]\n", set->exit);
 	//printf("===[%d]===[%s]===\n", gnl, *line);
 	if (gnl == 0 && ft_strlen(*line) != 0)
@@ -268,7 +268,7 @@ void	start_shell(int ac, char **av, t_set *set)
 		set->str = av[2];		// for testeur
 	else
 	{
-		set->str = get_val();
+		set->str = get_val(set);
 	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);

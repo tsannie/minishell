@@ -18,7 +18,8 @@ int			init_tgent(t_set *set)
 /* 	int			term;
 	char		*term_type;
 	int ret;
-
+	
+	ttyname(0)
 	set->line_count = tgetnum("li");
 	printf("line_count = [%d]\n", set->line_count);
 	term_type = getenv("TERM");

@@ -89,7 +89,6 @@ int					ft_nbcharuihex(unsigned int src);
 void				ft_putstrn_fd(char *s, int n, int fd);
 int					ft_minvalue(int a, int b);
 int					ft_maxvalue(int a, int b);
-int					get_next_line(int fd, char **line);
 int					ft_iscolor(int a, int b, int c);
 int					ft_ispair(int a);
 int					ft_iswhite(char a);

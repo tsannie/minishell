@@ -36,7 +36,7 @@ ft_putchar_fd.c ft_putendl_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_strjoin.c \
 ft_strmapi.c ft_strtrim.c ft_substr.c ft_putunbr_fd.c ft_putultoh.c \
 ft_putuihex.c ft_nbcharint.c ft_nbcharhex.c ft_nbcharuint.c ft_lstnew.c \
 ft_nbcharuihex.c ft_putstrn_fd.c ft_minvalue.c ft_maxvalue.c ft_putuihexm.c \
-get_next_line.c ft_lstadd_back.c ft_lstlast.c ft_lstsize.c ft_lstmap.c \
+ ft_lstadd_back.c ft_lstlast.c ft_lstsize.c ft_lstmap.c \
 ft_lstadd_front.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 ft_iscolor.c ft_ispair.c ft_streql.c ft_iswhite.c ft_realloc.c ft_free_dbtab.c \
 ft_istab.c
