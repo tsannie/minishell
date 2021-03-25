@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 18:36:09 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 11:19:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:36:45 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		get_next_line(int fd, char **line)
 			if (stock[0] == '\0')
 			{
 				stock = dup_free(stock, line);
-				return (0);	
+				return (0);
 			}
 		}
 		if (stock && (i != -1))

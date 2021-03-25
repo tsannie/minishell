@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 17:51:04 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/25 08:27:32 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ typedef struct	s_set
 	int		simple;
 	int		ret_value;
 	char	*dol_amb;
+	int		dol_found;
 	int		amb;
 	int		not_exist;
+	int		wait;
 
 	int		ex_er;
 	int		len;
@@ -69,6 +71,7 @@ typedef struct	s_set
 	int		pid;
 	int		exit;
 	char	**arg;
+	char	*namefile;
 
 	char	**all_path;
 
