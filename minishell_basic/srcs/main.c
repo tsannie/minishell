@@ -79,9 +79,6 @@ int				main(int ac, char **av, char **envp)
 				set->str = av[2];// for testeur
 			else
 				set->str = get_val(set);
-
-
-
 			//set->line_count = tgetnum("li");
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);
@@ -99,7 +96,6 @@ int				main(int ac, char **av, char **envp)
 			BC = tgetstr("le", NULL);
 			UP = tgetstr("up", NULL);
 			DO = tgetstr("do", NULL); */
-
 			//printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n", cm_string, auto_wrap,height,width,temp,BC,UP,DO);
 			if (g_sig.run == 1)
 			{

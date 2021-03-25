@@ -91,6 +91,17 @@ typedef struct	s_set
 	char	*shlvl;
 	int		run;
 
+	char	*tt_up;
+	char	*tt_down;
+	char	*tt_left;
+	char	*tt_right;
+	char	*tt_home;
+	char	*tt_end;
+
+	char	*tt_ctl_up;
+	char	*tt_crl_down;
+
+
 	char 	*pathbc;
 	char 	*path;
 	char	*pwd;

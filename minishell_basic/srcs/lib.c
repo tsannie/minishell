@@ -64,6 +64,7 @@ int		is_dir_present(char *arg, char *cmd)
 		return (0);
 	while ((item = readdir(folder)))
 	{
+		//printf("[%s][%s]\n", item->d_name, cmd);
 		if (ft_strcmp(item->d_name, cmd) == 0 && is_dir(item->d_name) == 0)
 		{
 			closedir(folder);
@@ -86,7 +87,7 @@ int		is_dir_presentsl(char *arg, char *cmd)
 		return (0);
 	while ((item = readdir(folder)))
 	{
-		printf("[%s] == [%s]\n", cmd, item->d_name);
+		//printf("[%s] == [%s]\n", cmd, item->d_name);
 		if (ft_strcmpss(cmd, item->d_name) == 0 && is_dir(item->d_name) == 0)
 		{
 			closedir(folder);

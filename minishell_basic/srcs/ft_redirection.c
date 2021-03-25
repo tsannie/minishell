@@ -136,7 +136,8 @@ char	*get_namefile(char *src, t_set *set, int i)
 			dolars_namefile(src, set, 0);
 		else if (src[set->y] != ' ')
 			search_basic_redirect(src, set);
-		if ((src[set->y] == ' ' || src[set->y] == '\t' || !src[set->y] || src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
+		if ((src[set->y] == ' ' || src[set->y] == '\t' || !src[set->y]
+		|| src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
 		{
 			//printf("\n\nENTER\n\n");
 			exit = 1;
@@ -171,60 +172,83 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
-int		err_folder(t_set *set, char *namefile)
+int		err_folder(t_set *set, char *namefile, int i)
 {
 	char **args;
 	char *tmp;
 	char *tmp2;
 	char *tmp3;
-	int i;
 
 	tmp3 = ft_strdup("");
 	tmp = ft_strdup("");
 	tmp2 = NULL;
-	i = 0;
 	args = ft_split(namefile, '/');
-	while (args[i + 1])
+	while (args[i + 1] && set->not_exist == 0)
 	{
 		if (i > 0)
 			tmp = ft_strjoin(tmp3, "/");
 		free(tmp3);
 		tmp2 = ft_strjoin(tmp, args[i]);
 		tmp3 = ft_strdup(tmp2);
-		free(tmp);
 		if (is_dir(tmp2) == 0)
 		{
+			if (is_dir_present(tmp, args[i]) == 0)
+			{
+				set->exit_val = 4;
+				free(tmp);
+				free(tmp2);
+				free(tmp3);
+				ft_free_dbtab(args);
+				return (4);
+			}
 			set->exit_val = 4;
-			ft_free_dbtab(args);
+			free(tmp);
 			free(tmp2);
 			free(tmp3);
+			ft_free_dbtab(args);
 			return (1);
 		}
+		free(tmp);
 		free(tmp2);
 		i++;
 	}
+	free(tmp3);
+	ft_free_dbtab(args);
 	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
-	{
-		free(tmp3);
 		return (1);
-	}
 	return (0);
 }
 
-void	create_file(char *namefile, t_set *set, int a)
+void	create_file(char *namefile, t_set *set, int a) // >
 {
+	int i;
+
+	i = 0;
 	ifclose(set->fdout);
-	if (err_folder(set, namefile) == 1)
-		set->not_exist = 1; // to do return err value
+	set->not_exist = err_folder(set, namefile, i);
+	//printf("err_folder = [%d]\n", set->not_exist);
 	if (a == 1)
 	{
-		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) // check fdout
-			set->not_exist = 1;
+		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1) 
+		{// check fdout
+			if (set->not_exist == 1)
+				set->not_exist = 3;
+			else if (set->not_exist == 4)
+				set->not_exist = 1;
+			else
+				set->not_exist = 2;
+		}
 	}
 	else if (a == 2)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // check fdout
-			set->not_exist = 1;
+		{
+/* 			if (set->not_exist == 4)
+				set->not_exist = 1;
+			else */
+				set->not_exist = 3;
+		}
+	
 	}
 	if (set->not_exist == 0)
 	{
@@ -235,13 +259,12 @@ void	create_file(char *namefile, t_set *set, int a)
 		set->namefile = namefile;
 }
 
-void	change_stdin(char *namefile, t_set *set)
+void	change_stdin(char *namefile, t_set *set) // <
 {
 	close(set->fdin);
+
 	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
-	{
 		set->not_exist = 1;
-	}
 	if (set->not_exist == 0)
 	{
 		free(namefile);
@@ -265,12 +288,15 @@ void	err_amb(t_set *set)
 
 void	err_notexist(t_set *set)
 {
+	//printf("err_not = [%d]\n", set->not_exist);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->namefile, STDERR);
 	if (set->not_exist == 1)
 		ft_putstr_fd(": No such file or directory\n", STDERR);
-	else
+	else if (set->not_exist == 2)
 		ft_putstr_fd(": Is a directory\n", STDERR);
+	else if (set->not_exist == 3)
+		ft_putstr_fd(": Not a directory\n", STDERR);
 	free(set->namefile);
 	set->stop = 1;
 	set->exit_val = 1;		// or 4 ???
@@ -346,7 +372,7 @@ char	*redirection(char *src, t_set *set)
 		i++;
 		if (set->amb == 1)
 			err_amb(set);
-		if (set->not_exist == 1 || set->not_exist == 1)
+		if (set->not_exist == 1 || set->not_exist == 2 || set->not_exist == 3)
 			err_notexist(set);
 	}
 	add_exval(set);
