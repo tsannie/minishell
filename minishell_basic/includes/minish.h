@@ -77,6 +77,7 @@ typedef struct	s_set
 	char	*cmd;
 	char	*lastcmd;
 
+	int		chemin;
 	int		y;
 	int		p;
 	int		l_dol;

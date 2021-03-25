@@ -6,11 +6,26 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 15:52:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/25 08:07:45 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
+
+int					fot(t_set *set, char *path, char *cmd)
+{
+	if (path == NULL)
+	{
+		set->bleu = 1;
+		return (1);
+	}
+	if (check_stat_file(set, path, cmd) == 1)
+	{
+		set->bleu = 1;
+		return (1);
+	}
+	return (exec_bin(set, path, cmd));
+}
 
 int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 {
@@ -35,19 +50,36 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
-	if (path == NULL)
-	{
-		set->bleu = 1;
-		return (1);
-	}
-	if (check_stat_file(set, path, cmd) == 1)
-	{
-		set->bleu = 1;
-		return (1);
-	}
-	//printf("p[%s]c[%s]che[%d]\n", path, cmd, chemin);
-	return (exec_bin(set, path, cmd));
+	return (fot(set, path, cmd));
+}
 
+int					setx(t_set *set, char *cmd)
+{
+	int x;
+
+	x = 0;
+	while (cmd[x] == '.' && cmd[x + 1] == '.' && cmd[x + 2] == '/'
+	&& set->len == 0)
+		x += 3;
+	if (x != 0)
+		x--;
+	return (x);
+}
+
+char				*iffexec(t_set *set, char *cmd)
+{
+	char *path;
+
+	path = NULL;
+	set->len = 0;
+	set->chemin = 0;
+	if (cmd[0] == '.' && cmd[1] == '/')
+	{
+		set->chemin = 1;
+		set->len = 2;
+		path = ft_strdup("./");
+	}
+	return (path);
 }
 
 int					bash_cmd(t_set *set, char *cmd)
@@ -58,28 +90,16 @@ int					bash_cmd(t_set *set, char *cmd)
 	int				chemin;
 
 	y = 0;
-	x = 0;
-	set->len = 0;
-	chemin = 0;
-	path = NULL;
-	if (cmd[x] == '.' && cmd[x + 1] == '/')
-	{
-		chemin = 1;
-		set->len = 2;
-		path = ft_strdup("./");
-	}
-	while (cmd[x] == '.' && cmd[x + 1] == '.' && cmd[x + 2] == '/' && set->len == 0)
-		x += 3;
-	if (x != 0)
-		x--;
-	while (cmd[x] && set->len == 0 && set->all_path)
+	path = iffexec(set, cmd);
+	x = setx(set, cmd);
+	while (cmd[x] && set->len == 0 && set->all_path && path == NULL)
 	{
 		while (set->all_path[y] && set->len == 0)
 		{
 			if (ft_strncmp(set->all_path[y], cmd + x,
 			ft_strlen(set->all_path[y])) == 0 && path == NULL)
 			{
-				chemin = 1;
+				set->chemin = 1;
 				set->len = x + ft_strlen(set->all_path[y]);
 				path = ft_strdup(set->all_path[y]);
 			}
@@ -88,5 +108,5 @@ int					bash_cmd(t_set *set, char *cmd)
 		y = 0;
 		x++;
 	}
-	return (chemin_path(chemin, path, set, cmd));
+	return (chemin_path(set->chemin, path, set, cmd));
 }
