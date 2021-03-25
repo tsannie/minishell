@@ -6,10 +6,9 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/24 15:39:38 by tsannie          ###   ########.fr        #
+#    Updated: 2021/03/25 09:18:44 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME		= minishell
 
@@ -36,7 +35,7 @@ SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
 ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
 split_semicolon.c ft_dolars1.c ft_dolars2.c tools_dev_DELETE.c ft_init_env.c \
 bin2.c bin3.c binlib.c ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c \
-exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c bin.c
+exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c bin.c tgent.c
 
 
 SRC_BONUS 	= \
@@ -50,7 +49,7 @@ $(NAME): 	$(OBJ)
 			@echo "${YELLOW}${BOLD}Start compile ...${END}"
 			@$(MAKE) -C $(LIBFT)
 			@echo "${GREEN}The $(NAMELIB) ${GREEN}has been build !${END}"
-			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ)
+			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ) -lncurses
 			@echo "${GREEN}The $(NAMEC) ${GREEN}has been build !${END}"
 
 clean:

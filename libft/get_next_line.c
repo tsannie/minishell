@@ -6,12 +6,13 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 18:36:09 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/24 16:36:45 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/25 09:19:09 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*res;
@@ -102,6 +103,39 @@ int		get_next_line(int fd, char **line)
 	int			i;
 	int			res;
 
+
+
+
+/*
+	int			term;
+	char		*term_type;
+	int ret;
+
+	term_type = getenv("TERM");
+    if (term_type == NULL)
+        return (-1);
+	ret = tgetent(*buff, term_type);
+	if (ret != 1)
+        return (-1);
+	printf("[%d][%s]\n", ret, term_type);
+
+	char *ku;
+	char *kd;
+
+	char *cl_string;
+	char *cm_string;
+	int auto_wrap;
+	int height;
+	int width;
+	char *temp;
+	char *BC;
+	char *UP;
+	char *DO;
+ */
+
+
+
+
 	i = 0;
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, buff, 0) == -1)
 		return (-1);
@@ -113,6 +147,21 @@ int		get_next_line(int fd, char **line)
 		buff[res] = '\0';
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
+
+/* 		ku = tgetstr("ku", buff);
+		kd = tgetstr("kd", buff);
+		//cl_string = tgetstr("cl", NULL);
+		cm_string = tgetstr("cm", buff);
+		auto_wrap = tgetflag("am");
+		height = tgetnum("li");
+		width = tgetnum("co");
+		temp = tgetstr("pc", buff);
+		BC = tgetstr("le", buff);
+		UP = tgetstr("up", buff);
+		DO = tgetstr("do", buff);
+		printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n",
+		cm_string, auto_wrap,height,width,temp,BC,UP,DO); */
+
 		if (res == 0 || buff[res - 1] != '\n')
 		{
 			ft_putstr_fd("  \b\b", 2);

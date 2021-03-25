@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 17:51:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:08:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void ft_putstr_not_found(char *str, t_set *set)
 	else if (set->exit_val == 5)
 	{
 		ft_putstr_fd(": Permission denied\n", STDERR);
+		set->exit_val = 126;
+	}
+	else if (set->exit_val == 7)
+	{
+		ft_putstr_fd(": Not a directory\n", STDERR);
 		set->exit_val = 126;
 	}
 	else
@@ -240,7 +245,7 @@ void	start_cmd(t_set *set)
 	{
 		if (ft_strncmp(set->cmd + ft_strlen(set->cmd) - 1, "/",
 		ft_strlen(set->cmd + ft_strlen(set->cmd) - 1)) == 0 &&
-		set->exit_val != 3)
+		set->exit_val != 3 && set->exit_val != 7)
 			set->exit_val = 4;
 		ft_putstr_not_found(set->cmd, set);
 		set->bleu = 1;

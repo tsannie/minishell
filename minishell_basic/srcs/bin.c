@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/23 17:48:10 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:52:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 		set->bleu = 1;
 		return (1);
 	}
+	//printf("p[%s]c[%s]che[%d]\n", path, cmd, chemin);
 	return (exec_bin(set, path, cmd));
 
 }
