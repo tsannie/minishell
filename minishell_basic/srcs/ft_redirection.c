@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/25 09:17:53 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/25 09:24:17 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,10 @@ void	err_notexist(t_set *set)
 {
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->namefile, STDERR);
-	ft_putstr_fd(": No such file or directory\n", STDERR);
+	if (set->not_exist == 1)
+		ft_putstr_fd(": No such file or directory\n", STDERR);
+	else
+		ft_putstr_fd(": Is a directory\n", STDERR);
 	free(set->namefile);
 	set->stop = 1;
 	set->exit_val = 1;		// or 4 ???
@@ -343,7 +346,7 @@ char	*redirection(char *src, t_set *set)
 		i++;
 		if (set->amb == 1)
 			err_amb(set);
-		if (set->not_exist == 1)
+		if (set->not_exist == 1 || set->not_exist == 1)
 			err_notexist(set);
 	}
 	add_exval(set);
