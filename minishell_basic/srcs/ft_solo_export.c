@@ -45,10 +45,7 @@ int ft_disp_export(t_set *set)
 {
     int i;
 	int x;
-	int egl;
-	char *var;
 
-	egl = 0;
 	x = 0;
 	i = 0;
 	while (set->hide_envp[i])

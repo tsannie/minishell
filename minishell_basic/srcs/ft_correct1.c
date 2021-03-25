@@ -12,7 +12,7 @@
 
 #include "../includes/minish.h"
 
-int		correct_redirecion(char *src, t_set *set)
+int		correct_redirecion(char *src)
 {
 	int		i;
 	char	a;
@@ -33,8 +33,8 @@ int		correct_redirecion(char *src, t_set *set)
 				i++;
 			while (src[i] == ' ' || src[i] == '\t')
 				i++;
-			if (err_code(src, i, set) != 0)
-				return (err_code(src, i, set));
+			if (err_code(src, i) != 0)
+				return (err_code(src, i));
 		}
 		i++;
 	}
@@ -45,14 +45,14 @@ int		err_redirection(char *src, t_set *set)
 {
 	int e;
 
-	if ((e = correct_redirecion(src, set)) != 0)
+	if ((e = correct_redirecion(src)) != 0)
 		return (call_err(e, set));
-	e = multi_redirecion(src, set, '>');
+	e = multi_redirecion(src, '>');
 	if (e > 3)
 		return (error_list(3, set));
 	else if (e > 2)
 		return (error_list(7, set));
-	e = multi_redirecion(src, set, '<');
+	e = multi_redirecion(src, '<');
 	if (e > 4)
 		return (error_list(4, set));
 	else if (e > 3)
@@ -68,7 +68,7 @@ int		between_semico(const char *str, int i)
 	e = 0;
 	while (str[i] != ';' && str[i])
 	{
-		if (str[i] == ' ' == 0)
+		if (ft_istab(str[i]) == 1)		// pas sur
 			e++;
 		i++;
 	}

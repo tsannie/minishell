@@ -50,6 +50,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
+<<<<<<< HEAD
 	return (fot(set, path, cmd));
 }
 
@@ -74,6 +75,14 @@ char				*iffexec(t_set *set, char *cmd)
 	set->len = 0;
 	set->chemin = 0;
 	if (cmd[0] == '.' && cmd[1] == '/')
+=======
+	if (path == NULL)
+	{
+		set->bleu = 1;
+		return (1);
+	}
+	if (check_stat_file(set, path) == 1)
+>>>>>>> 27a08f624eeb4936678a298ff0eb89373899e0cb
 	{
 		set->chemin = 1;
 		set->len = 2;

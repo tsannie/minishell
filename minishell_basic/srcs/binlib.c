@@ -40,7 +40,7 @@ int					ft_strcmpsl(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char				**new_args(char **args, t_set *set, char *cmd)
+char				**new_args(char **args, char *cmd)
 {
 	char			**str;
 	int				x;
@@ -61,7 +61,7 @@ char				**new_args(char **args, t_set *set, char *cmd)
 	return (str);
 }
 
-int					check_stat_file(t_set *set, char *path, char *cmd)
+int					check_stat_file(t_set *set, char *path)
 {
 	struct stat		filestat;
 	int				r;
@@ -70,7 +70,8 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
 	int				d;
 	int				st;
 
-	st = stat(path, &filestat);
+	st = stat(path, &filestat);		// pas utilise
+	(void)st;
 	r = (filestat.st_mode & S_IRUSR);
 	w = (filestat.st_mode & S_IWUSR);
 	x = (filestat.st_mode & S_IXUSR);
@@ -101,7 +102,6 @@ int					check_stat_file(t_set *set, char *path, char *cmd)
 
 int					check_sh(t_set *set, char *path)
 {
-	int				i;
 	int				pwd;
 	int				sh;
 	int				len;
@@ -109,7 +109,6 @@ int					check_sh(t_set *set, char *path)
 	len = ft_strlen(path);
 	pwd = 0;
 	sh = 0;
-	i = 0;
 	if (ft_strncmp(path, "./", 2) == 0)
 		pwd = 1;
 	if (ft_strncmp(path + len - 3, ".sh", ft_strlen(path + len - 3)) == 0)

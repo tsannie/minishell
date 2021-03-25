@@ -12,7 +12,7 @@
 
 #include "../includes/minish.h"
 
-char	**addword(char **res, int nb_word, t_set *set, char *word)
+char	**addword(char **res, int nb_word, char *word)
 {
 	char	**new;
 	int		i;
@@ -101,14 +101,13 @@ int		new_arg(char *str, int exit, t_set *set)
 	if (!str[set->y] && exit == 0)
 		exit = 1;
 	set->nb_word++;
-	set->arg = addword(set->arg, set->nb_word, set, set->word_tmp);
+	set->arg = addword(set->arg, set->nb_word, set->word_tmp);
 	free(set->word_tmp);
 	return (exit);
 }
 
 void	search_arg(char *str, t_set *set)
 {
-	char	*word;
 	int		exit;
 
 	set->nb_word = 0;

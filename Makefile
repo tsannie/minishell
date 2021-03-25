@@ -13,7 +13,7 @@
 NAME		= minishell
 
 CC			= @gcc
-CFLAGS		= #-Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
 RM			= @rm -rf
 LIBFT		= ./libft
@@ -49,7 +49,7 @@ $(NAME): 	$(OBJ)
 			@echo "${YELLOW}${BOLD}Start compile ...${END}"
 			@$(MAKE) -C $(LIBFT)
 			@echo "${GREEN}The $(NAMELIB) ${GREEN}has been build !${END}"
-			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ) -lncurses
+			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ) -lncurses -lft -Llibft
 			@echo "${GREEN}The $(NAMEC) ${GREEN}has been build !${END}"
 
 clean:

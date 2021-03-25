@@ -114,7 +114,7 @@ char	**split_semicolon(char *str, t_set *set)
 		if (!str[set->y] && exit == 0)
 			exit = 1;
 		nb_word++;
-		res = addword(res, nb_word, set, set->word_tmp);
+		res = addword(res, nb_word, set->word_tmp);
 		free(set->word_tmp);
 	}
 	if (exit == -1)

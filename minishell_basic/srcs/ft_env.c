@@ -15,8 +15,6 @@
 int ft_env(t_set *set)
 {
     int i;
-	char *tmp;
-
 	
 	i = -1;
     while (set->envp[++i] != NULL)

@@ -124,7 +124,6 @@ void	treat_cmd(t_set *set)
 {
 	char	**list;
 	int		i;
-	int		status;
 
 	i = 0;
 	if (correct_cmd(set->str, set) == 0)

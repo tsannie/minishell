@@ -18,9 +18,9 @@ t_set *set, int value)
 	long long				max;
 
 	max = 9223372036854775807;
-	if (val > max)
+	if (val > (unsigned long long)max)
 		value = 0;
-	if (value > 2147483646 || value < -2147483648)
+	if (value > 2147483646)
 		value = 0;
 	else if (value < 0)
 		value = 0;

@@ -65,10 +65,10 @@ char	**split_pipe(char *str, t_set *set)
 		return (NULL);
 	res[0] = 0;
 	i = 1;
-	while (set->p < ft_strlen(str))
+	while (set->p < (int)ft_strlen(str))
 	{
 		add_this = new_pipe(str, set);
-		res = addword(res, i, set, add_this);
+		res = addword(res, i, add_this);
 		i++;
 		free(add_this);
 	}

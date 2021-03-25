@@ -29,7 +29,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 		cmd = ft_strdup(set->cmd);
 	}
 	pid = fork();
-	args = new_args(set->arg, set, cmd);
+	args = new_args(set->arg, cmd);
 	ret = 0;
 	g = 0;
 	r = 0;

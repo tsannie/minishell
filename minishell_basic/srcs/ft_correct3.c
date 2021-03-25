@@ -12,7 +12,7 @@
 
 #include "../includes/minish.h"
 
-int		multi_redirecion(char *src, t_set *set, char a)
+int		multi_redirecion(char *src, char a)
 {
 	int	i;
 	int	e;
@@ -90,7 +90,7 @@ int		error_list(int a, t_set *set)
 	return (-1);
 }
 
-int		err_code(char *src, int i, t_set *set)
+int		err_code(char *src, int i)
 {
 	if (src[i] == '>' && src[i + 1] == '>')
 		return (1);

@@ -28,7 +28,7 @@ int		is_noret(char *str)
 	return (1);
 }
 
-int		no_arg(t_set *set)
+int		no_arg(void)
 {
 	ft_putchar_fd('\n', STDOUT);
 	return (0);
@@ -42,7 +42,7 @@ int		ft_echo(t_set *set)
 	i = 0;
 	n = 0;
 	if (!set->arg[0])
-		return(no_arg(set));			// poudre aux yeux j'reconnais là
+		return(no_arg());			// poudre aux yeux j'reconnais là
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;

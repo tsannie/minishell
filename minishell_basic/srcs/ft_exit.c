@@ -57,7 +57,7 @@ int		ft_check_valid_exit(t_set *set)
 	//printf("[%s][-9223372036854775808][%d]\n", set->arg[0],ft_streql(set->arg[0], "-9223372036854775808"));
 	if (len > 19)
 		return (1);
-	if (exit_val > max && ft_streql(set->arg[0], "-9223372036854775808") != 1)
+	if (exit_val > (unsigned long long)max && ft_streql(set->arg[0], "-9223372036854775808") != 1)		// jai rajoute le cast
 	{
 	 //	printf("oui\n");
 		return (1);
