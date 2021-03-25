@@ -100,7 +100,7 @@ int					bash_cmd(t_set *set, char *cmd)
 			{
 				set->chemin = 1;
 				set->len = x + ft_strlen(set->all_path[y]);
-				path = ft_strdup(set->all_path[y]);			// leak
+				path = ft_strdup(set->all_path[y]);
 			}
 			y++;
 		}

@@ -45,6 +45,7 @@ void			sig_quit(int code)
 int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
+	//int			keycode;
 
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
@@ -75,12 +76,14 @@ int				main(int ac, char **av, char **envp)
 		signal(SIGQUIT, sig_quit);
 		while (1)
 		{
+			//if (read_stdin(&keycode) < 0)
+			//	return (-1);
+			//ft_putnbr_fd(keycode, STDERR);
 			if (g_sig.run == 0)
 				disp_prompt();
 			if (ac == 3)
 				set->str = av[2];// for testeur
 			else
-<<<<<<< HEAD
 				set->str = get_val(set);
 			if (set->str)
 			{
@@ -90,17 +93,9 @@ int				main(int ac, char **av, char **envp)
 					set->history = addword(set->history, set->inc_his, set->str);
 				}
 			}
-/* 			x = -1;
+/* 		x = -1;
 			while (set->history[++x])
-				printf("his = [%s]\n", set->history[x]);
-			 */
-=======
-				set->str = get_val();		// leak mais faut l'nregistrer pour le haut bas
-
-
-
->>>>>>> 0f3e42bee90d4839c5f6f6a4723248209eea34a2
-			//set->line_count = tgetnum("li");
+				printf("his = [%s]\n", set->history[x]); */
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);
 			kd = tgetstr("kd", NULL);

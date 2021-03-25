@@ -13,20 +13,20 @@
 #ifndef MINISH_H
 # define MINISH_H
 # include "../../libft/libft.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <signal.h>
-#include <curses.h>
-#include <term.h>
-#include <fcntl.h>
-#include <errno.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <limits.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <curses.h>
+# include <term.h>
+# include <fcntl.h>
+# include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -66,6 +66,7 @@ typedef struct	s_set
 
 	int		line_count;
 
+	int		g;
 	int		ex_er;
 	int		len;
 	int		bleu;
@@ -79,6 +80,7 @@ typedef struct	s_set
 	char	*cmd;
 	char	*lastcmd;
 
+	int		lene;
 	int		chemin;
 	int		y;
 	int		p;
@@ -192,26 +194,27 @@ char					*double_slash(char *arg);
 int						ncmpelp(char *s1, char *s2);
 //
 //bin
-int				ft_strcmpss(char *s1, char *s2);
-int				is_dir_presentsl(char *arg, char *cmd);
-int				exec_bin(t_set *set, char *path, char *cmd);
-void			get_lastcmd(t_set *set);
-char			*get_path(t_set *set, char *path, char *cmd);
-char			*get_path_chemin(t_set *set, char *path, int len, char *cmd);
-char			*cmd_in_pwd(t_set *set, char *cmd);
-int				ft_strlenbc(char *str);
-int				check_sh(t_set *set, char *path);
-int				check_stat_file(t_set *set, char *path);
-char			**new_args(char **args, char *cmd);
-int				ft_strcmpsl(char *s1, char *s2);
-int				bash_cmd(t_set *set, char *cmd);
-int				check_shlvl(t_set *set, char **envp);
-int				ft_strcmp(char *s1, char *s2);
+int						ft_strcmpss(char *s1, char *s2);
+int						is_dir_presentsl(char *arg, char *cmd);
+int						exec_bin(t_set *set, char *path, char *cmd);
+void					get_lastcmd(t_set *set);
+char					*get_path(t_set *set, char *path, char *cmd);
+char					*get_path_chemin(t_set *set, char *path, int len, char *cmd);
+char					*cmd_in_pwd(t_set *set, char *cmd);
+int						ft_strlenbc(char *str);
+int						check_sh(t_set *set, char *path);
+int						check_stat_file(t_set *set, char *path);
+char					**new_args(char **args, char *cmd);
+int						ft_strcmpsl(char *s1, char *s2);
+int						bash_cmd(t_set *set, char *cmd);
+int						check_shlvl(t_set *set, char **envp);
+int						ft_strcmp(char *s1, char *s2);
 //init
-int				init_tgent(t_set *set);
-int				init_all(t_set *set, char **envp);
-int				free_all(t_set *set, int ret);
+int						init_tgent(t_set *set);
+int						init_all(t_set *set, char **envp);
+int						free_all(t_set *set, int ret);
 /* TOOLS TO DELETE WHEN ITS END */
-void			print_args(char **str);
-char			*get_val(t_set *set);
+void					print_args(char **str);
+char					*get_val(t_set *set);
+
 #endif

@@ -96,17 +96,24 @@ int          newline_check(char *stock, int read_size)
         return (0);
 }
 
+/* static int	read_stdin(int *keycode)
+{
+	*keycode = 0;
+	if (read(STDIN, keycode, sizeof(int)) < 0)
+		return (-1);
+	return (1);
+} */
+
 int		get_next_line(int fd, char **line, t_set *set)
 {
 	static char	*stock;
 	char		buff[BUFFER_SIZE + 1];
 	int			i;
 	int			res;
+	//int			keycode = 0;
 
-
-
-
-/*
+/*	
+if ()
 	int			term;
 	char		*term_type;
 	int ret;
@@ -131,12 +138,7 @@ int		get_next_line(int fd, char **line, t_set *set)
 	char *BC;
 	char *UP;
 	char *DO;
- */
-
-
-
-
-	i = 0;
+ */	i = 0;
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, buff, 0) == -1)
 		return (-1);
 	i = searchreturn(stock);
@@ -144,15 +146,15 @@ int		get_next_line(int fd, char **line, t_set *set)
 		return (write_line(line, stock, i));
 	while (((res = read(fd, buff, BUFFER_SIZE)) >= 0))
 	{
+		//if (read_stdin(&keycode) < 0)
+		//		return (-1);
+		//ft_putnbr_fd(keycode, STDERR);
 		buff[res] = '\0';
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
  		//printf("[%s]\n", buff);
 		if (ft_strcmp(buff, set->tt_up) == 0)
 			;
- 
-
-
 /* 		ku = tgetstr("ku", buff);
 		kd = tgetstr("kd", buff);
 		//cl_string = tgetstr("cl", NULL);
