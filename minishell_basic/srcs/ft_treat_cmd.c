@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/23 17:47:48 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/03/24 15:18:42 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,13 @@ int		forwar_quote(char *src, int i)
 int		clean(char *src, t_set *set)
 {
 	char	*cpy;
+	char	*line_parce;
 
 	cpy = redirection(src, set);
-	cpy = search_dolars(cpy, set);
-	search_cmd(cpy, set);
-	search_arg(cpy, set);
+	line_parce = search_dolars(cpy, set);
+	free(cpy);
+	search_cmd(line_parce, set);
+	search_arg(line_parce, set);
 	return (0);
 }
 
