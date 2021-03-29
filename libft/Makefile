@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/11 08:07:49 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/24 17:06:43 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/03/29 15:17:48 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libft.a
-CC			= @gcc -Wall -Wextra -Werror
+CC			= @gcc
+CFLAGS		= -Wall -Wextra -Werror
 INCLUDE		= libft.h
 RM			= @rm -rf
 
@@ -43,22 +44,25 @@ ft_istab.c
 
 OBJ			= $(SRC:.c=.o)
 
+OBJ			= $(SRC:.c=.o)
+
+%.o: %.c
+			@printf "${PURPLE}${BOLD}Start compile libft ... %-33.33s\r${END}" $@
+			${CC} ${CFLAGS} -c $< -o $@
+
 all:		$(NAME)
 
 $(NAME): 	$(OBJ)
 			@ar rc $(NAME) $(OBJ)
 			@ranlib $(NAME)
-
-bonus:		$(OBJ) $(BONUS_OBJ)
-			@ar rc $(NAME) ${BONUS_OBJ} $(OBJ)
-			@ranlib $(NAME)
+			@echo "\n\n${GREEN}The $(NAMEC) ${GREEN}has been build !${END}"
 
 clean:
-			$(RM) $(OBJ) $(BONUS_OBJ)
+			$(RM) $(OBJ)
 
 fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all clean fclean re
