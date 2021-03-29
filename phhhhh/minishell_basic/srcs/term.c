@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_dbtab.c                                    :+:      :+:    :+:   */
+/*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 10:49:31 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/13 12:43:36 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
+/*   Updated: 2021/03/22 10:56:56 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h"
+#include "../includes/minish.h"
+#include <curses.h> 
+#include <term.h>
 
-void		ft_free_dbtab(char **tab)
+void		get_term()
 {
-	int i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-		{
-			printf("---[%s]\n", tab[i]);
-			free(tab[i]);
-			tab[i] = NULL;
-			i++;
-		}
-		free(tab);
-	}
+	
 }

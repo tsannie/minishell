@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_dbtab.c                                    :+:      :+:    :+:   */
+/*   tools_dev_DELETE.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 10:49:31 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/13 12:43:36 by phbarrad         ###   ########.fr       */
+/*   Created: 2021/02/16 08:29:14 by tsannie           #+#    #+#             */
+/*   Updated: 2021/02/16 08:29:27 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h"
+#include "../includes/minish.h"
 
-void		ft_free_dbtab(char **tab)
+void	print_args(char **str)
 {
-	int i;
+	int		i;
 
 	i = 0;
-	if (tab)
+	if (!str[0])
 	{
-		while (tab[i])
+		printf("NO ARGS\n");
+	}
+	else
+	{
+		printf("args_stock : \n");
+		while (str[i])
 		{
-			printf("---[%s]\n", tab[i]);
-			free(tab[i]);
-			tab[i] = NULL;
+			printf("- Argument %d\t:\t|%s|\n", i, str[i]);
 			i++;
 		}
-		free(tab);
 	}
 }
