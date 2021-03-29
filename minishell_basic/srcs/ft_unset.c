@@ -26,20 +26,6 @@ int				ncmpel(char *s1, char *s2)
 	return (0);
 }
 
-int				ncmpelp(char *s1, char *s2)
-{
-	int			i;
-
-	i = 0;
-	while ((s2[i] || s1[i]) && s2[i] != '=' && s2[i] != '+')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
-
 int				checkenvp_un(char *str)
 {
 	int			i;
@@ -47,7 +33,6 @@ int				checkenvp_un(char *str)
 
 	i = 0;
 	avn = 0;
-	//printf("str [%s]\n", str);
 	if (ft_strlen(str) == 0)
 		return (1);
 	if (str[i] == '=')
@@ -57,7 +42,7 @@ int				checkenvp_un(char *str)
 		if (str[i] >= 48 && str[i] <= 59 && avn == 0)
 			return (1);
 		if (((str[i] < 48) || (str[i] >= 58 && str[i] <= 64) || (str[i] >= 123)
-		|| (str[i] >= 91 && str[i] <= 96) )  && (str[i] != '_'))
+		|| (str[i] >= 91 && str[i] <= 96)) && (str[i] != '_'))
 			return (1);
 		else
 			avn = 1;
@@ -77,7 +62,7 @@ int				ft_unsetenv(t_set *set, char *str)
 		{
 			while (set->envp[i] != NULL)
 			{
-				set->envp[i] = set->envp[i+1];
+				set->envp[i] = set->envp[i + 1];
 				i++;
 			}
 			set->envp[i] = NULL;
@@ -99,7 +84,7 @@ int				ft_unsethideenv(t_set *set, char *str)
 		{
 			while (set->hide_envp[i] != NULL)
 			{
-				set->hide_envp[i] = set->hide_envp[i+1];
+				set->hide_envp[i] = set->hide_envp[i + 1];
 				i++;
 			}
 			set->hide_envp[i] = NULL;
@@ -112,19 +97,19 @@ int				ft_unsethideenv(t_set *set, char *str)
 
 int				ft_unset(t_set *set)
 {
-    int			j;
+	int			j;
 
 	j = 0;
 	while (set->arg[j])
 	{
 		if (checkenvp_un(set->arg[j]) == 1)
-        {
-            ft_putstr_fd("minishell: unset: `", STDERR);
+		{
+			ft_putstr_fd("minishell: unset: `", STDERR);
 			ft_putstr_fd(set->arg[j], STDERR);
 			ft_putstr_fd("': not a valid identifier\n", STDERR);
-            set->exit_val = 1;
+			set->exit_val = 1;
 			set->bleu = 1;
-        }
+		}
 		else
 		{
 			ft_unsethideenv(set, set->arg[j]);
@@ -132,5 +117,5 @@ int				ft_unset(t_set *set)
 		}
 		j++;
 	}
-    return (0);
+	return (0);
 }

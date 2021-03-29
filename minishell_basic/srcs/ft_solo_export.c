@@ -14,7 +14,7 @@
 
 int			ft_strcmp(char *s1, char *s2)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i])
@@ -41,10 +41,17 @@ void		ft_sort_dbtab(t_set *set)
 	}
 }
 
-int ft_disp_export(t_set *set)
+void		put_hid(t_set *set, int i, int x)
 {
-    int i;
-	int x;
+	ft_putstr_fd("=\"", STDOUT);
+	ft_putstr_fd(&set->hide_envp[i][x + 1], STDOUT);
+	ft_putstr_fd("\"", STDOUT);
+}
+
+int			ft_disp_export(t_set *set)
+{
+	int		i;
+	int		x;
 
 	x = 0;
 	i = 0;
@@ -61,14 +68,10 @@ int ft_disp_export(t_set *set)
 				x++;
 			}
 			if (set->hide_envp[i][x])
-			{
-				ft_putstr_fd("=\"", STDOUT);
-				ft_putstr_fd(&set->hide_envp[i][x + 1] , STDOUT);
-				ft_putstr_fd("\"", STDOUT);
-			}
+				put_hid(set, i, x);
 			ft_putchar_fd('\n', STDOUT);
 		}
 		i++;
 	}
-    return (0);
+	return (0);
 }

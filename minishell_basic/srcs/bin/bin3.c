@@ -10,9 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minish.h"
+#include "../../includes/minish.h"
 
-int					end_exec(t_set *set, int ret, char *path, char *ttm)
+char				*cmd_in_pwd(t_set *set, char *cmd)
+{
+	DIR				*folder;
+	struct dirent	*item;
+
+	folder = opendir(set->pwd + 4);
+	if (!folder)
+		return (NULL);
+	while ((item = readdir(folder)))
+	{
+		if (ft_strcmp(item->d_name, cmd) == 0)
+		{
+			closedir(folder);
+			return (joinf(set->pwd + 4, "/", set->cmd, ""));
+		}
+	}
+	return (NULL);
+}
+
+int					pathnnul(int valid, char *path, char *cmd, t_set *set)
+{
+	if (valid == 1 && ft_strncmp(path, "./", ft_strlen(path)) == 0
+	&& is_dir(cmd + set->lene) == 1)
+	{
+		set->exit_val = 3;
+		return (1);
+	}
+	if ((valid == 0) || (valid == 0 && ft_strncmp(path, "./",
+	ft_strlen(path)) == 0))
+	{
+		set->exit_val = 4;
+		return (1);
+	}
+	return (0);
+}
+
+int					end_exec(t_set *set, int ret, char *path)
 {
 	if (ret == 256)
 		set->exit_val = 1;
@@ -27,12 +63,24 @@ int					end_exec(t_set *set, int ret, char *path, char *ttm)
 			free(set->pathbc);
 			set->pathbc = NULL;
 		}
-		if (ttm)
-			free(ttm);
 	}
 	if (path != NULL)
 		free(path);
 	return (0);
+}
+
+void				ff_env(t_set *set, char *cmd, char *path)
+{
+	char			*ttm;
+
+	ttm = NULL;
+	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
+	{
+		ttm = joinf("_=", path, "", "");
+		ft_modenv(ttm, set);
+		set->g = 1;
+		free(ttm);
+	}
 }
 
 int					exec_bin(t_set *set, char *path, char *cmd)
@@ -53,21 +101,13 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	pid = fork();
 	args = new_args(set->arg, cmd);
 	ret = 0;
-	set->g = 0;
 	if (path != NULL && pid == 0)
 	{
-		if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
-		{
-			ttm = joinf("_=", path, "", "");
-			ft_modenv(ttm, set);
-			set->g = 1;
-			execve(path, args, set->envp);
-		}
-		else
-			execve(path, args, set->envp);
+		ff_env(set, cmd, path);
+		execve(path, args, set->envp);
 	}
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_dbtab(args);
-	return (end_exec(set, ret, path, ttm));
+	return (end_exec(set, ret, path));
 }

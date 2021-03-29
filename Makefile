@@ -3,21 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/25 14:27:45 by tsannie          ###   ########.fr        #
+#    Updated: 2021/03/29 11:07:45 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
 CC			= @gcc
-<<<<<<< HEAD
+
 CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak 
-=======
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
->>>>>>> 589ae5a7b2fac4b1aa22e5434842c5f8400600f8
 
 RM			= @rm -rf
 LIBFT		= ./libft
@@ -38,8 +35,9 @@ NAMELIB		= ${BLUE}${BOLD}Libft${END}
 SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
 ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
 split_semicolon.c ft_dolars1.c ft_dolars2.c tools_dev_DELETE.c ft_init_env.c \
-bin2.c bin3.c binlib.c ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c \
-exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c bin.c tgent.c get_next_line.c \
+ ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c lib2.c \
+exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c tgent.c get_next_line.c \
+bin/bin.c bin/bin2.c bin/bin3.c bin/binlib.c bin/binlib2.c \
 
 
 SRC_BONUS 	= \

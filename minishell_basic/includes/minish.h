@@ -113,6 +113,11 @@ typedef struct	s_set
 	int		cwplen;
 	char	**hide_envp;
 	char	**envp;
+
+	int		r;
+	int		w;
+	int		x;
+	int		d;
 }				t_set;
 
 int						get_next_line(int fd, char **line, t_set *set);
@@ -126,7 +131,6 @@ unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
 int						ft_hideenv(char *str, t_set *set);
 void					ft_init_env(t_set *set);
-char					*recup_new(char *str, int x);
 char					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
 int						ft_unsethideenv(t_set *set, char *str);
@@ -194,6 +198,7 @@ char					*double_slash(char *arg);
 int						ncmpelp(char *s1, char *s2);
 //
 //bin
+int						pathnnul(int valid, char *path, char *cmd, t_set *set);
 int						ft_strcmpss(char *s1, char *s2);
 int						is_dir_presentsl(char *arg, char *cmd);
 int						exec_bin(t_set *set, char *path, char *cmd);

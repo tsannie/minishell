@@ -10,43 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minish.h"
-
-char				*cmd_in_pwd(t_set *set, char *cmd)
-{
-	DIR				*folder;
-	struct dirent	*item;
-
-	folder = opendir(set->pwd + 4);
-	if (!folder)
-		return (NULL);
-	while ((item = readdir(folder)))
-	{
-		if (ft_strcmp(item->d_name, cmd) == 0)
-		{
-			closedir(folder);
-			return (joinf(set->pwd + 4, "/", set->cmd, ""));
-		}
-	}
-	return (NULL);
-}
-
-int					pathnnul(int valid, char *path, char *cmd, t_set *set)
-{
-	if (valid == 1 && ft_strncmp(path, "./", ft_strlen(path)) == 0
-	&& is_dir(cmd + set->lene) == 1)
-	{
-		set->exit_val = 3;
-		return (1);
-	}
-	if ((valid == 0) || (valid == 0 && ft_strncmp(path, "./",
-	ft_strlen(path)) == 0))
-	{
-		set->exit_val = 4;
-		return (1);
-	}
-	return (0);
-}
+#include "../../includes/minish.h"
 
 int					check_elem_chem(char *cmd, int valid, char *path,
 t_set *set)

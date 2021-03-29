@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minish.h"
+#include "../../includes/minish.h"
 
 int					fot(t_set *set, char *path, char *cmd)
 {

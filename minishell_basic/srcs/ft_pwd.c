@@ -12,12 +12,12 @@
 
 #include "../includes/minish.h"
 
-int ft_pwd(t_set *set)
+int			ft_pwd(t_set *set)
 {
-    char buff[4096 + 1];
+	char	buff[4096 + 1];
 
-    set->pwd = getcwd(buff, 4097);
-    ft_putstr_fd(set->pwd, STDOUT);
+	set->pwd = getcwd(buff, 4097);
+	ft_putstr_fd(set->pwd, STDOUT);
 	ft_putchar_fd('\n', STDOUT);
-    return (0);
+	return (0);
 }

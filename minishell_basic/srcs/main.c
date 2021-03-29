@@ -99,11 +99,8 @@ int				main(int ac, char **av, char **envp)
 			while (set->history[++x])
 <<<<<<< HEAD
 				printf("his = [%s]\n", set->history[x]); */
-=======
-				printf("his = [%s]\n", set->history[x]);
-			 */
+				//printf("his = [%s]\n", set->history[x]);
 			//set->line_count = tgetnum("li");
->>>>>>> 589ae5a7b2fac4b1aa22e5434842c5f8400600f8
 			//printf("line_count = [%d]\n", set->line_count);
 /* 			ku = tgetstr("ku", NULL);
 			kd = tgetstr("kd", NULL);

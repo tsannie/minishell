@@ -12,50 +12,36 @@
 
 #include "../includes/minish.h"
 
-char *ft_getenv(void)
+char			*ft_getenv(int i)
 {
-    char *cwd;
-	char *result;
-	char buff[4096 + 1];
-    int i = 0;
-	int e = -2;
-	int r = -3;
+	char		*cwd;
+	char		*result;
+	char		buff[4096 + 1];
+	int			e;
+	int			r;
 
-    cwd = getcwd(buff, 4097);
+	e = -2;
+	r = -3;
+	cwd = getcwd(buff, 4097);
 	result = malloc(sizeof(char) * (ft_strlen(cwd) + 1));
-    while (cwd[i])
-    {
-        if (cwd[i] == '/')
-            e++;
-        i++;
-    }
-    while (e > 0)
-    {
-        r += 3;
-        result[r] = '.';
-        result[r+1] = '.';
-        result[r+2] = '/';
-        e--;
-    }
-    result[r+3] = '\0';
-    return (result);
+	while (cwd[++i])
+	{
+		if (cwd[i] == '/')
+			e++;
+	}
+	while (e > 0)
+	{
+		r += 3;
+		result[r] = '.';
+		result[r + 1] = '.';
+		result[r + 2] = '/';
+		e--;
+	}
+	result[r + 3] = '\0';
+	return (result);
 }
 
-int		real_path(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	i += 2; // + cd
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	return (i);
-}
-
-
-void	error_msg(t_set *set)
+void			error_msg(t_set *set)
 {
 	ft_putstr_fd("minishell: cd: ", STDERR);
 	ft_putstr_fd(set->arg[0], STDERR);
@@ -69,10 +55,12 @@ void	error_msg(t_set *set)
 	set->bleu = 1;
 }
 
-int		ft_chem(t_set *set)
+int				ft_chem(t_set *set)
 {
-	int valid;
+	int			valid;
+	int			i;
 
+	i = -1;
 	valid = 0;
 	if (set->arg[0] != NULL)
 		valid = chdir(set->arg[0]);
@@ -84,37 +72,32 @@ int		ft_chem(t_set *set)
 		return (-1);
 	}
 	if (set->arg[0] == NULL)
-		return (chdir(ft_getenv()));
-    return (0);
+		return (chdir(ft_getenv(i)));
+	return (0);
 }
 
-char *parc_env(t_set *set) //trouve PWD dans env et le copie
+char			*parc_env(t_set *set)
 {
-	int x;
+	int			x;
 
 	x = 0;
 	while (set->envp[x])
 	{
 		if (ft_strncmp(set->envp[x], "PWD=", 4) == 0)
-		{
-			//printf("pwd = [%s]\n", set->envp[x] + 4);
 			return (ft_strdup(set->envp[x] + 4));
-		}
 		x++;
 	}
 	return (NULL);
 }
 
-int ft_cd(t_set *set)
+int				ft_cd(t_set *set)
 {
-	char	buff[4096 + 1];
-	int ret;
-	char *temp;
-
+	char		buff[4096 + 1];
+	int			ret;
+	char		*temp;
 
 	set->pwd = parc_env(set);
-	ret = ft_chem(set); // cd
-	
+	ret = ft_chem(set);
 	if (ret != -1)
 	{
 		temp = ft_strdup(set->pwd);
@@ -128,11 +111,9 @@ int ft_cd(t_set *set)
 	set->pwd = ft_strdup(getcwd(buff, 4097));
 	temp = ft_strdup(set->pwd);
 	free(set->pwd);
-
 	set->pwd = ft_strjoin("PWD=", temp);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-
 	free(temp);
 	free(set->pwd);
 	return (ret);

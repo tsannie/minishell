@@ -12,30 +12,6 @@
 
 #include "../includes/minish.h"
 
-char			*recup_new(char *str, int x)
-{
-	char		*nstr;
-	int			j;
-
-	j = 0;
-	if (!(nstr = malloc(sizeof(char) * (ft_strlen(str) + 4))))
-		return (0);
-	while (j < x)
-	{
-		nstr[j] = str[j];
-		j++;
-	}
-	nstr[j] = '\"';
-	while (str[j])
-	{
-		nstr[j + 1] = str[j];
-		j++;
-	}
-	nstr[j + 1] = '\"';
-	nstr[j + 2] = '\0';
-	return (nstr);
-}
-
 char			*double_slash(char *arg)
 {
 	int			i;
@@ -76,7 +52,7 @@ int				ft_hideenv(char *arg, t_set *set)
 	}
 	if (act == 0)
 	{
-		set->hide_envp = addword(set->hide_envp, i + 1, str);		// not free (leak)
+		set->hide_envp = addword(set->hide_envp, i + 1, str);// not free (leak)
 		set->hide_envp[i + 1] = NULL;
 	}
 	free(str);

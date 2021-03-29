@@ -35,7 +35,7 @@ t_set *set, int value)
 	}
 	else
 		value += 1;
-	set->shlvl = ft_itoa(value);	
+	set->shlvl = ft_itoa(value);
 }
 
 int							check_shlvl(t_set *set, char **envp)

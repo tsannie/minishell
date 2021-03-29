@@ -6,24 +6,23 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:30:07 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 16:03:07 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:09:18 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minish.h"
 
-char	*ft_strdupbc(const char *s1)
+char					*ft_strdupbc(const char *s1)
 {
-	char	*res;
-	int		len;
-	int		i;
+	char				*res;
+	int					len;
+	int					i;
 
 	len = 0;
 	while (s1[len])
 		len++;
 	while (s1[len] != '/' && len > 0)
 		len--;
-	//printf("len = [%d]\n", len);
 	i = 0;
 	if (!(res = malloc(sizeof(char) * (len + 2))))
 		return (NULL);
@@ -33,63 +32,87 @@ char	*ft_strdupbc(const char *s1)
 		i++;
 	}
 	res[i] = '\0';
-	//printf("res = [%s]\n", res);
 	return (res);
 }
 
-int			is_dir(char *arg)
+unsigned long long		ft_atoill(const char *str)
 {
-	int		file;
+	int					i;
+	unsigned long long	result;
 
-	file = open(arg, O_DIRECTORY);
-	//printf("file = %d, str = %s\n", file, arg);
-	if (file != -1)
+	i = 0;
+	result = 0;
+	while (str[i] == 32 || str[i] == '\t' || str[i] == '\n' ||
+	str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		close(file);
-		return (1);
+		result = (result * 10) + (str[i] - '0');
+		i++;
 	}
-	close(file);
-	return (0);
+	return (result);
 }
 
-int		is_dir_present(char *arg, char *cmd)
+char					**ft_strdup_tabl(char **envp)
 {
-	DIR				*folder;
-	struct dirent	*item;
+	char				**hide_envp;
+	int					y;
+	int					len;
 
-	folder = opendir(arg);
-	if (!folder)
-		return (0);
-	while ((item = readdir(folder)))
+	len = 0;
+	y = 0;
+	while (envp[len] != NULL)
+		len++;
+	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	while (envp[y])
 	{
-		//printf("[%s][%s]\n", item->d_name, cmd);
-		if (ft_strcmp(item->d_name, cmd) == 0 && is_dir(item->d_name) == 0)
-		{
-			closedir(folder);
-			return (1);
-		}
+		hide_envp[y] = ft_strdup(envp[y]);
+		y++;
 	}
-	closedir(folder);
-	return (0);
+	hide_envp[y] = NULL;
+	return (hide_envp);
 }
 
-int		is_dir_presentsl(char *arg, char *cmd)
+char					*joinf(char *s1, char *s2, char *s3, char *s4)
 {
-	DIR				*folder;
-	struct dirent	*item;
+	char				*res;
+	int					globalsize;
+	int					i;
+	int					e;
 
-	folder = opendir(arg);
-	if (!folder)
-		return (0);
-	while ((item = readdir(folder)))
+	globalsize = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + ft_strlen(s4);
+	if (!(res = malloc(sizeof(char) * globalsize + 1)))
+		return (NULL);
+	i = 0;
+	e = 0;
+	while (s1[i])
+		res[i++] = s1[e++];
+	e = 0;
+	while (s2[e])
+		res[i++] = s2[e++];
+	e = 0;
+	while (s3[e])
+		res[i++] = s3[e++];
+	e = 0;
+	while (s4[e])
+		res[i++] = s4[e++];
+	res[i] = '\0';
+	return (res);
+}
+
+int						ncmpelp(char *s1, char *s2)
+{
+	int					i;
+
+	i = 0;
+	while ((s2[i] || s1[i]) && s2[i] != '=' && s2[i] != '+')
 	{
-		//printf("[%s] == [%s]\n", cmd, item->d_name);
-		if (ft_strcmpss(cmd, item->d_name) == 0 && is_dir(item->d_name) == 0)
-		{
-			closedir(folder);
-			return (1);
-		}
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	closedir(folder);
 	return (0);
 }

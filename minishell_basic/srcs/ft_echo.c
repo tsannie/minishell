@@ -42,7 +42,7 @@ int		ft_echo(t_set *set)
 	i = 0;
 	n = 0;
 	if (!set->arg[0])
-		return(no_arg());			// poudre aux yeux j'reconnais là
+		return (no_arg());
 	while (is_noret(set->arg[i]) == 1)
 	{
 		i++;
