@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/29 11:07:45 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/03/29 15:26:16 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= minishell
 
 CC			= @gcc
 
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak 
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
 
 RM			= @rm -rf
 LIBFT		= ./libft
@@ -30,44 +30,53 @@ WHITE		:= $(shell tput -Txterm setaf 7)
 BOLD		:=$(shell tput -Txterm bold)
 END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
-NAMELIB		= ${BLUE}${BOLD}Libft${END}
 
-SRC			= main.c init.c start_sh.c ft_cd.c ft_echo.c ft_env.c ft_export.c \
-ft_export_lib.c ft_unset.c ft_pwd.c ft_treat_cmd.c search_arg.c ft_solo_export.c \
-split_semicolon.c ft_dolars1.c ft_dolars2.c tools_dev_DELETE.c ft_init_env.c \
- ft_redirection.c shlvl.c ft_splitbc.c pipe.c lib.c lib2.c \
-exportpe.c ft_correct1.c ft_correct2.c ft_correct3.c ft_exit.c tgent.c get_next_line.c \
-bin/bin.c bin/bin2.c bin/bin3.c bin/binlib.c bin/binlib2.c \
+BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
+PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c
 
-SRC_BONUS 	= \
+CHECK		= ft_correct1.c ft_correct2.c ft_correct3.c
 
-OBJ			= $(addprefix minishell_basic/srcs/, $(SRC:.c=.o))
-OBJ_BONUS	= $(addprefix srcs/, $(SRC_BONUS:.c=.o))
+BUILTIN_CMD	= ft_cd.c ft_echo.c ft_env.c exportpe.c ft_export.c ft_solo_export.c \
+			ft_export_lib.c ft_exit.c ft_unset.c ft_pwd.c
+
+REDIRECT	= ft_redirection.c pipe.c
+
+MAIN		= main.c init.c start_sh.c ft_treat_cmd.c ft_init_env.c shlvl.c lib.c \
+			 lib2.c ft_splitbc.c tgent.c get_next_line.c tools_dev_DELETE.c
+
+SRC			= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
+			$(addprefix minishell_basic/srcs/builtin_cmd/, $(BUILTIN_CMD)) \
+			$(addprefix minishell_basic/srcs/parsing/, $(PARSING)) \
+			$(addprefix minishell_basic/srcs/main/, $(MAIN)) \
+			$(addprefix minishell_basic/srcs/redirect/, $(REDIRECT)) \
+			$(addprefix minishell_basic/srcs/check/, $(CHECK))
+
+OBJ			= $(SRC:c=o)
+
+#OBJ_BONUS	= $(addprefix srcs/, $(SRC_BONUS:.c=.o))
+
+%.o: %.c
+			@printf "${PURPLE}${BOLD}Start compile ... %-50.50s\r${END}" $@
+			${CC} ${CFLAGS} -c $< -o $@
 
 all:		$(NAME)
 
 $(NAME): 	$(OBJ)
-			@echo "${YELLOW}${BOLD}Start compile ...${END}"
+			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
-			@echo "${GREEN}The $(NAMELIB) ${GREEN}has been build !${END}"
 			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ) -lncurses -lft -Llibft
-			@echo "${GREEN}The $(NAMEC) ${GREEN}has been build !${END}"
+			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build !${END}\n"
 
 clean:
 			$(RM) $(OBJ)
 			@$(MAKE) clean -C $(LIBFT)
-			@echo "${PURPLE}Cleaning ...${END}"
+			@echo "${LIGHTPURPLE}Cleaning ...${END}"
 
 fclean:		clean
 			$(RM) $(NAME)
 			@$(MAKE) fclean -C $(LIBFT)
-			@echo "${PURPLE}Delete $(NAMEC)${PURPLE}...${END}"
-
-test:		re
-			@make clean
-			./$(NAME)
-			@echo "\n"
+			@echo "\n${LIGHTPURPLE}Delete $(NAMEC)${LIGHTPURPLE}...${END}"
 
 re:			fclean all
 
