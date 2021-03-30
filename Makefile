@@ -14,7 +14,7 @@ NAME		= minishell
 
 CC			= @gcc
 
-CFLAGS		= #-fsanitize=leak
+CFLAGS		= -fsanitize=leak
 
 RM			= @rm -rf
 LIBFT		= ./libft

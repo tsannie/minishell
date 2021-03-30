@@ -87,7 +87,7 @@ char			*parc_env(t_set *set)
 			return (ft_strdup(set->envp[x] + 4));
 		x++;
 	}
-	return (NULL);
+	return (set->pwd);
 }
 
 int				ft_cd(t_set *set)
@@ -96,6 +96,8 @@ int				ft_cd(t_set *set)
 	int			ret;
 	char		*temp;
 
+	if (set->pwd)
+		free(set->pwd);
 	set->pwd = parc_env(set);
 	ret = ft_chem(set);
 	if (ret != -1)

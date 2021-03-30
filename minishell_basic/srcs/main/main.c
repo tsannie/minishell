@@ -68,8 +68,13 @@ int				main(int ac, char **av, char **envp)
 	char *DO;
  */
 	//int x;
-	(void)ac;
-	(void)av;
+	if (ac == 3)
+	{
+		start_shell(ac ,av, set);
+		return (set->exit_val);
+	}
+		
+
 	if (init_tgent(set) == -1)
 		return (-1);
 	else
