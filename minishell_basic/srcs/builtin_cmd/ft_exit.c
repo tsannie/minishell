@@ -90,9 +90,9 @@ void					ft_eexit(t_set *set)
 	len = 0;
 	while (set->arg[len])
 		len++;
-	if (set->arg)
+	if (!(set->arg[0]))
 	{
-		//printf("ici[%d]\n", set->);
+		//printf("ici\n");
 		ret = set->exit_val;
 		free_all(set, set->exit_val);
 		exit(ret);

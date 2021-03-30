@@ -62,18 +62,33 @@ void			init_structafter(t_set *set)
 	tmp = ft_strjoin("SHLVL=", set->shlvl);
 	tmp2 = ft_itoa(set->exit_val);
 	set->exit_v = ft_strjoin("?=", tmp2);
+	//printf("ex = [%s][%d] pwd = [%s]\n", set->exit_v, set->exit_val, set->pwd);
+
 	set->all_path = ft_splitbc(set->path, ':');
+
+
 	ft_init_env(set);
+
+
+
+
+	ft_hideenv(set->exit_v, set);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	ft_hideenv(set->exit_v, set);
+
+
+
+	//free(set->exit_v);
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
-	ft_unsethideenv(set, "OLDPWD");
-	ft_unsetenv(set, "OLDPWD");
+
+
+	set->hide_envp = ft_unsethideenv(set, "OLDPWD");
+	set->envp = ft_unsetenv(set, "OLDPWD");
 	free(tmp2);
 	free(tmp);
 	init_term(set);
+
 }
 
 void			init_struct(t_set *set, char **envp)
@@ -91,7 +106,8 @@ void			init_struct(t_set *set, char **envp)
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);
 	reset_fd(set);
-	set->envp = ft_strdup_tabl(envp);
+	set->envp = ft_strdup_dslash(envp);
+
 	set->path = ft_get_path(envp);
 	set->exit = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
@@ -165,7 +181,7 @@ int				free_all(t_set *set, int ret)
 	ft_free_dbtab(set->arg);
 	ft_free_dbtab(set->envp);
 	
-	print_args(set->envp);
+	//print_args(set->envp);
 	//printf("----[%s]\n", set->pwd);
 
 

@@ -28,6 +28,7 @@ char				*cmd_in_pwd(t_set *set, char *cmd)
 			return (joinf(set->pwd + 4, "/", set->cmd, ""));
 		}
 	}
+	closedir(folder);
 	return (NULL);
 }
 
@@ -76,7 +77,7 @@ void				ff_env(t_set *set, char *cmd, char *path)
 	ttm = NULL;
 	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 	{
-		ttm = joinf("_=", path, "", "");
+		ttm = ft_strjoin("_=", path);
 		ft_modenv(ttm, set);
 		set->g = 1;
 		free(ttm);

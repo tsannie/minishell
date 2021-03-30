@@ -51,48 +51,52 @@ int				checkenvp_un(char *str)
 	return (0);
 }
 
-int				ft_unsetenv(t_set *set, char *str)
+char		**ft_unsetenv(t_set *set, char *str)
 {
 	int			i;
+	int			e;
+	char		**res;
+
+	if (!(res = malloc(sizeof(char*) * 1)))
+		return (NULL);
 
 	i = 0;
+	e = 0;
 	while (set->envp[i] != NULL)
 	{
-		if (ncmpel(str, set->envp[i]) == 0)
+		if (ncmpel(str, set->envp[i]) != 0)
 		{
-			while (set->envp[i] != NULL)
-			{
-				set->envp[i] = set->envp[i + 1];
-				i++;
-			}
-			set->envp[i] = NULL;
-			return (0);
-		}
+			e++;
+			res = addword(res, e, set->envp[i]);
+		}		
 		i++;
 	}
-	return (0);
+	ft_free_dbtab(set->envp);
+	return (res);
 }
 
-int				ft_unsethideenv(t_set *set, char *str)
+char				**ft_unsethideenv(t_set *set, char *str)
 {
 	int			i;
+	int			e;
+	char		**res;
+
+	if (!(res = malloc(sizeof(char*) * 1)))
+		return (NULL);
 
 	i = 0;
+	e = 0;
 	while (set->hide_envp[i] != NULL)
 	{
-		if (ncmpel(str, set->hide_envp[i]) == 0)
+		if (ncmpel(str, set->hide_envp[i]) != 0)
 		{
-			while (set->hide_envp[i] != NULL)
-			{
-				set->hide_envp[i] = set->hide_envp[i + 1];
-				i++;
-			}
-			set->hide_envp[i] = NULL;
-			return (0);
-		}
+			e++;
+			res = addword(res, e, set->hide_envp[i]);
+		}		
 		i++;
 	}
-	return (0);
+	ft_free_dbtab(set->hide_envp);
+	return (res);
 }
 
 int				ft_unset(t_set *set)

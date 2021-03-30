@@ -132,8 +132,8 @@ int						ft_hideenv(char *str, t_set *set);
 void					ft_init_env(t_set *set);
 char 					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
-int						ft_unsethideenv(t_set *set, char *str);
-int						ft_unsetenv(t_set *set, char *str);
+char					**ft_unsethideenv(t_set *set, char *str);
+char					**ft_unsetenv(t_set *set, char *str);
 
 //
 int						first_semicon(const char *str);
@@ -156,6 +156,7 @@ void					start_cmd(  t_set *set);
 void					search_arg(char *str, t_set *set);
 char					*search_dolars(char *src, t_set *set);
 char					*add_letter(char *str, char a);
+char					**ft_strdup_dslash(char **envp);
 char					*before_equal(char *str);
 char					*before_equale(char *str);
 int						search_quotes(const char *src, t_set *set, char a);
