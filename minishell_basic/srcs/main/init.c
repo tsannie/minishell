@@ -91,7 +91,7 @@ void			init_struct(t_set *set, char **envp)
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);
 	reset_fd(set);
-	ft_strdup_tabl(set, envp);
+	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
 	set->exit = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
@@ -154,16 +154,18 @@ int				free_all(t_set *set, int ret)
 		free(set->pwd);
 	if (set->old_pwd)
 		free(set->old_pwd);
-	//ft_free_dbtab(set->list);
-	//ft_free_dbtab(set->push);
-	//ft_free_dbtab(set->history);
-	ft_free_dbtab(set->arg);
-	//ft_free_dbtab(set->all_path);
-	//ft_free_dbtab(set->hide_envp);
-	//ft_free_dbtab(set->envp);
-	
+	ft_free_dbtab(set->list);
+	ft_free_dbtab(set->push);
+	ft_free_dbtab(set->history);
+	ft_free_dbtab(set->all_path);
+	ft_free_dbtab(set->hide_envp);
+	//printf("arg = [%s]\n", set->arg[0]);
 	//print_args(set->envp);
-	//print_args(set->hide_envp);
+
+	ft_free_dbtab(set->arg);
+	ft_free_dbtab(set->envp);
+	
+	print_args(set->envp);
 	//printf("----[%s]\n", set->pwd);
 
 

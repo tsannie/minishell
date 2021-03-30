@@ -22,11 +22,12 @@ void		ft_free_dbtab(char **tab)
 	{
 		while (tab[i])
 		{
-			printf("---[%s]\n", tab[i]);
+			//printf("---[%s]\n", tab[i]);
 			free(tab[i]);
 			tab[i] = NULL;
 			i++;
 		}
 		free(tab);
+		tab = NULL;
 	}
 }

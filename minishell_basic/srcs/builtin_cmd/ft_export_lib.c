@@ -51,7 +51,7 @@ int				ft_hideenv(char *arg, t_set *set)
 		i++;
 	}
 	if (act == 0)
-		set->hide_envp = addword(set->hide_envp, i + 1, str);// not free (leak)
+		set->hide_envp = addword(set->hide_envp, i + 1, str);
 	free(str);
 	return (0);
 }

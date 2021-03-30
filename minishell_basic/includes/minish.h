@@ -130,7 +130,7 @@ unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
 int						ft_hideenv(char *str, t_set *set);
 void					ft_init_env(t_set *set);
-void					ft_strdup_tabl(t_set *set, char **envp);
+char 					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
 int						ft_unsethideenv(t_set *set, char *str);
 int						ft_unsetenv(t_set *set, char *str);

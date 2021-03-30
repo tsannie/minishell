@@ -55,23 +55,28 @@ unsigned long long		ft_atoill(const char *str)
 	return (result);
 }
 
-void					ft_strdup_tabl(t_set *set, char **envp)
+char					**ft_strdup_tabl(char **envp)
 {
 	int					y;
 	int					len;
+	char				**new_envp;
 
 	len = 0;
 	y = 0;
 	while (envp[len])
 		len++;
-	if (!(set->envp = malloc(sizeof(char *) * (len))))
-		return ;
+	if (!(new_envp = malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
 	while (envp[y])
 	{
-		set->envp[y] = ft_strdup(envp[y]);
+		//printf("-- = [%s]\n", envp[y]);
+		new_envp[y] = ft_strdup(envp[y]);
+		//printf("++ = [%s]\n", envp[y]);
+
 		y++;
 	}
-	set->envp[y] = 0;
+	new_envp[y] = 0;
+	return (new_envp);
 }
 
 char					*joinf(char *s1, char *s2, char *s3, char *s4)
