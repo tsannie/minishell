@@ -108,7 +108,6 @@ void			ft_init_env(t_set *set)
 		if (ft_strncmp("PWD=", set->envp[i], 4) == 0)
 			pwd = 1;
 	}
-
 	if (pwd == 0)
 	{
 		tmp = ft_strjoin("PWD=", set->pwd);

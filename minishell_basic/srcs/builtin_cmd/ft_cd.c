@@ -101,11 +101,12 @@ int				ft_cd(t_set *set)
 	if (ret != -1)
 	{
 		temp = ft_strdup(set->pwd);
+		if (set->old_pwd)
+			free(set->old_pwd);
 		set->old_pwd = ft_strjoin("OLDPWD=", temp);
 		ft_hideenv(set->old_pwd, set);
 		ft_modenv(set->old_pwd, set);
 		free(temp);
-		free(set->old_pwd);
 	}
 	free(set->pwd);
 	set->pwd = ft_strdup(getcwd(buff, 4097));
@@ -115,6 +116,5 @@ int				ft_cd(t_set *set)
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	free(temp);
-	free(set->pwd);
 	return (ret);
 }

@@ -240,6 +240,7 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd, set);
 		set->bleu = 1;
 	}
+
 	set->ex_er = 0;
 	if (set->bleu == 2)
 		set->bleu = 1;
@@ -267,4 +268,3 @@ void	start_shell(int ac, char **av, t_set *set)
 	//printf("[%s]\n", set->str);
 	treat_cmd(set);
 }
-

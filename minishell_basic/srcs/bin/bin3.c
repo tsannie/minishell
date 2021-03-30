@@ -108,5 +108,6 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_dbtab(args);
+	//free(cmd);
 	return (end_exec(set, ret, path));
 }

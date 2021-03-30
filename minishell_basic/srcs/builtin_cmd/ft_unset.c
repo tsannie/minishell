@@ -59,10 +59,10 @@ char		**ft_unsetenv(t_set *set, char *str)
 
 	if (!(res = malloc(sizeof(char*) * 1)))
 		return (NULL);
-
+	res[0] = 0;
 	i = 0;
 	e = 0;
-	while (set->envp[i] != NULL)
+	while (set->envp[i])
 	{
 		if (ncmpel(str, set->envp[i]) != 0)
 		{
@@ -83,10 +83,10 @@ char				**ft_unsethideenv(t_set *set, char *str)
 
 	if (!(res = malloc(sizeof(char*) * 1)))
 		return (NULL);
-
+	res[0] = 0;
 	i = 0;
 	e = 0;
-	while (set->hide_envp[i] != NULL)
+	while (set->hide_envp[i])
 	{
 		if (ncmpel(str, set->hide_envp[i]) != 0)
 		{
@@ -116,8 +116,8 @@ int				ft_unset(t_set *set)
 		}
 		else
 		{
-			ft_unsethideenv(set, set->arg[j]);
-			ft_unsetenv(set, set->arg[j]);
+			set->hide_envp = ft_unsethideenv(set, set->arg[j]);
+			set->envp = ft_unsetenv(set, set->arg[j]);
 		}
 		j++;
 	}

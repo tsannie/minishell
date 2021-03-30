@@ -84,7 +84,11 @@ void			init_structafter(t_set *set)
 
 
 	set->hide_envp = ft_unsethideenv(set, "OLDPWD");
+
 	set->envp = ft_unsetenv(set, "OLDPWD");
+
+
+
 	free(tmp2);
 	free(tmp);
 	init_term(set);
@@ -174,12 +178,12 @@ int				free_all(t_set *set, int ret)
 	ft_free_dbtab(set->push);
 	ft_free_dbtab(set->history);
 	ft_free_dbtab(set->all_path);
-	ft_free_dbtab(set->hide_envp);
+//	ft_free_dbtab(set->hide_envp);
 	//printf("arg = [%s]\n", set->arg[0]);
 	//print_args(set->envp);
 
-	ft_free_dbtab(set->arg);
-	ft_free_dbtab(set->envp);
+	//ft_free_dbtab(set->arg);
+	//ft_free_dbtab(set->envp);
 	
 	//print_args(set->envp);
 	//printf("----[%s]\n", set->pwd);
