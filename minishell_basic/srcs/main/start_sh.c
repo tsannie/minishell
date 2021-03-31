@@ -157,14 +157,6 @@ void	get_lastcmd(t_set *set)
 	char *tmp;
 
 	i = 0;
-	//printf("cmd = [%s]\n", set->cmd);
-	//if (check_last(set) == 1)
-	//	return ;
-	//
-
-
-
-	i = 0;
 	while (set->arg[i])
 		i++;
 	if (set->arg[0] == NULL)
@@ -179,14 +171,6 @@ void	get_lastcmd(t_set *set)
 		//printf("[%s]\n", tmp);
 	}
 
-	//printf("pathbc = [%s]\n", set->pathbc);
-/*  	if (set->pathbc != NULL)
-	{
-		free(set->pathbc);
-		set->pathbc = NULL;
-	}
- 	else
-	{*/
 		ffree(set->lastcmd);
 		set->lastcmd = ft_strjoin("_=", tmp);
 		if (tmp)

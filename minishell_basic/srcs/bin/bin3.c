@@ -57,13 +57,7 @@ int					end_exec(t_set *set, int ret, char *path)
 	if (set->exit_val == 1)
 		set->bleu = 1;
 	if (set->g == 1)
-	{
-		if (set->pathbc != NULL)
-		{
-			free(set->pathbc);
-			set->pathbc = NULL;
-		}
-	}
+		ffree(set->pathbc);
 	if (path != NULL)
 		free(path);
 	return (0);

@@ -172,14 +172,6 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
-void	fall(char *s1, char *s2, char *s3, char **args)
-{
-	ffree(s1);
-	ffree(s2);
-	ffree(s3);
-	ft_free_dbtab(args);
-}
-
 int		err_folder(t_set *set, char *namefile, int i)
 {
 	char **args;
@@ -203,18 +195,25 @@ int		err_folder(t_set *set, char *namefile, int i)
 			if (is_dir_present(tmp, args[i]) == 0)
 			{
 				set->exit_val = 4;
-				fall(tmp, tmp2, tmp3, args);
+				free(tmp);
+				free(tmp2);
+				free(tmp3);
+				ft_free_dbtab(args);
 				return (4);
 			}
 			set->exit_val = 4;
-			fall(tmp, tmp2, tmp3, args);
+			free(tmp);
+			free(tmp2);
+			free(tmp3);
+			ft_free_dbtab(args);
 			return (1);
 		}
 		free(tmp);
 		free(tmp2);
 		i++;
 	}
-	fall(tmp, tmp2, tmp3, args);
+	free(tmp3);
+	ft_free_dbtab(args);
 	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
 		return (1);
 	return (0);
