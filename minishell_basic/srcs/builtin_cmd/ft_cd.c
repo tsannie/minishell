@@ -22,7 +22,7 @@ char			*ft_getenv(int i)
 
 	e = -2;
 	r = -3;
-	cwd = getcwd(buff, 4097);
+	cwd = ft_strdup(getcwd(buff, 4097));
 	result = malloc(sizeof(char) * (ft_strlen(cwd) + 1));
 	while (cwd[++i])
 	{
@@ -38,6 +38,7 @@ char			*ft_getenv(int i)
 		e--;
 	}
 	result[r + 3] = '\0';
+	free(cwd);
 	return (result);
 }
 
@@ -59,6 +60,7 @@ int				ft_chem(t_set *set)
 {
 	int			valid;
 	int			i;
+	char		*tmp;
 
 	i = -1;
 	valid = 0;
@@ -72,7 +74,12 @@ int				ft_chem(t_set *set)
 		return (-1);
 	}
 	if (set->arg[0] == NULL)
-		return (chdir(ft_getenv(i)));
+	{
+		tmp = ft_getenv(i);
+		valid = chdir(tmp);
+		free(tmp);
+		return (valid);
+	}
 	return (0);
 }
 

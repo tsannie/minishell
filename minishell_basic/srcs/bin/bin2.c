@@ -36,6 +36,7 @@ t_set *set)
 		set->exit_val = 6;
 		return (1);
 	}
+	ffree(set->pathbc);
 	set->pathbc = ft_strdup(set->cmd);
 	return (0);
 }
@@ -129,6 +130,7 @@ char				*get_path(t_set *set, char *path, char *cmd)
 	closedir(folder);
 	if (check_elem(cmd, valid, path, set) == 1)
 		return (NULL);
+	ffree(set->pathbc);
 	set->pathbc = ft_strdup(path);
 	return (ft_strjoin(path, set->cmd));
 }
