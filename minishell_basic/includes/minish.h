@@ -40,36 +40,9 @@ typedef struct	s_sig
 
 typedef struct	s_set
 {
-	char	**list;
 	char	*str;
 	char	*word_tmp;
 	char	**push;
-	char	*dol_amb;
-	char	**arg;
-	char	*namefile;
-	char	**all_path;
-	char	*cmd;
-	char	*lastcmd;
-	char 	*exit_v;
-	char	*shlvl;
-	char	*tt_up;
-	char	*tt_down;
-	char	*tt_left;
-	char	*tt_right;
-	char	*tt_home;
-	char	*tt_end;
-	char	*tt_ctl_up;
-	char	*tt_crl_down;
-
-
-	char 	*pathbc;
-	char 	*path;
-	char	*pwd;
-	char	*old_pwd;
-	char	**hide_envp;
-	char	**envp;
-	char	**history;
-
 	int		nb_word;
 	int		fdout;
 	int		fdin;
@@ -85,6 +58,7 @@ typedef struct	s_set
 	int		no_exec;
 	int		simple;
 	int		ret_value;
+	char	*dol_amb;
 	int		dol_found;
 	int		amb;
 	int		not_exist;
@@ -98,7 +72,13 @@ typedef struct	s_set
 	int		bleu;
 	int		pid;
 	int		exit;
+	char	**arg;
+	char	*namefile;
 
+	char	**all_path;
+
+	char	*cmd;
+	char	*lastcmd;
 
 	int		lene;
 	int		chemin;
@@ -108,10 +88,31 @@ typedef struct	s_set
 	int		err_quote;
 	int		err_redi;
 	int 	exit_val;
+	char 	*exit_v;
+
+	char	*shlvl;
 	int		run;
 
+	char	**history;
 	int		inc_his;
+	char	*tt_up;
+	char	*tt_down;
+	char	*tt_left;
+	char	*tt_right;
+	char	*tt_home;
+	char	*tt_end;
+
+	char	*tt_ctl_up;
+	char	*tt_crl_down;
+
+
+	char 	*pathbc;
+	char 	*path;
+	char	*pwd;
+	char	*old_pwd;
 	int		cwplen;
+	char	**hide_envp;
+	char	**envp;
 
 	int		r;
 	int		w;
@@ -130,10 +131,10 @@ unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
 int						ft_hideenv(char *str, t_set *set);
 void					ft_init_env(t_set *set);
-char 					**ft_strdup_tabl(char **envp);
+char					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
-char					**ft_unsethideenv(t_set *set, char *str);
-char					**ft_unsetenv(t_set *set, char *str);
+int						ft_unsethideenv(t_set *set, char *str);
+int						ft_unsetenv(t_set *set, char *str);
 
 //
 int						first_semicon(const char *str);
@@ -156,7 +157,6 @@ void					start_cmd(  t_set *set);
 void					search_arg(char *str, t_set *set);
 char					*search_dolars(char *src, t_set *set);
 char					*add_letter(char *str, char a);
-char					**ft_strdup_dslash(char **envp);
 char					*before_equal(char *str);
 char					*before_equale(char *str);
 int						search_quotes(const char *src, t_set *set, char a);

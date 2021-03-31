@@ -60,7 +60,6 @@ DIR					*init_folder(char *cmd, char *path, t_set *set)
 			set->exit_val = 7;
 		return (NULL);
 	}
-	closedir(folder);
 	free(op);
 	return (folder);
 }

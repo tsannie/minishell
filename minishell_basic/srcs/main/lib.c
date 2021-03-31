@@ -24,7 +24,7 @@ char					*ft_strdupbc(const char *s1)
 	while (s1[len] != '/' && len > 0)
 		len--;
 	i = 0;
-	if (!(res = malloc(sizeof(char) * (len + 1))))
+	if (!(res = malloc(sizeof(char) * (len + 2))))
 		return (NULL);
 	while (s1[i] && i <= len)
 	{
@@ -57,26 +57,23 @@ unsigned long long		ft_atoill(const char *str)
 
 char					**ft_strdup_tabl(char **envp)
 {
+	char				**hide_envp;
 	int					y;
 	int					len;
-	char				**new_envp;
 
 	len = 0;
 	y = 0;
-	while (envp[len])
+	while (envp[len] != NULL)
 		len++;
-	if (!(new_envp = malloc(sizeof(char *) * (len + 1))))
+	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	while (envp[y])
 	{
-		//printf("-- = [%s]\n", envp[y]);
-		new_envp[y] = ft_strdup(envp[y]);
-		//printf("++ = [%s]\n", envp[y]);
-
+		hide_envp[y] = ft_strdup(envp[y]);
 		y++;
 	}
-	new_envp[y] = 0;
-	return (new_envp);
+	hide_envp[y] = NULL;
+	return (hide_envp);
 }
 
 char					*joinf(char *s1, char *s2, char *s3, char *s4)

@@ -99,9 +99,9 @@ int		change_quot_dol(const char *src, t_set *set)
 
 void	search_basic_redirect(const char *str, t_set *set)
 {
-	while (str[set->y] && str[set->y] != ' ' && str[set->y] != '\''
-	&& str[set->y] != '\"' && str[set->y] != '$'
-	&& str[set->y] != '<' && str[set->y] != '>')
+while (str[set->y] && str[set->y] != ' ' && str[set->y] != '\''
+&& str[set->y] != '\"' && str[set->y] != '$'
+&& str[set->y] != '<' && str[set->y] != '>')
 	{
 		if ((str[set->y] == '\\' && str[set->y + 1]))
 		{
@@ -214,7 +214,7 @@ int		err_folder(t_set *set, char *namefile, int i)
 	}
 	free(tmp3);
 	ft_free_dbtab(args);
-	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i])] == '/')
+	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
 		return (1);
 	return (0);
 }

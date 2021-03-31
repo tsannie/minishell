@@ -84,7 +84,6 @@ int		son(int pipefd[2], int fd_in, t_set *set)
 	ifclose(pipefd[0]);
 	ifclose(pipefd[1]);
 	exec_cmd(set, set->push[set->p]);
-	//free_all(set, set->exit_val);
 	exit(set->exit_val);
 }
 

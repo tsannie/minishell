@@ -73,7 +73,7 @@ void ft_putstr_not_found(char *str, t_set *set)
 
 void ft_putstr_error_quote(t_set *set)
 {
-	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd("minishell: ", STDERR);							// peut etre placer sous STDER
 	ft_putstr_fd("syntax error with open quotes\n", STDERR);
 	set->exit_val = 2;
 	set->bleu = 1;
@@ -81,21 +81,28 @@ void ft_putstr_error_quote(t_set *set)
 
 char *get_val(t_set *set)
 {
-	char *line;
+	char **line;
 	int gnl;
 
 	gnl = 0;
-	line = NULL;
-	gnl = get_next_line(0, &line, set);
-	if (gnl == 0 && ft_strlen(line) != 0)
-		ft_putstr_fd("\b\b  ", STDERR);
-	if (gnl == 0 && ft_strlen(line) == 0)
+	line = malloc(sizeof(char *) * 1);
+	//printf("avant1?");
+	gnl = get_next_line(0, line, set);
+	//printf("sx gnl= [%d]\n", set->exit);
+	//printf("===[%d]===[%s]===\n", gnl, *line);
+	if (gnl == 0 && ft_strlen(*line) != 0)
 	{
-		ft_putstr_fd("exit\n", STDERR);
-		free_all(set, set->exit_val);
+		ft_putstr_fd("\b\b  ", STDERR);
+	//	set->exit_val = 0;
+	//	add_exval(set);
+	}
+	if (gnl == 0 && ft_strlen(*line) == 0)
+	{
+		ft_putstr_fd("exit\n", STDERR) ;			// peut etre placer sous STDER
 		exit(0);
 	}
-	return (line);
+	// printf("line = [%s]\n", *line);
+	return (*line);
 }
 
 char	*maj_to_min(char *str)
@@ -240,7 +247,6 @@ void	start_cmd(t_set *set)
 		ft_putstr_not_found(set->cmd, set);
 		set->bleu = 1;
 	}
-
 	set->ex_er = 0;
 	if (set->bleu == 2)
 		set->bleu = 1;
@@ -268,3 +274,4 @@ void	start_shell(int ac, char **av, t_set *set)
 	//printf("[%s]\n", set->str);
 	treat_cmd(set);
 }
+

@@ -11,23 +11,16 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 void		ft_free_dbtab(char **tab)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	if (tab)
 	{
-		while (tab[i])
-		{
-			//printf("---[%s]\n", tab[i]);
+		while (tab[++i])
 			free(tab[i]);
-			tab[i] = NULL;
-			i++;
-		}
 		free(tab);
-		tab = NULL;
 	}
 }

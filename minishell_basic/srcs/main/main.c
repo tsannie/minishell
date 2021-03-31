@@ -68,15 +68,10 @@ int				main(int ac, char **av, char **envp)
 	char *DO;
  */
 	//int x;
-	if (ac == 3)
-	{
-		start_shell(ac ,av, set);
-		return (set->exit_val);
-	}
-		
-
 	if (init_tgent(set) == -1)
 		return (-1);
+	if (ac == 3)// for testeur
+		start_shell(ac, av, set);
 	else
 	{
 		signal(SIGINT, int_handler);
@@ -86,15 +81,12 @@ int				main(int ac, char **av, char **envp)
 			//if (read_stdin(&keycode) < 0)
 			//	return (-1);
 			//ft_putnbr_fd(keycode, STDERR);
-
 			if (g_sig.run == 0)
 				disp_prompt();
-			//if (ac == 3)
-			//	set->str = av[2];// for testeur
-			//else
-			if (set->str)
-				free(set->str);
-			set->str = get_val(set);
+			if (ac == 3)
+				set->str = av[2];// for testeur
+			else
+				set->str = get_val(set);
 			if (set->str)
 			{
 				if (ft_strlen(set->str) != 0)

@@ -62,37 +62,18 @@ void			init_structafter(t_set *set)
 	tmp = ft_strjoin("SHLVL=", set->shlvl);
 	tmp2 = ft_itoa(set->exit_val);
 	set->exit_v = ft_strjoin("?=", tmp2);
-	//printf("ex = [%s][%d] pwd = [%s]\n", set->exit_v, set->exit_val, set->pwd);
-
 	set->all_path = ft_splitbc(set->path, ':');
-
-
 	ft_init_env(set);
-
-
-
-
-	ft_hideenv(set->exit_v, set);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-
-
-
-	//free(set->exit_v);
+	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
-
-
-	set->hide_envp = ft_unsethideenv(set, "OLDPWD");
-
-	set->envp = ft_unsetenv(set, "OLDPWD");
-
-
-
+	ft_unsethideenv(set, "OLDPWD");
+	ft_unsetenv(set, "OLDPWD");
 	free(tmp2);
 	free(tmp);
 	init_term(set);
-
 }
 
 void			init_struct(t_set *set, char **envp)
@@ -110,7 +91,7 @@ void			init_struct(t_set *set, char **envp)
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);
 	reset_fd(set);
-	set->envp = ft_strdup_dslash(envp);
+	set->envp = ft_strdup_tabl(envp);// not free (leak)
 	set->path = ft_get_path(envp);
 	set->exit = 0;
 	set->old_pwd = ft_strjoin("OLDPWD=", "");
@@ -149,47 +130,6 @@ int				free_all(t_set *set, int ret)
 	free(set->tt_end);
 	free(set->tt_ctl_up);
 	free(set->tt_crl_down);
-	if (set->str)
-		free(set->str);
-	if (set->word_tmp)
-		free(set->word_tmp);
-	if (set->dol_amb)
-		free(set->dol_amb);
-	if (set->namefile)
-		free(set->namefile);
-	if (set->cmd)
-		free(set->cmd);
-	if (set->lastcmd)
-		free(set->lastcmd);
-	if (set->exit_v)
-		free(set->exit_v);
-	if (set->shlvl)
-		free(set->shlvl);
-	if (set->pathbc)
-		free(set->pathbc);
-	if (set->path)
-		free(set->path);
-	if (set->pwd)
-		free(set->pwd);
-	if (set->old_pwd)
-		free(set->old_pwd);
-	ft_free_dbtab(set->list);
-	ft_free_dbtab(set->push);
-	ft_free_dbtab(set->history);
-	ft_free_dbtab(set->all_path);
-	ft_free_dbtab(set->hide_envp);
-	ft_free_dbtab(set->envp);
-
-	//printf("arg = [%s]\n", set->arg[0]);
-	//print_args(set->envp);
-
-	//ft_free_dbtab(set->arg);
-	
-	//print_args(set->envp);
-	//printf("----[%s]\n", set->pwd);
-
-
-
 	free(set);
 	return (ret);
 }

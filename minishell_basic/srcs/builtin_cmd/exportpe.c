@@ -69,6 +69,7 @@ void			check_act(t_set *set, int act, char *str, int i)
 		str = st_moin_p(tmp);
 		free(tmp);
 		set->envp = addword(set->envp, i + 1, str);
+		set->envp[i + 1] = NULL;
 	}
 	else if (act == 2)
 	{
@@ -77,6 +78,7 @@ void			check_act(t_set *set, int act, char *str, int i)
 		str = st_moin_p(tmp);
 		free(tmp);
 		set->hide_envp = addword(set->hide_envp, i + 1, str);
+		set->hide_envp[i + 1] = NULL;
 	}
 }
 

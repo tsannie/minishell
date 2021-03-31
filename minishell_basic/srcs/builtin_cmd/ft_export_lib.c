@@ -51,7 +51,10 @@ int				ft_hideenv(char *arg, t_set *set)
 		i++;
 	}
 	if (act == 0)
-		set->hide_envp = addword(set->hide_envp, i + 1, str);
+	{
+		set->hide_envp = addword(set->hide_envp, i + 1, str);// not free (leak)
+		set->hide_envp[i + 1] = NULL;
+	}
 	free(str);
 	return (0);
 }
@@ -63,7 +66,7 @@ int				ft_modenv(char *str, t_set *set)
 
 	act = 0;
 	i = 0;
-	while (set->envp[i])
+	while (set->envp[i] != NULL)
 	{
 		if (ncmpel(str, set->envp[i]) == 0)
 		{
@@ -74,6 +77,9 @@ int				ft_modenv(char *str, t_set *set)
 		i++;
 	}
 	if (act == 0)
+	{
 		set->envp = addword(set->envp, i + 1, str);
+		set->envp[i + 1] = NULL;
+	}
 	return (0);
 }

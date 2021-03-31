@@ -28,7 +28,6 @@ char				*cmd_in_pwd(t_set *set, char *cmd)
 			return (joinf(set->pwd + 4, "/", set->cmd, ""));
 		}
 	}
-	closedir(folder);
 	return (NULL);
 }
 
@@ -77,7 +76,7 @@ void				ff_env(t_set *set, char *cmd, char *path)
 	ttm = NULL;
 	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 	{
-		ttm = ft_strjoin("_=", path);
+		ttm = joinf("_=", path, "", "");
 		ft_modenv(ttm, set);
 		set->g = 1;
 		free(ttm);
@@ -87,9 +86,11 @@ void				ff_env(t_set *set, char *cmd, char *path)
 int					exec_bin(t_set *set, char *path, char *cmd)
 {
 	char			**args;
+	char			*ttm;
 	int				ret;
 	int				pid;
 
+	ttm = NULL;
 	if (check_sh(set, path) == 1)
 		return (1);
 	if (ft_strncmp(cmd, "whoami", ft_strlen(cmd)) == 0)
@@ -108,6 +109,5 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_dbtab(args);
-	//free(cmd);
 	return (end_exec(set, ret, path));
 }

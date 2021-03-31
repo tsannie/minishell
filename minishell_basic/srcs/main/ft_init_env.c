@@ -59,7 +59,7 @@ char			*change_slash(char *str)
 
 	i = 0;
 	res = ft_strdup("");
- 	while (str[i])
+	while (str[i])
 	{
 		if (str[i] == '\\' || str[i] == '\"' || str[i] == '$')
 			res = add_letter(res, '\\');
@@ -77,7 +77,7 @@ char			**ft_strdup_dslash(char **envp)
 
 	len = 0;
 	y = 0;
-	while (envp[len])
+	while (envp[len] != NULL)
 		len++;
 	if (!(hide_envp = malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
@@ -95,12 +95,10 @@ void			ft_init_env(t_set *set)
 	int			i;
 	int			shlvl;
 	int			pwd;
-	char		*tmp;
 
 	shlvl = 0;
 	pwd = 0;
 	i = -1;
-
 	while (set->envp[++i])
 	{
 		if (ft_strncmp("SHLVL=", set->envp[i], 6) == 0)
@@ -109,17 +107,8 @@ void			ft_init_env(t_set *set)
 			pwd = 1;
 	}
 	if (pwd == 0)
-	{
-		tmp = ft_strjoin("PWD=", set->pwd);
-		ft_menv(tmp, set);
-		free(tmp);
-	}
-
+		ft_menv(joinf("PWD=", set->pwd, "", ""), set);
 	if (shlvl == 0)
-	{
-		tmp = ft_strjoin("SHLVL=", set->shlvl);
-		ft_menv(tmp, set);
-		free(tmp);
-	}
+		ft_menv(joinf("SHLVL=", set->shlvl, "", ""), set);
 	set->hide_envp = ft_strdup_dslash(set->envp);
 }

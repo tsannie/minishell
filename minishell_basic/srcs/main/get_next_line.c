@@ -154,7 +154,7 @@ if ()
 		i = searchreturn(stock);
  		//printf("[%s]\n", buff);
 		if (ft_strcmp(buff, set->tt_up) == 0)
-			return (1);
+			;
 /* 		ku = tgetstr("ku", buff);
 		kd = tgetstr("kd", buff);
 		//cl_string = tgetstr("cl", NULL);

@@ -17,7 +17,7 @@ int			ft_env(t_set *set)
 	int		i;
 
 	i = -1;
-	while (set->envp[++i])
+	while (set->envp[++i] != NULL)
 	{
 		if (ft_strncmp(set->envp[i], "?=", 2) != 0)
 		{
