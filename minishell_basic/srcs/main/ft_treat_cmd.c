@@ -119,6 +119,8 @@ void	exec_cmd(t_set *set, char *cmd)
 	clean(cmd, set);
 	if (set->stop == 0)
 		start_cmd(set);
+	free(set->cmd);
+	ft_free_dbtab(set->arg);
 }
 
 void	treat_cmd(t_set *set)

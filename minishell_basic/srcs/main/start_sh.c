@@ -249,8 +249,6 @@ void	start_cmd(t_set *set)
 	set->all_path = ft_splitbc(set->path, ':');
 	add_exval(set);
  	free(min);
-	free(set->cmd);
-	ft_free_dbtab(set->arg);
 }
 
 int	start_shell(int ac, char **av, t_set *set)
