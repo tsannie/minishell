@@ -150,15 +150,14 @@ int				free_all(t_set *set, int ret)
 	ffree(set->exit_v);
 	ffree(set->shlvl);
 	ffree(set->old_pwd);
- 	ft_free_dbtab(set->list);
+
+ 	//ft_free_dbtab(set->list);
 	ft_free_dbtab(set->push);
 	ft_free_dbtab(set->history);
 
 	ft_free_dbtab(set->all_path);
 	ft_free_dbtab(set->hide_envp);
 	ft_free_dbtab(set->envp);  
-	
-	
 	ft_free_dbtab(set->arg);
  
 	//printf("arg = [%s]\n", set->arg[0]);
