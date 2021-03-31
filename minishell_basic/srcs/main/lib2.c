@@ -65,3 +65,12 @@ int					is_dir_presentsl(char *arg, char *cmd)
 	closedir(folder);
 	return (0);
 }
+
+void			ffree(char *str)
+{
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
+}

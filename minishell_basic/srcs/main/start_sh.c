@@ -92,7 +92,6 @@ char *get_val(t_set *set)
 	if (gnl == 0 && ft_strlen(line) == 0)
 	{
 		ft_putstr_fd("exit\n", STDERR);
-		free_all(set, set->exit_val);
 		exit(0);
 	}
 	return (line);
@@ -188,8 +187,7 @@ void	get_lastcmd(t_set *set)
 	}
  	else
 	{*/
-		if (set->lastcmd)
-			free(set->lastcmd);
+		ffree(set->lastcmd);
 		set->lastcmd = ft_strjoin("_=", tmp);
 		if (tmp)
 			free(tmp);
@@ -255,13 +253,16 @@ void	start_cmd(t_set *set)
 	ft_free_dbtab(set->arg);
 }
 
-void	start_shell(int ac, char **av, t_set *set)
+int	start_shell(int ac, char **av, t_set *set)
 {
+	int ret;
 	if (ac == 3)
 		set->str = av[2];		// for testeur
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
 	treat_cmd(set);
-	exit(set->exit_val);
+	ret = set->exit_val;
+	//free_all(set, set->exit_val);
+	return (ret);
 }
 

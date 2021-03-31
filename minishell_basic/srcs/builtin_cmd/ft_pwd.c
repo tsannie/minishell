@@ -16,7 +16,8 @@ int			ft_pwd(t_set *set)
 {
 	char	buff[4096 + 1];
 
-	set->pwd = getcwd(buff, 4097);
+	ffree(set->pwd);
+	set->pwd = ft_strdup(getcwd(buff, 4097));
 	ft_putstr_fd(set->pwd, STDOUT);
 	ft_putchar_fd('\n', STDOUT);
 	return (0);

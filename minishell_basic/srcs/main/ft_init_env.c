@@ -107,8 +107,8 @@ void			ft_init_env(t_set *set)
 			pwd = 1;
 	}
 	if (pwd == 0)
-		ft_menv(joinf("PWD=", set->pwd, "", ""), set);
+		ft_menv(ft_strjoin("PWD=", set->pwd), set);
 	if (shlvl == 0)
-		ft_menv(joinf("SHLVL=", set->shlvl, "", ""), set);
+		ft_menv(ft_strjoin("SHLVL=", set->shlvl), set);
 	set->hide_envp = ft_strdup_dslash(set->envp);
 }

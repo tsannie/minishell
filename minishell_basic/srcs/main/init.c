@@ -93,10 +93,10 @@ void			init_struct(t_set *set, char **envp)
 	set->save_stdin = dup(STDIN);
 	set->save_stdout = dup(STDOUT);
 	reset_fd(set);
-	set->envp = ft_strdup_tabl(envp);// not free (leak)
+	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
 	set->exit = 0;
-	set->old_pwd = ft_strjoin("OLDPWD=", "");
+	set->old_pwd = ft_strdup("OLDPWD=");
 	set->pwd = ft_strjoin("PWD=", getcwd(buff, 4097));
 	init_structafter(set);
 }
@@ -124,7 +124,9 @@ int				init_all(t_set *set, char **envp)
 
 int				free_all(t_set *set, int ret)
 {
-	free(set->tt_up);
+		//printf("[%s]\n", set->pwd);
+
+ 	free(set->tt_up);
 	free(set->tt_down);
 	free(set->tt_left);
 	free(set->tt_right);
@@ -132,47 +134,42 @@ int				free_all(t_set *set, int ret)
 	free(set->tt_end);
 	free(set->tt_ctl_up);
 	free(set->tt_crl_down);
-	if (set->str)
-		free(set->str);
-	if (set->word_tmp)
-		free(set->word_tmp);
-	if (set->dol_amb)
-		free(set->dol_amb);
-	if (set->namefile)
-		free(set->namefile);
-	if (set->cmd)
-		free(set->cmd);
-	if (set->lastcmd)
-		free(set->lastcmd);
-	if (set->exit_v)
-		free(set->exit_v);
-	if (set->shlvl)
-		free(set->shlvl);
-	if (set->pathbc)
-		free(set->pathbc);
-	if (set->path)
-		free(set->path);
-	if (set->pwd)
-		free(set->pwd);
-	if (set->old_pwd)
-		free(set->old_pwd);
+
+
+ 	//ffree(set->str);
+	//ffree(set->word_tmp);
+	//ffree(set->dol_amb);
+	//ffree(set->namefile);
+	ffree(set->pathbc);
+	ffree(set->pwd);
+
+
+	ffree(set->cmd);
+	ffree(set->path);
+	ffree(set->lastcmd);
+	ffree(set->exit_v);
+	ffree(set->shlvl);
+	ffree(set->old_pwd);
  	ft_free_dbtab(set->list);
 	ft_free_dbtab(set->push);
 	ft_free_dbtab(set->history);
+
 	ft_free_dbtab(set->all_path);
 	ft_free_dbtab(set->hide_envp);
-	ft_free_dbtab(set->envp);
-
+	ft_free_dbtab(set->envp);  
+	
+	
+	ft_free_dbtab(set->arg);
+ 
 	//printf("arg = [%s]\n", set->arg[0]);
 	//print_args(set->envp);
 
-	//ft_free_dbtab(set->arg);
 	
 	//print_args(set->envp);
 	//printf("----[%s]\n", set->pwd);
 
 
 
-	//free(set);
+	free(set);
 	return (ret);
 }

@@ -72,20 +72,23 @@ int				ret_egl(t_set *set, int i)
 void			disp_eenv(t_set *set, int i)
 {
 	int egl;
-
+	char *tmp;
+	
+	tmp = ft_strdup(set->arg[i]);
 	egl = ret_egl(set, i);
 	if (egl == 2)
 	{
-		ft_eghide(set->arg[i], set);
-		ft_egenv(set->arg[i], set);
+		ft_eghide(tmp, set);
+		ft_egenv(tmp, set);
 	}
 	else if (egl == 1)
 	{
-		ft_hideenv(set->arg[i], set);
-		ft_modenv(set->arg[i], set);
+		ft_hideenv(tmp, set);
+		ft_modenv(tmp, set);
 	}
 	else
-		ft_hideenv(set->arg[i], set);
+		ft_hideenv(tmp, set);
+	free(tmp);
 }
 
 int				ft_export(t_set *set)

@@ -77,7 +77,7 @@ void					errdsp(t_set *set)
 	ft_putstr_fd(": ", STDERR);
 	ft_putstr_fd(set->arg[0], STDERR);
 	ft_putstr_fd(": numeric argument required\n", STDERR);
-	//free_all(set, set->exit_val);
+	free_all(set, set->exit_val);
 	exit(255);
 }
 
@@ -95,7 +95,7 @@ void					ft_eexit(t_set *set)
 	if (set->arg[0] == NULL)
 	{
 		ret = set->exit_val;
-		//free_all(set, set->exit_val);
+		free_all(set, set->exit_val);
 	//	printf("exret\n");
 		exit(ret);
 	}
@@ -116,7 +116,7 @@ void					ft_eexit(t_set *set)
 		//ft_putstr_fd(set->cmd, STDERR);
 		//ft_putstr_fd("\n", STDERR);
 		ret = ft_atoi(set->arg[0]);
-		//free_all(set, set->exit_val);
+		free_all(set, set->exit_val);
 		exit(ret);
 	}
 }

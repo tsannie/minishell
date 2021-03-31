@@ -87,7 +87,9 @@ int					bash_cmd(t_set *set, char *cmd)
 	char			*path;
 	int				x;
 	int				y;
+	int				ret;
 
+	ret = 0;
 	y = 0;
 	path = iffexec(set, cmd);
 	x = setx(set, cmd);
@@ -107,5 +109,7 @@ int					bash_cmd(t_set *set, char *cmd)
 		y = 0;
 		x++;
 	}
-	return (chemin_path(set->chemin, path, set, cmd));
+	ret = chemin_path(set->chemin, path, set, cmd);
+	ffree(path);
+	return (ret);
 }

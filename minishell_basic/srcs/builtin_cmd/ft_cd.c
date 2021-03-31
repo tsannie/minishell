@@ -96,25 +96,26 @@ int				ft_cd(t_set *set)
 	int			ret;
 	char		*temp;
 
+	ffree(set->pwd);
 	set->pwd = parc_env(set);
 	ret = ft_chem(set);
 	if (ret != -1)
 	{
 		temp = ft_strdup(set->pwd);
+		ffree(set->old_pwd);
 		set->old_pwd = ft_strjoin("OLDPWD=", temp);
 		ft_hideenv(set->old_pwd, set);
 		ft_modenv(set->old_pwd, set);
 		free(temp);
-		free(set->old_pwd);
 	}
-	free(set->pwd);
+	ffree(set->pwd);
 	set->pwd = ft_strdup(getcwd(buff, 4097));
 	temp = ft_strdup(set->pwd);
-	free(set->pwd);
+	ffree(set->pwd);
 	set->pwd = ft_strjoin("PWD=", temp);
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
-	free(temp);
-	free(set->pwd);
+	ffree(temp);
+	//free(set->pwd);
 	return (ret);
 }

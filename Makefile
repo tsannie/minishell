@@ -14,7 +14,7 @@ NAME		= minishell
 
 CC			= @gcc
 
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS		= -fsanitize=leak
 
 RM			= @rm -rf
 LIBFT		= ./libft
@@ -27,7 +27,7 @@ LIGHTPURPLE	:= $(shell tput -Txterm setaf 4)
 PURPLE		:= $(shell tput -Txterm setaf 5)
 BLUE		:= $(shell tput -Txterm setaf 6)
 WHITE		:= $(shell tput -Txterm setaf 7)
-BOLD		:=$(shell tput -Txterm bold)
+BOLD		:= $(shell tput -Txterm bold)
 END			:= $(shell tput -Txterm sgr0)
 NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 

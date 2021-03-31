@@ -127,6 +127,7 @@ char					**ft_splitbc(const char *str, char charset);
 void					add_exval(t_set *set);
 char					*ft_strdupbc(const char *s1);
 int						is_dir(char *arg);
+void					ffree(char *str);
 //env
 unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
@@ -152,7 +153,7 @@ int						forwar_quote(char *src, int i);
 void					ft_putstr_not_found(char *str, t_set *set);
 void 					ft_eexit(t_set *set);
 int						ft_disp_export(t_set *set);
-void					start_shell(int ac, char **av, t_set *set);
+int					start_shell(int ac, char **av, t_set *set);
 void					treat_cmd(t_set *set);
 void					start_cmd(  t_set *set);
 void					search_arg(char *str, t_set *set);

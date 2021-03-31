@@ -48,11 +48,11 @@ int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
 	//int			keycode;
-
+	int ret;
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (init_all(set, envp) == -1)
-		return (free_all(set, -1));
+		return (-1);//free_all(set, -1));
 
 /* 	char *ku;
 	char *kd;
@@ -72,7 +72,7 @@ int				main(int ac, char **av, char **envp)
 		return (-1);
 	if (ac == 3)
 	{
-		start_shell(ac, av, set);
+		ret = start_shell(ac, av, set);
 		//exit(0);
 		//printf("apres\n");
 		//free_all(set, set->exit_val);
@@ -140,7 +140,52 @@ int				main(int ac, char **av, char **envp)
 			g_sig.pid = -1;
 		}
 	}
-	//ft_putstr_fd("mon EXIT\n", STDERR);
-	//free_all(set, set->exit_val);
-	return (0);
+
+		//printf("[%s]\n", set->pwd);
+/* 
+ 	free(set->tt_up);
+	free(set->tt_down);
+	free(set->tt_left);
+	free(set->tt_right);
+	free(set->tt_home);
+	free(set->tt_end);
+	free(set->tt_ctl_up);
+	free(set->tt_crl_down);
+
+
+  	//ffree(set->str);
+	ffree(set->word_tmp);
+	ffree(set->dol_amb);
+	//ffree(set->namefile);
+	//ffree(set->pathbc);
+	//ffree(set->pwd);
+
+
+	//ffree(set->cmd);
+	//ffree(set->path);
+	//ffree(set->lastcmd);
+	//ffree(set->exit_v);
+	//ffree(set->shlvl);
+	//ffree(set->old_pwd);
+
+ 	//ft_free_dbtab(set->list);
+	//ft_free_dbtab(set->push);
+	//ft_free_dbtab(set->history);
+
+	ft_free_dbtab(set->all_path);
+	ft_free_dbtab(set->hide_envp);
+	ft_free_dbtab(set->envp);  
+	//ft_free_dbtab(set->arg);
+ 
+	//printf("arg = [%s]\n", set->arg[0]);
+	//print_args(set->envp);
+
+	
+	//print_args(set->envp);
+	//printf("----[%s]\n", set->pwd);
+
+
+
+	free(set); */
+	return (ret);
 }

@@ -73,7 +73,7 @@ void	search_cmd(const char *src, t_set *set)
 	if (exit == -1)
 		set->err_quote = 1;
 	set->cmd = ft_strdup(set->word_tmp);
-	free(set->word_tmp);
+	ffree(set->word_tmp);
 }
 
 int		forwar_quote(char *src, int i)

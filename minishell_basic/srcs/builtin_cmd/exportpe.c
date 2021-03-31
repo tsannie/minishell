@@ -34,6 +34,7 @@ char			*st_moin_pe(char *str)
 		e++;
 	}
 	new[e] = '\0';
+	ffree(str);
 	return (new);
 }
 
@@ -55,6 +56,7 @@ char			*st_moin_p(char *str)
 		e++;
 	}
 	new[e] = '\0';
+	ffree(str);
 	return (new);
 }
 
@@ -80,6 +82,7 @@ void			check_act(t_set *set, int act, char *str, int i)
 		set->hide_envp = addword(set->hide_envp, i + 1, str);
 		set->hide_envp[i + 1] = NULL;
 	}
+	free(str);
 }
 
 int				ft_eghide(char *arg, t_set *set)
@@ -106,7 +109,6 @@ int				ft_eghide(char *arg, t_set *set)
 		i++;
 	}
 	check_act(set, act, str, i);
-	free(str);
 	return (0);
 }
 
@@ -132,5 +134,6 @@ int				ft_egenv(char *str, t_set *set)
 		i++;
 	}
 	check_act(set, act, str, i);
+	ffree(str);
 	return (0);
 }
