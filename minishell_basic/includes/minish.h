@@ -47,18 +47,13 @@ typedef struct	s_set
 	int		nb_word;
 	int		fdout;
 	int		fdin;
-	int		pipeout;
-	int		pipein;
-	int		ex_pi;
 	int		start_end;
 	int		save_stdout;
 	int		save_stdin;
 	int		stop;
-	int		parents;
 	int		last;
 	int		no_exec;
 	int		simple;
-	int		ret_value;
 	char	*dol_amb;
 	int		dol_found;
 	int		amb;
