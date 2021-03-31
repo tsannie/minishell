@@ -43,6 +43,7 @@ typedef struct	s_set
 	char	*str;
 	char	*word_tmp;
 	char	**push;
+	char	**list;
 	int		nb_word;
 	int		fdout;
 	int		fdin;
@@ -133,8 +134,8 @@ int						ft_hideenv(char *str, t_set *set);
 void					ft_init_env(t_set *set);
 char					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
-int						ft_unsethideenv(t_set *set, char *str);
-int						ft_unsetenv(t_set *set, char *str);
+char					**ft_unsethideenv(t_set *set, char *str);
+char					**ft_unsetenv(t_set *set, char *str);
 
 //
 int						first_semicon(const char *str);

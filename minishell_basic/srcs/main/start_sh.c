@@ -81,28 +81,21 @@ void ft_putstr_error_quote(t_set *set)
 
 char *get_val(t_set *set)
 {
-	char **line;
+	char *line;
 	int gnl;
 
 	gnl = 0;
-	line = malloc(sizeof(char *) * 1);
-	//printf("avant1?");
-	gnl = get_next_line(0, line, set);
-	//printf("sx gnl= [%d]\n", set->exit);
-	//printf("===[%d]===[%s]===\n", gnl, *line);
-	if (gnl == 0 && ft_strlen(*line) != 0)
-	{
+	line = NULL;
+	gnl = get_next_line(0, &line, set);
+	if (gnl == 0 && ft_strlen(line) != 0)
 		ft_putstr_fd("\b\b  ", STDERR);
-	//	set->exit_val = 0;
-	//	add_exval(set);
-	}
-	if (gnl == 0 && ft_strlen(*line) == 0)
+	if (gnl == 0 && ft_strlen(line) == 0)
 	{
-		ft_putstr_fd("exit\n", STDERR) ;			// peut etre placer sous STDER
+		ft_putstr_fd("exit\n", STDERR);
+		free_all(set, set->exit_val);
 		exit(0);
 	}
-	// printf("line = [%s]\n", *line);
-	return (*line);
+	return (line);
 }
 
 char	*maj_to_min(char *str)
@@ -266,12 +259,9 @@ void	start_shell(int ac, char **av, t_set *set)
 {
 	if (ac == 3)
 		set->str = av[2];		// for testeur
-	else
-	{
-		set->str = get_val(set);
-	}
 	//set->str[ft_strlen(set->str) - 1] = '\0';
 	//printf("[%s]\n", set->str);
 	treat_cmd(set);
+	exit(set->exit_val);
 }
 

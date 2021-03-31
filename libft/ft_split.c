@@ -63,7 +63,7 @@ static void	alloc(char **res, const char *str, char charset)
 		}
 		if (n > 0)
 		{
-			res[word] = malloc(sizeof(char) * n + 1);
+			res[word] = malloc(sizeof(char) * (n + 1));
 			word++;
 		}
 	}
@@ -102,7 +102,7 @@ char	**ft_split(const char *str, char charset)
 
 	if (str == NULL)
 		return (NULL);
-	if (!(res = malloc(sizeof(char *) * count_word(str, charset) + 1)))
+	if (!(res = malloc(sizeof(char *) * (count_word(str, charset) + 1))))
 		return (NULL);
 	alloc(res, str, charset);
 	fill(res, str, charset);

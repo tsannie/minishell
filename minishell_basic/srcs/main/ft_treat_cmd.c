@@ -123,18 +123,17 @@ void	exec_cmd(t_set *set, char *cmd)
 
 void	treat_cmd(t_set *set)
 {
-	char	**list;
 	int		i;
 
 	i = 0;
 	if (correct_cmd(set->str, set) == 0)
 	{
-		list = split_semicolon(set->str, set);
-		while (list[i])
+		set->list = split_semicolon(set->str, set);
+		while (set->list[i])
 		{
 			set->p = 0;
-			set->simple = (is_pipe(list[i]) == 0) ? 1 : 0;
-			set->push = split_pipe(list[i], set);
+			set->simple = (is_pipe(set->list[i]) == 0) ? 1 : 0;
+			set->push = split_pipe(set->list[i], set);
 			set->p = 0;
 			if (set->simple == 1)
 				exec_cmd(set, set->push[0]);
@@ -144,6 +143,6 @@ void	treat_cmd(t_set *set)
 			ft_free_dbtab(set->push);
 			i++;
 		}
-		ft_free_dbtab(list);
+		ft_free_dbtab(set->list);
 	}
 }

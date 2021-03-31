@@ -61,24 +61,30 @@ static void	alloc(char **res, const char *str, char charset)
 			n++;
 			i++;
 		}
-		if (n > 0)
+		if (n > 0 && str[i - 1] != '/')
 		{
-			res[word] = malloc(sizeof(char) * n + 2);
+			//printf("str = [%s]\n", str);
+			res[word] = malloc(sizeof(char) * (n + 2));
+			word++;
+		}
+		else if (n > 0)
+		{
+			//printf("strav = [%s]\n", str);
+			res[word] = malloc(sizeof(char) * (n + 1));
 			word++;
 		}
 	}
 }
 
-static char	**rres(char **res, int word, int n)
+void	rres(char **res, int word, int n, char str)
 {
-	if (res[word][n - 1] != '/')
+	if (str != '/')
 	{
 		res[word][n] = '/';
 		res[word][n + 1] = '\0';
 	}
 	else
 		res[word][n] = '\0';
-	return (res);
 }
 
 static void	fill(char **res, const char *str, char charset)
@@ -102,7 +108,7 @@ static void	fill(char **res, const char *str, char charset)
 		}
 		if (n > 0)
 		{
-			res = rres(res, word, n);
+			rres(res, word, n, str[i - 1]);
 			word++;
 		}
 	}
@@ -114,7 +120,7 @@ char		**ft_splitbc(const char *str, char charset)
 
 	if (str == NULL)
 		return (NULL);
-	if (!(res = malloc(sizeof(char *) * count_word(str, charset) + 1)))
+	if (!(res = malloc(sizeof(char *) * (count_word(str, charset) + 1))))
 		return (NULL);
 	alloc(res, str, charset);
 	fill(res, str, charset);
