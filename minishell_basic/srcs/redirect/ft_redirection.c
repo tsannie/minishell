@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:50:53 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*dolars_redirect(char *src, t_set *set)
 	}
 	if (src[set->y] != '\"' && src[set->y] != '\'')
 	{
-		while (src[set->y] && (ft_isalnum(src[set->y]) == 1 || src[set->y] == '_'
-			|| src[set->y] == '?'))
+		while (src[set->y] && (ft_isalnum(src[set->y]) == 1
+		|| src[set->y] == '_' || src[set->y] == '?'))
 		{
 			res = add_letter(res, src[set->y]);
 			set->y++;
@@ -41,10 +41,7 @@ void	refresh_amb(char *dol, t_set *set)
 	char	*res;
 
 	res = ft_strjoin("$", dol);
-	//printf("res = {%s}\n", res);
-
 	set->dol_amb = ft_strjoin_free(set->dol_amb, res);
-	//printf("dol_amb = {%s}\n", res);
 	free(res);
 }
 
@@ -53,11 +50,8 @@ void	dolars_namefile(char *src, t_set *set, int a)
 	char	*dol;
 	int		i;
 
-	//printf("\n\n\nHERE\n\n\n");
 	dol = dolars_redirect(src, set);
-	//printf("dol = {%s}\n", dol);
-	refresh_amb(dol, set);		// free si tout va bien
-	//printf("dol_amb = %s\n", set->dol_amb);
+	refresh_amb(dol, set);
 	dol = change_dol(dol, set);
 	i = 0;
 	while (dol[i])
@@ -76,8 +70,8 @@ int		change_quot_dol(const char *src, t_set *set)
 	set->y++;
 	while (src[set->y] && src[set->y] != '\"')
 	{
-		if (src[set->y] == '\\' && (src[set->y + 1] == '\\' || src[set->y + 1] == '$'
-			|| src[set->y + 1] == '\"'))
+		if (src[set->y] == '\\' && (src[set->y + 1] == '\\'
+		|| src[set->y + 1] == '$' || src[set->y + 1] == '\"'))
 		{
 			set->word_tmp = add_letter(set->word_tmp, src[set->y + 1]);
 			set->y = set->y + 2;
@@ -99,9 +93,9 @@ int		change_quot_dol(const char *src, t_set *set)
 
 void	search_basic_redirect(const char *str, t_set *set)
 {
-while (str[set->y] && str[set->y] != ' ' && str[set->y] != '\''
-&& str[set->y] != '\"' && str[set->y] != '$'
-&& str[set->y] != '<' && str[set->y] != '>')
+	while (str[set->y] && str[set->y] != ' ' && str[set->y] != '\''
+		&& str[set->y] != '\"' && str[set->y] != '$'
+		&& str[set->y] != '<' && str[set->y] != '>')
 	{
 		if ((str[set->y] == '\\' && str[set->y + 1]))
 		{
@@ -137,14 +131,11 @@ char	*get_namefile(char *src, t_set *set, int i)
 		else if (src[set->y] != ' ')
 			search_basic_redirect(src, set);
 		if ((src[set->y] == ' ' || src[set->y] == '\t' || !src[set->y]
-		|| src[set->y] == '<' || src[set->y] == '>') && exit == 0)				// devrais pas arriver
-		{
-			//printf("\n\nENTER\n\n");
+		|| src[set->y] == '<' || src[set->y] == '>') && exit == 0)
 			exit = 1;
-		}
 	}
 	if (exit == -1)
-		set->err_quote = 1;				// mouais
+		set->err_quote = 1;
 	res = ft_strdup(set->word_tmp);
 	ffree(set->word_tmp);
 	return (res);
@@ -172,30 +163,16 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	return (res);
 }
 
-void	create_file(char *namefile, t_set *set, int a) // >
+void	err_exist(t_set *set, char *namefile)
 {
-	int i;
-
-	i = 0;
-	ifclose(set->fdout);
-	set->not_exist = err_folder(set, namefile, i);
-	//printf("err_folder = [%d]\n", set->not_exist);
-	if (a == 1)
+	if (set->fdout == -1)
 	{
-		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700)) == -1)
-		{// check fdout
-			if (set->not_exist == 1)
-				set->not_exist = 3;
-			else if (set->not_exist == 4)
-				set->not_exist = 1;
-			else
-				set->not_exist = 2;
-		}
-	}
-	else if (a == 2)
-	{
-		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // check fdout
+		if (set->not_exist == 1)
 			set->not_exist = 3;
+		else if (set->not_exist == 4)
+			set->not_exist = 1;
+		else
+			set->not_exist = 2;
 	}
 	if (set->not_exist == 0)
 	{
@@ -206,7 +183,21 @@ void	create_file(char *namefile, t_set *set, int a) // >
 		set->namefile = namefile;
 }
 
-void	change_stdin(char *namefile, t_set *set) // <
+void	create_file(char *namefile, t_set *set, int a)
+{
+	int i;
+
+	i = 0;
+	ifclose(set->fdout);
+	set->not_exist = err_folder(set, namefile, i);
+	if (a == 1)
+		set->fdout = open(namefile, O_CREAT | O_WRONLY | O_TRUNC, 00700);
+	else if (a == 2)
+		set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700);
+	err_exist(set, namefile);
+}
+
+void	change_stdin(char *namefile, t_set *set)
 {
 	ifclose(set->fdin);
 	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
@@ -229,7 +220,6 @@ void	err_amb(t_set *set)
 	set->exit_val = 1;
 	set->bleu = 1;
 	ffree(set->dol_amb);
-	set->dol_amb = NULL;
 }
 
 void	err_notexist(t_set *set)
@@ -248,20 +238,20 @@ void	err_notexist(t_set *set)
 	set->bleu = 1;
 }
 
-char	*simple_redirect(char *res, int i, t_set *set)
+char	*simple_redirect(char *res, int *i, t_set *set)
 {
 	char	*namefile;
 	char	a;
 
-	a = (res[i] == '>') ? '>' : '<';
-	namefile = get_namefile(res, set, i);
+	a = (res[*(i)] == '>') ? '>' : '<';
+	namefile = get_namefile(res, set, *(i));
 	if (!namefile[0])
 		set->amb = 1;
 	if (set->amb == 1 && namefile)
 		free(namefile);
 	if (set->amb == 0 && set->err_quote == 0)
 	{
-		res = get_newcmd(res, set, i);
+		res = get_newcmd(res, set, *(i));
 		if (a == '>')
 			create_file(namefile, set, 1);
 		else
@@ -269,26 +259,37 @@ char	*simple_redirect(char *res, int i, t_set *set)
 		ffree(set->dol_amb);
 		set->dol_amb = NULL;
 	}
+	*(i) = -1;
 	return (res);
 }
 
-char	*double_redirect(char *res, int i, t_set *set)
+char	*double_redirect(char *res, int *i, t_set *set)
 {
 	char	*namefile;
 
-	namefile = get_namefile(res, set, i + 1);
+	namefile = get_namefile(res, set, *(i) + 1);
 	if (!namefile[0])
 		set->amb = 1;
 	if (set->amb == 1 && namefile)
 		free(namefile);
 	if (set->amb == 0 && set->err_quote == 0)
 	{
-		res = get_newcmd(res, set, i);
+		res = get_newcmd(res, set, *(i));
 		create_file(namefile, set, 2);
 		ffree(set->dol_amb);
 		set->dol_amb = NULL;
 	}
+	*(i) = -1;
 	return (res);
+}
+
+void	check_err_and_incr(t_set *set, int *i)
+{
+	if (set->amb == 1)
+		err_amb(set);
+	else if (set->not_exist == 1 || set->not_exist == 2 || set->not_exist == 3)
+		err_notexist(set);
+	*(i) = *(i) + 1;
 }
 
 char	*redirection(char *src, t_set *set)
@@ -302,24 +303,18 @@ char	*redirection(char *src, t_set *set)
 	set->amb = 0;
 	while (res[i] && set->stop == 0)
 	{
-		if ((res[i] == '\'' || res[i] == '\"') && antislash_pair(res, i) == 1)
-			i = forwar_quote(res, i);
-		else if (res[i] == '>' && res[i + 1] == '>' && antislash_pair(res, i) == 1)
+		if (antislash_pair(res, i) == 1)
 		{
-			res = double_redirect(res, i, set);
-			i = -1;
+			if ((res[i] == '\'' || res[i] == '\"'))
+				i = forwar_quote(res, i);
+			else if (res[i] == '>' && res[i + 1] == '>')
+				res = double_redirect(res, &i, set);
+			else if ((res[i] == '>' || res[i] == '<'))
+				res = simple_redirect(res, &i, set);
 		}
-		else if ((res[i] == '>' || res[i] == '<') && antislash_pair(res, i) == 1)
-		{
-			res = simple_redirect(res, i, set);
-			i = -1;
-		}
-		i++;
-		if (set->amb == 1)
-			err_amb(set);
-		if (set->not_exist == 1 || set->not_exist == 2 || set->not_exist == 3)
-			err_notexist(set);
+		check_err_and_incr(set, &i);
 	}
+	ffree(set->dol_amb);
 	add_exval(set);
 	return (res);
 }

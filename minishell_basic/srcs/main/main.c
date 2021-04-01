@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 13:56:40 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/01 14:47:26 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int				main(int ac, char **av, char **envp)
 	}
 
 		//printf("[%s]\n", set->pwd);
-/* 
+/*
  	free(set->tt_up);
 	free(set->tt_down);
 	free(set->tt_left);
@@ -175,13 +175,13 @@ int				main(int ac, char **av, char **envp)
 
 	ft_free_dbtab(set->all_path);
 	ft_free_dbtab(set->hide_envp);
-	ft_free_dbtab(set->envp);  
+	ft_free_dbtab(set->envp);
 	//ft_free_dbtab(set->arg);
- 
+
 	//printf("arg = [%s]\n", set->arg[0]);
 	//print_args(set->envp);
 
-	
+
 	//print_args(set->envp);
 	//printf("----[%s]\n", set->pwd);
 

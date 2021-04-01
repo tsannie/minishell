@@ -6,7 +6,11 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/04/01 16:02:33 by phbarrad         ###   ########.fr        #
+=======
+#    Updated: 2021/04/01 14:58:23 by tsannie          ###   ########.fr        #
+>>>>>>> d4a5eb884869bb6936288f23b6f6a868455c15e5
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,12 +83,12 @@ $(NAME): 	$(OBJ)
 clean:
 			$(RM) $(OBJ)
 			@$(MAKE) clean -C $(LIBFT)
-			@echo "${LIGHTPURPLE}Cleaning ...${END}"
+			@echo "${LIGHTPURPLE}Cleaning ...${END}\n"
 
 fclean:		clean
 			$(RM) $(NAME)
 			@$(MAKE) fclean -C $(LIBFT)
-			@echo "\n${LIGHTPURPLE}Delete $(NAMEC)${LIGHTPURPLE}...${END}"
+			@echo "${LIGHTPURPLE}Delete $(NAMEC)${LIGHTPURPLE}...${END}\n"
 
 re:			fclean all
 
