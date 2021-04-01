@@ -70,7 +70,7 @@ void				ff_env(t_set *set, char *cmd, char *path)
 	ttm = NULL;
 	if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 	{
-		ttm = joinf("_=", path, "", "");
+		ttm = ft_strjoin("_=", path);
 		ft_modenv(ttm, set);
 		set->g = 1;
 		free(ttm);
@@ -83,19 +83,23 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	int				ret;
 	int				pid;
 
+
+	printf("== [%s] [%s] \n", path, cmd);
 	if (check_sh(set, path) == 1)
 		return (1);
-	if (ft_strncmp(cmd, "whoami", ft_strlen(cmd)) == 0)
+/*  	if (ft_strncmp(cmd, "whoami", ft_strlen(cmd)) == 0)
 	{
-		free(cmd);
+		//printf("oui ? = [%s]\n", set->cmd);
+		ffree(cmd);
 		cmd = ft_strdup(set->cmd);
-	}
+	} */
 	pid = fork();
 	args = new_args(set->arg, cmd);
 	ret = 0;
 	if (path != NULL && pid == 0)
 	{
 		ff_env(set, cmd, path);
+		ffree(cmd);
 		execve(path, args, set->envp);
 	}
 	else
