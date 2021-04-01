@@ -19,10 +19,10 @@ int					is_dir(char *arg)
 	file = open(arg, O_DIRECTORY);
 	if (file != -1)
 	{
-		close(file);
+		ifclose(file);
 		return (1);
 	}
-	close(file);
+	ifclose(file);
 	return (0);
 }
 

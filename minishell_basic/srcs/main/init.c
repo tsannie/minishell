@@ -86,6 +86,8 @@ void			init_struct(t_set *set, char **envp)
 	set->pathbc = NULL;
 	set->lastcmd = NULL;
 	set->all_path = NULL;
+	set->str = NULL;
+	set->dol_amb = NULL;
 	set->exit_val = 0;
 	set->bleu = 0;
 	set->pid = 0;

@@ -174,7 +174,7 @@ char	*get_newcmd(char *src, t_set *set, int i)
 
 int		err_folder(t_set *set, char *namefile, int i)
 {
-	char **args;
+/* 	char **args;
 	char *tmp;
 	char *tmp2;
 	char *tmp3;
@@ -215,7 +215,7 @@ int		err_folder(t_set *set, char *namefile, int i)
 	free(tmp3);
 	ft_free_dbtab(args);
 	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
-		return (1);
+		return (1); */
 	return (0);
 }
 
@@ -262,7 +262,6 @@ void	create_file(char *namefile, t_set *set, int a) // >
 void	change_stdin(char *namefile, t_set *set) // <
 {
 	ifclose(set->fdin);
-
 	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
 		set->not_exist = 1;
 	if (set->not_exist == 0)
@@ -299,7 +298,7 @@ void	err_notexist(t_set *set)
 		ft_putstr_fd(": Not a directory\n", STDERR);
 	free(set->namefile);
 	set->stop = 1;
-	set->exit_val = 1;		// or 4 ???
+	set->exit_val = 1;
 	set->bleu = 1;
 }
 

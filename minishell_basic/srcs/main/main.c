@@ -53,7 +53,8 @@ int				main(int ac, char **av, char **envp)
 		return (-1);
 	if (init_all(set, envp) == -1)
 		return (-1);//free_all(set, -1));
-
+	g_sig.pid = 0;
+	g_sig.run = 0;
 /* 	char *ku;
 	char *kd;
 
@@ -68,8 +69,9 @@ int				main(int ac, char **av, char **envp)
 	char *DO;
  */
 	//int x;
-	if (init_tgent(set) == -1)
-		return (-1);
+	ret = 0;
+	////if (init_tgent(set) == -1)
+	//	return (-1);
 	if (ac == 3)
 	{
 		ret = start_shell(ac, av, set);
@@ -88,10 +90,9 @@ int				main(int ac, char **av, char **envp)
 			//ft_putnbr_fd(keycode, STDERR);
 			if (g_sig.run == 0)
 				disp_prompt();
-			if (set->str)
-				free(set->str);
+			ffree(set->str);
 			set->str = get_val(set);
-			if (set->str)
+		/* 	if (set->str)
 			{
 				if (ft_strlen(set->str) != 0)
 				{
