@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/29 15:26:16 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/01 14:58:23 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,12 +71,12 @@ $(NAME): 	$(OBJ)
 clean:
 			$(RM) $(OBJ)
 			@$(MAKE) clean -C $(LIBFT)
-			@echo "${LIGHTPURPLE}Cleaning ...${END}"
+			@echo "${LIGHTPURPLE}Cleaning ...${END}\n"
 
 fclean:		clean
 			$(RM) $(NAME)
 			@$(MAKE) fclean -C $(LIBFT)
-			@echo "\n${LIGHTPURPLE}Delete $(NAMEC)${LIGHTPURPLE}...${END}"
+			@echo "${LIGHTPURPLE}Delete $(NAMEC)${LIGHTPURPLE}...${END}\n"
 
 re:			fclean all
 
