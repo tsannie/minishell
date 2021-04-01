@@ -262,6 +262,7 @@ void	create_file(char *namefile, t_set *set, int a) // >
 void	change_stdin(char *namefile, t_set *set) // <
 {
 	ifclose(set->fdin);
+
 	if ((set->fdin = open(namefile, O_RDONLY, 00700)) == -1)
 		set->not_exist = 1;
 	if (set->not_exist == 0)

@@ -84,7 +84,6 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	free(path);
 	return (set->pathbc);
 }
 
@@ -118,7 +117,6 @@ char				*get_path(t_set *set, char *path, char *cmd)
 	DIR				*folder;
 	struct dirent	*item;
 	int				valid;
-	char			*tmp;
 
 	valid = 0;
 	folder = opendir(path);
@@ -134,6 +132,5 @@ char				*get_path(t_set *set, char *path, char *cmd)
 		return (NULL);
 	ffree(set->pathbc);
 	set->pathbc = ft_strdup(path);
-	tmp = ft_strjoin(path, set->cmd);
-	return (tmp);
+	return (ft_strjoin(path, set->cmd));
 }

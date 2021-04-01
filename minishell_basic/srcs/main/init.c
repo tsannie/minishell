@@ -155,7 +155,7 @@ int				free_all(t_set *set, int ret)
 	ffree(set->shlvl);
 	ffree(set->old_pwd);
 
- 	ft_free_dbtab(set->list);
+ 	//ft_free_dbtab(set->list);
 	ft_free_dbtab(set->push);
 	ft_free_dbtab(set->history);
 
