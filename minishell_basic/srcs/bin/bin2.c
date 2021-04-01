@@ -71,9 +71,12 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	struct dirent	*item;
 	int				valid;
 
+	//printf("ICI--\n");
 	valid = 0;
 	set->lene = len;
+	printf("[%s][%s]\n", cmd , path);
 	folder = init_folder(cmd, path, set);
+	printf("ici--\n");
 	if (folder == NULL)
 		return (NULL);
 	while ((item = readdir(folder)) && valid == 0)
@@ -132,5 +135,5 @@ char				*get_path(t_set *set, char *path, char *cmd)
 		return (NULL);
 	ffree(set->pathbc);
 	set->pathbc = ft_strdup(path);
-	return (ft_strjoin(path, set->cmd));
+	return (ft_strjoin(path, cmd));
 }

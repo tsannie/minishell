@@ -14,7 +14,12 @@ NAME		= minishell
 
 CC			= @gcc
 
-CFLAGS		= #-fsanitize=leak
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
+
+#whaomi
+#wHoami
+#/bin/../../../bin/ls
+#/bin//////////bin/ls
 
 RM			= @rm -rf
 LIBFT		= ./libft

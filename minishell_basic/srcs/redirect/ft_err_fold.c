@@ -15,7 +15,7 @@
 int		eexxfold(char *tmp3, t_set *set, int i)
 {
 	ffree(tmp3);
-	if (ft_strlen(set->argss[i]) >= 0)
+	if (ft_strlen(set->argss[i]) > 0)
 	{
 		if (i == 0 && is_dir(set->argss[i]) == 0 &&
 		set->argss[i][ft_strlen(set->argss[i]) - 1] == '/')

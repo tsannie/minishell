@@ -232,7 +232,7 @@ void	start_cmd(t_set *set)
 		ft_free_dbtab(set->all_path);
 	set->all_path = ft_splitbc(set->path, ':');
 	add_exval(set);
- 	free(min);
+ 	ffree(min);
 }
 
 int	start_shell(int ac, char **av, t_set *set)

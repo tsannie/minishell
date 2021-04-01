@@ -103,11 +103,11 @@ int				main(int ac, char **av, char **envp)
  		x = -1;
 			while (set->history[++x])
 <<<<<<< HEAD
-				printf("his = [%s]\n", set->history[x]); */
+				printf("his = [%s]\n", set->history[x]);
 				//printf("his = [%s]\n", set->history[x]);
 			//set->line_count = tgetnum("li");
 			//printf("line_count = [%d]\n", set->line_count);
-/* 			ku = tgetstr("ku", NULL);
+ 			ku = tgetstr("ku", NULL);
 			kd = tgetstr("kd", NULL);
 
 			printf("\n\n\n\nku  [%s]==[%s]\n\n\n\n\n",set->cmd, ku);

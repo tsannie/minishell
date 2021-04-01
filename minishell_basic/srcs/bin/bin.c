@@ -32,6 +32,8 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 	int				y;
 
 	y = -1;
+	//printf("ICI\n");
+
 	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
