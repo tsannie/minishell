@@ -174,7 +174,7 @@ char	*get_newcmd(char *src, t_set *set, int i)
 
 int		err_folder(t_set *set, char *namefile, int i)
 {
-/* 	char **args;
+ 	char **args;
 	char *tmp;
 	char *tmp2;
 	char *tmp3;
@@ -187,7 +187,7 @@ int		err_folder(t_set *set, char *namefile, int i)
 	{
 		if (i > 0)
 			tmp = ft_strjoin(tmp3, "/");
-		free(tmp3);
+		ffree(tmp3);
 		tmp2 = ft_strjoin(tmp, args[i]);
 		tmp3 = ft_strdup(tmp2);
 		if (is_dir(tmp2) == 0)
@@ -195,27 +195,33 @@ int		err_folder(t_set *set, char *namefile, int i)
 			if (is_dir_present(tmp, args[i]) == 0)
 			{
 				set->exit_val = 4;
-				free(tmp);
-				free(tmp2);
-				free(tmp3);
+				ffree(tmp);
+				ffree(tmp2);
+				ffree(tmp3);
 				ft_free_dbtab(args);
 				return (4);
 			}
 			set->exit_val = 4;
-			free(tmp);
-			free(tmp2);
-			free(tmp3);
+			ffree(tmp);
+			ffree(tmp2);
+			ffree(tmp3);
 			ft_free_dbtab(args);
 			return (1);
 		}
-		free(tmp);
-		free(tmp2);
+		ffree(tmp);
+		ffree(tmp2);
 		i++;
 	}
-	free(tmp3);
+	ffree(tmp3);
+	if (ft_strlen(args[i]) >= 0)
+	{
+		if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
+		{
+			ft_free_dbtab(args);
+			return (1);
+		}
+	}
 	ft_free_dbtab(args);
-	if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
-		return (1); */
 	return (0);
 }
 
@@ -242,13 +248,7 @@ void	create_file(char *namefile, t_set *set, int a) // >
 	else if (a == 2)
 	{
 		if ((set->fdout = open(namefile, O_CREAT | O_WRONLY | O_APPEND, 00700)) == -1) // check fdout
-		{
-/* 			if (set->not_exist == 4)
-				set->not_exist = 1;
-			else */
-				set->not_exist = 3;
-		}
-
+			set->not_exist = 3;
 	}
 	if (set->not_exist == 0)
 	{
@@ -275,7 +275,7 @@ void	change_stdin(char *namefile, t_set *set) // <
 
 void	err_amb(t_set *set)
 {
-	ft_putstr_fd("minishell: ", STDERR); // error
+	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->dol_amb, STDERR);
 	ft_putstr_fd(": ambiguous redirect\n", STDERR);
 	set->stop = 1;
@@ -287,7 +287,6 @@ void	err_amb(t_set *set)
 
 void	err_notexist(t_set *set)
 {
-	//printf("err_not = [%d]\n", set->not_exist);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->namefile, STDERR);
 	if (set->not_exist == 1)
