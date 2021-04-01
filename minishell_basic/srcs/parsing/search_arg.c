@@ -102,7 +102,7 @@ int		new_arg(char *str, int exit, t_set *set)
 		exit = 1;
 	set->nb_word++;
 	set->arg = addword(set->arg, set->nb_word, set->word_tmp);
-	free(set->word_tmp);
+	ffree(set->word_tmp);
 	return (exit);
 }
 

@@ -115,7 +115,7 @@ char	**split_semicolon(char *str, t_set *set)
 			exit = 1;
 		nb_word++;
 		res = addword(res, nb_word, set->word_tmp);
-		free(set->word_tmp);
+		ffree(set->word_tmp);
 	}
 	if (exit == -1)
 		set->err_quote = 1;

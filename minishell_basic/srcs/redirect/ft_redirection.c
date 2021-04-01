@@ -146,7 +146,7 @@ char	*get_namefile(char *src, t_set *set, int i)
 	if (exit == -1)
 		set->err_quote = 1;				// mouais
 	res = ft_strdup(set->word_tmp);
-	free(set->word_tmp);
+	ffree(set->word_tmp);
 	return (res);
 }
 
@@ -170,59 +170,6 @@ char	*get_newcmd(char *src, t_set *set, int i)
 	}
 	free(src);
 	return (res);
-}
-
-int		err_folder(t_set *set, char *namefile, int i)
-{
- 	char **args;
-	char *tmp;
-	char *tmp2;
-	char *tmp3;
-
-	tmp3 = ft_strdup("");
-	tmp = ft_strdup("");
-	tmp2 = NULL;
-	args = ft_split(namefile, '/');
-	while (args[i + 1] && set->not_exist == 0)
-	{
-		if (i > 0)
-			tmp = ft_strjoin(tmp3, "/");
-		ffree(tmp3);
-		tmp2 = ft_strjoin(tmp, args[i]);
-		tmp3 = ft_strdup(tmp2);
-		if (is_dir(tmp2) == 0)
-		{
-			if (is_dir_present(tmp, args[i]) == 0)
-			{
-				set->exit_val = 4;
-				ffree(tmp);
-				ffree(tmp2);
-				ffree(tmp3);
-				ft_free_dbtab(args);
-				return (4);
-			}
-			set->exit_val = 4;
-			ffree(tmp);
-			ffree(tmp2);
-			ffree(tmp3);
-			ft_free_dbtab(args);
-			return (1);
-		}
-		ffree(tmp);
-		ffree(tmp2);
-		i++;
-	}
-	ffree(tmp3);
-	if (ft_strlen(args[i]) >= 0)
-	{
-		if (i == 0 && is_dir(args[i]) == 0 && args[i][ft_strlen(args[i]) - 1] == '/')
-		{
-			ft_free_dbtab(args);
-			return (1);
-		}
-	}
-	ft_free_dbtab(args);
-	return (0);
 }
 
 void	create_file(char *namefile, t_set *set, int a) // >
@@ -281,7 +228,7 @@ void	err_amb(t_set *set)
 	set->stop = 1;
 	set->exit_val = 1;
 	set->bleu = 1;
-	free(set->dol_amb);
+	ffree(set->dol_amb);
 	set->dol_amb = NULL;
 }
 
@@ -295,7 +242,7 @@ void	err_notexist(t_set *set)
 		ft_putstr_fd(": Is a directory\n", STDERR);
 	else if (set->not_exist == 3)
 		ft_putstr_fd(": Not a directory\n", STDERR);
-	free(set->namefile);
+	ffree(set->namefile);
 	set->stop = 1;
 	set->exit_val = 1;
 	set->bleu = 1;
@@ -319,7 +266,7 @@ char	*simple_redirect(char *res, int i, t_set *set)
 			create_file(namefile, set, 1);
 		else
 			change_stdin(namefile, set);
-		free(set->dol_amb);
+		ffree(set->dol_amb);
 		set->dol_amb = NULL;
 	}
 	return (res);
@@ -338,7 +285,7 @@ char	*double_redirect(char *res, int i, t_set *set)
 	{
 		res = get_newcmd(res, set, i);
 		create_file(namefile, set, 2);
-		free(set->dol_amb);
+		ffree(set->dol_amb);
 		set->dol_amb = NULL;
 	}
 	return (res);

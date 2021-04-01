@@ -88,6 +88,9 @@ void			init_struct(t_set *set, char **envp)
 	set->all_path = NULL;
 	set->str = NULL;
 	set->dol_amb = NULL;
+	set->word_tmp = NULL;
+	set->dol_amb = NULL;
+	set->namefile = NULL;
 	set->exit_val = 0;
 	set->bleu = 0;
 	set->pid = 0;
@@ -142,10 +145,12 @@ int				free_all(t_set *set, int ret)
 	free(set->tt_crl_down);
 
 
- 	//ffree(set->str);
+ 	ffree(set->str);
 	//ffree(set->word_tmp);
 	//ffree(set->dol_amb);
 	//ffree(set->namefile);
+	
+	
 	ffree(set->pathbc);
 	ffree(set->pwd);
 
@@ -157,7 +162,7 @@ int				free_all(t_set *set, int ret)
 	ffree(set->shlvl);
 	ffree(set->old_pwd);
 
- 	//ft_free_dbtab(set->list);
+ 	ft_free_dbtab(set->list);
 	ft_free_dbtab(set->push);
 	ft_free_dbtab(set->history);
 

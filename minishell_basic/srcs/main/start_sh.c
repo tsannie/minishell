@@ -239,12 +239,9 @@ int	start_shell(int ac, char **av, t_set *set)
 {
 	int ret;
 	if (ac == 3)
-		set->str = av[2];		// for testeur
-	//set->str[ft_strlen(set->str) - 1] = '\0';
-	//printf("[%s]\n", set->str);
+		set->str = ft_strdup(av[2]);
 	treat_cmd(set);
 	ret = set->exit_val;
-	//free_all(set, set->exit_val);
 	return (ret);
 }
 

@@ -109,7 +109,7 @@ typedef struct	s_set
 	int		cwplen;
 	char	**hide_envp;
 	char	**envp;
-
+	char	**argss;
 	int		r;
 	int		w;
 	int		x;
@@ -132,7 +132,8 @@ char					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
 char					**ft_unsethideenv(t_set *set, char *str);
 char					**ft_unsetenv(t_set *set, char *str);
-
+//redur==ir
+int						err_folder(t_set *set, char *namefile, int i);
 //
 int						first_semicon(const char *str);
 int						multi_redirecion(char *src, char a);
@@ -148,7 +149,7 @@ int						forwar_quote(char *src, int i);
 void					ft_putstr_not_found(char *str, t_set *set);
 void 					ft_eexit(t_set *set);
 int						ft_disp_export(t_set *set);
-int					start_shell(int ac, char **av, t_set *set);
+int						start_shell(int ac, char **av, t_set *set);
 void					treat_cmd(t_set *set);
 void					start_cmd(  t_set *set);
 void					search_arg(char *str, t_set *set);
