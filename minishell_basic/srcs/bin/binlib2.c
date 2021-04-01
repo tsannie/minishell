@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   binlib.c                                           :+:      :+:    :+:   */
+/*   binlib2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:28:38 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 15:32:22 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:50:57 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,13 @@ int					ft_strcmpsl(char *s1, char *s2)
 	while (s1[i] == s2[i] && s1[i] && i < len)
 		i++;
 	return (s1[i] - s2[i]);
+}
+
+int					finn(t_set *set, char *path, char *cmd)
+{
+	int ret;
+
+	ret = chemin_path(set->chemin, path, set, cmd);
+	ffree(path);
+	return (ret);
 }

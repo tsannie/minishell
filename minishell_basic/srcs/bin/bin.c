@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/25 08:07:45 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:51:23 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int					fot(t_set *set, char *path, char *cmd)
 		set->bleu = 1;
 		return (1);
 	}
-	if (check_stat_file(set, path) == 1)
+	else if (check_stat_file(set, path) == 1)
 	{
 		set->bleu = 1;
 		return (1);
@@ -32,8 +32,6 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 	int				y;
 
 	y = -1;
-	//printf("ICI\n");
-
 	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
@@ -52,7 +50,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
-	return (fot(set, path, cmd));
+	return (fot(set, path, set->cmd));
 }
 
 int					setx(t_set *set, char *cmd)
@@ -89,9 +87,7 @@ int					bash_cmd(t_set *set, char *cmd)
 	char			*path;
 	int				x;
 	int				y;
-	int				ret;
 
-	ret = 0;
 	y = 0;
 	path = iffexec(set, cmd);
 	x = setx(set, cmd);
@@ -111,7 +107,5 @@ int					bash_cmd(t_set *set, char *cmd)
 		y = 0;
 		x++;
 	}
-	ret = chemin_path(set->chemin, path, set, cmd);
-	ffree(path);
-	return (ret);
+	return (finn(set, path, cmd));
 }

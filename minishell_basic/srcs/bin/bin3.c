@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 13:25:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:45:11 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char				*cmd_in_pwd(t_set *set, char *cmd)
 			return (joinf(set->pwd + 4, "/", set->cmd, ""));
 		}
 	}
+	closedir(folder);
 	return (NULL);
 }
 
@@ -83,23 +84,14 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	int				ret;
 	int				pid;
 
-
-	printf("== [%s] [%s] \n", path, cmd);
 	if (check_sh(set, path) == 1)
 		return (1);
-/*  	if (ft_strncmp(cmd, "whoami", ft_strlen(cmd)) == 0)
-	{
-		//printf("oui ? = [%s]\n", set->cmd);
-		ffree(cmd);
-		cmd = ft_strdup(set->cmd);
-	} */
 	pid = fork();
 	args = new_args(set->arg, cmd);
 	ret = 0;
 	if (path != NULL && pid == 0)
 	{
 		ff_env(set, cmd, path);
-		ffree(cmd);
 		execve(path, args, set->envp);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:25 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/24 16:28:12 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:45:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,9 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	struct dirent	*item;
 	int				valid;
 
-	//printf("ICI--\n");
 	valid = 0;
 	set->lene = len;
-	printf("[%s][%s]\n", cmd , path);
 	folder = init_folder(cmd, path, set);
-	printf("ici--\n");
 	if (folder == NULL)
 		return (NULL);
 	while ((item = readdir(folder)) && valid == 0)
@@ -87,7 +84,7 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	return (set->pathbc);
+	return (ft_strdup(set->pathbc));
 }
 
 int					check_elem(char *cmd, int valid, char *path, t_set *set)

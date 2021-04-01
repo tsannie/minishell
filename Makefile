@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/29 15:26:16 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/01 16:02:33 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
 #wHoami
 #/bin/../../../bin/ls
 #/bin//////////bin/ls
+#/bin/Ls
+#export A export A="qwe " export A
+
 
 RM			= @rm -rf
 LIBFT		= ./libft

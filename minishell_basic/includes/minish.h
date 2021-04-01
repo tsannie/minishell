@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/25 15:27:43 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/01 16:52:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ char					*double_slash(char *arg);
 int						ncmpelp(char *s1, char *s2);
 //
 //bin
+int						chemin_path(int chemin, char *path, t_set *set, char *cmd);
+int						finn(t_set *set, char *path, char *cmd);
 int						pathnnul(int valid, char *path, char *cmd, t_set *set);
 int						ft_strcmpss(char *s1, char *s2);
 int						is_dir_presentsl(char *arg, char *cmd);
