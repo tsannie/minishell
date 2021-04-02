@@ -168,6 +168,7 @@ char					**split_pipe(char *str, t_set *set);
 void					exec_cmd(t_set *set, char *cmd);
 void					reset_fd(t_set *set);
 //cmd
+int						ft_check_valid_exit(t_set *set);
 int						ft_cd(t_set *set);
 int						ft_echo(t_set *set);
 int						ft_env(t_set *set);

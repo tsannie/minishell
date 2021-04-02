@@ -12,15 +12,13 @@
 
 #include "../../includes/minish.h"
 
-char			*ft_getenv(int i)
+char			*ft_getenv(int i, int e)
 {
 	char		*cwd;
 	char		*result;
 	char		buff[4096 + 1];
-	int			e;
 	int			r;
 
-	e = -2;
 	r = -3;
 	cwd = ft_strdup(getcwd(buff, 4097));
 	result = malloc(sizeof(char) * (ft_strlen(cwd) + 1));
@@ -75,7 +73,7 @@ int				ft_chem(t_set *set)
 	}
 	if (set->arg[0] == NULL)
 	{
-		tmp = ft_getenv(i);
+		tmp = ft_getenv(i, -2);
 		valid = chdir(tmp);
 		free(tmp);
 		return (valid);
@@ -123,6 +121,5 @@ int				ft_cd(t_set *set)
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	ffree(temp);
-	//free(set->pwd);
 	return (ret);
 }

@@ -46,7 +46,7 @@ PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c
 CHECK		= ft_correct1.c ft_correct2.c ft_correct3.c
 
 BUILTIN_CMD	= ft_cd.c ft_echo.c ft_env.c exportpe.c ft_export.c ft_solo_export.c \
-			ft_export_lib.c ft_exit.c ft_unset.c ft_pwd.c
+			ft_export_lib.c ft_exit.c ft_check_exit.c ft_unset.c ft_pwd.c
 
 REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c
 
