@@ -12,9 +12,9 @@
 
 #include "../../includes/minish.h"
 
-int				ncmpel(char *s1, char *s2)
+int					ncmpel(char *s1, char *s2)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	while ((s2[i] || s1[i]) && s2[i] != '=')
@@ -26,10 +26,10 @@ int				ncmpel(char *s1, char *s2)
 	return (0);
 }
 
-int				checkenvp_un(char *str)
+int					checkenvp_un(char *str)
 {
-	int			i;
-	int			avn;
+	int				i;
+	int				avn;
 
 	i = 0;
 	avn = 0;
@@ -51,11 +51,11 @@ int				checkenvp_un(char *str)
 	return (0);
 }
 
-char		**ft_unsetenv(t_set *set, char *str)
+char				**ft_unsetenv(t_set *set, char *str)
 {
-	int			i;
-	int			e;
-	char		**res;
+	int				i;
+	int				e;
+	char			**res;
 
 	if (!(res = malloc(sizeof(char*) * 1)))
 		return (NULL);
@@ -68,7 +68,7 @@ char		**ft_unsetenv(t_set *set, char *str)
 		{
 			e++;
 			res = addword(res, e, set->envp[i]);
-		}		
+		}
 		i++;
 	}
 	ft_free_dbtab(set->envp);
@@ -77,9 +77,9 @@ char		**ft_unsetenv(t_set *set, char *str)
 
 char				**ft_unsethideenv(t_set *set, char *str)
 {
-	int			i;
-	int			e;
-	char		**res;
+	int				i;
+	int				e;
+	char			**res;
 
 	if (!(res = malloc(sizeof(char*) * 1)))
 		return (NULL);
@@ -92,16 +92,16 @@ char				**ft_unsethideenv(t_set *set, char *str)
 		{
 			e++;
 			res = addword(res, e, set->hide_envp[i]);
-		}		
+		}
 		i++;
 	}
 	ft_free_dbtab(set->hide_envp);
 	return (res);
 }
 
-int				ft_unset(t_set *set)
+int					ft_unset(t_set *set)
 {
-	int			j;
+	int				j;
 
 	j = 0;
 	while (set->arg[j])

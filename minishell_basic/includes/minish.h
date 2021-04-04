@@ -123,6 +123,12 @@ void					add_exval(t_set *set);
 char					*ft_strdupbc(const char *s1);
 int						is_dir(char *arg);
 void					ffree(char *str);
+char					*maj_to_min(char *str);
+int						check_last(t_set *set);
+int						eglinstr(char *str);
+//err
+void					ft_putstr_not_found(char *str, t_set *set);
+int						ft_putstr_error_quote(t_set *set);
 //env
 unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
@@ -186,6 +192,7 @@ char					**split_semicolon(char *str, t_set *set);
 char					*joinf(char *s1, char *s2, char *s3, char *s4);
 int						ft_menv(char *str, t_set *set);
 char					*ft_get_path(char **envp);
+void					rres(char **res, int word, int n, char str);
 //
 char					*maj_to_min(char *str);
 int						is_dir_present(char *arg, char *cmd);
@@ -212,7 +219,7 @@ int						check_sh(t_set *set, char *path);
 int						check_stat_file(t_set *set, char *path);
 char					**new_args(char **args, char *cmd);
 int						ft_strcmpsl(char *s1, char *s2);
-int						bash_cmd(t_set *set, char *cmd);
+int						bash_cmd(t_set *set);
 int						check_shlvl(t_set *set, char **envp);
 int						ft_strcmp(char *s1, char *s2);
 //init

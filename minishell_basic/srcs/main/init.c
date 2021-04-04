@@ -69,19 +69,15 @@ void			init_structafter(t_set *set)
 	ft_hideenv(set->exit_v, set);
 	ft_hideenv(tmp, set);
 	ft_modenv(tmp, set);
-
 	set->hide_envp = ft_unsethideenv(set, "OLDPWD");
 	set->envp = ft_unsetenv(set, "OLDPWD");
-
 	free(tmp2);
 	free(tmp);
 	init_term(set);
 }
 
-void			init_struct(t_set *set, char **envp)
+void			init_null(t_set *set)
 {
-	char		buff[4096 + 1];
-
 	set->cmd = NULL;
 	set->pathbc = NULL;
 	set->lastcmd = NULL;
@@ -91,6 +87,13 @@ void			init_struct(t_set *set, char **envp)
 	set->word_tmp = NULL;
 	set->dol_amb = NULL;
 	set->namefile = NULL;
+}
+
+void			init_struct(t_set *set, char **envp)
+{
+	char		buff[4096 + 1];
+
+	init_null(set);
 	set->exit_val = 0;
 	set->bleu = 0;
 	set->pid = 0;
@@ -110,18 +113,6 @@ void			init_struct(t_set *set, char **envp)
 	init_structafter(set);
 }
 
-void			add_exval(t_set *set)
-{
-	char		*tmp;
-
-	tmp = ft_itoa(set->exit_val);
-	if (set->exit_v)
-		free(set->exit_v);
-	set->exit_v = ft_strjoin("?=", tmp);
-	free(tmp);
-	ft_hideenv(set->exit_v, set);
-}
-
 int				init_all(t_set *set, char **envp)
 {
 	if (check_shlvl(set, envp) != 0)
@@ -129,57 +120,4 @@ int				init_all(t_set *set, char **envp)
 	init_struct(set, envp);
 	ft_sort_dbtab(set);
 	return (0);
-}
-
-int				free_all(t_set *set, int ret)
-{
-		//printf("[%s]\n", set->pwd);
-
- 	free(set->tt_up);
-	free(set->tt_down);
-	free(set->tt_left);
-	free(set->tt_right);
-	free(set->tt_home);
-	free(set->tt_end);
-	free(set->tt_ctl_up);
-	free(set->tt_crl_down);
-
-
- 	ffree(set->str);
-	//ffree(set->word_tmp);
-	//ffree(set->dol_amb);
-	//ffree(set->namefile);
-	
-	
-	ffree(set->pathbc);
-	ffree(set->pwd);
-
-
-	ffree(set->cmd);
-	ffree(set->path);
-	ffree(set->lastcmd);
-	ffree(set->exit_v);
-	ffree(set->shlvl);
-	ffree(set->old_pwd);
-
- 	ft_free_dbtab(set->list);
-	ft_free_dbtab(set->push);
-	ft_free_dbtab(set->history);
-
-	ft_free_dbtab(set->all_path);
-	ft_free_dbtab(set->hide_envp);
-	ft_free_dbtab(set->envp);  
-	ft_free_dbtab(set->arg);
- 
-	//printf("arg = [%s]\n", set->arg[0]);
-	//print_args(set->envp);
-
-	
-	//print_args(set->envp);
-	//printf("----[%s]\n", set->pwd);
-
-
-
-	free(set);
-	return (ret);
 }

@@ -82,18 +82,20 @@ char				*iffexec(t_set *set, char *cmd)
 	return (path);
 }
 
-int					bash_cmd(t_set *set, char *cmd)
+int					bash_cmd(t_set *set)
 {
 	char			*path;
+	char			*cmd;
 	int				x;
 	int				y;
 
-	y = 0;
+	y = -1;
+	cmd = maj_to_min(set->cmd);
 	path = iffexec(set, cmd);
 	x = setx(set, cmd);
 	while (cmd[x] && set->len == 0 && set->all_path && path == NULL)
 	{
-		while (set->all_path[y] && set->len == 0)
+		while (set->all_path[++y] && set->len == 0)
 		{
 			if (ft_strncmp(set->all_path[y], cmd + x,
 			ft_strlen(set->all_path[y])) == 0 && path == NULL)
@@ -102,9 +104,8 @@ int					bash_cmd(t_set *set, char *cmd)
 				set->len = x + ft_strlen(set->all_path[y]);
 				path = ft_strdup(set->all_path[y]);
 			}
-			y++;
 		}
-		y = 0;
+		y = -1;
 		x++;
 	}
 	return (finn(set, path, cmd));

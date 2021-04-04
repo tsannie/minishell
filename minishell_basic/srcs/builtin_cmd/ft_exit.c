@@ -14,8 +14,8 @@
 
 void					errdsp(t_set *set)
 {
-	ft_putstr_fd(set->cmd, STDERR);
-	ft_putstr_fd("\n", STDERR);
+	//ft_putstr_fd(set->cmd, STDERR);
+	//ft_putstr_fd("\n", STDERR);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->cmd, STDERR);
 	ft_putstr_fd(": ", STDERR);
@@ -29,11 +29,22 @@ void					retarg(t_set *set)
 {
 	int					ret;
 
-	ft_putstr_fd(set->cmd, STDERR);
-	ft_putstr_fd("\n", STDERR);
+	//ft_putstr_fd(set->cmd, STDERR);
+	//ft_putstr_fd("\n", STDERR);
 	ret = ft_atoi(set->arg[0]);
 	free_all(set, set->exit_val);
 	exit(ret);
+}
+
+void					tomani(t_set *set)
+{
+	//ft_putstr_fd(set->cmd, STDERR);
+	//ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(set->cmd, STDERR);
+	ft_putstr_fd(": too many arguments\n", STDERR);
+	set->exit_val = 1;
+	set->ex_er = 1;
 }
 
 void					ft_eexit(t_set *set)
@@ -54,15 +65,7 @@ void					ft_eexit(t_set *set)
 	else if (ft_check_valid_exit(set) == 1)
 		errdsp(set);
 	if (len > 1)
-	{
-		ft_putstr_fd(set->cmd, STDERR);
-		ft_putstr_fd("\n", STDERR);
-		ft_putstr_fd("minishell: ", STDERR);
-		ft_putstr_fd(set->cmd, STDERR);
-		ft_putstr_fd(": too many arguments\n", STDERR);
-		set->exit_val = 1;
-		set->ex_er = 1;
-	}
+		tomani(set);
 	else
 		retarg(set);
 }

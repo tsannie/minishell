@@ -12,67 +12,58 @@
 
 #include "../../includes/minish.h"
 
-int					is_dir(char *arg)
+void			add_exval(t_set *set)
 {
-	int				file;
+	char		*tmp;
 
-	file = open(arg, O_DIRECTORY);
-	if (file != -1)
+	tmp = ft_itoa(set->exit_val);
+	if (set->exit_v)
+		free(set->exit_v);
+	set->exit_v = ft_strjoin("?=", tmp);
+	free(tmp);
+	ft_hideenv(set->exit_v, set);
+}
+
+char			*maj_to_min(char *str)
+{
+	int			i;
+	char		*res;
+
+	i = 0;
+	res = ft_strdup(str);
+	while (res[i])
 	{
-		ifclose(file);
+		if (res[i] >= 'A' && res[i] <= 'Z')
+			res[i] = res[i] + 32;
+		i++;
+	}
+	return (res);
+}
+
+int				eglinstr(char *str)
+{
+	int			i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int				check_last(t_set *set)
+{
+	int			i;
+
+	if (ft_strncmp(set->str, "$_", ft_strlen(set->str)) == 0)
 		return (1);
-	}
-	ifclose(file);
+	i = ft_strlen(set->str) - 1;
+	while (set->str[i] == ' ' || set->str[i] == '\t')
+		i--;
+	if (ft_strncmp(set->str + i - 1, "$_", 2) == 0)
+		return (1);
 	return (0);
-}
-
-int					is_dir_present(char *arg, char *cmd)
-{
-	DIR				*folder;
-	struct dirent	*item;
-
-	folder = opendir(arg);
-	if (!folder)
-		return (0);
-	while ((item = readdir(folder)))
-	{
-		if (ft_strcmp(item->d_name, cmd) == 0 && is_dir(item->d_name) == 0)
-		{
-			closedir(folder);
-			return (1);
-		}
-	}
-	closedir(folder);
-	return (0);
-}
-
-int					is_dir_presentsl(char *arg, char *cmd)
-{
-	DIR				*folder;
-	struct dirent	*item;
-
-	folder = opendir(arg);
-	if (!folder)
-		return (0);
-	while ((item = readdir(folder)))
-	{
-		if (ft_strcmpss(cmd, item->d_name) == 0 && is_dir(item->d_name) == 0)
-		{
-			closedir(folder);
-			return (1);
-		}
-	}
-	closedir(folder);
-	return (0);
-}
-
-void				rres(char **res, int word, int n, char str)
-{
-	if (str != '/')
-	{
-		res[word][n] = '/';
-		res[word][n + 1] = '\0';
-	}
-	else
-		res[word][n] = '\0';
 }

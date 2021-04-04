@@ -46,5 +46,6 @@ int					finn(t_set *set, char *path, char *cmd)
 
 	ret = chemin_path(set->chemin, path, set, cmd);
 	ffree(path);
+	free(cmd);
 	return (ret);
 }

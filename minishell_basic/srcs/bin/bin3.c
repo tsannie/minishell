@@ -49,7 +49,7 @@ int					pathnnul(int valid, char *path, char *cmd, t_set *set)
 	return (0);
 }
 
-int					end_exec(t_set *set, int ret, char *path)
+int					end_exec(t_set *set, int ret)
 {
 	if (ret == 256)
 		set->exit_val = 1;
@@ -59,8 +59,6 @@ int					end_exec(t_set *set, int ret, char *path)
 		set->bleu = 1;
 	if (set->g == 1)
 		ffree(set->pathbc);
-	if (path != NULL)
-		free(path);
 	return (0);
 }
 
@@ -97,5 +95,5 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	else
 		waitpid(pid, &ret, 0);
 	ft_free_dbtab(args);
-	return (end_exec(set, ret, path));
+	return (end_exec(set, ret));
 }

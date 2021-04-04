@@ -121,5 +121,5 @@ int				ft_cd(t_set *set)
 	ft_hideenv(set->pwd, set);
 	ft_modenv(set->pwd, set);
 	ffree(temp);
-	return (ret);
+	return (0);
 }

@@ -21,9 +21,9 @@ static int	be_charset(char a, char charset)
 
 static int	count_word(const char *str, char charset)
 {
-	int n;
-	int word;
-	int i;
+	int		n;
+	int		word;
+	int		i;
 
 	i = 0;
 	word = 0;
@@ -45,9 +45,9 @@ static int	count_word(const char *str, char charset)
 
 static void	alloc(char **res, const char *str, char charset)
 {
-	int n;
-	int word;
-	int i;
+	int		n;
+	int		word;
+	int		i;
 
 	i = 0;
 	word = 0;
@@ -71,9 +71,9 @@ static void	alloc(char **res, const char *str, char charset)
 
 static void	fill(char **res, const char *str, char charset)
 {
-	int n;
-	int word;
-	int i;
+	int		n;
+	int		word;
+	int		i;
 
 	i = 0;
 	word = 0;
@@ -96,9 +96,9 @@ static void	fill(char **res, const char *str, char charset)
 	}
 }
 
-char	**ft_split(const char *str, char charset)
+char		**ft_split(const char *str, char charset)
 {
-	char **res;
+	char	**res;
 
 	if (str == NULL)
 		return (NULL);

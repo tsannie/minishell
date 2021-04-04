@@ -71,9 +71,9 @@ int				ret_egl(t_set *set, int i)
 
 void			disp_eenv(t_set *set, int i)
 {
-	int egl;
-	char *tmp;
-	
+	int			egl;
+	char		*tmp;
+
 	tmp = ft_strdup(set->arg[i]);
 	egl = ret_egl(set, i);
 	if (egl == 2)

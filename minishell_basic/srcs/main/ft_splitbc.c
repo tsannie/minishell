@@ -62,29 +62,12 @@ static void	alloc(char **res, const char *str, char charset)
 			i++;
 		}
 		if (n > 0 && str[i - 1] != '/')
-		{
-			//printf("str = [%s]\n", str);
 			res[word] = malloc(sizeof(char) * (n + 2));
-			word++;
-		}
 		else if (n > 0)
-		{
-			//printf("strav = [%s]\n", str);
 			res[word] = malloc(sizeof(char) * (n + 1));
+		if (n > 0)
 			word++;
-		}
 	}
-}
-
-void	rres(char **res, int word, int n, char str)
-{
-	if (str != '/')
-	{
-		res[word][n] = '/';
-		res[word][n + 1] = '\0';
-	}
-	else
-		res[word][n] = '\0';
 }
 
 static void	fill(char **res, const char *str, char charset)
