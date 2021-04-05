@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/05 11:04:50 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void			init_null(t_set *set)
 	set->lastcmd = NULL;
 	set->all_path = NULL;
 	set->str = NULL;
-	set->dol_amb = NULL;
 	set->word_tmp = NULL;
 	set->dol_amb = NULL;
 	set->namefile = NULL;

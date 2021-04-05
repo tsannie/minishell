@@ -1,3 +1,0 @@
-cat < libft/ft_atoi.c
-
-> leak

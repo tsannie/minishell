@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/01 16:53:04 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/05 12:53:09 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,17 +43,19 @@ BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
 TERMCAP		= term.c
 
-PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c
+PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c \
+			ft_parsing_pipe.c search_cmd.c
 
-CHECK		= ft_correct1.c ft_correct2.c ft_correct3.c
+CHECK		= ft_correct1.c ft_correct2.c ft_correct3.c ft_correct_pipe.c
 
 BUILTIN_CMD	= ft_cd.c ft_echo.c ft_env.c exportpe.c ft_export.c ft_solo_export.c \
 			ft_export_lib.c ft_exit.c ft_check_exit.c ft_unset.c ft_pwd.c
 
-REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c
+REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c ft_namefile1.c ft_namefile2.c \
+			ft_err_redi.c
 
 MAIN		= main.c init.c start_sh.c err_msg.c ft_treat_cmd.c ft_init_env.c shlvl.c lib.c \
-			 lib2.c lib3.c ft_splitbc.c tgent.c get_next_line.c tools_dev_DELETE.c ffree.c
+			 lib2.c lib3.c ft_splitbc.c tgent.c get_next_line.c ffree.c
 
 SRC			= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 			$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \
