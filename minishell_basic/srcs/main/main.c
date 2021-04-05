@@ -47,8 +47,12 @@ void			sig_quit(int code)
 int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
+	int		parse;
+	char	buf[BUF_SIZE];
+	size_t	buf_len;
 
 	int ret;
+
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (init_all(set, envp) == -1)
@@ -72,7 +76,19 @@ int				main(int ac, char **av, char **envp)
 			if (g_sig.run == 0)
 				disp_prompt();
 			ffree(set->str);
+			
+			/* ft_bzero((void *)buf, BUF_SIZE);
+			if (read(0, buf, BUF_SIZE) == -1)
+				ft_putstr_fd("Quit: \n", STDERR); */
 			set->str = get_val(set);
+
+			//signal(SIGINT, &sig_handler1);
+			/* if ((buf_len = ft_strlen(buf)) > 0)
+			{
+				printf("BUFF = [%d]\n", buf_len);
+				//if ((parse = parse_input(shell, buf, buf_len)) > 0)
+				//	print_prompt(shell, parse);
+			} */
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;

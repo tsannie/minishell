@@ -110,35 +110,9 @@ int		get_next_line(int fd, char **line, t_set *set)
 	char		buff[BUFFER_SIZE + 1];
 	int			i;
 	int			res;
-	//int			keycode = 0;
+	size_t 		buf_len;
 
-/*
-if ()
-	int			term;
-	char		*term_type;
-	int ret;
-
-	term_type = getenv("TERM");
-    if (term_type == NULL)
-        return (-1);
-	ret = tgetent(*buff, term_type);
-	if (ret != 1)
-        return (-1);
-	printf("[%d][%s]\n", ret, term_type);
-
-	char *ku;
-	char *kd;
-
-	char *cl_string;
-	char *cm_string;
-	int auto_wrap;
-	int height;
-	int width;
-	char *temp;
-	char *BC;
-	char *UP;
-	char *DO;
- */	i = 0;
+	i = 0;
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, buff, 0) == -1)
 		return (-1);
 	i = searchreturn(stock);
@@ -146,28 +120,17 @@ if ()
 		return (write_line(line, stock, i));
 	while (((res = read(fd, buff, BUFFER_SIZE)) >= 0))
 	{
-		//if (read_stdin(&keycode) < 0)
-		//		return (-1);
-		//ft_putnbr_fd(keycode, STDERR);
+		
 		buff[res] = '\0';
+		if ((buf_len = ft_strlen(buff)) > 0)
+		{
+			printf("BUFF = [%d]\n", buf_len);
+		}
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);
- 		//printf("[%s]\n", buff);
+ 		
 		if (ft_strcmp(buff, set->tt_up) == 0)
 			return (1);
-/* 		ku = tgetstr("ku", buff);
-		kd = tgetstr("kd", buff);
-		//cl_string = tgetstr("cl", NULL);
-		cm_string = tgetstr("cm", buff);
-		auto_wrap = tgetflag("am");
-		height = tgetnum("li");
-		width = tgetnum("co");
-		temp = tgetstr("pc", buff);
-		BC = tgetstr("le", buff);
-		UP = tgetstr("up", buff);
-		DO = tgetstr("do", buff);
-		printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n",
-		cm_string, auto_wrap,height,width,temp,BC,UP,DO); */
 
 		if (res == 0 || buff[res - 1] != '\n')
 		{
