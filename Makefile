@@ -41,6 +41,8 @@ NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 
 BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
+TERMCAP		= term.c
+
 PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c
 
 CHECK		= ft_correct1.c ft_correct2.c ft_correct3.c
@@ -54,6 +56,7 @@ MAIN		= main.c init.c start_sh.c err_msg.c ft_treat_cmd.c ft_init_env.c shlvl.c 
 			 lib2.c lib3.c ft_splitbc.c tgent.c get_next_line.c tools_dev_DELETE.c ffree.c
 
 SRC			= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
+			$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \
 			$(addprefix minishell_basic/srcs/builtin_cmd/, $(BUILTIN_CMD)) \
 			$(addprefix minishell_basic/srcs/parsing/, $(PARSING)) \
 			$(addprefix minishell_basic/srcs/main/, $(MAIN)) \

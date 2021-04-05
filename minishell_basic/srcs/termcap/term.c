@@ -14,7 +14,7 @@
 #include <curses.h>
 #include <term.h>
 
-void		get_term()
+void		term()
 {
 
 }
