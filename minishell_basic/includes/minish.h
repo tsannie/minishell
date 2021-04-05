@@ -226,6 +226,8 @@ int						ft_strcmp(char *s1, char *s2);
 int						init_tgent(t_set *set);
 int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
+int						start_term(t_set *set);
+
 /* TOOLS TO DELETE WHEN ITS END */
 void					print_args(char **str);
 char					*get_val(t_set *set);

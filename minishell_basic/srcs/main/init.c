@@ -118,6 +118,8 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
+	if (start_term(set) != 0)
+		return (-1);
 	ft_sort_dbtab(set);
 	return (0);
 }

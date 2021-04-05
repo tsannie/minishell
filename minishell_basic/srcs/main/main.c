@@ -47,31 +47,15 @@ void			sig_quit(int code)
 int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
-	//int			keycode;
+
 	int ret;
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (init_all(set, envp) == -1)
-		return (-1);//free_all(set, -1));
+		return (-1);
 	g_sig.pid = 0;
 	g_sig.run = 0;
-/* 	char *ku;
-	char *kd;
-
-	char *cl_string;
-	char *cm_string;
-	int auto_wrap;
-	int height;
-	int width;
-	char *temp;
-	char *BC;
-	char *UP;
-	char *DO;
- */
-	//int x;
 	ret = 0;
-	////if (init_tgent(set) == -1)
-	//	return (-1);
 	if (ac == 3)
 	{
 		ret = start_shell(ac, av, set);
@@ -85,44 +69,10 @@ int				main(int ac, char **av, char **envp)
 		signal(SIGQUIT, sig_quit);
 		while (1)
 		{
-			//if (read_stdin(&keycode) < 0)
-			//	return (-1);
-			//ft_putnbr_fd(keycode, STDERR);
 			if (g_sig.run == 0)
 				disp_prompt();
 			ffree(set->str);
 			set->str = get_val(set);
-		/* 	if (set->str)
-			{
-				if (ft_strlen(set->str) != 0)
-				{
-					set->inc_his++;
-					set->history = addword(set->history, set->inc_his, set->str);
-				}
-			}
- 		x = -1;
-			while (set->history[++x])
-<<<<<<< HEAD
-				printf("his = [%s]\n", set->history[x]);
-				//printf("his = [%s]\n", set->history[x]);
-			//set->line_count = tgetnum("li");
-			//printf("line_count = [%d]\n", set->line_count);
- 			ku = tgetstr("ku", NULL);
-			kd = tgetstr("kd", NULL);
-
-			printf("\n\n\n\nku  [%s]==[%s]\n\n\n\n\n",set->cmd, ku);
-			printf("\n\n\n\nkd  [%s]==[%s]\n\n\n\n\n",set->cmd, kd);
-
-			//cl_string = tgetstr("cl", NULL);
-			cm_string = tgetstr("cm", NULL);
-			auto_wrap = tgetflag("am");
-			height = tgetnum("li");
-			width = tgetnum("co");
-			temp = tgetstr("pc", NULL);
-			BC = tgetstr("le", NULL);
-			UP = tgetstr("up", NULL);
-			DO = tgetstr("do", NULL); */
-			//printf("\n\n\n[%s][%d][%d][%d][%s][%s]\n\nup = [%s]\n\ndo = [%s]\n\n", cm_string, auto_wrap,height,width,temp,BC,UP,DO);
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;
@@ -141,52 +91,5 @@ int				main(int ac, char **av, char **envp)
 			g_sig.pid = -1;
 		}
 	}
-
-		//printf("[%s]\n", set->pwd);
-/*
- 	free(set->tt_up);
-	free(set->tt_down);
-	free(set->tt_left);
-	free(set->tt_right);
-	free(set->tt_home);
-	free(set->tt_end);
-	free(set->tt_ctl_up);
-	free(set->tt_crl_down);
-
-
-  	//ffree(set->str);
-	ffree(set->word_tmp);
-	ffree(set->dol_amb);
-	//ffree(set->namefile);
-	//ffree(set->pathbc);
-	//ffree(set->pwd);
-
-
-	//ffree(set->cmd);
-	//ffree(set->path);
-	//ffree(set->lastcmd);
-	//ffree(set->exit_v);
-	//ffree(set->shlvl);
-	//ffree(set->old_pwd);
-
- 	//ft_free_dbtab(set->list);
-	//ft_free_dbtab(set->push);
-	//ft_free_dbtab(set->history);
-
-	ft_free_dbtab(set->all_path);
-	ft_free_dbtab(set->hide_envp);
-	ft_free_dbtab(set->envp);
-	//ft_free_dbtab(set->arg);
-
-	//printf("arg = [%s]\n", set->arg[0]);
-	//print_args(set->envp);
-
-
-	//print_args(set->envp);
-	//printf("----[%s]\n", set->pwd);
-
-
-
-	free(set); */
 	return (ret);
 }

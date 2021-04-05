@@ -14,7 +14,7 @@ NAME		= minishell
 
 CC			= @gcc
 
-CFLAGS		= -Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS		= #-Wall -Wextra -Werror #-fsanitize=leak
 
 #whaomi
 #wHoami
