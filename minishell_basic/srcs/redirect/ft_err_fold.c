@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_err_fold.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 10:49:31 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/29 12:43:36 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:13:55 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ int		intit(int i, char *tmp, char *tmp2)
 	ffree(tmp);
 	ffree(tmp2);
 	return (i + 1);
+}
+
+void	err_exist(t_set *set, char *namefile)
+{
+	if (set->fdout == -1)
+	{
+		if (set->not_exist == 1)
+			set->not_exist = 3;
+		else if (set->not_exist == 4)
+			set->not_exist = 1;
+		else
+			set->not_exist = 2;
+	}
+	if (set->not_exist == 0)
+	{
+		free(namefile);
+		dup2(set->fdout, STDOUT);
+	}
+	else
+		set->namefile = namefile;
 }
 
 int		err_folder(t_set *set, char *namefile, int i)

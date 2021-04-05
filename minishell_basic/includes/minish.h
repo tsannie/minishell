@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/01 16:52:09 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:53:57 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,13 @@ char					**ft_unsetenv(t_set *set, char *str);
 //redur==ir
 int						err_folder(t_set *set, char *namefile, int i);
 //
+int						first_pipe(const char *str);
+char					*get_newcmd(char *src, t_set *set, int i);
+void					check_err_and_incr(t_set *set, int *i);
+void					err_exist(t_set *set, char *namefile);
+void					refresh_amb(char *dol, t_set *set);
+char					*dolars_redirect(char *src, t_set *set);
+char					*get_namefile(char *src, t_set *set, int i);
 int						first_semicon(const char *str);
 int						multi_redirecion(char *src, char a);
 int						correct_cmd(char *str, t_set *set);
@@ -159,6 +166,7 @@ int						start_shell(int ac, char **av, t_set *set);
 void					treat_cmd(t_set *set);
 void					start_cmd(  t_set *set);
 void					search_arg(char *str, t_set *set);
+void					search_cmd(const char *src, t_set *set);
 char					*search_dolars(char *src, t_set *set);
 char					*add_letter(char *str, char a);
 char					*before_equal(char *str);
