@@ -44,6 +44,32 @@ void			sig_quit(int code)
 		ft_putstr_fd("\b\b  \b\b", STDERR);
 }
 
+void			read_ent(t_set *set)
+{
+	ffree(set->str);
+	set->str = get_val(set);
+ 	//printf("setstr = [%s] len = [%d]\n", set->str, ft_strlen(set->str));
+	if (set->str != NULL)
+	{
+		if (ft_strlen(set->str) > 0)
+		{
+			if (set->inc_his == 0)
+			{
+				set->inc_his++;
+				set->history = addword(set->history, set->inc_his, set->str);
+			}
+			else if (ft_strcmp(set->history[set->inc_his - 1], set->str) != 0)
+			{
+				set->inc_his++;
+				set->history = addword(set->history, set->inc_his, set->str);
+			}
+		}
+	}
+	/* int x = -1;
+	while (set->history[++x])
+		printf("[%s]\n", set->history[x]); */
+}
+
 int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
@@ -75,20 +101,7 @@ int				main(int ac, char **av, char **envp)
 		{
 			if (g_sig.run == 0)
 				disp_prompt();
-			ffree(set->str);
-			
-			/* ft_bzero((void *)buf, BUF_SIZE);
-			if (read(0, buf, BUF_SIZE) == -1)
-				ft_putstr_fd("Quit: \n", STDERR); */
-			set->str = get_val(set);
-
-			//signal(SIGINT, &sig_handler1);
-			/* if ((buf_len = ft_strlen(buf)) > 0)
-			{
-				printf("BUFF = [%d]\n", buf_len);
-				//if ((parse = parse_input(shell, buf, buf_len)) > 0)
-				//	print_prompt(shell, parse);
-			} */
+			read_ent(set);
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;

@@ -124,7 +124,7 @@ int		get_next_line(int fd, char **line, t_set *set)
 		buff[res] = '\0';
 		if ((buf_len = ft_strlen(buff)) > 0)
 		{
-			printf("BUFF = [%d]\n", buf_len);
+			//printf("BUFF = [%d]\n", buf_len);
 		}
 		stock = ft_strjoin_free(stock, buff);
 		i = searchreturn(stock);

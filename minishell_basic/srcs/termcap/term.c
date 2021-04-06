@@ -58,6 +58,6 @@ int		        start_term(t_set *set)
 		ft_putstr_fd("tcg err\n", STDERR);
     if (check_termcaps() == -1)
         return (-1);
-    printf("getenv = [%s][%d]\n", term_name, ret);
+    //printf("getenv = [%s][%d]\n", term_name, ret);
     return (0);
 }

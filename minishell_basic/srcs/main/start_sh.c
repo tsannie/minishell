@@ -59,7 +59,7 @@ void			read_in(t_set *set)
 		//signal(SIGINT, &sig_handler1);
 		if ((buf_len = ft_strlen(buf)) > 0)
 		{
-			printf("BUFF = [%d]\n", buf_len);
+			//printf("BUFF = [%d]\n", buf_len);
 			//if ((parse = parse_input(shell, buf, buf_len)) > 0)
 			//	print_prompt(shell, parse);
 		}
