@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/05 11:04:50 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/06 13:38:55 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish.h"
-
-/* static const t_tab	g_tab_func[] =
-{
-	{"\022", ft_ctrlr},
-	{"\033[A", ft_go_up},
-	{"\033\033[A", ft_alt_up},
-	{"\033[B", ft_go_down},
-	{"\033\033[B", ft_alt_down},
-	{"\033[C", ft_go_right},
-	{"\033\033[C", ft_alt_right},
-	{"\033[D", ft_go_left},
-	{"\033\033[D", ft_alt_left},
-	{"\033[H", ft_home},
-	{"\001", ft_home},
-	{"\033[F", ft_end},
-	{"\005", ft_end},
-	{"\012", ft_return},
-	{"\011", ft_tab},
-	{"\033[3~", ft_delete},
-	{"\177", ft_backspace},
-	{"\004", ft_exit_term},
-	{"\013", ft_cut},
-	{"\031", ft_paste},
-	{"\014", ft_ctrll},
-	{NULL, ft_print}
-}; */
 
 void			init_term(t_set *set)
 {
@@ -117,8 +91,8 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
-	if (start_term(set) != 0)
-		return (-1);
+	//if (start_term(set) != 0)
+	//	return (-1);
 	ft_sort_dbtab(set);
 	return (0);
 }

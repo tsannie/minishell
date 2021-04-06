@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_sh.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/06 13:22:59 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,6 @@ char			*get_val(t_set *set)
 		exit(0);
 	}
 	return (line);
-}
-
-void			read_in(t_set *set)
-{
-/* 	char		*line;
-	int			gnl;
-
-	gnl = 0;
-	line = NULL;
-	gnl = get_next_line(0, &line, set);
-	if (gnl == 0 && ft_strlen(line) != 0)
-		ft_putstr_fd("\b\b  ", STDERR);
-	if (gnl == 0 && ft_strlen(line) == 0)
-	{
-		ft_putstr_fd("exit\n", STDERR);
-		exit(0);
-	}
-	return (line); */
-	int		parse;
-	char	buf[BUF_SIZE];
-	size_t	buf_len;
-
-	//disp_prompt();
-	//while (42)
-	//{
-		ft_bzero((void *)buf, BUF_SIZE);
-		if (read(0, buf, BUF_SIZE) == -1)
-			ft_putstr_fd("Quit: \n", STDERR);
-		//signal(SIGINT, &sig_handler1);
-		if ((buf_len = ft_strlen(buf)) > 0)
-		{
-			//printf("BUFF = [%d]\n", buf_len);
-			//if ((parse = parse_input(shell, buf, buf_len)) > 0)
-			//	print_prompt(shell, parse);
-		}
-		//signal(SIGINT, &sig_handler);
-	//}
 }
 
 void			get_lastcmd(t_set *set)

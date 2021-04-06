@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/05 12:53:09 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/06 13:39:31 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC			= @gcc
 
 CFLAGS		= #-Wall -Wextra -Werror #-fsanitize=leak
 
+#./a.out
 #whaomi
 #wHoami
 #/bin/../../../bin/ls
@@ -41,7 +42,7 @@ NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 
 BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
-TERMCAP		= term.c
+TERMCAP		= term.c tgent.c
 
 PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c \
 			ft_parsing_pipe.c search_cmd.c
@@ -55,7 +56,7 @@ REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c ft_namefile1.c ft_namefile2.c \
 			ft_err_redi.c
 
 MAIN		= main.c init.c start_sh.c err_msg.c ft_treat_cmd.c ft_init_env.c shlvl.c lib.c \
-			 lib2.c lib3.c ft_splitbc.c tgent.c get_next_line.c ffree.c
+			 lib2.c lib3.c ft_splitbc.c get_next_line.c ffree.c
 
 SRC			= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 			$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \

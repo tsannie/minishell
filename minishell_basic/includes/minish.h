@@ -43,6 +43,7 @@ typedef struct	s_set
 {
 	struct termios		termios;
 	struct termios		term_save;
+
 	char				*str;
 	char	*word_tmp;
 	char	**push;
@@ -120,7 +121,8 @@ typedef struct	s_set
 }				t_set;
 
 int						get_next_line(int fd, char **line, t_set *set);
-void			read_in(t_set *set);
+void					read_in(t_set *set);
+void					read_ent(t_set *set);
 //lib
 char					**ft_splitbc(const char *str, char charset);
 void					add_exval(t_set *set);

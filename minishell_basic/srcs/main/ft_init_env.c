@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:24:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/06 13:18:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char			*ft_get_path(char **envp)
 	int			j;
 	int			e;
 
-	e = 0;
+	e = -1;
 	j = 0;
 	i = 0;
 	if (envp[0] == NULL)
@@ -41,16 +41,14 @@ char			*ft_get_path(char **envp)
 		return (NULL);
 	while (envp[i][j] != '=' && envp[i][j])
 		j++;
-	j++;
-	if (!(str = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1 - j))))
+	if (!(str = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1 - j + 1))))
 		return (NULL);
-	while (envp[i][j])
+	while (envp[i][j + 1])
 	{
-		str[e] = envp[i][j];
+		str[++e] = envp[i][j + 1];
 		j++;
-		e++;
 	}
-	str[e] = '\0';
+	str[e + 1] = '\0';
 	return (str);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin.c                                              :+:      :+:    :+:   */
+/*   ffree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/01 16:51:23 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:16:25 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,6 @@ int				free_all(t_set *set, int ret)
 	free(set->tt_ctl_up);
 	free(set->tt_crl_down);
 	ffree(set->str);
-	//ffree(set->word_tmp);
-	//ffree(set->dol_amb);
-	//ffree(set->namefile);
-	//printf("arg = [%s]\n", set->arg[0]);
-	//print_args(set->envp);
-	//print_args(set->envp);
-	//printf("----[%s]\n", set->pwd);
 	free_all2(set);
 	free(set);
 	return (ret);

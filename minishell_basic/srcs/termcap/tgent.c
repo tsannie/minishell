@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tgent.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 13:35:27 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void			read_ent(t_set *set)
 	char *tmp;
 
 	ffree(set->str);
-	//set->str = ft_strdup("");
+	set->str = ft_strdup("");
 	set->str = get_val(set);
- 	/* while (1)
+ 	while (1)
 	{
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
@@ -59,7 +59,7 @@ void			read_ent(t_set *set)
 		ft_putchar_fd(buf, STDERR);
 		i++;
 	}
-	add_history(set); */
+	add_history(set);
 }
 
 int			init_tgent(t_set *set)

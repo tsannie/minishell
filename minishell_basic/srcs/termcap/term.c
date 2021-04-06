@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/03/29 15:11:14 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/06 13:14:05 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_termcaps(void)
 }
 int		        start_term(t_set *set)
 {
-/*     int         ret;
+    int         ret;
     char        *term_name;
 
     ret = 0;
@@ -54,10 +54,39 @@ int		        start_term(t_set *set)
 		ft_putstr_fd("tcg err\n", STDERR);
     if ((tcgetattr(0, &(set->termios))) == -1)
 		ft_putstr_fd("tcg err\n", STDERR);
-	if ((tcsetattr(0, 1, &(set->termios))) == -1)
-		ft_putstr_fd("tcg err\n", STDERR);
+	set->termios.c_lflag &= ~(ICANON | ECHO);
+	set->termios.c_cc[VMIN] = 1;
+	set->termios.c_cc[VTIME] = 0;
+	if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &(set->termios))) == -1)
+		ft_putstr_fd("err\n", STDERR);
     if (check_termcaps() == -1)
-        return (-1); */
+        return (-1);
     //printf("getenv = [%s][%d]\n", term_name, ret);
     return (0);
 }
+
+/* static const t_tab	g_tab_func[] =
+{
+	{"\022", ft_ctrlr},
+	{"\033[A", ft_go_up},
+	{"\033\033[A", ft_alt_up},
+	{"\033[B", ft_go_down},
+	{"\033\033[B", ft_alt_down},
+	{"\033[C", ft_go_right},
+	{"\033\033[C", ft_alt_right},
+	{"\033[D", ft_go_left},
+	{"\033\033[D", ft_alt_left},
+	{"\033[H", ft_home},
+	{"\001", ft_home},
+	{"\033[F", ft_end},
+	{"\005", ft_end},
+	{"\012", ft_return},
+	{"\011", ft_tab},
+	{"\033[3~", ft_delete},
+	{"\177", ft_backspace},
+	{"\004", ft_exit_term},
+	{"\013", ft_cut},
+	{"\031", ft_paste},
+	{"\014", ft_ctrll},
+	{NULL, ft_print}
+}; */

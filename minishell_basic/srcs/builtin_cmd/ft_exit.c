@@ -14,8 +14,8 @@
 
 void					errdsp(t_set *set)
 {
-	//ft_putstr_fd(set->cmd, STDERR);
-	//ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd(set->cmd, STDERR);
+	ft_putstr_fd("\n", STDERR);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->cmd, STDERR);
 	ft_putstr_fd(": ", STDERR);
@@ -29,8 +29,8 @@ void					retarg(t_set *set)
 {
 	int					ret;
 
-	//ft_putstr_fd(set->cmd, STDERR);
-	//ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd(set->cmd, STDERR);
+	ft_putstr_fd("\n", STDERR);
 	ret = ft_atoi(set->arg[0]);
 	free_all(set, set->exit_val);
 	exit(ret);
@@ -38,8 +38,8 @@ void					retarg(t_set *set)
 
 void					tomani(t_set *set)
 {
-	//ft_putstr_fd(set->cmd, STDERR);
-	//ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd(set->cmd, STDERR);
+	ft_putstr_fd("\n", STDERR);
 	ft_putstr_fd("minishell: ", STDERR);
 	ft_putstr_fd(set->cmd, STDERR);
 	ft_putstr_fd(": too many arguments\n", STDERR);
