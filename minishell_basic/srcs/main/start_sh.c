@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 16:12:51 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/06 13:22:59 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:41:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char			*get_val(t_set *set)
 
 	gnl = 0;
 	line = NULL;
+	ffree(set->str);
 	gnl = get_next_line(0, &line, set);
 	if (gnl == 0 && ft_strlen(line) != 0)
 		ft_putstr_fd("\b\b  ", STDERR);

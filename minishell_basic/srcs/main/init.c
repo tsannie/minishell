@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 13:38:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:45:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void			init_term(t_set *set)
 		return ;
 	set->history[0] = 0;
 	set->inc_his = 0;
+	set->his_pos = 0;
+
 	set->tt_up = ft_strdup("\033[A");
 	set->tt_down = ft_strdup("\033[B");
 	set->tt_left = ft_strdup("\033[D");
@@ -91,8 +93,8 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
-	//if (start_term(set) != 0)
-	//	return (-1);
+	if (start_term(set) != 0)
+		return (-1);
 	ft_sort_dbtab(set);
 	return (0);
 }

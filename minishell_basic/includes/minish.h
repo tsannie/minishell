@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/05 12:53:57 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/06 15:43:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct	s_set
 
 	char	**history;
 	int		inc_his;
+	int		his_pos;
+
 	char	*tt_up;
 	char	*tt_down;
 	char	*tt_left;
@@ -119,7 +121,12 @@ typedef struct	s_set
 	int		x;
 	int		d;
 }				t_set;
-
+//term
+int			move_left(t_set *set);
+int			move_right(t_set *set);
+int			history_prev(t_set *set);
+int			history_next(t_set *set);
+//read
 int						get_next_line(int fd, char **line, t_set *set);
 void					read_in(t_set *set);
 void					read_ent(t_set *set);

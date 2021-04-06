@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/06 13:39:31 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/06 15:32:57 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
 
 BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
-TERMCAP		= term.c tgent.c
+TERMCAP		= term.c tgent.c mouv.c
 
 PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c \
 			ft_parsing_pipe.c search_cmd.c
