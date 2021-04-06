@@ -33,6 +33,8 @@ char			*ft_get_path(char **envp)
 	e = 0;
 	j = 0;
 	i = 0;
+	if (envp[0] == NULL)
+		return (ft_strdup(""));
 	while (ft_strncmp("PATH=", envp[i], 5) != 0 && envp[i + 1])
 		i++;
 	if (envp[i + 1] == NULL && ft_strncmp("PATH=", envp[i], 5) != 0)

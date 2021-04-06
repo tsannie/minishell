@@ -42,7 +42,7 @@ static int	check_termcaps(void)
 }
 int		        start_term(t_set *set)
 {
-    int         ret;
+/*     int         ret;
     char        *term_name;
 
     ret = 0;
@@ -57,7 +57,7 @@ int		        start_term(t_set *set)
 	if ((tcsetattr(0, 1, &(set->termios))) == -1)
 		ft_putstr_fd("tcg err\n", STDERR);
     if (check_termcaps() == -1)
-        return (-1);
+        return (-1); */
     //printf("getenv = [%s][%d]\n", term_name, ret);
     return (0);
 }
