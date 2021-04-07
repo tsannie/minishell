@@ -3,20 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/06 15:32:57 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/07 10:38:37 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= minishell
+######################################################################
+#                            Informations                            #
+######################################################################
 
-CC			= @gcc
-
-CFLAGS		= #-Wall -Wextra -Werror #-fsanitize=leak
-
-#./a.out
+NAME			= minishell
+CC				= @gcc
+CFLAGS			= #-Wall -Wextra -Werror #-fsanitize=leak
+LIB_FLAGS		= -lncurses -lft -Llibft
+RM				= @rm -rf
+LIBFT			= ./libft
+INCLUDE			= -I /minishell_basic/includes
+INCLUDE_B		= -I /minishell_bonus/includes
+INCLUDE_LIB		= -I ./libft/libft.a
 #whaomi
 #wHoami
 #/bin/../../../bin/ls
@@ -24,21 +30,25 @@ CFLAGS		= #-Wall -Wextra -Werror #-fsanitize=leak
 #/bin/Ls
 #export A export A="qwe " export A
 
+######################################################################
+#                               C0l0r$                               #
+######################################################################
 
-RM			= @rm -rf
-LIBFT		= ./libft
+BLACK			:= $(shell tput -Txterm setaf 0)
+RED				:= $(shell tput -Txterm setaf 1)
+GREEN			:= $(shell tput -Txterm setaf 2)
+YELLOW			:= $(shell tput -Txterm setaf 3)
+LIGHTPURPLE		:= $(shell tput -Txterm setaf 4)
+PURPLE			:= $(shell tput -Txterm setaf 5)
+BLUE			:= $(shell tput -Txterm setaf 6)
+WHITE			:= $(shell tput -Txterm setaf 7)
+BOLD			:= $(shell tput -Txterm bold)
+END				:= $(shell tput -Txterm sgr0)
+NAMEC			= ${BLUE}${BOLD}$(NAME)${END}
 
-BLACK		:= $(shell tput -Txterm setaf 0)
-RED			:= $(shell tput -Txterm setaf 1)
-GREEN		:= $(shell tput -Txterm setaf 2)
-YELLOW		:= $(shell tput -Txterm setaf 3)
-LIGHTPURPLE	:= $(shell tput -Txterm setaf 4)
-PURPLE		:= $(shell tput -Txterm setaf 5)
-BLUE		:= $(shell tput -Txterm setaf 6)
-WHITE		:= $(shell tput -Txterm setaf 7)
-BOLD		:= $(shell tput -Txterm bold)
-END			:= $(shell tput -Txterm sgr0)
-NAMEC		= ${BLUE}${BOLD}$(NAME)${END}
+######################################################################
+#                            Source Files                            #
+######################################################################
 
 BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
@@ -58,17 +68,40 @@ REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c ft_namefile1.c ft_namefile2.c \
 MAIN		= main.c init.c start_sh.c err_msg.c ft_treat_cmd.c ft_init_env.c shlvl.c lib.c \
 			 lib2.c lib3.c ft_splitbc.c get_next_line.c ffree.c
 
-SRC			= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
-			$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \
-			$(addprefix minishell_basic/srcs/builtin_cmd/, $(BUILTIN_CMD)) \
-			$(addprefix minishell_basic/srcs/parsing/, $(PARSING)) \
-			$(addprefix minishell_basic/srcs/main/, $(MAIN)) \
-			$(addprefix minishell_basic/srcs/redirect/, $(REDIRECT)) \
-			$(addprefix minishell_basic/srcs/check/, $(CHECK))
+SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
+				$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \
+				$(addprefix minishell_basic/srcs/builtin_cmd/, $(BUILTIN_CMD)) \
+				$(addprefix minishell_basic/srcs/parsing/, $(PARSING)) \
+				$(addprefix minishell_basic/srcs/main/, $(MAIN)) \
+				$(addprefix minishell_basic/srcs/redirect/, $(REDIRECT)) \
+				$(addprefix minishell_basic/srcs/check/, $(CHECK))
 
-OBJ			= $(SRC:c=o)
+######################################################################
+#                         Source Files_bonus                         #
+######################################################################
 
-#OBJ_BONUS	= $(addprefix srcs/, $(SRC_BONUS:.c=.o))
+BONUS			= \
+
+SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
+				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \
+				$(addprefix minishell_bonus/srcs/builtin_cmd/, $(BUILTIN_CMD)) \
+				$(addprefix minishell_bonus/srcs/parsing/, $(PARSING)) \
+				$(addprefix minishell_bonus/srcs/main/, $(MAIN)) \
+				$(addprefix minishell_bonus/srcs/redirect/, $(REDIRECT)) \
+				$(addprefix minishell_bonus/srcs/check/, $(CHECK)) \
+				$(addprefix minishell_bonus/srcs/bonus/, $(BONUS))
+
+######################################################################
+#                            Object Files                            #
+######################################################################
+
+OBJ				= $(SRC:c=o)
+
+OBJ_B			= $(SRC_B:c=o)
+
+######################################################################
+#                               Rules                                #
+######################################################################
 
 %.o: %.c
 			@printf "${PURPLE}${BOLD}Start compile ... %-50.50s\r${END}" $@
@@ -79,11 +112,18 @@ all:		$(NAME)
 $(NAME): 	$(OBJ)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
-			$(CC) $(CFLAGS) -I/minishell_basic/includes ./libft/libft.a -o $(NAME) $(OBJ) -lncurses -lft -Llibft
+			$(CC) $(CFLAGS) $(INCLUDE) $(INCLUDE_LIB) -o $(NAME) $(OBJ) $(LIB_FLAGS)
 			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build !${END}\n"
 
+bonus:		$(OBJ_B)
+			@echo "\n"
+			@$(MAKE) -C $(LIBFT)
+			$(CC) $(CFLAGS) $(INCLUDE_B) $(INCLUDE_LIB) -o $(NAME) $(OBJ_B) $(LIB_FLAGS)
+			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build" \
+				"(with ${BOLD}${WHITE}$@${END}${GREEN}) !${END}"
+
 clean:
-			$(RM) $(OBJ)
+			$(RM) $(OBJ) $(OBJ_B)
 			@$(MAKE) clean -C $(LIBFT)
 			@echo "${LIGHTPURPLE}Cleaning ...${END}\n"
 
