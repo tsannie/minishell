@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 15:56:21 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/07 10:18:39 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,26 @@ int			set_fle(t_set *set, char *buf)
 	return (0);
 }
 
+char			*ft_strdup_free_len(char *str, int len)
+{
+	int i;
+	char *new;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	if (!(new = malloc(sizeof(char) * (len))))
+		return (NULL);
+	while (i < len)
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	free(str);
+	return (new);
+}
+
 void			read_ent(t_set *set)
 {
 	int		parse;
@@ -72,7 +92,14 @@ void			read_ent(t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		set->str = ft_strjoin_free(set->str, buf);
+		//printf("[%s][%d][%d]\n", buf, ft_strlen(buf), buf[0]);
+		if(buf[0] == 127)
+		{
+			//printf("oui\n");
+			set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
+		}
+		else
+			set->str = ft_strjoin_free(set->str, buf);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strlen(buf) == 3 && buf[0] == 27)
 			set_fle(set, buf);
