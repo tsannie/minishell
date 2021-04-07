@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/07 10:38:37 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/07 12:38:38 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 #                         Source Files_bonus                         #
 ######################################################################
 
-BONUS			= \
+BONUS			= wildcard_bonus.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \
