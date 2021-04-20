@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:18:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:07:28 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int				main(int ac, char **av, char **envp)
 			if (g_sig.run == 0)
 				disp_prompt();
 			//read_ent(set);
+			
 			set->str = get_val(set);
+			add_history(set);
+
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;

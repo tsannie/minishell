@@ -6,40 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:18:39 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:58:32 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish.h"
-
-void			add_history(t_set *set)
-{
-	if (set->str != NULL)
-	{
-		if (ft_strlen(set->str) > 0)
-		{
-			if (set->inc_his == 0)
-			{
-				set->inc_his++;
-				set->history = addword(set->history, set->inc_his, set->str);
-			}
-			else if (ft_strcmp(set->history[set->inc_his - 1], set->str) != 0)
-			{
-				set->inc_his++;
-				set->history = addword(set->history, set->inc_his, set->str);
-			}
-		}
-	}
-	set->his_pos = set->inc_his; 
-/* 	int x = -1;
-	while (set->history[++x])
-		printf("::[%s]\n", set->history[x]); */	
-}
-
-/* else if (buf[2] == 72)
-			move_line_start(set);
-		else if (buf[2] == 70)
-			move_line_end(set); */
 
 int			set_fle(t_set *set, char *buf)
 {
@@ -64,8 +35,9 @@ char			*ft_strdup_free_len(char *str, int len)
 	char *new;
 
 	i = 0;
-	if (!str)
-		return (NULL);
+	//printf("len = [%d]\n", len);
+	if (!str || len <= 0)
+		return (ft_strdup(""));
 	if (!(new = malloc(sizeof(char) * (len))))
 		return (NULL);
 	while (i < len)
@@ -76,6 +48,24 @@ char			*ft_strdup_free_len(char *str, int len)
 	new[i] = '\0';
 	free(str);
 	return (new);
+}
+
+void			ft_dell(t_set *set)
+{
+	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
+/* 	tputs(tgetstr("rc", 0), 4, putchar);
+	tputs(tgetstr("ce", 0), 4, putchar); */
+	//tputs(tgetstr("nd", NULL), 4, &putchar);
+	//tputs(tgetstr("le", NULL), 4, &putchar);
+	//tputs(tgetstr("do", NULL), 4, &putchar);
+	//tputs(tgetstr("nd", NULL), 4, &putchar);
+	//tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
+	tputs(tgoto(tigetstr("cup"), 12, 12), 1, putchar);
+//	move_line_start(set);
+	tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
+	//set->curs_pos = NULL;
+	ft_putstr_fd("  |", STDERR);
+	ft_putstr_fd(set->str, STDERR);
 }
 
 void			read_ent(t_set *set)
@@ -92,12 +82,9 @@ void			read_ent(t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		//printf("[%s][%d][%d]\n", buf, ft_strlen(buf), buf[0]);
-		if(buf[0] == 127)
-		{
-			//printf("oui\n");
-			set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
-		}
+		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
+		if(buf[0] == 127 && ft_strlen(buf) == 1)
+			ft_dell(set);
 		else
 			set->str = ft_strjoin_free(set->str, buf);
 		ft_putstr_fd(buf, STDERR);
@@ -107,7 +94,11 @@ void			read_ent(t_set *set)
 			i = 1;
 	}
 	i = 0;
-	set->str[ft_strlen(set->str) - 1] = '\0';
+	//printf("[%s]\n", set->str);
+	if (ft_strlen(set->str) > 0)
+		set->str[ft_strlen(set->str) - 1] = '\0';
+	else
+		set->str[1] = '\0';
 	add_history(set);
 }
 

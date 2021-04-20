@@ -6,13 +6,11 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 15:24:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:09:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish.h"
-#include <curses.h>
-#include <term.h>
 
 static int	check_termcaps(void)
 {
@@ -42,26 +40,30 @@ static int	check_termcaps(void)
 }
 int		        start_term(t_set *set)
 {
-    int         ret;
-    char        *term_name;
+	int				ret;
+	char			*term_name;
+	struct winsize	w;
 
-    ret = 0;
 	if (!(term_name = getenv("TERM")))
-		ft_putstr_fd("getenv error\n", STDERR);
-    if ((ret = tgetent(NULL, term_name)) <= 0)
-		ft_putstr_fd("tgtent err\n", STDERR);
-    if ((tcgetattr(0, &(set->term_save))) == -1)
-		ft_putstr_fd("tcg err\n", STDERR);
-    if ((tcgetattr(0, &(set->termios))) == -1)
-		ft_putstr_fd("tcg err\n", STDERR);
+		return (-1);
+	if ((ret = tgetent(NULL, term_name)) <= 0)
+		return (-1);
+	if ((tcgetattr(STDIN_FILENO, &(set->term_save))) == -1)
+		return (-1);
+	if ((tcgetattr(STDIN_FILENO, &(set->termios))) == -1)
+		return (-1);
 	set->termios.c_lflag &= ~(ICANON | ECHO);
 	set->termios.c_cc[VMIN] = 1;
 	set->termios.c_cc[VTIME] = 0;
 	if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &(set->termios))) == -1)
-		ft_putstr_fd("err\n", STDERR);
-    if (check_termcaps() == -1)
-        return (-1);
-    //printf("getenv = [%s][%d]\n", term_name, ret);
+		return (-1);
+	if ((ioctl(STDIN_FILENO, TIOCGWINSZ, &w)) < 0)
+		return (-1);
+	set->col = w.ws_col;
+	set->row = w.ws_row;
+	set->winsize = set->col * set->row;
+	if (check_termcaps() == -1)
+		return (-1);
     return (0);
 }
 

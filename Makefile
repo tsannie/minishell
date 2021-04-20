@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/07 10:38:37 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/20 15:56:27 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ INCLUDE_LIB		= -I ./libft/libft.a
 #/bin//////////bin/ls
 #/bin/Ls
 #export A export A="qwe " export A
+#ᴍɪɴɪsʜᴇʟʟ ➔  .
+#ᴍɪɴɪsʜᴇʟʟ ➔  ..
+#ᴍɪɴɪsʜᴇʟʟ ➔  exit
 
 ######################################################################
 #                               C0l0r$                               #
@@ -52,7 +55,7 @@ NAMEC			= ${BLUE}${BOLD}$(NAME)${END}
 
 BIN			= binlib2.c binlib.c bin3.c bin2.c bin.c
 
-TERMCAP		= term.c tgent.c mouv.c
+TERMCAP		= term.c tgent.c mouv.c history.c
 
 PARSING		= search_arg.c split_semicolon.c ft_dolars1.c ft_dolars2.c \
 			ft_parsing_pipe.c search_cmd.c

@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 15:43:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/20 15:58:20 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@
 # include <term.h>
 # include <fcntl.h>
 # include <errno.h>
+
+# include <sys/ioctl.h>
+# include <curses.h>
+# include <term.h>
+# include <sys/ioccom.h>
+# include <sys/filio.h>
+# include <sys/sockio.h>
+# include <sys/cdefs.h>
+# include <sys/ttycom.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -96,7 +105,16 @@ typedef struct	s_set
 	char	**history;
 	int		inc_his;
 	int		his_pos;
+	int		curs_pos;
+	int		col;
+	int		row;
+	int		winsize;
+	int					stdin_copy;
+	int					fd[4];
 
+
+
+	
 	char	*tt_up;
 	char	*tt_down;
 	char	*tt_left;
@@ -121,11 +139,17 @@ typedef struct	s_set
 	int		x;
 	int		d;
 }				t_set;
+
+//HIS
+void			init_his(t_set *set);
+void			add_history(t_set *set);
+
 //term
 int			move_left(t_set *set);
 int			move_right(t_set *set);
 int			history_prev(t_set *set);
 int			history_next(t_set *set);
+char			*ft_strdup_free_len(char *str, int len);
 //read
 int						get_next_line(int fd, char **line, t_set *set);
 void					read_in(t_set *set);
