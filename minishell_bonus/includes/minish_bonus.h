@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minish.h                                           :+:      :+:    :+:   */
+/*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 15:43:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:00:31 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_set
 	int		amb;
 	int		not_exist;
 	int		wait;
+	char	**file;
 
 	int		line_count;
 
@@ -154,6 +155,8 @@ char					**ft_unsetenv(t_set *set, char *str);
 //redur==ir
 int						err_folder(t_set *set, char *namefile, int i);
 //
+char					*wildcard(char *src, t_set *set);
+int						is_wild(char *str);
 int						first_pipe(const char *str);
 char					*get_newcmd(char *src, t_set *set, int i);
 void					check_err_and_incr(t_set *set, int *i);

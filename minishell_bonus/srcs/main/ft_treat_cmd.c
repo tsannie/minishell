@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:41:05 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/07 10:32:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/08 13:34:14 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		clean(char *src, t_set *set)
 
 	cpy = redirection(src, set);
 	line_parce = search_dolars(cpy, set);
+	if (is_wild(line_parce) == 1)				// after search_dolars
+		line_parce = wildcard(line_parce, set);
 	free(cpy);
 	search_cmd(line_parce, set);
 	search_arg(line_parce, set);

@@ -6,7 +6,11 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/04/20 15:56:27 by phbarrad         ###   ########.fr        #
+=======
+#    Updated: 2021/04/07 12:38:38 by tsannie          ###   ########.fr        #
+>>>>>>> 469e7451606d6a9e9e25ad995cf200aa97a3de07
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +87,7 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 #                         Source Files_bonus                         #
 ######################################################################
 
-BONUS			= \
+BONUS			= wildcard_bonus.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \
