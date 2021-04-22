@@ -6,11 +6,37 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 15:55:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/20 16:07:46 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:02:54 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish.h"
+
+int				add_exist(t_set *set, int fd)
+{
+	char		*str;
+	char		buff;
+	int			i;
+
+	str = ft_strdup("");
+	i = 0;
+	while (read(fd, &buff, 1) != 0)
+	{
+		if (buff != '\n')
+			str = add_letter(str, buff);
+		else if (buff == '\n')
+		{
+			set->history = addword(set->history, i + 1, str);
+			ffree(str);
+			set->inc_his++;
+			str = ft_strdup("");
+			i++;
+		}
+	}
+	set->his_pos = set->inc_his;
+	ffree(str);
+	return (i);
+}
 
 void			init_his(t_set *set)
 {
@@ -18,40 +44,26 @@ void			init_his(t_set *set)
 	char		buff;
 	int			fd;
 	int			i;
-	char		*str;
 
-	str = ft_strdup("");
 	path = joinf(set->pwd + 4, "/", ".minishell_history", "");
 	fd = open(path, O_RDONLY);
 	i = 0;
 	if (fd >= 0)
 	{
-		while (read(fd, &buff, 1) != 0)
-		{
-			if (buff != '\n')
-				str = add_letter(str, buff);
-			else if (buff == '\n')
-			{
-				set->history = addword(set->history, i + 1, str);
-				ffree(str);
-				str = ft_strdup("");
-				i++;
-			}
-		}
+		i = add_exist(set, fd);
 		close(fd);
 		set->his_pos = i;
 	}
 	ffree(path);
-	ffree(str);
 }
 
 void			add_in_his_file(t_set *set)
 {
- 	char *path;
-	int fd;
-	int i;
+	char		*path;
+	int			fd;
+	int			i;
 
-	path = joinf(set->pwd + 4, "/", ".minishell_history" , "");
+	path = joinf(set->pwd + 4, "/", ".minishell_history", "");
 	fd = open(path, O_CREAT | O_WRONLY | O_APPEND, S_IWUSR | S_IRUSR);
 	i = 0;
 	if (fd > 0)

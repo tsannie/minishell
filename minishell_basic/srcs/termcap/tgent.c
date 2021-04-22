@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/20 15:58:32 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:38:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,79 @@ char			*ft_strdup_free_len(char *str, int len)
 	return (new);
 }
 
-void			ft_dell(t_set *set)
+void		ft_puttermcaps(char *str)
 {
+	char	*res;
+	char	*env;
+
+	env = getenv("TERM");
+	if ((res = tgetstr(str, &env)) == NULL)
+		return ;
+	tputs(res, 0, putchar);
+}
+
+
+void		ft_get_beggin_with_curs(t_set *set, size_t pos)
+{
+	while ((pos) && set->str[(pos)] != '\n')
+	{
+		--(pos);
+		ft_puttermcaps("le");
+	}
+	if (!pos &&  set->str[(pos)] != '\n')
+		ft_puttermcaps("le");
+	if (set->str[(pos)] == '\n')
+		++(pos);
+}
+
+
+void			ft_dell(t_set *set, size_t pos)
+{
+	ft_get_beggin_with_curs(set, pos);
 	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
-/* 	tputs(tgetstr("rc", 0), 4, putchar);
-	tputs(tgetstr("ce", 0), 4, putchar); */
+	ft_putstr_fd("  |", STDERR);
+	ft_putstr_fd(set->str, STDERR);
+/*
+ 	//tputs(tgetstr("rc", 0), 4, putchar);
+	//tputs(tgetstr("ce", 0), 4, putchar);
 	//tputs(tgetstr("nd", NULL), 4, &putchar);
 	//tputs(tgetstr("le", NULL), 4, &putchar);
 	//tputs(tgetstr("do", NULL), 4, &putchar);
 	//tputs(tgetstr("nd", NULL), 4, &putchar);
 	//tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
-	tputs(tgoto(tigetstr("cup"), 12, 12), 1, putchar);
-//	move_line_start(set);
-	tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
-	//set->curs_pos = NULL;
-	ft_putstr_fd("  |", STDERR);
-	ft_putstr_fd(set->str, STDERR);
-}
+	//ft_puttermcaps("le");
+	int i = 0;
+	while (set->str[i] != '\n' && set->str[i])
+	{
+		i++;
+		ft_puttermcaps("le");
+		ft_putstr_fd(":", STDERR);
+	}
+	ft_puttermcaps("cd"); */
 
+			
+}
 void			read_ent(t_set *set)
 {
 	int		parse;
 	char	buf[BUF_SIZE];
 	size_t	buf_len;
+	size_t	pos;
 	int i = 0;
+
+	pos = 0;
 
 	ffree(set->str);
 	set->str = ft_strdup("");
+	//ft_puttermcaps("cl");
+
+
+
+
+
+
+
+
  	while (i == 0)
 	{
 		ft_bzero((void *)buf, BUF_SIZE);
@@ -84,9 +130,10 @@ void			read_ent(t_set *set)
 			ft_putstr_fd("err\n", STDERR);
 		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
 		if(buf[0] == 127 && ft_strlen(buf) == 1)
-			ft_dell(set);
+			ft_dell(set, pos);
 		else
 			set->str = ft_strjoin_free(set->str, buf);
+		pos = ft_strlen(set->str);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strlen(buf) == 3 && buf[0] == 27)
 			set_fle(set, buf);

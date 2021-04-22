@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:32:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/20 16:41:53 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
-	//if (start_term(set) != 0)
-	//	return (-1);
+	if (start_term(set) != 0)
+		return (-1);
 	ft_sort_dbtab(set);
 	return (0);
 }

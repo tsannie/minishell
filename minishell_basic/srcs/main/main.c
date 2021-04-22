@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/20 16:07:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:41:06 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				main(int ac, char **av, char **envp)
 	g_sig.pid = 0;
 	g_sig.run = 0;
 	ret = 0;
+	int x = -1;
 	if (ac == 3)
 		ret = start_shell(ac, av, set);
 	else
@@ -67,9 +68,12 @@ int				main(int ac, char **av, char **envp)
 				disp_prompt();
 			//read_ent(set);
 			
-			set->str = get_val(set);
-			add_history(set);
-
+/* 			x = -1;
+    		while (set->history[++x])
+       			printf(":[%s][%d][%d]\n", set->history[x], set->his_pos, set->inc_his); */
+			
+			 set->str = get_val(set);
+			add_history(set); 
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;
