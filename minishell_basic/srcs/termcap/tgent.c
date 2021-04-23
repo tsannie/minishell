@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/23 16:45:14 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:50:13 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,74 @@ void	replace_cursor(t_set *set, int print, int back)
 }
  */
 
+
+void			ft_dell(t_set *set)
+{
+	size_t col;
+	size_t len;
+	len = ft_strlen(set->str);
+
+	col = set->col;
+	ft_putstr_fd("\033[1K",STDERR);
+	ft_putstr_fd("\r",STDERR);
+ 	disp_prompt();
+	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
+	ft_putstr_fd(set->str, STDERR);
+			
+}		
+
+void			read_ent(t_set *set)
+{
+	int		parse;
+	char	buf[BUF_SIZE];
+	size_t	buf_len;
+	int i = 0;
+
+	ffree(set->str);
+	set->str = ft_strdup("");
+	//ft_puttermcaps("cl");
+
+ 	while (i == 0)
+	{
+		start_term(set);
+		ft_bzero((void *)buf, BUF_SIZE);
+		//ft_putstr_fd("\r", STDERR);
+
+		if (read(0, buf, BUF_SIZE) == -1)
+			ft_putstr_fd("err\n", STDERR);
+		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
+		if(buf[0] == 127 && ft_strlen(buf) == 1)
+		{
+
+			ft_dell(set);
+		}
+		else
+			set->str = ft_strjoin_free(set->str, buf);
+		ft_putstr_fd(buf, STDERR);
+		if (ft_strlen(buf) == 3 && buf[0] == 27)
+		{
+			set_fle(set, buf);
+		}
+		if (ft_strcmp(buf, "\n") == 0)
+			i = 1;
+	}
+	i = 0;
+	//printf("[%s]\n", set->str);
+	if (ft_strlen(set->str) > 0)
+		set->str[ft_strlen(set->str) - 1] = '\0';
+	else
+		set->str[1] = '\0';
+	add_history(set);
+}
+
+int			init_tgent(t_set *set)
+{
+	(void)set;
+
+	return (0);
+}
+
+/*
 void			ft_dell(t_set *set)
 {
 	size_t col;
@@ -139,112 +207,26 @@ void			ft_dell(t_set *set)
 		//ft_putstr_fd("\b", STDERR);
 	//	len--;
 	//}
-//
-	ft_putstr_fd("\r",STDERR);
-	disp_prompt();
-	while (len > 0)
+//	
+
+	//ft_putstr_fd("\033[s\033[7B\033[1;34m 7 lines down violet \033[u\033[0m",STDERR);
+
+	//ft_putstr_fd("\033[3K",STDERR);
+
+ 	disp_prompt();
+ 	while (len > 1)
 	{
 		ft_putstr_fd(" ", STDERR);
 		len--;
 	}
 	ft_putstr_fd("\r",STDERR);
 	disp_prompt();
-
-	//while (--len)
-	//	tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
-	//if (len > 0)
-	//{
-	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
-	//ft_putstr_fd("|",STDERR);
-	ft_putstr_fd(set->str, STDERR);
+	ft_putstr_fd(set->tt_left, STDERR);
+	ft_putstr_fd(" ok", STDERR);
 	//ft_putstr_fd(set->tt_left, STDERR);
+
+	//set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
+	//ft_putstr_fd(set->str, STDERR);
 			
 }
-void			read_ent(t_set *set)
-{
-	int		parse;
-	char	buf[BUF_SIZE];
-	size_t	buf_len;
-	int i = 0;
-
-	ffree(set->str);
-	set->str = ft_strdup("");
-	//ft_puttermcaps("cl");
-
- 	while (i == 0)
-	{
-		start_term(set);
-		ft_bzero((void *)buf, BUF_SIZE);
-		if (read(0, buf, BUF_SIZE) == -1)
-			ft_putstr_fd("err\n", STDERR);
-		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
-		if(buf[0] == 127 && ft_strlen(buf) == 1)
-			ft_dell(set);
-		else
-			set->str = ft_strjoin_free(set->str, buf);
-		ft_putstr_fd(buf, STDERR);
-		if (ft_strlen(buf) == 3 && buf[0] == 27)
-			set_fle(set, buf);
-		if (ft_strcmp(buf, "\n") == 0)
-			i = 1;
-	}
-	i = 0;
-	//printf("[%s]\n", set->str);
-	if (ft_strlen(set->str) > 0)
-		set->str[ft_strlen(set->str) - 1] = '\0';
-	else
-		set->str[1] = '\0';
-	add_history(set);
-}
-
-int			init_tgent(t_set *set)
-{
-	(void)set;
-/* 	int			term;
-	char		*term_type;
-	int ret;
-
-	ttyname(0)
-	set->line_count = tgetnum("li");
-	printf("line_count = [%d]\n", set->line_count);
-	term_type = getenv("TERM");
-    if (term_type == NULL)
-        return (-1);
-	ret = tgetent(NULL, term_type);
-	if (ret != 1)
-        return (-1);
-	printf("[%d][%s]\n", ret, term_type);
-
-
-
-
-	char *ku;
-	char *kd;
-
-	char *cl_string;
-	char *cm_string;
-	int auto_wrap;
-	int height;
-	int width;
-	char *temp;
-	char *BC;
-	char *UP;
-	char *DO;
-
-			ku = tgetstr("ku", NULL);
-			kd = tgetstr("kd", NULL);
-
-			printf("\n\n\n\nku  [%s]==[%s]\n\n\n\n\n",set->cmd, ku);
-			printf("\n\n\n\nkd  [%s]==[%s]\n\n\n\n\n",set->cmd, kd);
-
-			//cl_string = tgetstr("cl", NULL);
-			cm_string = tgetstr("cm", NULL);
-			auto_wrap = tgetflag("am");
-			height = tgetnum("li");
-			width = tgetnum("co");
-			temp = tgetstr("pc", NULL);
-			BC = tgetstr("le", NULL);
-			UP = tgetstr("up", NULL);
-			DO = tgetstr("do", NULL); */
-	return (0);
-}
+*/

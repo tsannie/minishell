@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/06 16:23:48 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:46:52 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,21 @@ int			move_right(t_set *set)
 
 int			history_prev(t_set *set)
 {
+	size_t len;
+	
+	len = ft_strlen(set->str);
     if (set->his_pos > 0)
         set->his_pos--;
-    printf("\n\n\n [%s][%d] \n\n\n",set->history[set->his_pos], set->his_pos);
+
+
+	ft_putstr_fd("\033[1K",STDERR);
+	ft_putstr_fd("\r",STDERR);
+ 	disp_prompt();
+
+	
+
+	ft_putstr_fd(set->history[set->his_pos], STDERR);
+    //printf("\n\n\n [%s][%d] \n\n\n",set->history[set->his_pos], set->his_pos);
     //tputs(tgetstr("sc", NULL), set->history[set->his_pos], &putchar);
 	//tputs(tgetstr("cl", NULL),set->history[set->his_pos], &putchar);
     
@@ -67,29 +79,19 @@ int			history_prev(t_set *set)
 
 int			history_next(t_set *set)
 {
+	size_t len;
+	
+	len = ft_strlen(set->str);
+
     if (set->his_pos < set->inc_his)
         set->his_pos++;
-    //printf("\n\n\n [%s][%d] \n\n\n",set->history[set->his_pos], set->his_pos);
-   // tputs(tgetstr("sc", NULL), set->history[set->his_pos], &putchar);
-	//tputs(tgetstr("cl", NULL),set->history[set->his_pos], &putchar);
-/* 	t_input	*tmp;
 
-	if ((!set->hist) || (!set->hist->next && set->hist_end))
-		return (-1);
-	if (set->input)
-		clear_input(set);
-	if (!(set->hist->next))
-		print_input_buf(set);
-	else if (set->hist->next)
-	{
-		set->hist = set->hist->next;
-		tmp = set->hist->input;
-		while (tmp)
-		{
-			store_input(set, tmp->c);
-			tmp = tmp->next;
-		}
-		print_input(set, set->input, set->p_len);
-	} */
+	ft_putstr_fd("\033[1K",STDERR);
+	ft_putstr_fd("\r",STDERR);
+ 	disp_prompt();
+
+
+	 
+	ft_putstr_fd(set->history[set->his_pos], STDERR);
 	return (0);
 }

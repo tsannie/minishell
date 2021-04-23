@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/23 13:38:09 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:13:26 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_sig			g_sig;
 void			disp_prompt(void)
 {
 	ft_putstr_fd("\033[1;35mᴍ\033[1;33mɪ\033[1;31mɴ\033[1;36mɪ", STDERR);
-	ft_putstr_fd("\033[1;32msʜᴇʟʟ\033[1;37m ➔\033[0m  ", STDERR);
+	ft_putstr_fd("\033[1;32msʜᴇʟʟ\033[1;37m ➔\033[0m ", STDERR);
 }
 
 void			int_handler(int sig)
