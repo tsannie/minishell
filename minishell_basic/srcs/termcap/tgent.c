@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/22 17:38:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:45:14 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		ft_puttermcaps(char *str)
 }
 
 
-void		ft_get_beggin_with_curs(t_set *set, size_t pos)
+/* void		ft_get_beggin_with_curs(t_set *set)
 {
 	while ((pos) && set->str[(pos)] != '\n')
 	{
@@ -74,32 +74,90 @@ void		ft_get_beggin_with_curs(t_set *set, size_t pos)
 	if (set->str[(pos)] == '\n')
 		++(pos);
 }
-
-
-void			ft_dell(t_set *set, size_t pos)
+ */
+/* 
+size_t	get_cursor_x_pos(t_input *input, t_input *pos, size_t p_len)
 {
-	ft_get_beggin_with_curs(set, pos);
-	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
-	ft_putstr_fd("  |", STDERR);
-	ft_putstr_fd(set->str, STDERR);
-/*
- 	//tputs(tgetstr("rc", 0), 4, putchar);
-	//tputs(tgetstr("ce", 0), 4, putchar);
-	//tputs(tgetstr("nd", NULL), 4, &putchar);
-	//tputs(tgetstr("le", NULL), 4, &putchar);
-	//tputs(tgetstr("do", NULL), 4, &putchar);
-	//tputs(tgetstr("nd", NULL), 4, &putchar);
-	//tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
-	//ft_puttermcaps("le");
-	int i = 0;
-	while (set->str[i] != '\n' && set->str[i])
+	size_t	i;
+	t_input	*tmp;
+
+	i = 1;
+	if (!(tmp = input) || !(pos))
+		return (p_len + 1);
+	while (tmp && tmp != pos)
 	{
 		i++;
-		ft_puttermcaps("le");
-		ft_putstr_fd(":", STDERR);
+		tmp = tmp->next;
 	}
-	ft_puttermcaps("cd"); */
+	return (i + p_len);
+}
 
+void	replace_cursor(t_set *set, int print, int back)
+{
+	size_t	x_pos;
+	size_t	col;
+	int		overflow;
+
+	col = set->col;
+	x_pos = get_cursor_x_pos(set->input, set->curs_pos, 13);
+	overflow = lst_len(set->curs_pos) - set->winsize + set->col;
+	if ((!print && back && ((x_pos % col) == 0)) || (print == 42))
+	{
+		tputs(tgetstr("up", NULL), set->fd[3], &putchar);
+		while (col--)
+			tputs(tgetstr("nd", NULL), set->fd[3], &putchar);
+	}
+	else if (back)
+		tputs(tgetstr("le", NULL), set->fd[3], &putchar);
+	else if ((overflow < 0) && ((x_pos % set->col) == 0))
+		tputs(tgetstr("do", NULL), set->fd[3], &putchar);
+	else if (overflow >= 0 && ((x_pos % set->col) == 0))
+	{
+		while (col--)
+			tputs(tgetstr("le", NULL), set->fd[3], &putchar);
+	}
+	else
+		tputs(tgetstr("nd", NULL), set->fd[3], &putchar);
+}
+ */
+
+void			ft_dell(t_set *set)
+{
+	size_t col;
+	size_t len;
+	len = ft_strlen(set->str);
+
+	col = set->col;
+	//printf("[%d]\n", set->col);
+ 
+	//printf("%d\n", len);
+	//tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
+ 	//while (len > 1)
+	//{
+		//ft_putstr_fd("iui\n",STDERR);
+
+		//ft_putstr_fd("\b", STDERR);
+	//	len--;
+	//}
+//
+	ft_putstr_fd("\r",STDERR);
+	disp_prompt();
+	while (len > 0)
+	{
+		ft_putstr_fd(" ", STDERR);
+		len--;
+	}
+	ft_putstr_fd("\r",STDERR);
+	disp_prompt();
+
+	//while (--len)
+	//	tputs(tgetstr("cd", NULL), set->fd[3], &putchar);
+	//if (len > 0)
+	//{
+	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
+	//ft_putstr_fd("|",STDERR);
+	ft_putstr_fd(set->str, STDERR);
+	//ft_putstr_fd(set->tt_left, STDERR);
 			
 }
 void			read_ent(t_set *set)
@@ -107,33 +165,23 @@ void			read_ent(t_set *set)
 	int		parse;
 	char	buf[BUF_SIZE];
 	size_t	buf_len;
-	size_t	pos;
 	int i = 0;
-
-	pos = 0;
 
 	ffree(set->str);
 	set->str = ft_strdup("");
 	//ft_puttermcaps("cl");
 
-
-
-
-
-
-
-
  	while (i == 0)
 	{
+		start_term(set);
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
 		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
 		if(buf[0] == 127 && ft_strlen(buf) == 1)
-			ft_dell(set, pos);
+			ft_dell(set);
 		else
 			set->str = ft_strjoin_free(set->str, buf);
-		pos = ft_strlen(set->str);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strlen(buf) == 3 && buf[0] == 27)
 			set_fle(set, buf);

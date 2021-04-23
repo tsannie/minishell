@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/22 17:41:06 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 13:38:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ int				main(int ac, char **av, char **envp)
 		{
 			if (g_sig.run == 0)
 				disp_prompt();
-			//read_ent(set);
+			read_ent(set);
 			
 /* 			x = -1;
     		while (set->history[++x])
        			printf(":[%s][%d][%d]\n", set->history[x], set->his_pos, set->inc_his); */
 			
-			 set->str = get_val(set);
-			add_history(set); 
+			/*  set->str = get_val(set);
+			add_history(set);  */
 			if (g_sig.run == 1)
 			{
 				set->exit_val = g_sig.run;

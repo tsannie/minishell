@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/22 17:39:03 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:07:36 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,65 @@ static int	check_termcaps(void)
 		return (-1);
 	return (0);
 }
-int		        start_term(t_set *set)
+
+void		start_term(t_set *set)
 {
 	int				ret;
 	char			*term_name;
-	struct	winsize	w;
-	struct	termios	term;
-
+	struct winsize	w;
 
 	if (!(term_name = getenv("TERM")))
-		return (-1);
+		ft_putstr_fd("ERR\n", STDERR);
 	if ((ret = tgetent(NULL, term_name)) <= 0)
-		return (-1);
-	if ((tcgetattr(STDIN_FILENO, &(term))) == -1)
-		return (-1);
-	if ((tcgetattr(STDIN_FILENO, &(term))) == -1)
-		return (-1);
-	term.c_lflag &= ~(ECHO | ICANON | ISIG);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	term.c_cc[VEOL] = '\n';
-	if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &(term))) == -1)
-		return (-1);
+		ft_putstr_fd("ERR\n", STDERR);
+	if ((tcgetattr(STDIN_FILENO, &(set->term_backup))) == -1)
+		ft_putstr_fd("ERR\n", STDERR);
+	if ((tcgetattr(STDIN_FILENO, &(set->term))) == -1)
+		ft_putstr_fd("ERR\n", STDERR);
+	set->term.c_lflag &= ~(ICANON | ECHO);
+	set->term.c_cc[VMIN] = 1;
+	set->term.c_cc[VTIME] = 0;
+	if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &(set->term))) == -1)
+		ft_putstr_fd("ERR\n", STDERR);
 	if ((ioctl(STDIN_FILENO, TIOCGWINSZ, &w)) < 0)
-		return (-1);
-	if (tcsetattr(0, TCSANOW, &(term)) < 0)
-		return (-1);
+		ft_putstr_fd("ERR\n", STDERR);
 	set->col = w.ws_col;
 	set->row = w.ws_row;
 	set->winsize = set->col * set->row;
 	if (check_termcaps() == -1)
-		return (-1);
-    return (0);
+		ft_putstr_fd("ERR\n", STDERR);
 }
+
+/*void		start_term(t_set *set)
+{
+	char	*name;
+
+	if (!(name = get_env(g_minishell, "TERM")))
+		name = "xterm";
+	tgetent(NULL, name);
+	setupterm(NULL, STDOUT_FILENO, NULL);
+	tcgetattr(0, &set->term);
+	tcgetattr(0, &set->term_backup);
+	set->term.c_lflag = set->term.c_lflag & ~ICANON;
+	set->term.c_lflag = set->term.c_lflag & ~ECHO;
+	set->term.c_cc[VMIN] = 1;
+	set->term.c_cc[VTIME] = 0;
+	tcsetattr(0, TCSANOW, &set->term);
+	init_tc();
+}
+
+void	cursor_win(void)
+{
+	struct winsize w;
+
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	set->col = w.ws_col;
+	set->row = w.ws_row;
+}
+
+void	init_tc(void)
+{
+	set->->cm = tgetstr("cm", NULL);
+	set->->ce = tgetstr("ce", NULL);
+	set->->dl = tgetstr("DL", NULL);
+}*/

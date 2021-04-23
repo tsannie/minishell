@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/22 17:40:52 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:25:08 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void			init_term(t_set *set)
 	set->his_pos = 0;
 	set->stdin_copy = dup(0);
 	set->fd[0] = 0;
-	set->fd[1] = 0;
-	set->fd[2] = 0;
+	set->fd[1] = 1;
+	set->fd[2] = 2;
 	if ((set->fd[3] = open("/dev/tty", O_RDWR)) == -1)
 		;
 	set->tt_up = ft_strdup("\033[A");
@@ -98,8 +98,7 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
-	//if (start_term(set) != 0)
-	//	return (-1);
+ 	start_term(set);
 	ft_sort_dbtab(set);
 	init_his(set);
 	return (0);

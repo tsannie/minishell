@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/20 15:58:20 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/23 16:32:43 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ typedef struct	s_sig
 
 typedef struct	s_set
 {
-	struct termios		termios;
-	struct termios		term_save;
+	struct termios		term;
+	struct termios		term_backup;
+
+
+
 
 	char				*str;
 	char	*word_tmp;
@@ -105,7 +108,6 @@ typedef struct	s_set
 	char	**history;
 	int		inc_his;
 	int		his_pos;
-	int		curs_pos;
 	int		col;
 	int		row;
 	int		winsize;
@@ -143,8 +145,9 @@ typedef struct	s_set
 //HIS
 void			init_his(t_set *set);
 void			add_history(t_set *set);
-
 //term
+void						start_term(t_set *set);
+
 int			move_left(t_set *set);
 int			move_right(t_set *set);
 int			history_prev(t_set *set);
@@ -271,8 +274,7 @@ int						ft_strcmp(char *s1, char *s2);
 int						init_tgent(t_set *set);
 int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
-int						start_term(t_set *set);
-
+void					disp_prompt(void);
 /* TOOLS TO DELETE WHEN ITS END */
 void					print_args(char **str);
 char					*get_val(t_set *set);

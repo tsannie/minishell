@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/20 16:11:25 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/23 13:41:21 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,13 +115,13 @@ all:		$(NAME)
 $(NAME): 	$(OBJ)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
-			$(CC) $(CFLAGS) $(INCLUDE) $(INCLUDE_LIB) -o $(NAME) $(OBJ) $(LIB_FLAGS)
+			$(CC) $(CFLAGS) -lft -ltermcap $(INCLUDE) $(INCLUDE_LIB) -o $(NAME) $(OBJ) $(LIB_FLAGS)
 			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build !${END}\n"
 
 bonus:		$(OBJ_B)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
-			$(CC) $(CFLAGS) $(INCLUDE_B) $(INCLUDE_LIB) -o $(NAME) $(OBJ_B) $(LIB_FLAGS)
+			$(CC) $(CFLAGS) -lft -ltermcap $(INCLUDE_B) $(INCLUDE_LIB) -o $(NAME) $(OBJ_B) $(LIB_FLAGS)
 			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build" \
 				"(with ${BOLD}${WHITE}$@${END}${GREEN}) !${END}"
 
