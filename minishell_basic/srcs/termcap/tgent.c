@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/23 17:50:13 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:48:08 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char			*ft_strdup_free_len(char *str, int len)
 		return (ft_strdup(""));
 	if (!(new = malloc(sizeof(char) * (len))))
 		return (NULL);
-	while (i < len)
+	while (i < len - 1)
 	{
 		new[i] = str[i];
 		i++;
@@ -122,19 +122,45 @@ void	replace_cursor(t_set *set, int print, int back)
  */
 
 
-void			ft_dell(t_set *set)
+int			ft_dell(t_set *set)
 {
 	size_t col;
 	size_t len;
-	len = ft_strlen(set->str);
 
+	len = ft_strlen(set->str);
 	col = set->col;
-	ft_putstr_fd("\033[1K",STDERR);
+	//printf("[%d][%d]  ", len, col);
+	//ft_putstr_fd("\033[1K",STDERR);
+	//ft_putstr_fd("\r",STDERR);
+ 	//disp_prompt();
+	//ft_putstr_fd(set->str, STDERR);
+
+	set->str = ft_strdup_free_len(set->str, len);
+		//ft_putstr_fd(set->tt_left, STDERR);
+		//ft_putstr_fd(" ", STDERR);+
+	if (len > 0)
+	{
+		//printf("\n[%d]\n", len);
+		ft_putstr_fd(set->tt_left, STDERR);
+		ft_putstr_fd(" ", STDERR);
+		ft_putstr_fd(set->tt_left, STDERR);
+	}
+	//printf("[%s][%d]\n", set->str, ft_strlen(set->str));
+	//while (len--)
+/* 	ft_putstr_fd("\033[1K",STDERR);
 	ft_putstr_fd("\r",STDERR);
+ 	if (len > col - 12)
+	{
+		ft_putstr_fd("\033[1K",STDERR);
+		ft_putstr_fd(set->tt_up, STDERR);
+		ft_putstr_fd("\033[1K",STDERR);
+		ft_putstr_fd("\r",STDERR);
+		//ft_putstr_fd("\n", STDERR);
+		len = len - col;
+	}
  	disp_prompt();
-	set->str = ft_strdup_free_len(set->str, ft_strlen(set->str) - 1);
-	ft_putstr_fd(set->str, STDERR);
-			
+	ft_putstr_fd(set->str, STDERR); */
+	return (0);
 }		
 
 void			read_ent(t_set *set)
@@ -158,17 +184,18 @@ void			read_ent(t_set *set)
 			ft_putstr_fd("err\n", STDERR);
 		//printf("[%s][%d][%d][%d][%s]\n", buf, ft_strlen(buf), buf[0], ft_strlen(set->str), set->str);
 		if(buf[0] == 127 && ft_strlen(buf) == 1)
+			buf[0] = ft_dell(set);
+		else if (buf[0] == 9 && ft_strlen(buf) == 1)
+			buf[0] = 0;
+		else if (ft_strlen(buf) == 3 && buf[0] == 27)
 		{
-
-			ft_dell(set);
+			set_fle(set, buf);
+			buf[0] = 0;
+			buf[1] = 0;
 		}
 		else
 			set->str = ft_strjoin_free(set->str, buf);
 		ft_putstr_fd(buf, STDERR);
-		if (ft_strlen(buf) == 3 && buf[0] == 27)
-		{
-			set_fle(set, buf);
-		}
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
