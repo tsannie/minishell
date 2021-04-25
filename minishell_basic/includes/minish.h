@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/23 16:32:43 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:51:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,6 @@ int						bash_cmd(t_set *set);
 int						check_shlvl(t_set *set, char **envp);
 int						ft_strcmp(char *s1, char *s2);
 //init
-int						init_tgent(t_set *set);
 int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
 void					disp_prompt(void);
