@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 15:48:08 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:49:09 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,7 @@ int			ft_dell(t_set *set)
 
 	len = ft_strlen(set->str);
 	col = set->col;
-	//printf("[%d][%d]  ", len, col);
-	//ft_putstr_fd("\033[1K",STDERR);
-	//ft_putstr_fd("\r",STDERR);
- 	//disp_prompt();
-	//ft_putstr_fd(set->str, STDERR);
-
 	set->str = ft_strdup_free_len(set->str, len);
-		//ft_putstr_fd(set->tt_left, STDERR);
-		//ft_putstr_fd(" ", STDERR);+
 	if (len > 0)
 	{
 		//printf("\n[%d]\n", len);
