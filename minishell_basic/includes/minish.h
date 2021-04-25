@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 15:51:24 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/25 18:10:59 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ typedef struct	s_set
 {
 	struct termios		term;
 	struct termios		term_backup;
-
-
-
 
 	char				*str;
 	char	*word_tmp;
@@ -143,18 +140,17 @@ typedef struct	s_set
 }				t_set;
 
 //HIS
-void			init_his(t_set *set);
-void			add_history(t_set *set);
+void					init_his(t_set *set);
+void					add_history(t_set *set);
 //term
-void						start_term(t_set *set);
+void					start_term(t_set *set);
 
-int			move_left(t_set *set);
-int			move_right(t_set *set);
-int			history_prev(t_set *set);
-int			history_next(t_set *set);
-char			*ft_strdup_free_len(char *str, int len);
+int						move_left(t_set *set);
+int						move_right(t_set *set);
+int						history_prev(t_set *set);
+int						history_next(t_set *set);
+char					*ft_strdup_free_len(char *str, int len);
 //read
-int						get_next_line(int fd, char **line, t_set *set);
 void					read_in(t_set *set);
 void					read_ent(t_set *set);
 //lib

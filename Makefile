@@ -6,7 +6,7 @@
 #    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/23 13:41:21 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/25 17:30:51 by phbarrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ REDIRECT	= ft_redirection.c pipe.c ft_err_fold.c ft_namefile1.c ft_namefile2.c \
 			ft_err_redi.c
 
 MAIN		= main.c init.c start_sh.c err_msg.c ft_treat_cmd.c ft_init_env.c shlvl.c lib.c \
-			 lib2.c lib3.c ft_splitbc.c get_next_line.c ffree.c
+			 lib2.c lib3.c ft_splitbc.c ffree.c
 
 SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_basic/srcs/termcap/, $(TERMCAP)) \

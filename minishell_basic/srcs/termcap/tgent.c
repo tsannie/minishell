@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 16:58:28 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/25 18:10:45 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,30 @@ int				ft_dell(t_set *set)
 	return (0);
 }
 
+void			all_ccmd(char *buf, t_set *set)
+{
+	if (buf[0] == 127 && ft_strlen(buf) == 1)
+		buf[0] = ft_dell(set);
+	else if (buf[0] == 9 && ft_strlen(buf) == 1)
+		buf[0] = 0;
+	else if (ft_strlen(buf) == 3 && buf[0] == 27)
+	{
+		set_fle(set, buf);
+		buf[0] = 0;
+		buf[1] = 0;
+	}
+	else if (ft_strlen(buf) == 1 && buf[0] == 4)
+	{
+		if (ft_strlen(set->str) == 0)
+		{
+			ft_putstr_fd("exit\n", STDERR);
+			exit(0);
+		}
+	}
+	else
+		set->str = ft_strjoin_free(set->str, buf);
+}
+
 void			read_ent(t_set *set)
 {
 	int			parse;
@@ -78,33 +102,11 @@ void			read_ent(t_set *set)
 	set->str = ft_strdup("");
 	while (i == 0)
 	{
-		start_term(set);
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		//printf("[%s][%zu][%d][%d]\n", buf, ft_strlen(buf), buf[0],
 		ft_strlen(set->str);
-		if (buf[0] == 127 && ft_strlen(buf) == 1)
-			buf[0] = ft_dell(set);
-		else if (buf[0] == 9 && ft_strlen(buf) == 1)
-			buf[0] = 0;
-		else if (ft_strlen(buf) == 3 && buf[0] == 27)
-		{
-			set_fle(set, buf);
-			buf[0] = 0;
-			buf[1] = 0;
-		}
-		else if (ft_strlen(buf) == 1 && buf[0] == 4)
-		{
-			if (ft_strlen(set->str) == 0)
-			{
-				ft_putstr_fd("exit\n", STDERR);
-				free_all(set , 0);
-				exit(0);
-			}
-		}
-		else
-			set->str = ft_strjoin_free(set->str, buf);
+		all_ccmd(buf, set);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
