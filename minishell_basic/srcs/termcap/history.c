@@ -41,7 +41,6 @@ int				add_exist(t_set *set, int fd)
 void			init_his(t_set *set)
 {
 	char		*path;
-	char		buff;
 	int			fd;
 	int			i;
 

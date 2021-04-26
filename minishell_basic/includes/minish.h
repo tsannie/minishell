@@ -31,11 +31,6 @@
 # include <sys/ioctl.h>
 # include <curses.h>
 # include <term.h>
-# include <sys/ioccom.h>
-# include <sys/filio.h>
-# include <sys/sockio.h>
-# include <sys/cdefs.h>
-# include <sys/ttycom.h>
 
 # define STDIN 0
 # define STDOUT 1

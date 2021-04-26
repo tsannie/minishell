@@ -22,14 +22,12 @@ int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
 	int			ret;
-	int			x;
 
 	if (!(set = malloc(sizeof(t_set))))
 		return (-1);
 	if (init_all(set, envp) == -1)
 		return (-1);
 	ret = 0;
-	x = -1;
 	if (ac == 3)
 		ret = start_shell(ac, av, set);
 	else

@@ -12,16 +12,6 @@
 
 #include "../../includes/minish.h"
 
-int			move_left(t_set *set)
-{
-	return (0);
-}
-
-int			move_right(t_set *set)
-{
-	return (0);
-}
-
 int			history_prev(t_set *set)
 {
 	size_t len;

@@ -17,11 +17,7 @@ int				set_fle(t_set *set, char *buf)
 	signal(SIGINT, SIG_IGN);
 	if (buf[1] == 91)
 	{
-		if (buf[2] == 68)
-			move_left(set);
-		else if (buf[2] == 67)
-			move_right(set);
-		else if (buf[2] == 65)
+		if (buf[2] == 65)
 			history_prev(set);
 		else if (buf[2] == 66)
 			history_next(set);
@@ -51,11 +47,9 @@ char			*ft_strdup_free_len(char *str, int len)
 
 int				ft_dell(t_set *set)
 {
-	size_t		col;
 	size_t		len;
 
 	len = ft_strlen(set->str);
-	col = set->col;
 	set->str = ft_strdup_free_len(set->str, len);
 	if (len > 0)
 	{

@@ -66,9 +66,7 @@ void			initsis(t_set *set)
 
 void			read_ent(t_set *set)
 {
-	int			parse;
 	char		buf[BUF_SIZE];
-	size_t		buf_len;
 	int			i;
 
 	i = 0;
