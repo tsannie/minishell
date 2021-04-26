@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 11:07:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 17:42:55 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/26 14:47:13 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void				rres(char **res, int word, int n, char str)
 		res[word][n] = '\0';
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
+char				*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*res;
 	int		globalsize;

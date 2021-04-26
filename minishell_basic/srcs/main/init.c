@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 18:10:16 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/26 14:35:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int				init_all(t_set *set, char **envp)
 	if (check_shlvl(set, envp) != 0)
 		return (-1);
 	init_struct(set, envp);
- 	start_term(set);
+	start_term(set);
 	ft_sort_dbtab(set);
 	init_his(set);
 	return (0);

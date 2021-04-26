@@ -6,7 +6,7 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 18:10:59 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/26 14:46:24 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,118 +42,104 @@
 # define STDERR 2
 # define BUF_SIZE 4096
 
-typedef struct	s_sig
+typedef struct			s_sig
 {
-	int				run;
-	int				pid;
-}				t_sig;
+	int					run;
+	int					pid;
+}						t_sig;
 
-typedef struct	s_set
+typedef struct			s_set
 {
 	struct termios		term;
 	struct termios		term_backup;
 
 	char				*str;
-	char	*word_tmp;
-	char	**push;
-	char	**list;
-	int		nb_word;
-	int		fdout;
-	int		fdin;
-	int		start_end;
-	int		save_stdout;
-	int		save_stdin;
-	int		stop;
-	int		last;
-	int		no_exec;
-	int		simple;
-	char	*dol_amb;
-	int		dol_found;
-	int		amb;
-	int		not_exist;
-	int		wait;
+	char				*word_tmp;
+	char				**push;
+	char				**list;
+	int					nb_word;
+	int					fdout;
+	int					fdin;
+	int					start_end;
+	int					save_stdout;
+	int					save_stdin;
+	int					stop;
+	int					last;
+	int					no_exec;
+	int					simple;
+	char				*dol_amb;
+	int					dol_found;
+	int					amb;
+	int					not_exist;
+	int					wait;
 
-	int		line_count;
+	int					line_count;
+	int					g;
+	int					ex_er;
+	int					len;
+	int					bleu;
+	int					pid;
+	int					exit;
+	char				**arg;
+	char				*namefile;
+	char				**all_path;
+	char				*cmd;
+	char				*lastcmd;
+	int					lene;
+	int					chemin;
+	int					y;
+	int					p;
+	int					l_dol;
+	int					err_quote;
+	int					err_redi;
+	int					exit_val;
+	char				*exit_v;
+	char				*shlvl;
+	int					run;
+	char				**history;
+	int					inc_his;
+	int					his_pos;
+	int					col;
+	int					row;
+	int					winsize;
+	char				*tt_up;
+	char				*tt_down;
+	char				*tt_left;
+	char				*tt_right;
+	char				*tt_home;
+	char				*tt_end;
+	char				*tt_ctl_up;
+	char				*tt_crl_down;
+	char				*pathbc;
+	char				*path;
+	char				*pwd;
+	char				*old_pwd;
+	int					cwplen;
+	char				**hide_envp;
+	char				**envp;
+	char				**argss;
+	int					r;
+	int					w;
+	int					x;
+	int					d;
+}						t_set;
 
-	int		g;
-	int		ex_er;
-	int		len;
-	int		bleu;
-	int		pid;
-	int		exit;
-	char	**arg;
-	char	*namefile;
-
-	char	**all_path;
-
-	char	*cmd;
-	char	*lastcmd;
-
-	int		lene;
-	int		chemin;
-	int		y;
-	int		p;
-	int		l_dol;
-	int		err_quote;
-	int		err_redi;
-	int 	exit_val;
-	char 	*exit_v;
-
-	char	*shlvl;
-	int		run;
-
-	char	**history;
-	int		inc_his;
-	int		his_pos;
-	int		col;
-	int		row;
-	int		winsize;
-	int					stdin_copy;
-	int					fd[4];
-
-
-
-	
-	char	*tt_up;
-	char	*tt_down;
-	char	*tt_left;
-	char	*tt_right;
-	char	*tt_home;
-	char	*tt_end;
-
-	char	*tt_ctl_up;
-	char	*tt_crl_down;
-
-
-	char 	*pathbc;
-	char 	*path;
-	char	*pwd;
-	char	*old_pwd;
-	int		cwplen;
-	char	**hide_envp;
-	char	**envp;
-	char	**argss;
-	int		r;
-	int		w;
-	int		x;
-	int		d;
-}				t_set;
-
-//HIS
 void					init_his(t_set *set);
 void					add_history(t_set *set);
-//term
+
 void					start_term(t_set *set);
+void					all_ccmd(char *buf, t_set *set);
+void					eeddn(t_set *set);
 
 int						move_left(t_set *set);
 int						move_right(t_set *set);
 int						history_prev(t_set *set);
 int						history_next(t_set *set);
 char					*ft_strdup_free_len(char *str, int len);
-//read
+
 void					read_in(t_set *set);
 void					read_ent(t_set *set);
-//lib
+
 char					**ft_splitbc(const char *str, char charset);
 void					add_exval(t_set *set);
 char					*ft_strdupbc(const char *s1);
@@ -162,10 +148,10 @@ void					ffree(char *str);
 char					*maj_to_min(char *str);
 int						check_last(t_set *set);
 int						eglinstr(char *str);
-//err
+
 void					ft_putstr_not_found(char *str, t_set *set);
 int						ft_putstr_error_quote(t_set *set);
-//env
+
 unsigned long long		ft_atoill(const char *str);
 int						ft_modenv(char *str, t_set *set);
 int						ft_hideenv(char *str, t_set *set);
@@ -174,9 +160,9 @@ char					**ft_strdup_tabl(char **envp);
 void					ft_sort_dbtab(t_set *set);
 char					**ft_unsethideenv(t_set *set, char *str);
 char					**ft_unsetenv(t_set *set, char *str);
-//redur==ir
+
 int						err_folder(t_set *set, char *namefile, int i);
-//
+
 int						first_pipe(const char *str);
 char					*get_newcmd(char *src, t_set *set, int i);
 void					check_err_and_incr(t_set *set, int *i);
@@ -196,11 +182,11 @@ void					ifclose(int fd);
 int						is_pipe(char *str);
 int						forwar_quote(char *src, int i);
 void					ft_putstr_not_found(char *str, t_set *set);
-void 					ft_eexit(t_set *set);
+void					ft_eexit(t_set *set);
 int						ft_disp_export(t_set *set);
 int						start_shell(int ac, char **av, t_set *set);
 void					treat_cmd(t_set *set);
-void					start_cmd(  t_set *set);
+void					start_cmd(t_set *set);
 void					search_arg(char *str, t_set *set);
 void					search_cmd(const char *src, t_set *set);
 char					*search_dolars(char *src, t_set *set);
@@ -217,7 +203,7 @@ void					start_pipe(t_set *set);
 char					**split_pipe(char *str, t_set *set);
 void					exec_cmd(t_set *set, char *cmd);
 void					reset_fd(t_set *set);
-//cmd
+
 int						ft_check_valid_exit(t_set *set);
 int						ft_cd(t_set *set);
 int						ft_echo(t_set *set);
@@ -225,30 +211,30 @@ int						ft_env(t_set *set);
 int						ft_export(t_set *set);
 int						ft_unset(t_set *set);
 int						ft_pwd(t_set *set);
-//
+
 int						ncmpel(char *s1, char *s2);
 int						checkenvp(char *str);
-//
+
 int						ncmpel(char *s1, char *s2);
 char					**addword(char **res, int nb_word, char *word);
 char					**split_semicolon(char *str, t_set *set);
-// init
+
 char					*joinf(char *s1, char *s2, char *s3, char *s4);
 int						ft_menv(char *str, t_set *set);
 char					*ft_get_path(char **envp);
 void					rres(char **res, int word, int n, char str);
-//
+
 char					*maj_to_min(char *str);
 int						is_dir_present(char *arg, char *cmd);
-//export
-int 					ft_egenv(char *str, t_set *set);
+
+int						ft_egenv(char *str, t_set *set);
 int						ft_eghide(char *arg, t_set *set);
 char					*st_moin_pe(char *str);
 char					*double_slash(char *arg);
 int						ncmpelp(char *s1, char *s2);
-//
-//bin
-int						chemin_path(int chemin, char *path, t_set *set, char *cmd);
+
+int						chemin_path(int chemin, char *path, t_set *set,
+char *cmd);
 int						finn(t_set *set, char *path, char *cmd);
 int						pathnnul(int valid, char *path, char *cmd, t_set *set);
 int						ft_strcmpss(char *s1, char *s2);
@@ -256,7 +242,8 @@ int						is_dir_presentsl(char *arg, char *cmd);
 int						exec_bin(t_set *set, char *path, char *cmd);
 void					get_lastcmd(t_set *set);
 char					*get_path(t_set *set, char *path, char *cmd);
-char					*get_path_chemin(t_set *set, char *path, int len, char *cmd);
+char					*get_path_chemin(t_set *set, char *path, int len,
+char *cmd);
 char					*cmd_in_pwd(t_set *set, char *cmd);
 int						ft_strlenbc(char *str);
 int						check_sh(t_set *set, char *path);
@@ -266,11 +253,11 @@ int						ft_strcmpsl(char *s1, char *s2);
 int						bash_cmd(t_set *set);
 int						check_shlvl(t_set *set, char **envp);
 int						ft_strcmp(char *s1, char *s2);
-//init
+
 int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
 void					disp_prompt(void);
-/* TOOLS TO DELETE WHEN ITS END */
+
 void					print_args(char **str);
 char					*get_val(t_set *set);
 

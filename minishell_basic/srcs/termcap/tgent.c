@@ -6,88 +6,62 @@
 /*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/25 18:10:45 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/04/26 14:29:22 by phbarrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish.h"
 
-int				set_fle(t_set *set, char *buf)
+t_sig			g_sig;
+
+void			int_handler(int sig)
 {
-	signal(SIGINT, SIG_IGN);
-	if (buf[1] == 91)
-	{
-		if (buf[2] == 68)
-			move_left(set);
-		else if (buf[2] == 67)
-			move_right(set);
-		else if (buf[2] == 65)
-			history_prev(set);
-		else if (buf[2] == 66)
-			history_next(set);
-	}
-	return (0);
+	ft_putstr_fd("\b\b", STDERR);
+	ft_putstr_fd("\n", STDERR);
+	g_sig.run = 1;
+	(void)sig;
+	disp_prompt();
 }
 
-char			*ft_strdup_free_len(char *str, int len)
+void			sig_quit(int code)
 {
-	int			i;
-	char		*new;
-
-	i = 0;
-	if (!str || len <= 0)
-		return (ft_strdup(""));
-	if (!(new = malloc(sizeof(char) * (len))))
-		return (NULL);
-	while (i < len - 1)
+	if (g_sig.pid == 0)
 	{
-		new[i] = str[i];
-		i++;
+		ft_putstr_fd("Quit: ", STDERR);
+		ft_putnbr_fd(code, STDERR);
+		ft_putstr_fd("\n", STDERR);
+		g_sig.run = 3;
 	}
-	new[i] = '\0';
-	free(str);
-	return (new);
 }
 
-int				ft_dell(t_set *set)
+void			all_sdig(t_set *set)
 {
-	size_t		col;
-	size_t		len;
-
-	len = ft_strlen(set->str);
-	col = set->col;
-	set->str = ft_strdup_free_len(set->str, len);
-	if (len > 0)
+	if (g_sig.run == 1)
 	{
-		ft_putstr_fd(set->tt_left, STDERR);
-		ft_putstr_fd(" ", STDERR);
-		ft_putstr_fd(set->tt_left, STDERR);
+		set->exit_val = g_sig.run;
+		add_exval(set);
+		g_sig.run = 0;
+		ffree(set->str);
+		set->str = ft_strdup("");
 	}
-	return (0);
+	else if (g_sig.run == 3)
+	{
+		set->exit_val = 131;
+		set->bleu = 1;
+		add_exval(set);
+		g_sig.run = 0;
+	}
+	ft_strlen(set->str);
 }
 
-void			all_ccmd(char *buf, t_set *set)
+void			initsis(t_set *set)
 {
-	if (buf[0] == 127 && ft_strlen(buf) == 1)
-		buf[0] = ft_dell(set);
-	else if (buf[0] == 9 && ft_strlen(buf) == 1)
-		buf[0] = 0;
-	else if (ft_strlen(buf) == 3 && buf[0] == 27)
-	{
-		set_fle(set, buf);
-		buf[0] = 0;
-		buf[1] = 0;
-	}
-	else if (ft_strlen(buf) == 1 && buf[0] == 4)
-	{
-		if (ft_strlen(set->str) == 0)
-		{
-			ft_putstr_fd("exit\n", STDERR);
-			exit(0);
-		}
-	}
-	else
-		set->str = ft_strjoin_free(set->str, buf);
+	g_sig.pid = -1;
+	g_sig.run = 0;
+	ffree(set->str);
+	set->str = ft_strdup("");
+	signal(SIGINT, int_handler);
+	signal(SIGQUIT, sig_quit);
 }
 
 void			read_ent(t_set *set)
@@ -98,23 +72,20 @@ void			read_ent(t_set *set)
 	int			i;
 
 	i = 0;
-	ffree(set->str);
-	set->str = ft_strdup("");
+	initsis(set);
+	if (g_sig.run == 0)
+		disp_prompt();
 	while (i == 0)
 	{
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		ft_strlen(set->str);
+		all_sdig(set);
 		all_ccmd(buf, set);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
-	i = 0;
-	if (ft_strlen(set->str) > 0)
-		set->str[ft_strlen(set->str) - 1] = '\0';
-	else
-		set->str[1] = '\0';
-	add_history(set);
+	eeddn(set);
+	g_sig.pid = 0;
 }
