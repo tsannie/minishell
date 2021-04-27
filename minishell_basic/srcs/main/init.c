@@ -74,6 +74,7 @@ void			init_struct(t_set *set, char **envp)
 	set->ex_er = 0;
 	set->fdin = -1;
 	set->dell_len = 0;
+	set->dell_his = 0;
 	set->fdout = -1;
 	set->save_stdin = -1;
 	set->save_stdout = -1;

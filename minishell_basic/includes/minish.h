@@ -50,6 +50,7 @@ typedef struct			s_set
 
 
 	int					dell_len;
+	int					dell_his;
 	char				*str;
 	char				*word_tmp;
 	char				**push;
@@ -127,6 +128,8 @@ void					add_history(t_set *set);
 void					start_term(t_set *set);
 void					all_ccmd(char *buf, t_set *set);
 void					eeddn(t_set *set);
+int						getdellen(size_t len, size_t col);
+void					aff_dell(t_set *set);
 
 int						move_left(t_set *set);
 int						move_right(t_set *set);

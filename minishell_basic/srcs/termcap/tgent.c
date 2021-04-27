@@ -51,7 +51,6 @@ void			all_sdig(t_set *set)
 		add_exval(set);
 		g_sig.run = 0;
 	}
-	//ft_strlen(set->str);
 }
 
 void			initsis(t_set *set)
