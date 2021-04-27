@@ -48,6 +48,8 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+
+	int					dell_len;
 	char				*str;
 	char				*word_tmp;
 	char				**push;

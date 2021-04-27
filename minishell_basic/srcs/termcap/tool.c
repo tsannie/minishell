@@ -45,7 +45,7 @@ char			*ft_strdup_free_len(char *str, int len)
 	return (new);
 }
 
-int				ft_dell(t_set *set)
+/* int				ft_dell(t_set *set)
 {
 	size_t		len;
 
@@ -56,9 +56,67 @@ int				ft_dell(t_set *set)
 		ft_putstr_fd(set->tt_left, STDERR);
 		ft_putstr_fd(" ", STDERR);
 		ft_putstr_fd(set->tt_left, STDERR);
+		len =- len;
+	}
+	return (0);
+} */
+
+int				getdellen(size_t len, size_t col)
+{
+	int i;
+
+	i = 0;
+	while (len > col)
+	{
+		len = len - col;
+		i++;
+	}
+	return (i);
+}
+
+int				ft_dell(t_set *set)
+{
+	size_t		len;
+	size_t		col;
+
+	col = set->col;
+	len = ft_strlen(set->str);
+	set->str = ft_strdup_free_len(set->str, len);
+	set->dell_len = getdellen(len + 12, col);
+	//printf("[%zu][%zu]\n", len + 12, col);
+	if ((len + 12) == col)
+	{
+		ft_putstr_fd(set->tt_up, STDERR);
+		ft_putstr_fd("\033[2K", STDERR);
+		disp_prompt();
+		ft_putstr_fd(set->str, STDERR);
+		//ft_putstr_fd(set->tt_left, STDERR);
+		//ft_putstr_fd(" ", STDERR);
+		//ft_putstr_fd(set->tt_left, STDERR);
+
+	}
+	else if (((len + 12) % col) == 0 && ((len + 12) >= col * 2))
+	{
+
+		//ft_putstr_fd("\033[2K", STDERR);
+		ft_putstr_fd(set->tt_up, STDERR);
+		ft_putstr_fd("\033[2K", STDERR);
+		ft_putstr_fd(set->str + ((col * set->dell_len) - 12), STDERR);
+		//ft_putstr_fd(" ", STDERR);
+		//ft_putstr_fd(set->tt_left, STDERR);
+	}
+	else if (len > 0)
+	{
+		//ft_putstr_fd("\033[2K", STDERR);
+		//ft_putstr_fd(set->tt_up, STDERR);
+		//ft_putstr_fd(set->tt_left, STDERR);
+		ft_putstr_fd(set->tt_left, STDERR);
+		ft_putstr_fd(" ", STDERR);
+		ft_putstr_fd(set->tt_left, STDERR);
 	}
 	return (0);
 }
+
 
 void			all_ccmd(char *buf, t_set *set)
 {
@@ -79,6 +137,7 @@ void			all_ccmd(char *buf, t_set *set)
 			ft_putstr_fd("exit\n", STDERR);
 			exit(0);
 		}
+		buf[0] = 0;
 	}
 	else
 		set->str = ft_strjoin_free(set->str, buf);

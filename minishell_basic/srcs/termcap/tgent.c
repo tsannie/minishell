@@ -51,7 +51,7 @@ void			all_sdig(t_set *set)
 		add_exval(set);
 		g_sig.run = 0;
 	}
-	ft_strlen(set->str);
+	//ft_strlen(set->str);
 }
 
 void			initsis(t_set *set)
@@ -75,6 +75,7 @@ void			read_ent(t_set *set)
 		disp_prompt();
 	while (i == 0)
 	{
+		start_term(set);
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
