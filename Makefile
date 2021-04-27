@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/26 13:30:40 by phbarrad         ###   ########.fr        #
+#    Updated: 2021/04/27 07:27:28 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,10 +107,12 @@ OBJ_B			= $(SRC_B:c=o)
 ######################################################################
 
 %.o: %.c
-			@printf "${PURPLE}${BOLD}Start compile ... %-50.50s\r${END}" $@
+			@printf "${PURPLE}${BOLD}%-50.50s\r${END}" $@
 			${CC} ${CFLAGS} -c $< -o $@
 
-all:		$(NAME)
+all:
+			@printf "${PURPLE}${BOLD}Start compile ...\n${END}"
+			@$(MAKE) $(NAME)
 
 $(NAME): 	$(OBJ)
 			@echo "\n"

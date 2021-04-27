@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/11 08:07:49 by tsannie           #+#    #+#              #
-#    Updated: 2021/03/29 15:17:48 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/27 07:28:42 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,12 @@ OBJ			= $(SRC:.c=.o)
 OBJ			= $(SRC:.c=.o)
 
 %.o: %.c
-			@printf "${PURPLE}${BOLD}Start compile libft ... %-33.33s\r${END}" $@
+			@printf "${PURPLE}${BOLD}%-35.35s\r${END}" $@
 			${CC} ${CFLAGS} -c $< -o $@
 
-all:		$(NAME)
+all:
+			@printf "${PURPLE}${BOLD}Start compile libft ...\n${END}"
+			@$(MAKE) $(NAME)
 
 $(NAME): 	$(OBJ)
 			@ar rc $(NAME) $(OBJ)
