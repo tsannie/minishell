@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:25 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:32:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	ffree(path);
+	//ffree(path); // abort ./a.out
 	return (ft_strdup(set->pathbc));
 }
 

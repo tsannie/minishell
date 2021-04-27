@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:24:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/08 13:15:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 07:17:09 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*place_file(char *src, t_set *set, int index)
 	return (res);
 }
 
-int		not_empty(t_set *set)
+int		not_empty(void)
 {
 	DIR				*folder;
 	struct dirent	*item;
@@ -171,7 +171,7 @@ char	*wildcard(char *src, t_set *set)	// redirection '*'
 			i = forwar_quote(res, i) + 1;
 		else if (res[i] == '*')
 		{
-			if (not_empty(set) == 1)
+			if (not_empty() == 1)
 			{
 				res = place_file(res, set, i);
 				i = 0;

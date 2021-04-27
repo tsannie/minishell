@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:32:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void			free_all2(t_set *set)
 
 int				free_all(t_set *set, int ret)
 {
-	free(set->tt_up);
-	free(set->tt_down);
-	free(set->tt_left);
-	free(set->tt_right);
-	free(set->tt_home);
-	free(set->tt_end);
-	free(set->tt_ctl_up);
-	free(set->tt_crl_down);
+	ffree(set->tt_up);
+	ffree(set->tt_down);
+	ffree(set->tt_left);
+	ffree(set->tt_right);
+	ffree(set->tt_home);
+	ffree(set->tt_end);
+	ffree(set->tt_ctl_up);
+	ffree(set->tt_crl_down);
 	ffree(set->str);
 	free_all2(set);
 	free(set);

@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 11:07:05 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/07 10:32:15 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,30 @@ void				rres(char **res, int word, int n, char str)
 	}
 	else
 		res[word][n] = '\0';
+}
+
+char				*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*res;
+	int		globalsize;
+	int		i;
+	int		e;
+
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (NULL);
+	globalsize = ft_strlen(s1) + ft_strlen(s2);
+	if (!(res = malloc(sizeof(char) * globalsize + 1)))
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		res[i] = s1[i];
+	free(s1);
+	s1 = NULL;
+	e = -1;
+	while (s2[++e])
+		res[i + e] = s2[e];
+	res[globalsize] = '\0';
+	return (res);
 }
