@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/27 07:16:49 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 09:21:27 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct			s_set
 	char				**push;
 	char				**list;
 	char				**file;
+
+	char				*wild;
+	int					empty_wild;
+
 	int					nb_word;
 	int					fdout;
 	int					fdin;

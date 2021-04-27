@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/27 07:27:28 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/27 08:01:12 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,18 +114,22 @@ all:
 			@printf "${PURPLE}${BOLD}Start compile ...\n${END}"
 			@$(MAKE) $(NAME)
 
+bonus:
+			@printf "${PURPLE}${BOLD}Start compile ...\n${END}"
+			@$(MAKE) c_bonus
+
 $(NAME): 	$(OBJ)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			$(CC) $(CFLAGS) -lft -ltermcap $(INCLUDE) $(INCLUDE_LIB) -o $(NAME) $(OBJ) $(LIB_FLAGS)
 			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build !${END}\n"
 
-bonus:		$(OBJ_B)
+c_bonus:	$(OBJ_B)
 			@echo "\n"
 			@$(MAKE) -C $(LIBFT)
 			$(CC) $(CFLAGS) -lft -ltermcap $(INCLUDE_B) $(INCLUDE_LIB) -o $(NAME) $(OBJ_B) $(LIB_FLAGS)
 			@echo "\n${GREEN}The $(NAMEC) ${GREEN}has been build" \
-				"(with ${BOLD}${WHITE}$@${END}${GREEN}) !${END}"
+				"(with ${BOLD}${WHITE}bonus${END}${GREEN}) !${END}"
 
 clean:
 			$(RM) $(OBJ) $(OBJ_B)

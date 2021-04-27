@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:24:39 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/27 07:17:09 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/27 10:12:04 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,55 @@ int		is_wild(char *str)
 	return (0);
 }
 
+// test *c* for first
+int		correct_patern(char *file, t_set *set)
+{
+	int	i;
+	int com;
+
+	//printf("file . (%s)\n", file);
+	if (set->wild[0] != '.' && file[0] == '.')
+		return (0);
+	i = 0;
+	com = 0;
+	while (set->wild[com] != '*' && set->wild[com])
+	{
+		if (file[i] != set->wild[com])
+			return (0);
+		i++;
+		com++;
+	}
+	//printf("Step 1\n com = %d\ni = %d\n", com, i);
+	while (file[i])
+	{
+		if (set->wild[com] == '*')
+			com++;
+		else if (file[i] == set->wild[com])
+		{
+			com++;
+			i++;
+		}
+		else
+			i++;
+	}
+	while (set->wild[com] == '*')
+		com++;
+	//printf("Step 2\n com = %d\ni = %d\n", com, i);
+	if ((int)ft_strlen(set->wild) != com)
+		return (0);
+	com--;
+	i--;
+	while (set->wild[com] != '*')
+	{
+		if (file[i] != set->wild[com])
+			return (0);
+		i--;
+		com--;
+	}
+
+	return (1);
+}
+
 void	cpy_filename(t_set *set)
 {
 	DIR				*folder;
@@ -77,11 +126,14 @@ void	cpy_filename(t_set *set)
 	int				word;
 	char	buff[4096 + 1];
 
+	if (!(set->file = malloc(sizeof(char*) * 1)))
+		return ;
+	set->file[0] = 0;
 	word = 0;
 	folder = opendir(getcwd(buff, 4097));
 	while ((item = readdir(folder)))
 	{
-		if (item->d_name[0] != '.')
+		if (correct_patern(item->d_name, set) == 1)
 		{
 			word++;
 			set->file = addword(set->file, word, item->d_name);
@@ -104,15 +156,28 @@ char	*add_allfile(char *src, t_set *set)
 	return (src);
 }
 
+int		set_word(char *src, int i, t_set *set)
+{
+	set->wild = ft_strdup("");
+	while (ft_istab(src[i]) != 1 && src[i] != '\'' && src[i] != '\"' && src[i])
+	{
+		if (src[i] == '\\')
+			i++;
+		set->wild = add_letter(set->wild, src[i]);
+		i++;
+	}
+	return (i);
+}
+
 char	*place_file(char *src, t_set *set, int index)
 {
 	char	*res;
 	int		i;
+	int		end;
 
-	if (!(set->file = malloc(sizeof(char*) * 1)))
-		return (NULL);
-	set->file[0] = 0;
 	res = ft_strdup("");
+	end = set_word(src, index, set);
+	//printf("word = [%s]\n", set->wild);
 	i = 0;
 	while (i < index)
 	{
@@ -120,17 +185,31 @@ char	*place_file(char *src, t_set *set, int index)
 		i++;
 	}
 	//printf("res = {%s}\n", res);
+
+	//printf("CRASH\n");
 	cpy_filename(set);
+	if (!set->file[0])
+	{
+		ft_free_dbtab(set->file);
+		ffree(res);
+		ffree(set->wild);
+		set->empty_wild = 1;
+		return (src);
+	}
+	//printf("CRASH1\n");
+	//print_args(set->file);
 	ft_sort_file(set);
+	//printf("CRASH2\n");
 
 	//print_args(set->file);
 
 	res = add_allfile(res, set);
 	//printf("res = {%s}\n", res);
 
-	res = ft_strjoin_free(res, &src[i + 1]);
+	res = ft_strjoin_free(res, &src[end]);
 	//printf("res = {%s}\n", res);
 	ft_free_dbtab(set->file);
+	ffree(set->wild);
 	return (res);
 }
 
@@ -156,6 +235,32 @@ int		not_empty(void)
 	return ((cpt == 0) ? 0 : 1);
 }
 
+int		word_with_wild(char *src, int i)
+{
+	while (ft_istab(src[i]) != 1 && src[i] != '\'' && src[i] != '\"' && src[i])
+	{
+		if (src[i] == '\\')
+			i += 2;
+		else if (src[i] == '*')
+			return (1);
+		else
+			i++;
+	}
+	return (0);
+}
+
+int		end_word(char *src, int i)
+{
+	while (ft_istab(src[i]) != 1 && src[i] != '\'' && src[i] != '\"' && src[i])
+	{
+		if (src[i] == '\\')
+			i += 2;
+		else
+			i++;
+	}
+	return (i);
+}
+
 char	*wildcard(char *src, t_set *set)	// redirection '*'
 {
 	char	*res;
@@ -169,12 +274,16 @@ char	*wildcard(char *src, t_set *set)	// redirection '*'
 			i += 2;
 		else if (res[i] == '\'' || res[i] == '\"')
 			i = forwar_quote(res, i) + 1;
-		else if (res[i] == '*')
+		else if (word_with_wild(res, i))
 		{
 			if (not_empty() == 1)
 			{
+				set->empty_wild = 0;
 				res = place_file(res, set, i);
-				i = 0;
+				if (set->empty_wild == 0)
+					i = 0;
+				else
+					i = end_word(res, i);
 			}
 			else
 			{
