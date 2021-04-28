@@ -48,7 +48,6 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
-
 	int					dell_len;
 	int					dell_his;
 	char				*str;

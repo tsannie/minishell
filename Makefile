@@ -16,15 +16,14 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= -Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
 INCLUDE			= -I /minishell_basic/includes
 INCLUDE_B		= -I /minishell_bonus/includes
 INCLUDE_LIB		= -I ./libft/libft.a
-#whaomi
-#wHoami
+
 #/bin/../../../bin/ls
 #/bin//////////bin/ls
 #/bin/Ls

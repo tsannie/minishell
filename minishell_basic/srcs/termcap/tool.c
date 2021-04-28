@@ -32,7 +32,10 @@ char			*ft_strdup_free_len(char *str, int len)
 
 	i = 0;
 	if (!str || len <= 0)
+	{
+		ffree(str);
 		return (ft_strdup(""));
+	}
 	if (!(new = malloc(sizeof(char) * (len))))
 		return (NULL);
 	while (i < len - 1)
@@ -41,7 +44,7 @@ char			*ft_strdup_free_len(char *str, int len)
 		i++;
 	}
 	new[i] = '\0';
-	free(str);
+	ffree(str);
 	return (new);
 }
 

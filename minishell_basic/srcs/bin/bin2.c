@@ -84,7 +84,8 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	//ffree(path); // abort ./a.out
+	if (ft_strncmp("./", path, len) != 0)
+		ffree(path);
 	return (ft_strdup(set->pathbc));
 }
 
