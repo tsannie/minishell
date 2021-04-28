@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 15:03:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:46:17 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct			s_set
 	char				*word_tmp;
 	char				**push;
 	char				**list;
+	char				*redirect;
 	int					nb_word;
 	int					fdout;
 	int					fdin;
