@@ -12,15 +12,56 @@
 
 #include "../../includes/minish_bonus.h"
 
+void			go_home(t_set *set, char *buf)
+{
+	size_t len;
+
+	len = ft_strlen(set->str);
+	while (set->cur_pos > 12)
+	{
+		ft_putstr_fd(set->tt_left, STDERR);
+		set->cur_pos--;
+	}
+}
+
+void			go_end(t_set *set, char *buf)
+{
+	size_t len;
+
+	len = ft_strlen(set->str);
+	while (set->cur_pos < (ft_strlen(set->str) + 12))
+	{
+		ft_putstr_fd(set->tt_right, STDERR);
+		set->cur_pos++;
+	}
+}
+
 int				set_fle(t_set *set, char *buf)
 {
 	signal(SIGINT, SIG_IGN);
 	if (buf[1] == 91)
 	{
 		if (buf[2] == 65)
-			history_prev(set);
+			history_prev(set, buf);
 		else if (buf[2] == 66)
-			history_next(set);
+			history_next(set, buf);
+		else if (buf[2] == 70)
+			go_home(set, buf);
+		else if (buf[2] == 72)
+			go_end(set, buf);
+		else if (buf[2] == 67 && set->cur_pos < (ft_strlen(set->str) + 12))
+		{
+			set->cur_pos++;
+			ft_putstr_fd(set->tt_right, STDERR);
+		}
+		else if (buf[2] == 68 && set->cur_pos > 12)
+		{
+			set->cur_pos--;
+			ft_putstr_fd(set->tt_left, STDERR);
+		}
+		buf[0] = 0;
+		buf[1] = 0;
+		buf[2] = 0;
 	}
 	return (0);
 }
@@ -72,6 +113,7 @@ int				ft_dell(t_set *set)
 	}
 	else if (len > 0)
 		aff_dell(set);
+	set->cur_pos--;
 	return (0);
 }
 
@@ -84,8 +126,6 @@ void			all_ccmd(char *buf, t_set *set)
 	else if (ft_strlen(buf) == 3 && buf[0] == 27)
 	{
 		set_fle(set, buf);
-		buf[0] = 0;
-		buf[1] = 0;
 	}
 	else if (ft_strlen(buf) == 1 && buf[0] == 4)
 	{
@@ -96,14 +136,17 @@ void			all_ccmd(char *buf, t_set *set)
 		}
 		buf[0] = 0;
 	}
-	else
-		set->str = ft_strjoin_free(set->str, buf);
+	else if (buf[0] != 10)
+	{
+		set->str = ft_strjoin_free_len(set->str, buf, set->cur_pos - 12);
+		set->cur_pos++;
+	}
 }
 
 void			eeddn(t_set *set)
 {
 	if (ft_strlen(set->str) > 0)
-		set->str[ft_strlen(set->str) - 1] = '\0';
+		set->str[ft_strlen(set->str)] = '\0';
 	else
 		set->str[1] = '\0';
 	add_history(set);

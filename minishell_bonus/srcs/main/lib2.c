@@ -102,3 +102,39 @@ char				*ft_strjoin_free(char *s1, char *s2)
 	res[globalsize] = '\0';
 	return (res);
 }
+
+char				*ft_strjoin_free_len(char *s1, char *s2, int len)
+{
+	char	*res;
+	int		globalsize;
+	int		i;
+	int		e;
+
+	e = 0;
+	i = 0;
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (NULL);
+	globalsize = ft_strlen(s1) + ft_strlen(s2);
+	if (!(res = malloc(sizeof(char) * globalsize + 1)))
+		return (NULL);
+	while (s1[i] && i < len)
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2[e])
+	{
+		res[i + e] = s2[e];
+		e++;
+	}
+	while (s1[i])
+	{
+		res[i + e] = s1[i];
+		i++;
+	}
+	res[i + e] = '\0';
+	free(s1);
+	return (res);
+}

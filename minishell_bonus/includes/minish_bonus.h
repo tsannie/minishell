@@ -48,6 +48,7 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	int					cur_pos;
 	int					dell_len;
 	int					dell_his;
 	char				*str;
@@ -134,9 +135,10 @@ void					aff_dell(t_set *set);
 
 int						move_left(t_set *set);
 int						move_right(t_set *set);
-int						history_prev(t_set *set);
-int						history_next(t_set *set);
+int						history_prev(t_set *set, char *buf);
+int						history_next(t_set *set, char *buf);
 char					*ft_strdup_free_len(char *str, int len);
+char					*ft_strjoin_free_len(char *s1, char *s2, int len);
 
 void					read_in(t_set *set);
 void					read_ent(t_set *set);

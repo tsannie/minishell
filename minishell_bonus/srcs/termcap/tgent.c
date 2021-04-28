@@ -59,6 +59,7 @@ void			initsis(t_set *set)
 	g_sig.run = 0;
 	ffree(set->str);
 	set->str = ft_strdup("");
+	set->cur_pos = 12;
 	signal(SIGINT, int_handler);
 	signal(SIGQUIT, sig_quit);
 }
@@ -78,6 +79,7 @@ void			read_ent(t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
+		//printf("------[%d|%d|%d]\n", buf[0], buf[1], buf[2]);
 		all_sdig(set);
 		all_ccmd(buf, set);
 		ft_putstr_fd(buf, STDERR);
