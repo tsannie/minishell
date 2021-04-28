@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_redirect_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 13:18:32 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
+/*   Updated: 2021/04/28 15:04:10 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
 
-int			ft_pwd(t_set *set)
+void	create_stdin(char *namefile, t_set *set)
 {
-	char	buff[4096 + 1];
+	//char	*line;
+	int		pipefd[2];
+	char	buf[BUF_SIZE];
 
-	ffree(set->pwd);
-	set->pwd = ft_strdup(getcwd(buff, 4097));
-	ft_putstr_fd(set->pwd, STDOUT);
-	ft_putchar_fd('\n', STDOUT);
-	return (0);
+	(void)set;
+	(void)namefile;
+	ft_bzero((void *)buf, BUF_SIZE);
+	pipe(pipefd);
+	/*while (ft_streql)
+	{
+		ft_putstr_fd("> ", STDOUT);
+		while ((ft_strcmp(buf, "\n") != 0)
+		{
+			read(0, buf, BUF_SIZE);
+			ft_putstr_fd(buf, STDOUT);
+			ft_bzero((void *)buf, BUF_SIZE);
+		}
+	}*/
+	printf("bye\n");
 }

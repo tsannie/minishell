@@ -6,13 +6,13 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
 
-static int	check_termcaps(void)
+static int			check_termcaps(void)
 {
 	if (!(tgetstr("do", NULL)))
 		return (-1);
@@ -39,7 +39,7 @@ static int	check_termcaps(void)
 	return (0);
 }
 
-void		start_term(t_set *set)
+void				start_term(t_set *set)
 {
 	int				ret;
 	char			*term_name;
@@ -65,4 +65,24 @@ void		start_term(t_set *set)
 	set->winsize = set->col * set->row;
 	if (check_termcaps() == -1)
 		ft_putstr_fd("ERR\n", STDERR);
+}
+
+int					getdellen(size_t len, size_t col)
+{
+	int				i;
+
+	i = 0;
+	while (len > col)
+	{
+		len = len - col;
+		i++;
+	}
+	return (i);
+}
+
+void				aff_dell(t_set *set)
+{
+	ft_putstr_fd(set->tt_left, STDERR);
+	ft_putstr_fd(" ", STDERR);
+	ft_putstr_fd(set->tt_left, STDERR);
 }

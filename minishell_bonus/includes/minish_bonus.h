@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/27 09:21:27 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:03:25 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,12 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	int					dell_len;
+	int					dell_his;
 	char				*str;
 	char				*word_tmp;
 	char				**push;
 	char				**list;
-	char				**file;
-
-	char				*wild;
-	int					empty_wild;
-
 	int					nb_word;
 	int					fdout;
 	int					fdin;
@@ -72,7 +69,6 @@ typedef struct			s_set
 	int					amb;
 	int					not_exist;
 	int					wait;
-
 	int					line_count;
 	int					g;
 	int					ex_er;
@@ -122,6 +118,9 @@ typedef struct			s_set
 	int					w;
 	int					x;
 	int					d;
+	char				**file;
+	char				*wild;
+	int					empty_wild;
 }						t_set;
 
 void					init_his(t_set *set);
@@ -130,6 +129,8 @@ void					add_history(t_set *set);
 void					start_term(t_set *set);
 void					all_ccmd(char *buf, t_set *set);
 void					eeddn(t_set *set);
+int						getdellen(size_t len, size_t col);
+void					aff_dell(t_set *set);
 
 int						move_left(t_set *set);
 int						move_right(t_set *set);
@@ -263,4 +264,6 @@ char					*get_val(t_set *set);
 
 char					*wildcard(char *src, t_set *set);
 int						is_wild(char *str);
+void					create_stdin(char *namefile, t_set *set);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 10:52:30 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:02:55 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ char	*simple_redirect(char *res, int *i, t_set *set)
 char	*double_redirect(char *res, int *i, t_set *set)
 {
 	char	*namefile;
+	char	a;
 
+	a = (res[*(i)] == '>') ? '>' : '<';
 	namefile = get_namefile(res, set, *(i) + 1);
 	if (!namefile[0])
 		set->amb = 1;
@@ -75,7 +77,10 @@ char	*double_redirect(char *res, int *i, t_set *set)
 	if (set->amb == 0 && set->err_quote == 0)
 	{
 		res = get_newcmd(res, set, *(i));
-		create_file(namefile, set, 2);
+		if (a == '>')
+			create_file(namefile, set, 2);
+		else
+			create_stdin(namefile, set);
 	}
 	*(i) = -1;
 	return (res);
@@ -97,7 +102,8 @@ char	*redirection(char *src, t_set *set)
 		{
 			if ((res[i] == '\'' || res[i] == '\"'))
 				i = forwar_quote(res, i);
-			else if (res[i] == '>' && res[i + 1] == '>')
+			else if ((res[i] == '>' && res[i + 1] == '>')
+				|| (res[i] == '<' && res[i + 1] == '<'))
 				res = double_redirect(res, &i, set);
 			else if ((res[i] == '>' || res[i] == '<'))
 				res = simple_redirect(res, &i, set);

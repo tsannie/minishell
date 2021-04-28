@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/27 07:13:38 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void			init_struct(t_set *set, char **envp)
 	set->pid = 0;
 	set->ex_er = 0;
 	set->fdin = -1;
+	set->dell_len = 0;
+	set->dell_his = 0;
 	set->fdout = -1;
 	set->save_stdin = -1;
 	set->save_stdout = -1;
