@@ -3,68 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:29:50 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/29 16:59:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
-
-void			go_home(t_set *set, char *buf)
-{
-	size_t len;
-
-	len = ft_strlen(set->str);
-	while (set->cur_pos > 12)
-	{
-		ft_putstr_fd(set->tt_left, STDERR);
-		set->cur_pos--;
-	}
-}
-
-void			go_end(t_set *set, char *buf)
-{
-	size_t len;
-
-	len = ft_strlen(set->str);
-	while (set->cur_pos < (ft_strlen(set->str) + 12))
-	{
-		ft_putstr_fd(set->tt_right, STDERR);
-		set->cur_pos++;
-	}
-}
-
-int				set_fle(t_set *set, char *buf)
-{
-	signal(SIGINT, SIG_IGN);
-	if (buf[1] == 91)
-	{
-		if (buf[2] == 65)
-			history_prev(set, buf);
-		else if (buf[2] == 66)
-			history_next(set, buf);
-		else if (buf[2] == 70)
-			go_home(set, buf);
-		else if (buf[2] == 72)
-			go_end(set, buf);
-		else if (buf[2] == 67 && set->cur_pos < (ft_strlen(set->str) + 12))
-		{
-			set->cur_pos++;
-			ft_putstr_fd(set->tt_right, STDERR);
-		}
-		else if (buf[2] == 68 && set->cur_pos > 12)
-		{
-			set->cur_pos--;
-			ft_putstr_fd(set->tt_left, STDERR);
-		}
-		buf[0] = 0;
-		buf[1] = 0;
-		buf[2] = 0;
-	}
-	return (0);
-}
 
 char			*ft_strdup_free_len(char *str, int len)
 {
@@ -89,14 +35,42 @@ char			*ft_strdup_free_len(char *str, int len)
 	return (new);
 }
 
+char			*ft_strdup_free_pos(char *str, int len, int pos)
+{
+	int			i;
+	char		*new;
+	int e;
+
+	e = 0;
+	i = 0;
+	if (!str || len <= 0 || pos <= 0)
+	{
+		ffree(str);
+		return (ft_strdup(""));
+	}
+	if (!(new = malloc(sizeof(char) * (len))))
+		return (NULL);
+	while (i < len)
+	{
+		if (pos == i)
+			e++;
+		new[i] = str[i + e];
+		i++;
+	}
+	new[i] = '\0';
+	//printf("\n\n[%s]|[%s][%d][%d]\n\n", str, new, len, pos);
+	ffree(str);
+	return (new);
+}
 int				ft_dell(t_set *set)
 {
 	size_t		len;
 	size_t		col;
 
+
 	col = set->col;
 	len = ft_strlen(set->str);
-	set->str = ft_strdup_free_len(set->str, len);
+	set->str = ft_strdup_free_pos(set->str, len, set->cur_pos - 13);
 	set->dell_len = getdellen(len + 12, col);
 	if ((len + 12) == col)
 	{
@@ -117,16 +91,26 @@ int				ft_dell(t_set *set)
 	return (0);
 }
 
+
+void			aff_modif_str(t_set *set, char *buf)
+{
+	size_t		len;
+	int			pos;
+
+	pos = set->cur_pos + 1;
+	len = ft_strlen(set->str);
+	set->str = ft_strjoin_free_len(set->str, buf, set->cur_pos - 12);
+	set->cur_pos++;
+}
+
 void			all_ccmd(char *buf, t_set *set)
 {
-	if (buf[0] == 127 && ft_strlen(buf) == 1)
+	if (buf[0] == 127 && ft_strlen(buf) == 1 && set->cur_pos > 12)
 		buf[0] = ft_dell(set);
 	else if (buf[0] == 9 && ft_strlen(buf) == 1)
 		buf[0] = 0;
-	else if (ft_strlen(buf) == 3 && buf[0] == 27)
-	{
+	else if (ft_strlen(buf) >= 3 && buf[0] == 27)
 		set_fle(set, buf);
-	}
 	else if (ft_strlen(buf) == 1 && buf[0] == 4)
 	{
 		if (ft_strlen(set->str) == 0)
@@ -136,11 +120,11 @@ void			all_ccmd(char *buf, t_set *set)
 		}
 		buf[0] = 0;
 	}
+	else if ((set->str[set->cur_pos - 12] != ' ') && (buf[0] == 22 && buf[1] == 0 ) || (buf[0] == 6 && buf[1] == 0)
+	|| (buf[0] == 18 && buf[1] == 0))
+		is_copy_cut(set, buf);
 	else if (buf[0] != 10)
-	{
-		set->str = ft_strjoin_free_len(set->str, buf, set->cur_pos - 12);
-		set->cur_pos++;
-	}
+		aff_modif_str(set, buf);
 }
 
 void			eeddn(t_set *set)

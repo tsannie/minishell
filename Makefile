@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/04/28 15:03:53 by tsannie          ###   ########.fr        #
+#    Updated: 2021/04/29 14:24:12 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 #                         Source Files_bonus                         #
 ######################################################################
 
-BONUS			= wildcard_bonus.c ft_redirect_bonus.c
+BONUS			= wildcard_bonus.c ft_redirect_bonus.c edit_line_bonus.c edit_copy.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \

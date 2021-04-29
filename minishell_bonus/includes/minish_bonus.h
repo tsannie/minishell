@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 15:46:17 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/29 15:04:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	char 				*edit_copy;
 	int					cur_pos;
 	int					dell_len;
 	int					dell_his;
@@ -124,6 +125,10 @@ typedef struct			s_set
 	char				*wild;
 	int					empty_wild;
 }						t_set;
+
+int						set_fle(t_set *set, char *buf);
+void					is_copy_cut(t_set *set, char *buf);
+int						ft_dell(t_set *set);
 
 void					init_his(t_set *set);
 void					add_history(t_set *set);

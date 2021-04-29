@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/04/28 17:52:56 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/04/29 15:09:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void			initsis(t_set *set)
 	signal(SIGQUIT, sig_quit);
 }
 
-static int			ft_dell(t_set *set)
+static int			ft_dell2(t_set *set)
 {
 	size_t		len;
 	size_t		col;
@@ -93,7 +93,7 @@ static int			ft_dell(t_set *set)
 static void			all_ccmd2(char *buf, t_set *set)
 {
 	if (buf[0] == 127 && ft_strlen(buf) == 1)
-		buf[0] = ft_dell(set);
+		buf[0] = ft_dell2(set);
 	else if (buf[0] == 9 && ft_strlen(buf) == 1)
 		buf[0] = 0;
 	else if (ft_strlen(buf) == 3 && buf[0] == 27)
