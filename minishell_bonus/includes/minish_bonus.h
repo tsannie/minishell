@@ -133,6 +133,8 @@ int						ft_dell(t_set *set);
 void					init_his(t_set *set);
 void					add_history(t_set *set);
 void 					free_buff(char *buf);
+void					aff_modif_str(t_set *set, char *buf);
+void			aff_buf(t_set *set, char *buf);
 
 void					start_term(t_set *set);
 void					all_ccmd(char *buf, t_set *set);

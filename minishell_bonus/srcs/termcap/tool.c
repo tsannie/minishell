@@ -62,18 +62,6 @@ char			*ft_strdup_free_pos(char *str, int len, int pos)
 	return (new);
 }
 
-void			dell_last_aff(int len, t_set *set)
-{
-	int len_cp;
-
-	len_cp = set->cur_pos - 12;
-	while (len_cp++ < len)
-		ft_putstr_fd(set->tt_right, STDERR);
-	//aff_dell(set);
-	//while (len_cp-- >= set->cur_pos - 12)
-	//	ft_putstr_fd(set->tt_left, STDERR);
-}
-
 int				ft_dell(t_set *set)
 {
 	size_t		len;
