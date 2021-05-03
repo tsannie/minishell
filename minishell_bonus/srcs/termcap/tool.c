@@ -43,12 +43,12 @@ char			*ft_strdup_free_pos(char *str, int len, int pos)
 
 	e = 0;
 	i = 0;
-	if (!str || len <= 0 || pos <= 0)
+	if (!str || len <= 0)
 	{
 		ffree(str);
 		return (ft_strdup(""));
 	}
-	if (!(new = malloc(sizeof(char) * (len))))
+	if (!(new = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	while (i < len)
 	{
@@ -58,10 +58,22 @@ char			*ft_strdup_free_pos(char *str, int len, int pos)
 		i++;
 	}
 	new[i] = '\0';
-	//printf("\n\n[%s]|[%s][%d][%d]\n\n", str, new, len, pos);
 	ffree(str);
 	return (new);
 }
+
+void			dell_last_aff(int len, t_set *set)
+{
+	int len_cp;
+
+	len_cp = set->cur_pos - 12;
+	while (len_cp++ < len)
+		ft_putstr_fd(set->tt_right, STDERR);
+	//aff_dell(set);
+	//while (len_cp-- >= set->cur_pos - 12)
+	//	ft_putstr_fd(set->tt_left, STDERR);
+}
+
 int				ft_dell(t_set *set)
 {
 	size_t		len;
@@ -91,6 +103,14 @@ int				ft_dell(t_set *set)
 	return (0);
 }
 
+void 	free_buff(char *buf)
+{
+	if (buf[0] != 0)
+	{
+		ft_bzero((void *)buf, BUF_SIZE);
+		buf[0] = 0;
+	}
+}
 
 void			aff_modif_str(t_set *set, char *buf)
 {
@@ -106,9 +126,12 @@ void			aff_modif_str(t_set *set, char *buf)
 void			all_ccmd(char *buf, t_set *set)
 {
 	if (buf[0] == 127 && ft_strlen(buf) == 1 && set->cur_pos > 12)
-		buf[0] = ft_dell(set);
+	{
+		ft_dell(set);
+		free_buff(buf);
+	}
 	else if (buf[0] == 9 && ft_strlen(buf) == 1)
-		buf[0] = 0;
+		free_buff(buf);
 	else if (ft_strlen(buf) >= 3 && buf[0] == 27)
 		set_fle(set, buf);
 	else if (ft_strlen(buf) == 1 && buf[0] == 4)
@@ -118,12 +141,12 @@ void			all_ccmd(char *buf, t_set *set)
 			ft_putstr_fd("exit\n", STDERR);
 			exit(0);
 		}
-		buf[0] = 0;
+		free_buff(buf);
 	}
 	else if ((set->str[set->cur_pos - 12] != ' ') && (buf[0] == 22 && buf[1] == 0 ) || (buf[0] == 6 && buf[1] == 0)
 	|| (buf[0] == 18 && buf[1] == 0))
 		is_copy_cut(set, buf);
-	else if (buf[0] != 10)
+	else if (buf[0] != 10 && buf[0] != 127)
 		aff_modif_str(set, buf);
 }
 

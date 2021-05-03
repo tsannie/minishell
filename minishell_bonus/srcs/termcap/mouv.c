@@ -31,13 +31,11 @@ void		aff_dellnl(size_t len, size_t col, t_set *set)
 	}
 }
 
-int			history_prev(t_set *set, char *buf)
+int			history_prev(t_set *set)
 {
 	size_t len;
 	size_t col;
 
-	buf[0] = 0;
-	buf[1] = 0;
 	col = set->col;
 	set->dell_his = 0;
 	len = ft_strlen(set->str) + 12;
@@ -56,13 +54,11 @@ int			history_prev(t_set *set, char *buf)
 	return (0);
 }
 
-int			history_next(t_set *set, char *buf)
+int			history_next(t_set *set)
 {
 	size_t len;
 	size_t col;
 
-	buf[0] = 0;
-	buf[1] = 0;
 	col = set->col;
 	len = ft_strlen(set->str) + 12;
 	if (set->his_pos < set->inc_his && set->history[set->his_pos + 1])

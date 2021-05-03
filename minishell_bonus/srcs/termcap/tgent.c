@@ -68,9 +68,10 @@ void			aff_buf(t_set *set, char *buf)
 {
 	size_t len;
 
-	len = ft_strlen(set->str);
+	len = ft_strlen(set->str) + 1;
 	ft_putstr_fd(buf, STDERR);
 	ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
+	ft_putstr_fd(" ", STDERR);
 	while (len-- > (set->cur_pos - 12))
 		ft_putstr_fd(set->tt_left, STDERR);
 }

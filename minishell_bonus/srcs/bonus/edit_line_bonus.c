@@ -43,8 +43,8 @@ void			go_g(t_set *set, char *buf)
 
 	len = ft_strlen(set->str);
 	pos = set->cur_pos;
-	ft_bzero((void *)buf, BUF_SIZE);
-	buf[0] = 0;
+	//ft_bzero((void *)buf, BUF_SIZE);
+	//buf[0] = 0;
 	if (set->cur_pos - 13 > 0 && set->str[set->cur_pos - 12] != ' ' &&
 	set->str[set->cur_pos - 13] == ' ')
 	{
@@ -87,8 +87,8 @@ void			go_d(t_set *set, char *buf)
 
 	len = ft_strlen(set->str);
 	pos = set->cur_pos;
-	ft_bzero((void *)buf, BUF_SIZE);
-	buf[0] = 0;
+	//ft_bzero((void *)buf, BUF_SIZE);
+	//buf[0] = 0;
 	while (set->cur_pos < (ft_strlen(set->str) + 12) && set->str[set->cur_pos - 12] != ' ')
 	{
 		ft_putstr_fd(set->tt_right, STDERR);
@@ -107,9 +107,9 @@ int				set_fle(t_set *set, char *buf)
 	if (buf[1] == 91)
 	{
 		if (buf[2] == 65)
-			history_prev(set, buf);
+			history_prev(set);
 		else if (buf[2] == 66)
-			history_next(set, buf);
+			history_next(set);
 		else if (buf[2] == 70)
 			go_home(set, buf);
 		else if (buf[2] == 72)
@@ -128,9 +128,7 @@ int				set_fle(t_set *set, char *buf)
 			set->cur_pos--;
 			ft_putstr_fd(set->tt_left, STDERR);
 		}
-		buf[0] = 0;
-		buf[1] = 0;
-		buf[2] = 0;
+		free_buff(buf);
 	}
 	return (0);
 }

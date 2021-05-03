@@ -53,8 +53,7 @@ char			*ft_strdup_space_len(char *str, int pos)
 
 void			go_copy(t_set *set, char *buf)
 {
-	ft_bzero((void *)buf, BUF_SIZE);
-	buf[0] = 0;
+
 	ffree(set->edit_copy);
 	set->edit_copy = ft_strdup_space_len(set->str, set->cur_pos - 12);
 	printf("[%s]\n", set->edit_copy);
@@ -73,13 +72,10 @@ void			go_cut(t_set *set, char *buf)
 	//while (set->str[set->cur_pos - 12])// != ' ' && set->cur_pos - 12 > 0)
 	//	ft_dell(set);
 
-	ft_bzero((void *)buf, BUF_SIZE);
-	buf[0] = 0;
 }
 void			go_paste(t_set *set, char *buf)
 {
-	ft_bzero((void *)buf, BUF_SIZE);
-	buf[0] = 0;
+
 }
 void			is_copy_cut(t_set *set, char *buf)
 {
@@ -89,4 +85,7 @@ void			is_copy_cut(t_set *set, char *buf)
 		go_cut(set, buf);
 	else if (buf[0] == 18 && buf[1] == 0)
 		go_paste(set, buf);
+	else
+		return ;
+	free_buff(buf);
 }
