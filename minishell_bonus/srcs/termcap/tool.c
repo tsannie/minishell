@@ -62,31 +62,78 @@ char			*ft_strdup_free_pos(char *str, int len, int pos)
 	return (new);
 }
 
+void			revenir_pos(t_set *set)
+{
+	size_t		len;
+	size_t		col;
+	int cursor;
+	int e = 0;
+	cursor = set->cur_pos;
+	col = set->col;
+
+	len = ft_strlen(set->str) + 12;
+	while (len >= set->cur_pos)
+	{
+		//printf("[%d][%d][%d]\n", len, col, len % col);
+		if ((len % col) == 0)
+		{
+			ft_putstr_fd(set->tt_up, STDERR);
+			while (++e < col)
+				ft_putstr_fd(set->tt_right, STDERR);
+		}
+		else
+			ft_putstr_fd(set->tt_left, STDERR);
+		len--;
+		e = 0;
+	}
+}
+
 int				ft_dell(t_set *set)
 {
 	size_t		len;
 	size_t		col;
-
+	int cursor;
+	int e = 0;
+	cursor = set->cur_pos;
 
 	col = set->col;
+	
 	len = ft_strlen(set->str);
 	set->str = ft_strdup_free_pos(set->str, len, set->cur_pos - 13);
-	set->dell_len = getdellen(len + 12, col);
-	if ((len + 12) == col)
+	set->dell_len = getdellen(cursor, col);
+	if (cursor == col)
 	{
+		ft_putstr_fd("\033[2K", STDERR);
 		ft_putstr_fd(set->tt_up, STDERR);
 		ft_putstr_fd("\033[2K", STDERR);
 		disp_prompt();
 		ft_putstr_fd(set->str, STDERR);
+
+		//ft_putstr_fd(set->tt_left, STDERR);
+		//ft_putstr_fd(" ", STDERR);
+	
+		revenir_pos(set);
+
 	}
-	else if (((len + 12) % col) == 0 && ((len + 12) >= col * 2))
+	else if ((cursor % col) == 0 && (cursor >= col * 2))
 	{
 		ft_putstr_fd(set->tt_up, STDERR);
 		ft_putstr_fd("\033[2K", STDERR);
 		ft_putstr_fd(set->str + ((col * set->dell_len) - 12), STDERR);
+		revenir_pos(set);
+
 	}
-	else if (len > 0)
-		aff_dell(set);
+	else if (cursor - 12 > 0)
+	{
+		ft_putstr_fd(set->tt_left, STDERR);
+		ft_putstr_fd(set->str + (cursor - 13), STDERR);
+		ft_putstr_fd(" ", STDERR);
+		ft_putstr_fd(set->tt_left, STDERR);
+		revenir_pos(set);
+
+
+	}
+	//aff_dell(set);
 	set->cur_pos--;
 	return (0);
 }
@@ -100,7 +147,7 @@ void 	free_buff(char *buf)
 	}
 }
 
-void			aff_modif_str(t_set *set, char *buf)
+int			aff_modif_str(t_set *set, char *buf)
 {
 	size_t		len;
 	int			pos;
@@ -109,14 +156,23 @@ void			aff_modif_str(t_set *set, char *buf)
 	len = ft_strlen(set->str);
 	set->str = ft_strjoin_free_len(set->str, buf, set->cur_pos - 12);
 	set->cur_pos++;
+	if (set->cur_pos - 12 < ft_strlen(set->str))
+	{
+		ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
+		revenir_pos(set);
+		ft_putstr_fd(set->tt_right, STDERR);
+		return (1);
+	}
+	return (0);
 }
 
 void			all_ccmd(char *buf, t_set *set)
 {
+	int oui = 0;
 	if (buf[0] == 127 && ft_strlen(buf) == 1 && set->cur_pos > 12)
 	{
 		ft_dell(set);
-		free_buff(buf);
+		//free_buff(buf);
 	}
 	else if (buf[0] == 9 && ft_strlen(buf) == 1)
 		free_buff(buf);
@@ -135,7 +191,9 @@ void			all_ccmd(char *buf, t_set *set)
 	|| (buf[0] == 18 && buf[1] == 0))
 		is_copy_cut(set, buf);
 	else if (buf[0] != 10 && buf[0] != 127)
-		aff_modif_str(set, buf);
+		oui = aff_modif_str(set, buf);
+	if (oui == 0)
+		ft_putstr_fd(buf, STDERR);
 }
 
 void			eeddn(t_set *set)

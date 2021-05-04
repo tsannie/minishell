@@ -101,6 +101,43 @@ void			go_d(t_set *set, char *buf)
 	}
 }
 
+void			fg_o_fd(t_set *set, char *buf)
+{
+	int col;
+	int len;
+	int r;
+
+	r = 0;
+	len = set->cur_pos;
+	col = set->col;
+	if (buf[2] == 67 && set->cur_pos - 12 < ft_strlen(set->str))
+	{
+		//printf("[%d][%d][%d]\n", len, col, len % col);
+		if (((len + 1) % col) == 0)
+		{
+			ft_putstr_fd(set->tt_down, STDERR);
+			while (--col > 0)
+				ft_putstr_fd(set->tt_left, STDERR);
+		}
+		else
+			ft_putstr_fd(set->tt_right, STDERR);
+		set->cur_pos++;
+
+	}
+	else if (buf[2] == 68 && set->cur_pos -12 > 0)
+	{
+		if ((len % col) == 0)
+		{
+			ft_putstr_fd(set->tt_up, STDERR);
+			while (++r < col)
+				ft_putstr_fd(set->tt_right, STDERR);
+		}
+		else
+			ft_putstr_fd(set->tt_left, STDERR);
+		set->cur_pos--;
+	}
+}
+
 int				set_fle(t_set *set, char *buf)
 {
 	signal(SIGINT, SIG_IGN);
@@ -118,16 +155,7 @@ int				set_fle(t_set *set, char *buf)
 			go_g(set, buf);
 		else if (buf[2] == 49 && buf[5] == 67)
 			go_d(set, buf);
-		else if (buf[2] == 67 && set->cur_pos - 12 < ft_strlen(set->str))
-		{
-			set->cur_pos++;
-			ft_putstr_fd(set->tt_right, STDERR);
-		}
-		else if (buf[2] == 68 && set->cur_pos -12 > 0)
-		{
-			set->cur_pos--;
-			ft_putstr_fd(set->tt_left, STDERR);
-		}
+		fg_o_fd(set, buf);
 		free_buff(buf);
 	}
 	return (0);

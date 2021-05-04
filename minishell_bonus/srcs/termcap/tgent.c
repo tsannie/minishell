@@ -67,13 +67,47 @@ void			initsis(t_set *set)
 void			aff_buf(t_set *set, char *buf)
 {
 	size_t len;
-
-	len = ft_strlen(set->str) + 1;
+	int r = 0;
+	int e = 0;
+	size_t col = set->col;
+	len = ft_strlen(set->str);
 	ft_putstr_fd(buf, STDERR);
-	ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
-	ft_putstr_fd(" ", STDERR);
-	while (len-- > (set->cur_pos - 12))
-		ft_putstr_fd(set->tt_left, STDERR);
+	//ft_putstr_fd("{", STDERR);
+	//ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
+	//ft_putstr_fd("}", STDERR);
+
+	//while ((set->cur_pos + r - 12) < len)
+	//{
+		//ft_putchar_fd(' ', STDERR);
+//		r++;
+//	}
+
+
+/*  	while (len > (set->cur_pos - 12))
+	{
+ 		if (r == 0)
+		{
+			ft_putchar_fd(' ', STDERR);
+			ft_putstr_fd(set->tt_left, STDERR);
+		}
+		if (((len + 12) % col) == 0)
+		{
+
+			ft_putstr_fd(set->tt_up, STDERR);
+			while (e < col)
+			{
+				ft_putstr_fd(set->tt_right, STDERR);
+				e++;
+			}
+
+		}
+		else
+			ft_putstr_fd(set->tt_left, STDERR);
+		e = 0;
+		r++;
+		len--;
+	} */
+
 }
 
 void			read_ent(t_set *set)
@@ -94,7 +128,7 @@ void			read_ent(t_set *set)
 		//printf("------[%d|%d|%d]-[%d|%d|%d]\n", buf[0], buf[1], buf[2],buf[3], buf[4], buf[5]);
 		all_sdig(set);
 		all_ccmd(buf, set);
-		aff_buf(set, buf);
+		//aff_buf(set, buf);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
