@@ -108,20 +108,16 @@ int				ft_dell(t_set *set)
 		ft_putstr_fd("\033[2K", STDERR);
 		disp_prompt();
 		ft_putstr_fd(set->str, STDERR);
-
-		//ft_putstr_fd(set->tt_left, STDERR);
-		//ft_putstr_fd(" ", STDERR);
-	
 		revenir_pos(set);
 
 	}
 	else if ((cursor % col) == 0 && (cursor >= col * 2))
 	{
+		ft_putstr_fd("\033[2K", STDERR);
 		ft_putstr_fd(set->tt_up, STDERR);
 		ft_putstr_fd("\033[2K", STDERR);
 		ft_putstr_fd(set->str + ((col * set->dell_len) - 12), STDERR);
 		revenir_pos(set);
-
 	}
 	else if (cursor - 12 > 0)
 	{
@@ -130,8 +126,6 @@ int				ft_dell(t_set *set)
 		ft_putstr_fd(" ", STDERR);
 		ft_putstr_fd(set->tt_left, STDERR);
 		revenir_pos(set);
-
-
 	}
 	//aff_dell(set);
 	set->cur_pos--;
@@ -150,17 +144,36 @@ void 	free_buff(char *buf)
 int			aff_modif_str(t_set *set, char *buf)
 {
 	size_t		len;
-	int			pos;
+	size_t		col;
+	int e;
 
-	pos = set->cur_pos + 1;
-	len = ft_strlen(set->str);
+	e = 0;
+	col = set->col;
 	set->str = ft_strjoin_free_len(set->str, buf, set->cur_pos - 12);
+	len = ft_strlen(set->str) + 12;
 	set->cur_pos++;
 	if (set->cur_pos - 12 < ft_strlen(set->str))
 	{
-		ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
-		revenir_pos(set);
-		ft_putstr_fd(set->tt_right, STDERR);
+		ft_putstr_fd(buf, STDERR);
+		ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
+		if ((len % col) == 0)
+		{
+			ft_putstr_fd(" ", STDERR);
+			ft_putstr_fd(set->tt_left, STDERR);
+		}
+ 		while (len > set->cur_pos)
+		{
+		 	 if (((len) % col) == 0)
+			{
+				ft_putstr_fd(set->tt_up, STDERR);
+				while (++e < col)
+					ft_putstr_fd(set->tt_right, STDERR);
+			}
+			else  
+				ft_putstr_fd(set->tt_left, STDERR);
+			len--;
+			e = 0;
+		}
 		return (1);
 	}
 	return (0);
