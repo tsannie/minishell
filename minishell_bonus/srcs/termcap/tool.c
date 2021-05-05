@@ -67,24 +67,35 @@ void			revenir_pos(t_set *set)
 	size_t		len;
 	size_t		col;
 	int cursor;
-	int e = 0;
-	cursor = set->cur_pos;
-	col = set->col;
 
+	int e = 0;
+	int x = 0;
+	cursor = set->cur_pos - 1;
+	col = set->col;
 	len = ft_strlen(set->str) + 12;
-	while (len >= set->cur_pos)
+	while (len > cursor)
 	{
-		//printf("[%d][%d][%d]\n", len, col, len % col);
-		if ((len % col) == 0)
+ 		if (((len) % col) == 0 && x != 0 && len >= col)
 		{
 			ft_putstr_fd(set->tt_up, STDERR);
-			while (++e < col)
+			while (e < col)
+			{
 				ft_putstr_fd(set->tt_right, STDERR);
+				e++;
+			}
+
 		}
 		else
 			ft_putstr_fd(set->tt_left, STDERR);
 		len--;
 		e = 0;
+		x++;
+	}
+	if ((ft_strlen(set->str) + 12 == col) &&
+	(ft_strlen(set->str) + 13 != set->cur_pos))
+	{
+		//printf("\n\n\n[%d][%d]\n\n\n",ft_strlen(set->str) + 13, set->cur_pos);
+		ft_putstr_fd(set->tt_right, STDERR);
 	}
 }
 
@@ -92,43 +103,34 @@ int				ft_dell(t_set *set)
 {
 	size_t		len;
 	size_t		col;
-	int cursor;
 	int e = 0;
-	cursor = set->cur_pos;
 
 	col = set->col;
 	
 	len = ft_strlen(set->str);
 	set->str = ft_strdup_free_pos(set->str, len, set->cur_pos - 13);
-	set->dell_len = getdellen(cursor, col);
-	if (cursor == col)
+	set->dell_len = getdellen(set->cur_pos, col);
+	if (set->cur_pos - 12 > 0)
 	{
-		ft_putstr_fd("\033[2K", STDERR);
-		ft_putstr_fd(set->tt_up, STDERR);
-		ft_putstr_fd("\033[2K", STDERR);
-		disp_prompt();
-		ft_putstr_fd(set->str, STDERR);
-		revenir_pos(set);
-
-	}
-	else if ((cursor % col) == 0 && (cursor >= col * 2))
-	{
-		ft_putstr_fd("\033[2K", STDERR);
-		ft_putstr_fd(set->tt_up, STDERR);
-		ft_putstr_fd("\033[2K", STDERR);
-		ft_putstr_fd(set->str + ((col * set->dell_len) - 12), STDERR);
-		revenir_pos(set);
-	}
-	else if (cursor - 12 > 0)
-	{
-		ft_putstr_fd(set->tt_left, STDERR);
-		ft_putstr_fd(set->str + (cursor - 13), STDERR);
-		ft_putstr_fd(" ", STDERR);
-		ft_putstr_fd(set->tt_left, STDERR);
+		if ((set->cur_pos % col) == 0)
+		{
+			ft_putstr_fd(set->tt_up, STDERR);
+			while (++e <= len + 14)
+				ft_putstr_fd(set->tt_right, STDERR);
+			ft_putstr_fd(" ", STDERR);
+		}
+		else
+		{
+			ft_putstr_fd(set->tt_left, STDERR);
+			ft_putstr_fd(" ", STDERR);
+			ft_putstr_fd(set->tt_left, STDERR);
+		}
+		ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
 		revenir_pos(set);
 	}
-	//aff_dell(set);
 	set->cur_pos--;
+
+	//aff_dell(set);
 	return (0);
 }
 
