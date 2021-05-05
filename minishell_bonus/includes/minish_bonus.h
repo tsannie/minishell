@@ -132,6 +132,10 @@ int						ft_dell(t_set *set);
 
 void					init_his(t_set *set);
 void					add_history(t_set *set);
+void 					free_buff(char *buf);
+int					aff_modif_str(t_set *set, char *buf);
+void					aff_buf(t_set *set, char *buf);
+void					aff_dellnl(t_set *set);
 
 void					start_term(t_set *set);
 void					all_ccmd(char *buf, t_set *set);
@@ -141,8 +145,8 @@ void					aff_dell(t_set *set);
 
 int						move_left(t_set *set);
 int						move_right(t_set *set);
-int						history_prev(t_set *set, char *buf);
-int						history_next(t_set *set, char *buf);
+int						history_prev(t_set *set);
+int						history_next(t_set *set);
 char					*ft_strdup_free_len(char *str, int len);
 char					*ft_strjoin_free_len(char *s1, char *s2, int len);
 
