@@ -189,7 +189,7 @@ void			all_ccmd(char *buf, t_set *set)
 	}
 	else if (((set->str[set->cur_pos - 12] != ' ')) &&
 	((buf[0] == 22 && buf[1] == 0 ) || (buf[0] == 6 && buf[1] == 0) ||
-	(buf[0] == 18 && buf[1] == 0)))  
+	(buf[0] == 18 && buf[1] == 0))) 
 		is_copy_cut(set, buf);
 	else if (buf[0] != 10 && buf[0] != 127)
 		oui = aff_modif_str(set, buf);
