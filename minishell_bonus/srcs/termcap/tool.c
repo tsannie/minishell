@@ -137,14 +137,14 @@ int				ft_dell(t_set *set)
 			ft_putstr_fd(" ", STDERR);
 			ft_putstr_fd(set->tt_left, STDERR);
 		}
-		//ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
+		ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
  	  	/* if ((ft_strlen(set->str) + 13 != set->cur_pos)
 		&& (ft_strlen(set->str) + 12 != set->col))
 		{
 			ft_putstr_fd(" ", STDERR);
 			ft_putstr_fd(set->tt_left, STDERR);
 		}
- *///		revenir_pos(set);
+ */		revenir_pos(set);
 	}
 	set->cur_pos--;
 	//aff_dell(set);
