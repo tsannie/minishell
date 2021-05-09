@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:29:50 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/29 16:59:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/09 13:34:33by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void			revenir_pos(t_set *set)
 		e = 0;
 		x++;
 	}
-/*  	if ((ft_strlen(set->str) + 12 == col) &&
+  /*	if ((ft_strlen(set->str) + 12 == col) &&
 	(ft_strlen(set->str) + 13 != set->cur_pos))
 	{
 //		printf("\n\n\n[%d][%d]\n\n\n",ft_strlen(set->str) + 13, set->cur_pos);
@@ -123,8 +123,12 @@ int				ft_dell(t_set *set)
 			ft_putstr_fd(set->tt_up, STDERR);
 			while (++e < len + 12)
 				ft_putstr_fd(set->tt_right, STDERR);
-			//ft_putstr_fd(" ", STDERR);
-			//ft_putstr_fd(set->tt_right, STDERR);
+			ft_putstr_fd("  ", STDERR);
+			e = 0;
+			ft_putstr_fd(set->tt_up, STDERR);
+			while (++e < len + 12)
+				ft_putstr_fd(set->tt_right, STDERR);
+			ft_putstr_fd(set->tt_right, STDERR);
 		}
 		else
 		{
