@@ -136,14 +136,14 @@ int				ft_dell(t_set *set)
 			ft_putstr_fd(" ", STDERR);
 			ft_putstr_fd(set->tt_left, STDERR);
 		}
-		//ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
+		ft_putstr_fd(set->str + (set->cur_pos - 13), STDERR);
  	  	/* if ((ft_strlen(set->str) + 13 != set->cur_pos)
 		&& (ft_strlen(set->str) + 12 != set->col))
 		{
 			ft_putstr_fd(" ", STDERR);
 			ft_putstr_fd(set->tt_left, STDERR);
 		}
- */		//revenir_pos(set);
+ */		revenir_pos(set);
 	}
 	set->cur_pos--;
 	//aff_dell(set);
@@ -200,10 +200,11 @@ int			aff_modif_str(t_set *set, char *buf)
 void			all_ccmd(char *buf, t_set *set)
 {
 	int oui = 0;
-	if (buf[0] == 127 && ft_strlen(buf) == 1 && set->cur_pos > 12)
+	if (buf[0] == 127 && ft_strlen(buf) == 1)
 	{
-		ft_dell(set);
-		//free_buff(buf);
+		if (set->cur_pos > 12)
+			ft_dell(set);
+		free_buff(buf);
 	}
 	else if (buf[0] == 9 && ft_strlen(buf) == 1)
 		free_buff(buf);
