@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/29 14:28:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/10 12:40:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,7 @@ void			initsis(t_set *set)
 	signal(SIGQUIT, sig_quit);
 }
 
-void			aff_buf(t_set *set, char *buf)
-{
-	size_t len;
-	int r = 0;
-	int e = 0;
-	size_t col = set->col;
-	len = ft_strlen(set->str);
-	ft_putstr_fd(buf, STDERR);
-}
+
 
 void			read_ent(t_set *set)
 {

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/29 15:04:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/10 15:04:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,12 @@ typedef struct			s_set
 	int					empty_wild;
 }						t_set;
 
+void					revenir_pos(t_set *set, size_t len);
+int						ft_dell(t_set *set);
+char					*ft_strdup_free_len(char *str, int len);
+char					*ft_strdup_free_pos(char *str, int len, int pos);
+void					aff_end_col(t_set *set, size_t len);
+
 int						set_fle(t_set *set, char *buf);
 void					is_copy_cut(t_set *set, char *buf);
 int						ft_dell(t_set *set);
@@ -133,8 +139,7 @@ int						ft_dell(t_set *set);
 void					init_his(t_set *set);
 void					add_history(t_set *set);
 void 					free_buff(char *buf);
-int					aff_modif_str(t_set *set, char *buf);
-void					aff_buf(t_set *set, char *buf);
+int						aff_modif_str(t_set *set, char *buf);
 void					aff_dellnl(t_set *set);
 
 void					start_term(t_set *set);
