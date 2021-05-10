@@ -12,10 +12,10 @@
 
 #include "../../includes/minish_bonus.h"
 
-void		aff_dellnl(t_set *set)
+void			aff_dellnl(t_set *set)
 {
-	size_t col;
-	int e;
+	size_t		col;
+	int			e;
 
 	e = 0;
 	col = set->col;
@@ -31,17 +31,16 @@ void		aff_dellnl(t_set *set)
 			ft_putstr_fd(set->tt_right, STDERR);
 		set->cur_pos++;
 		col = set->col;
-
 	}
 	while (set->cur_pos > 12)
 		ft_dell(set);
 }
 
-int			history_prev(t_set *set)
+int				history_prev(t_set *set)
 {
-	size_t len;
-	size_t col;
-	int e;
+	size_t		len;
+	size_t		col;
+	int			e;
 
 	e = 0;
 	col = set->col;
@@ -54,17 +53,17 @@ int			history_prev(t_set *set)
 	aff_dellnl(set);
 	set->dell_his = getdellen(ft_strlen(set->str), col);
 	ffree(set->str);
-	set->str = ft_strdup(set->history[set->his_pos]);	
+	set->str = ft_strdup(set->history[set->his_pos]);
 	ft_putstr_fd(set->str, STDERR);
 	set->cur_pos = ft_strlen(set->str) + 12;
 	return (0);
 }
 
-int			history_next(t_set *set)
+int				history_next(t_set *set)
 {
-	size_t len;
-	size_t col;
-	int e;
+	size_t		len;
+	size_t		col;
+	int			e;
 
 	e = 0;
 	col = set->col;
@@ -74,7 +73,6 @@ int			history_next(t_set *set)
 	else
 		return (0);
 	aff_dellnl(set);
-
 	ffree(set->str);
 	set->str = ft_strdup(set->history[set->his_pos]);
 	set->dell_his = getdellen(ft_strlen(set->str), set->col);
