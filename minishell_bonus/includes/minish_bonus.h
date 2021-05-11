@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/10 15:04:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 12:53:21 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_BONUS_H
 # define MINISH_BONUS_H
+
 # include "../../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -122,7 +123,10 @@ typedef struct			s_set
 	int					x;
 	int					d;
 	char				**file;
-	char				*wild;
+	char				**fnd_file;
+	int					com_w;
+	char				**valid_file;
+	char				*all_wild;
 	int					empty_wild;
 }						t_set;
 
@@ -140,6 +144,7 @@ void					init_his(t_set *set);
 void					add_history(t_set *set);
 void 					free_buff(char *buf);
 int						aff_modif_str(t_set *set, char *buf);
+void					aff_buf(t_set *set, char *buf);
 void					aff_dellnl(t_set *set);
 
 void					start_term(t_set *set);
