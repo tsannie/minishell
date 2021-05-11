@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/11 10:20:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,33 @@ void				ff_env(t_set *set, char *cmd, char *path)
 	}
 }
 
+void				start_term2(t_set *set)
+{
+        struct termios new;
+	
+        tcgetattr(0, &set->term);
+        new = set->term;
+        new.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(0, TCSANOW, &new);
+}
+ 
 int					exec_bin(t_set *set, char *path, char *cmd)
 {
 	char			**args;
 	int				ret;
 	int				pid;
 
+
+	start_term2(set);
 	if (check_sh(set, path) == 1)
 		return (1);
 	pid = fork();
 	args = new_args(set->arg, cmd);
 	ret = 0;
+	start_term2(set);
+	//close(1);
+	//close(2);
+	//close(0);
 	if (path != NULL && pid == 0)
 	{
 		ff_env(set, cmd, path);

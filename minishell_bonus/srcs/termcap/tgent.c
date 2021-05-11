@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/29 14:28:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 09:05:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,51 +64,7 @@ void			initsis(t_set *set)
 	signal(SIGQUIT, sig_quit);
 }
 
-void			aff_buf(t_set *set, char *buf)
-{
-	size_t len;
-	int r = 0;
-	int e = 0;
-	size_t col = set->col;
-	len = ft_strlen(set->str);
-	ft_putstr_fd(buf, STDERR);
-	//ft_putstr_fd("{", STDERR);
-	//ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
-	//ft_putstr_fd("}", STDERR);
 
-	//while ((set->cur_pos + r - 12) < len)
-	//{
-		//ft_putchar_fd(' ', STDERR);
-//		r++;
-//	}
-
-
-/*  	while (len > (set->cur_pos - 12))
-	{
- 		if (r == 0)
-		{
-			ft_putchar_fd(' ', STDERR);
-			ft_putstr_fd(set->tt_left, STDERR);
-		}
-		if (((len + 12) % col) == 0)
-		{
-
-			ft_putstr_fd(set->tt_up, STDERR);
-			while (e < col)
-			{
-				ft_putstr_fd(set->tt_right, STDERR);
-				e++;
-			}
-
-		}
-		else
-			ft_putstr_fd(set->tt_left, STDERR);
-		e = 0;
-		r++;
-		len--;
-	} */
-
-}
 
 void			read_ent(t_set *set)
 {
@@ -125,10 +81,8 @@ void			read_ent(t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		//printf("------[%d|%d|%d]-[%d|%d|%d]\n", buf[0], buf[1], buf[2],buf[3], buf[4], buf[5]);
 		all_sdig(set);
 		all_ccmd(buf, set);
-		//aff_buf(set, buf);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}

@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/11/23 11:00:45 by tsannie           #+#    #+#              #
-#    Updated: 2021/05/11 13:02:20 by tsannie          ###   ########.fr        #
+#    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
+#    Updated: 2021/05/11 13:03:07 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= #-Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS			= #-Wall -Wextra -Werror # -fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
@@ -82,7 +82,8 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 #                         Source Files_bonus                         #
 ######################################################################
 
-BONUS			= wildcard_bonus.c ft_redirect_bonus.c edit_line_bonus.c edit_copy.c
+BONUS			= wildcard_bonus.c ft_redirect_bonus.c edit_line_bonus.c edit_copy_bonus.c \
+				dell_bonus.c term_lib_bonus.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \
