@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/26 14:35:22 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/05/11 08:20:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			init_struct(t_set *set, char **envp)
 	set->ex_er = 0;
 	set->fdin = -1;
 	set->dell_len = 0;
-	set->dell_his = 0;
+	//set->dell_his = 0;
 	set->fdout = -1;
 	set->save_stdin = -1;
 	set->save_stdout = -1;

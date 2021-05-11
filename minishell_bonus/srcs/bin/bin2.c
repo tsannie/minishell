@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:25 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/11 08:49:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 	closedir(folder);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	if (ft_strncmp("./", path, len) != 0)
-		ffree(path);
+	//if (ft_strncmp("./", path, len) != 0)
+	//	ffree(path);	leak / segfault
+	//ffree(path);
 	return (ft_strdup(set->pathbc));
 }
 
