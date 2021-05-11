@@ -6,11 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2021/05/11 12:53:21 by tsannie          ###   ########.fr       */
-=======
-/*   Updated: 2021/05/10 15:04:20 by user42           ###   ########.fr       */
->>>>>>> 9639689a685d2864b2133b69aa5cf8f3735a6330
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +144,7 @@ void					init_his(t_set *set);
 void					add_history(t_set *set);
 void 					free_buff(char *buf);
 int						aff_modif_str(t_set *set, char *buf);
-<<<<<<< HEAD
 void					aff_buf(t_set *set, char *buf);
-=======
->>>>>>> 9639689a685d2864b2133b69aa5cf8f3735a6330
 void					aff_dellnl(t_set *set);
 
 void					start_term(t_set *set);

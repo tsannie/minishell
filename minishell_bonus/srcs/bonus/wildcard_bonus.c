@@ -165,6 +165,7 @@ void	search_in_dir(t_set *set, char *part_wild, char *name_dir, char *pwd)
 	dst = ft_strjoin(pwd, "/");
 	dst = ft_strjoin_free(dst, name_dir);
 	set->fnd_file = found_file(dst, part_wild, set);
+	ffree(dst);
 	if (set->fnd_file[0])
 		ft_sort_file(set->fnd_file);
 }
@@ -227,6 +228,7 @@ char	*spllited_wild(char *src, t_set *set, int index)
 		return (src);
 	}
 	res = ft_strjoin_free(res, &src[end]);
+	ffree(src);
 	return (res);
 }
 
