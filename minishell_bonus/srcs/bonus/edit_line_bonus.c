@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/10 15:36:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 15:48:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			go_d(t_set *set)
 }
 
 
-void			fg_o_fd_hh(t_set *set, char *buf)
+void			fg_o_fd(t_set *set, int x)
 {
 	int col;
 	int len;
@@ -90,7 +90,7 @@ void			fg_o_fd_hh(t_set *set, char *buf)
 	r = 0;
 	len = set->cur_pos;
 	col = set->col;
-	if (buf[2] == 70 && set->cur_pos - 12 < (int)(ft_strlen(set->str)))
+	if ((x == 70 || x == 67 || x == 65) && set->cur_pos - 12 < (int)(ft_strlen(set->str)))
 	{
 		if (((len + 1) % col) == 0)
 		{
@@ -102,7 +102,7 @@ void			fg_o_fd_hh(t_set *set, char *buf)
 			ft_putstr_fd(set->tt_right, STDERR);
 		set->cur_pos++;
 	}
-	else if (buf[2] == 72 && set->cur_pos -12 > 0)
+	else if ((x == 72 || x == 68 || x == 66) && set->cur_pos -12 > 0)
 	{
 		if ((len % col) == 0)
 		{
@@ -119,47 +119,34 @@ void			fg_o_fd_hh(t_set *set, char *buf)
 void			go_home(t_set *set, char *buf)
 {
 	while (set->cur_pos - 12 < (int)(ft_strlen(set->str)))
-		fg_o_fd_hh(set, buf);
+		fg_o_fd(set, buf[2]);
 }
 
 void			go_end(t_set *set, char *buf)
 {
 	while (set->cur_pos -12 > 0)
-		fg_o_fd_hh(set, buf);
+		fg_o_fd(set, buf[2]);
 }
 
-void			fg_o_fd(t_set *set, char *buf)
+void			go_up(t_set *set)
 {
-	int col;
-	int len;
-	int r;
+	int i = 0;
 
-	r = 0;
-	len = set->cur_pos;
-	col = set->col;
-	if (buf[2] == 67 && set->cur_pos - 12 < (int)(ft_strlen(set->str)))
+	while(i < set->col)
 	{
-		if (((len + 1) % col) == 0)
-		{
-			ft_putstr_fd(set->tt_down, STDERR);
-			while (--col > 0)
-				ft_putstr_fd(set->tt_left, STDERR);
-		}
-		else
-			ft_putstr_fd(set->tt_right, STDERR);
-		set->cur_pos++;
+		fg_o_fd(set, 66);
+		i++;
 	}
-	else if (buf[2] == 68 && set->cur_pos -12 > 0)
+}
+
+void			go_down(t_set *set)
+{
+	int i = 0;
+
+	while(i < set->col)
 	{
-		if ((len % col) == 0)
-		{
-			ft_putstr_fd(set->tt_up, STDERR);
-			while (++r < col)
-				ft_putstr_fd(set->tt_right, STDERR);
-		}
-		else
-			ft_putstr_fd(set->tt_left, STDERR);
-		set->cur_pos--;
+		fg_o_fd(set, 65);
+		i++;
 	}
 }
 
@@ -180,7 +167,12 @@ int				set_fle(t_set *set, char *buf)
 			go_g(set);
 		else if (buf[2] == 49 && buf[5] == 67)
 			go_d(set);
-		fg_o_fd(set, buf);
+		else if (buf[2] == 49 && buf[5] == 65)
+			go_up(set);
+		else if (buf[2] == 49 && buf[5] == 66)
+			go_down(set);
+		else
+			fg_o_fd(set, buf[2]);
 		free_buff(buf);
 	}
 	return (0);

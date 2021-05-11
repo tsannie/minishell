@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/09 15:57:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 12:58:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
 	int			ret;
-
+	int			pid;
 	if (!(isatty(0)))
 		return (0);
 	if (!(set = malloc(sizeof(t_set))))

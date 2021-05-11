@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 09:05:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 14:57:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,15 @@ void			read_ent(t_set *set)
 	{
 		start_term(set);
 		ft_bzero((void *)buf, BUF_SIZE);
-		if (read(0, buf, BUF_SIZE) == -1)
+		if (read(1, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
 		all_sdig(set);
 		all_ccmd(buf, set);
 		if (ft_strcmp(buf, "\n") == 0)
+		{
 			i = 1;
+			free_buff(buf);
+		}
 	}
 	eeddn(set);
 	g_sig.pid = 0;

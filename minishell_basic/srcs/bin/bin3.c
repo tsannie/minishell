@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phbarrad <phbarrad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/01 16:45:11 by phbarrad         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:03:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ void				ff_env(t_set *set, char *cmd, char *path)
 	}
 }
 
+void				start_term2(t_set *set)
+{
+	tcgetattr(0, &set->term);
+	set->term.c_lflag |= (ICANON | ECHO | ISIG);
+	tcsetattr(0, 0, &set->term);
+}
+
 int					exec_bin(t_set *set, char *path, char *cmd)
 {
 	char			**args;
@@ -90,6 +97,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	ret = 0;
 	if (path != NULL && pid == 0)
 	{
+		start_term2(set);
 		ff_env(set, cmd, path);
 		execve(path, args, set->envp);
 	}

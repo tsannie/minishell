@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 10:20:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/11 15:02:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,38 +79,33 @@ void				ff_env(t_set *set, char *cmd, char *path)
 
 void				start_term2(t_set *set)
 {
-        struct termios new;
-	
-        tcgetattr(0, &set->term);
-        new = set->term;
-        new.c_lflag &= ~(ICANON | ECHO);
-        tcsetattr(0, TCSANOW, &new);
+	tcgetattr(0, &set->term);
+	set->term.c_lflag |= (ICANON | ECHO | ISIG);
+	tcsetattr(0, 0, &set->term);
 }
- 
+
 int					exec_bin(t_set *set, char *path, char *cmd)
 {
 	char			**args;
 	int				ret;
 	int				pid;
+	int				fd;
 
-
-	start_term2(set);
 	if (check_sh(set, path) == 1)
 		return (1);
 	pid = fork();
 	args = new_args(set->arg, cmd);
 	ret = 0;
-	start_term2(set);
-	//close(1);
-	//close(2);
-	//close(0);
 	if (path != NULL && pid == 0)
 	{
+		start_term2(set);
 		ff_env(set, cmd, path);
 		execve(path, args, set->envp);
 	}
 	else
+	{
 		waitpid(pid, &ret, 0);
+	}
 	ft_free_dbtab(args);
 	return (end_exec(set, ret, path));
 }
