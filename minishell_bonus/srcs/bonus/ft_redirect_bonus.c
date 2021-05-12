@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/12 10:48:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 11:09:41 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int					add_line(char *namefile, t_set *set)
 	initsis(set);
 	if (g_sig.run == 0)
 		ft_putstr_fd("> ", STDERR);
-	else 
+	else
 		return (0);
 	while (i == 0)
 	{
@@ -162,6 +162,12 @@ void	create_stdin(char *namefile, t_set *set)
 			ft_putstr_fd(set->redirect, pipefd[1]);
 	}
 	ifclose(pipefd[1]);
+	if (exit == 2)
+	{
+		ifclose(pipefd[0]);
+		set->stop = 1;
+		return ;
+	}
 	ifclose(set->fdin);
 	set->fdin = pipefd[0];
 	dup2(set->fdin, STDIN);
