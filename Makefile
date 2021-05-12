@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/05/12 15:21:17 by user42           ###   ########.fr        #
-=======
-#    Updated: 2021/05/12 14:17:40 by tsannie          ###   ########.fr        #
->>>>>>> 634683d09b2da7f37b4ea62284885042dd20abb9
+#    Updated: 2021/05/12 15:29:43 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-<<<<<<< HEAD
 CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
-=======
-CFLAGS			= #-Wall -Wextra -Werror #-fsanitize=leak
->>>>>>> 634683d09b2da7f37b4ea62284885042dd20abb9
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
