@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/11 14:51:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 10:48:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void			int_handler(int sig)
 {
 	ft_putstr_fd("\b\b", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	g_sig.run = 1;
+	g_sig.run = 4;
 	(void)sig;
-	ft_putstr_fd("> ", STDERR);
+	disp_prompt();
 }
 
 static void			sig_quit(int code)
@@ -41,8 +41,8 @@ static void			all_sdig(t_set *set)
 		set->exit_val = g_sig.run;
 		add_exval(set);
 		g_sig.run = 0;
-		ffree(set->redirect);
-		set->redirect = ft_strdup("");
+		ffree(set->str);
+		set->str = ft_strdup("");
 	}
 	else if (g_sig.run == 3)
 	{
@@ -90,7 +90,7 @@ static int			ft_dell2(t_set *set)
 	return (0);
 }
 
-static void			all_ccmd2(char *buf, t_set *set)
+static int			all_ccmd2(char *buf, t_set *set)
 {
 	if (buf[0] == 127 && ft_strlen(buf) == 1)
 		buf[0] = ft_dell2(set);
@@ -105,13 +105,13 @@ static void			all_ccmd2(char *buf, t_set *set)
 	{
 		if (ft_strlen(set->redirect) == 0)
 		{
-			ft_putstr_fd("exit\n", STDERR);
-			exit(0);
+			buf[0] = 0;
+			return (1);
 		}
-		buf[0] = 0;
 	}
 	else
-		set->redirect = ft_strjoin_free(set->redirect, buf);	// add letter
+		set->redirect = ft_strjoin_free(set->redirect, buf);
+	return (0);
 }
 
 int					add_line(char *namefile, t_set *set)
@@ -123,6 +123,8 @@ int					add_line(char *namefile, t_set *set)
 	initsis(set);
 	if (g_sig.run == 0)
 		ft_putstr_fd("> ", STDERR);
+	else 
+		return (0);
 	while (i == 0)
 	{
 		start_term(set);
@@ -130,12 +132,15 @@ int					add_line(char *namefile, t_set *set)
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
 		all_sdig(set);
-		all_ccmd2(buf, set);
+		if (g_sig.run == 4)
+			return (2);
+		if (all_ccmd2(buf, set) == 1)
+			return (1);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
-	//printf("name\t\t=\t{%s}\nredirect\t=\t{%s}\n", namefile, set->redirect);
+	g_sig.pid = 0;
 	if (ft_streql(namefile, set->redirect) == 1)
 		return (1);
 	return (0);

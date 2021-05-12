@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 15:48:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 10:33:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void			go_down(t_set *set)
 
 int				set_fle(t_set *set, char *buf)
 {
-	signal(SIGINT, SIG_IGN);
+	//signal(SIGINT, SIG_IGN);
 	if (buf[1] == 91)
 	{
 		if (buf[2] == 65)

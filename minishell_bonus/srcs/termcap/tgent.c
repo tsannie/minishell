@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 14:57:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 10:40:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void			initsis(t_set *set)
 	signal(SIGINT, int_handler);
 	signal(SIGQUIT, sig_quit);
 }
-
-
 
 void			read_ent(t_set *set)
 {
