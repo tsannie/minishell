@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/05/12 13:57:47 by user42           ###   ########.fr       */
+=======
+/*   Updated: 2021/05/12 14:28:45 by tsannie          ###   ########.fr       */
+>>>>>>> 634683d09b2da7f37b4ea62284885042dd20abb9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +287,11 @@ int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
 void					disp_prompt(void);
 
-void					print_args(char **str);
 char					*get_val(t_set *set);
+void					sig_quit(int code);
+int						ctrl_c(char *buf, t_set *set);
+int						ft_dell2(t_set *set);
+int						all_ccmd2(char *buf, t_set *set);
 
 char					*wildcard(char *src, t_set *set);
 int						is_wild(char *str);

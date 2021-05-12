@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 08:47:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 14:04:36 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,6 @@ int						init_all(t_set *set, char **envp);
 int						free_all(t_set *set, int ret);
 void					disp_prompt(void);
 
-void					print_args(char **str);
 char					*get_val(t_set *set);
 
 #endif
