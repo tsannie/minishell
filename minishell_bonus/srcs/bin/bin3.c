@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 15:02:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 10:51:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	char			**args;
 	int				ret;
 	int				pid;
-	int				fd;
 
 	if (check_sh(set, path) == 1)
 		return (1);

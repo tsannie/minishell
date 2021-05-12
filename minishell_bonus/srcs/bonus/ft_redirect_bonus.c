@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/12 11:09:41 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/12 13:00:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void			int_handler(int sig)
 {
 	ft_putstr_fd("\b\b", STDERR);
 	ft_putstr_fd("\n", STDERR);
-	g_sig.run = 4;
-	(void)sig;
+	g_sig.run = 3;
 	disp_prompt();
+	(void)sig;
 }
 
 static void			sig_quit(int code)
@@ -49,7 +49,7 @@ static void			all_sdig(t_set *set)
 		set->exit_val = 131;
 		set->bleu = 1;
 		add_exval(set);
-		g_sig.run = 0;
+		g_sig.run = 3;
 	}
 }
 
@@ -59,8 +59,9 @@ static void			initsis(t_set *set)
 	g_sig.run = 0;
 	ffree(set->redirect);
 	set->redirect = ft_strdup("");
-	signal(SIGINT, int_handler);
 	signal(SIGQUIT, sig_quit);
+	signal(SIGINT, int_handler);
+	ft_putstr_fd("ici2\n", STDERR);
 }
 
 static int			ft_dell2(t_set *set)
@@ -123,24 +124,27 @@ int					add_line(char *namefile, t_set *set)
 	initsis(set);
 	if (g_sig.run == 0)
 		ft_putstr_fd("> ", STDERR);
-	else
-		return (0);
 	while (i == 0)
 	{
+		all_sdig(set);
 		start_term(set);
+		if (g_sig.run == 3)
+		{
+			set->credir = ft_strdup(buf);
+			return (2);
+		}
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		all_sdig(set);
-		if (g_sig.run == 4)
-			return (2);
 		if (all_ccmd2(buf, set) == 1)
 			return (1);
 		ft_putstr_fd(buf, STDERR);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
-	g_sig.pid = 0;
+	//g_sig.pid = 0;
+	//printf("[%d]\n", g_sig.run);
+
 	if (ft_streql(namefile, set->redirect) == 1)
 		return (1);
 	return (0);
@@ -165,6 +169,8 @@ void	create_stdin(char *namefile, t_set *set)
 	if (exit == 2)
 	{
 		ifclose(pipefd[0]);
+			//	ft_putstr_fd("w8\n", STDERR);
+
 		set->stop = 1;
 		return ;
 	}

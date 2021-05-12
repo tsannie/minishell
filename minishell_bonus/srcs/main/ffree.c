@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ffree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/12 13:02:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int				free_all(t_set *set, int ret)
 	ffree(set->tt_ctl_up);
 	ffree(set->tt_crl_down);
 	ffree(set->str);
+	ffree(set->credir);
 	free_all2(set);
 	free(set);
 	return (ret);

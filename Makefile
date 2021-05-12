@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
-#    Updated: 2021/05/12 07:55:40 by user42           ###   ########.fr        #
+#    Updated: 2021/05/12 11:01:05 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= #-Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS			= -Wall -Wextra -Werror #-fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft

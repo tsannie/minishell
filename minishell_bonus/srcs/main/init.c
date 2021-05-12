@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 14:51:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 12:54:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			init_struct(t_set *set, char **envp)
 	set->envp = ft_strdup_tabl(envp);
 	set->path = ft_get_path(envp);
 	set->exit = 0;
+	set->credir = ft_strdup("");
 	set->old_pwd = ft_strdup("OLDPWD=");
 	set->pwd = ft_strjoin("PWD=", getcwd(buff, 4097));
 	init_structafter(set);

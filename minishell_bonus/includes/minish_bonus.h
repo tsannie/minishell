@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 12:53:21 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/12 12:52:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	char				*credir;
 	char 				*edit_copy;
 	int					cur_pos;
 	int					dell_len;
