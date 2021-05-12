@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 10:36:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 14:35:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ void			all_ccmd(char *buf, t_set *set)
 	int			oui;
 
 	oui = 0;
+
+	//if (buf[0] == 18)
+	//	printf("[%d][%d][%d][%s]  \n", buf[0], buf[1] ,buf[2], set->edit_copy);
+
 	if (buf[0] == 127 && ft_strlen(buf) == 1)
 	{
 		if (set->cur_pos > 12)
@@ -83,9 +87,8 @@ void			all_ccmd(char *buf, t_set *set)
 		set_fle(set, buf);
 	else if (ft_strlen(buf) == 1 && buf[0] == 4)
 		cmd_free(set, buf);
-	else if (((set->str[set->cur_pos - 12] != ' ')) &&
-	((buf[0] == 22 && buf[1] == 0) || (buf[0] == 6 && buf[1] == 0) ||
-	(buf[0] == 18 && buf[1] == 0)))
+	else if ((buf[0] == 22 && buf[1] == 0) || (buf[0] == 6 && buf[1] == 0) ||
+	(buf[0] == 18 && buf[1] == 0))
 		is_copy_cut(set, buf);
 	else if (buf[0] != 10 && buf[0] != 127)
 		oui = aff_modif_str(set, buf);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 13:01:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/12 13:47:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void			initsis(t_set *set)
 	g_sig.pid = -1;
 	g_sig.run = 0;
 	ffree(set->str);
-
 	set->str = ft_strdup(set->credir);
 	set->cur_pos = 12 + ft_strlen(set->credir);
 	ffree(set->credir);
@@ -80,7 +79,6 @@ void			read_ent(t_set *set)
 	{
 		start_term(set);
 		ft_bzero((void *)buf, BUF_SIZE);
-		//printf("[%s]\n", set->str);
 		if (read(1, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
 		all_sdig(set);
