@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_err_fold.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 10:49:31 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/13 13:48:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
 
-int		eexxfold(char *tmp3, t_set *set, int i)
+int		eexxfold(char *tmp3, t_set  *set, int i)
 {
 	ffree(tmp3);
 	if (ft_strlen(set->argss[i]) > 0)

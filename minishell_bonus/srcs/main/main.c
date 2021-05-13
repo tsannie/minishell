@@ -6,11 +6,23 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:13:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 12:51:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 13:43:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
+
+void			add_exval(t_set *set)
+{
+	char		*tmp;
+
+	tmp = ft_itoa(set->exit_val);
+	if (set->exit_v)
+		free(set->exit_v);
+	set->exit_v = ft_strjoin("?=", tmp);
+	free(tmp);
+	ft_hideenv(set->exit_v, set);
+}
 
 void			disp_prompt(void)
 {
