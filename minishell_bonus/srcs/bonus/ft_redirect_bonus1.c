@@ -95,6 +95,7 @@ void			create_stdin(char *namefile, t_set *set)
 		exit = add_line(namefile, set, 0);
 		if (exit == 0)
 			ft_putstr_fd(set->redirect, pipefd[1]);
+		ffree(set->redirect);
 	}
 	ffree(namefile);
 	ifclose(pipefd[1]);
