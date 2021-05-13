@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 15:22:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 11:53:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,22 @@ void			go_copy(t_set *set)
 	set->edit_copy = new;
 }
 
-void			go_cut(t_set *set)
+void			go_cut(t_set *set, char *buf)
 {
 	go_copy(set);
 	while (set->str[set->cur_pos - 12] != ' ' && set->str[set->cur_pos - 12])
-		fg_o_fd(set, 70);
+		fg_o_fd(set, 70, 0, set->col);
 	if (set->cur_pos - 12 > 0)
 		ft_dell(set);
 	while (set->str[set->cur_pos - 12 - 1] != ' ' && set->cur_pos - 12 - 1 >= 0)
 		ft_dell(set);
+	free_buff(buf);
 }
 
-char			*go_paste(t_set *set)
+char			*go_paste(t_set *set, int i, int e)
 {
-	int			i;
 	char		*new;
-	int			e;
 
-	e = 0;
-	i = 0;
 	if (!(new = malloc(sizeof(char) *
 	(ft_strlen(set->str) + ft_strlen(set->edit_copy) + 1))))
 		return (NULL);
@@ -97,30 +94,25 @@ void			is_copy_cut(t_set *set, char *buf)
 {
 	int pos;
 
-
 	if (buf[0] == 22 && buf[1] == 0)
 	{
 		go_copy(set);
 		free_buff(buf);
 	}
 	else if (buf[0] == 6 && buf[1] == 0)
-	{
-		go_cut(set);
-		free_buff(buf);
-	}
+		go_cut(set, buf);
 	else if (buf[0] == 18 && buf[1] == 0 && set->edit_copy != NULL)
 	{
 		pos = set->cur_pos;
-		set->str = go_paste(set);
+		set->str = go_paste(set, 0, 0);
 		while (set->cur_pos - 12 > 0)
-			fg_o_fd(set, 72);
+			fg_o_fd(set, 72, 0, set->col);
 		ft_putstr_fd(set->str, STDERR);
 		set->cur_pos = ft_strlen(set->str) + 12;
 		while (set->cur_pos > pos)
-			fg_o_fd(set, 72);
+			fg_o_fd(set, 72, 0, set->col);
 		free_buff(buf);
 	}
 	else if (buf[0] == 18 && buf[1] == 0 && set->edit_copy == NULL)
 		free_buff(buf);
-
 }

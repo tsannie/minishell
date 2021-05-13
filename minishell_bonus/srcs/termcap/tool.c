@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 14:35:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 10:33:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,6 @@ void			all_ccmd(char *buf, t_set *set)
 	int			oui;
 
 	oui = 0;
-
-	//if (buf[0] == 18)
-	//	printf("[%d][%d][%d][%s]  \n", buf[0], buf[1] ,buf[2], set->edit_copy);
-
 	if (buf[0] == 127 && ft_strlen(buf) == 1)
 	{
 		if (set->cur_pos > 12)
@@ -103,4 +99,7 @@ void			eeddn(t_set *set)
 	else
 		set->str[1] = '\0';
 	add_history(set);
+	ffree(set->credir);
+	set->credir = ft_strdup("");
+	set->fl = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/13 09:52:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 11:53:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ typedef struct			s_set
 	int					empty_wild;
 }						t_set;
 
-void					fg_o_fd(t_set *set, int x);
+void					is_prompt(t_set *set);
+void					fg_o_fd(t_set *set, int x, int r, int col);
 void					revenir_pos(t_set *set, size_t len);
 int						ft_dell(t_set *set);
 char					*ft_strdup_free_len(char *str, int len);
