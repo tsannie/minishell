@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   binlib2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:28:38 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/04/28 14:52:25 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/13 12:38:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,11 @@ int					finn(t_set *set, char *path, char *cmd)
 	ffree(path);
 	free(cmd);
 	return (ret);
+}
+
+void				start_term2(t_set *set)
+{
+	tcgetattr(0, &set->term);
+	set->term.c_lflag |= (ICANON | ECHO | ISIG);
+	tcsetattr(0, 0, &set->term);
 }

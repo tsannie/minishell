@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/13 12:23:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:40:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ typedef struct			s_set
 	char				*all_wild;
 	int					empty_wild;
 }						t_set;
+
+void					start_term2(t_set *set);
+char					*ft_strjoin_free_len(char *s1, char *s2, int len);
 
 void					go_g(t_set *set);
 void					go_d(t_set *set, int col);

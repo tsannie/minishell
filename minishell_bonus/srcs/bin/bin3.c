@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:27:42 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 10:51:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:38:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,6 @@ void				ff_env(t_set *set, char *cmd, char *path)
 		set->g = 1;
 		free(ttm);
 	}
-}
-
-void				start_term2(t_set *set)
-{
-	tcgetattr(0, &set->term);
-	set->term.c_lflag |= (ICANON | ECHO | ISIG);
-	tcsetattr(0, 0, &set->term);
 }
 
 int					exec_bin(t_set *set, char *path, char *cmd)
