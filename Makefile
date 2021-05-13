@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
-#    Updated: 2021/05/13 10:43:25 by user42           ###   ########.fr        #
+#    Updated: 2021/05/13 12:15:20 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 
 BONUS			= wildcard_bonus.c edit_line_bonus.c edit_copy_bonus.c \
 				dell_bonus.c term_lib_bonus.c ft_redirect_bonus1.c \
-				ft_redirect_bonus2.c
+				ft_redirect_bonus2.c edit_line2_bonus.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \
