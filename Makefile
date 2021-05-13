@@ -6,7 +6,7 @@
 #    By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
-#    Updated: 2021/05/13 12:33:20 by tsannie          ###   ########.fr        #
+#    Updated: 2021/05/13 12:45:15 by tsannie          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
+CFLAGS			= -Wall -Wextra -Werror #-fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
@@ -27,6 +27,9 @@ INCLUDE_LIB		= -I ./libft/libft.a
 #/bin/../../../bin/ls
 #/bin//////////bin/ls
 #/bin///////////ls
+
+
+
 
 #/bin/Ls
 #export A export A="qwe " export A
@@ -91,9 +94,10 @@ SRC				= $(addprefix minishell_basic/srcs/bin/, $(BIN)) \
 #                         Source Files_bonus                         #
 ######################################################################
 
-BONUS			= wildcard_bonus.c edit_line_bonus.c edit_copy_bonus.c \
+BONUS			= edit_line_bonus.c edit_line2_bonus.c edit_copy_bonus.c \
 				dell_bonus.c term_lib_bonus.c ft_redirect_bonus1.c \
-				ft_redirect_bonus2.c
+				ft_redirect_bonus2.c wildcard_bonus1.c wildcard_bonus2.c \
+				wildcard_bonus3.c
 
 SRC_B			= $(addprefix minishell_bonus/srcs/bin/, $(BIN)) \
 				$(addprefix minishell_bonus/srcs/termcap/, $(TERMCAP)) \

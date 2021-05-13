@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 10:27:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 09:49:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 10:34:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,14 @@ void				aff_dell(t_set *set)
 	ft_putstr_fd(set->tt_left, STDERR);
 	ft_putstr_fd(" ", STDERR);
 	ft_putstr_fd(set->tt_left, STDERR);
+}
+
+void				is_prompt(t_set *set)
+{
+	if (ft_strcmp(set->str, "\n") == 0 && set->fl != 91)
+	{
+		disp_prompt();
+		ffree(set->str);
+		set->str = ft_strdup("");
+	}
 }

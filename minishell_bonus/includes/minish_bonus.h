@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/13 09:52:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:44:47 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,10 @@ typedef struct			s_set
 	int					empty_wild;
 }						t_set;
 
-void					fg_o_fd(t_set *set, int x);
+void					go_g(t_set *set);
+void					go_d(t_set *set, int col);
+void					is_prompt(t_set *set);
+void					fg_o_fd(t_set *set, int x, int r, int col);
 void					revenir_pos(t_set *set, size_t len);
 int						ft_dell(t_set *set);
 char					*ft_strdup_free_len(char *str, int len);
@@ -292,6 +295,11 @@ int						all_ccmd2(char *buf, t_set *set);
 
 char					*wildcard(char *src, t_set *set);
 int						is_wild(char *str);
+char					**found_file(char *dst, char *wild, t_set *set);
+int						correct_patern(char *file, char *wild, t_set *set);
+void					ft_sort_file(char **dbtab);
+char					*process_file(t_set *set, char *res, char **wild_splitted, char *pwd);
+int						set_word(char *src, int i, t_set *set);
 void					create_stdin(char *namefile, t_set *set);
 
 #endif

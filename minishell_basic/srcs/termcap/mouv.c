@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:32:30 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/11 08:20:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 10:38:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int			history_prev(t_set *set)
 	size_t col;
 
 	col = set->col;
-	//set->dell_his = 0;
 	len = ft_strlen(set->str) + 12;
 	if (set->his_pos > 0 && set->history[set->his_pos - 1])
 		set->his_pos--;
 	else
 		return (0);
-	//set->dell_his = getdellen(ft_strlen(set->str), col);
 	ffree(set->str);
 	set->str = ft_strdup(set->history[set->his_pos]);
 	aff_dellnl(len, col, set);
@@ -62,7 +60,6 @@ int			history_next(t_set *set)
 	len = ft_strlen(set->str) + 12;
 	if (set->his_pos + 1 == set->inc_his)
 	{
-		//set->dell_his = getdellen(ft_strlen(set->str), col);
 		ffree(set->str);
 		set->str = ft_strdup("");
 		aff_dellnl(len, col, set);
@@ -76,7 +73,6 @@ int			history_next(t_set *set)
 		return (0);
 	ffree(set->str);
 	set->str = ft_strdup(set->history[set->his_pos]);
-	//set->dell_his = getdellen(ft_strlen(set->str), set->col);
 	aff_dellnl(len, col, set);
 	ft_putstr_fd("\033[2K", STDERR);
 	disp_prompt();
