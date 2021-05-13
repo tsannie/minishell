@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 10:15:37 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 13:47:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 09:57:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void			initsis(t_set *set)
 	ffree(set->str);
 	set->str = ft_strdup(set->credir);
 	set->cur_pos = 12 + ft_strlen(set->credir);
-	ffree(set->credir);
-	set->credir = ft_strdup("");
 	signal(SIGINT, int_handler);
 	signal(SIGQUIT, sig_quit);
 }
@@ -73,8 +71,17 @@ void			read_ent(t_set *set)
 
 	i = 0;
 	initsis(set);
-	if (g_sig.run == 0 && ft_strlen(set->str) == 0)
+	if (g_sig.run == 0 && ft_strlen(set->str) == 0 &&
+	ft_strcmp(set->str, "\n") == 0)
+	{
 		disp_prompt();
+	}
+	if (ft_strcmp(set->str, "\n") != 0 && set->fl != 91)
+	{
+		disp_prompt();
+		ffree(set->str);
+		set->str = ft_strdup("");
+	}
 	while (i == 0)
 	{
 		start_term(set);
@@ -90,5 +97,6 @@ void			read_ent(t_set *set)
 		}
 	}
 	eeddn(set);
+	set->fl = 0;
 	g_sig.pid = 0;
 }

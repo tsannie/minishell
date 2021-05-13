@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:59:01 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 12:54:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 09:52:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			init_struct(t_set *set, char **envp)
 	init_null(set);
 	set->exit_val = 0;
 	set->bleu = 0;
+	set->fl = 0;
 	set->pid = 0;
 	set->ex_er = 0;
 	set->fdin = -1;

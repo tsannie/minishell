@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/12 15:30:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 09:52:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	int 				fl;
 	char				*credir;
 	char 				*edit_copy;
 	int					cur_pos;

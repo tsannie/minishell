@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 14:02:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/13 08:08:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 09:55:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ int		ctrl_c(char *buf, t_set *set)
 {
 	ffree(set->credir);
 	set->credir = ft_strdup(buf);
-	//printf("ici\n");
 	return (2);
 }

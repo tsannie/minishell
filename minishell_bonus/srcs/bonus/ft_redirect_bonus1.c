@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/13 08:13:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 09:51:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ int				add_line(char *namefile, t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		if (all_ccmd2(buf, set) == 1 && g_sig.run != 3)
+		set->fl = buf[1];
+		if (all_ccmd2(buf, set) == 1)
 			return (1);
-		if (g_sig.run != 3)
-			ft_putstr_fd(buf, STDERR);
-		if (ft_strcmp(buf, "\n") == 0 && g_sig.run != 3)
+		ft_putstr_fd(buf, STDERR);
+		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}
+	if (g_sig.run == 3)
+		return (ctrl_c(buf, set));
 	if (ft_streql(namefile, set->redirect) == 1)
 		return (1);
 	return (0);
@@ -90,7 +92,6 @@ void			create_stdin(char *namefile, t_set *set)
 	exit = 0;
 	namefile = ft_strjoin_free(namefile, "\n");
 	pipe(pipefd);
-	ffree(set->redirect);
 	set->redirect = ft_strdup("");
 	while (exit == 0)
 	{
@@ -98,7 +99,6 @@ void			create_stdin(char *namefile, t_set *set)
 		if (exit == 0)
 			ft_putstr_fd(set->redirect, pipefd[1]);
 	}
-	ffree(namefile);
 	ifclose(pipefd[1]);
 	if (exit == 2)
 	{
