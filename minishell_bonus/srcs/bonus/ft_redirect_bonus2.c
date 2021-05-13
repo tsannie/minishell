@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 14:02:41 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/12 14:33:16 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/13 08:08:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int		all_ccmd2(char *buf, t_set *set)
 
 int		ctrl_c(char *buf, t_set *set)
 {
-	//printf("ENTER\n");
+	ffree(set->credir);
 	set->credir = ft_strdup(buf);
+	//printf("ici\n");
 	return (2);
 }

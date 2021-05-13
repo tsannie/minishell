@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/12 14:28:23 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/13 08:13:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ int				add_line(char *namefile, t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(0, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		if (all_ccmd2(buf, set) == 1)
+		if (all_ccmd2(buf, set) == 1 && g_sig.run != 3)
 			return (1);
-		ft_putstr_fd(buf, STDERR);
-		if (ft_strcmp(buf, "\n") == 0)
+		if (g_sig.run != 3)
+			ft_putstr_fd(buf, STDERR);
+		if (ft_strcmp(buf, "\n") == 0 && g_sig.run != 3)
 			i = 1;
 	}
 	if (ft_streql(namefile, set->redirect) == 1)
@@ -89,6 +90,7 @@ void			create_stdin(char *namefile, t_set *set)
 	exit = 0;
 	namefile = ft_strjoin_free(namefile, "\n");
 	pipe(pipefd);
+	ffree(set->redirect);
 	set->redirect = ft_strdup("");
 	while (exit == 0)
 	{

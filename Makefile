@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 13:03:05 by tsannie           #+#    #+#              #
-#    Updated: 2021/05/12 15:29:43 by user42           ###   ########.fr        #
+#    Updated: 2021/05/13 07:40:27 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ INCLUDE_LIB		= -I ./libft/libft.a
 
 #/bin/../../../bin/ls
 #/bin//////////bin/ls
+#/bin///////////ls
+
 #/bin/Ls
 #export A export A="qwe " export A
 #ᴍɪɴɪsʜᴇʟʟ ➔  .
