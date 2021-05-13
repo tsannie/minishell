@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_bonus1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/13 10:27:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 13:50:01 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		initsis(t_set *set)
 	signal(SIGINT, int_handler);
 }
 
-static void			all_sdig(t_set *set)
+static void		all_sdig(t_set *set)
 {
 	if (g_sig.run == 1)
 	{
@@ -52,12 +52,10 @@ static void			all_sdig(t_set *set)
 	}
 }
 
-int				add_line(char *namefile, t_set *set)
+int				add_line(char *namefile, t_set *set, int i)
 {
 	char		buf[BUF_SIZE];
-	int			i;
 
-	i = 0;
 	initsis(set);
 	if (g_sig.run == 0)
 		ft_putstr_fd("> ", STDERR);
@@ -74,8 +72,7 @@ int				add_line(char *namefile, t_set *set)
 		if (all_ccmd2(buf, set) == 1)
 			return (1);
 		ft_putstr_fd(buf, STDERR);
-		if (ft_strcmp(buf, "\n") == 0)
-			i = 1;
+		i = (ft_strcmp(buf, "\n") == 0) ? 1 : 0;
 	}
 	if (g_sig.run == 3)
 		return (ctrl_c(buf, set));
@@ -95,7 +92,7 @@ void			create_stdin(char *namefile, t_set *set)
 	set->redirect = ft_strdup("");
 	while (exit == 0)
 	{
-		exit = add_line(namefile, set);
+		exit = add_line(namefile, set, 0);
 		if (exit == 0)
 			ft_putstr_fd(set->redirect, pipefd[1]);
 	}

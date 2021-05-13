@@ -6,13 +6,13 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 12:39:07 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/13 12:43:04 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/13 13:43:08 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minish_bonus.h"
 
-void		ft_sort_file(char **dbtab)
+void	ft_sort_file(char **dbtab)
 {
 	int		i;
 	char	*temp;

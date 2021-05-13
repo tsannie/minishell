@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/13 13:45:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/13 13:51:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
-	int 				fl;
+	int					fl;
 	char				*credir;
-	char 				*edit_copy;
+	char				*edit_copy;
 	int					cur_pos;
 	int					dell_len;
 	int					dell_his;
@@ -151,7 +151,7 @@ int						ft_dell(t_set *set);
 
 void					init_his(t_set *set);
 void					add_history(t_set *set);
-void 					free_buff(char *buf);
+void					free_buff(char *buf);
 int						aff_modif_str(t_set *set, char *buf);
 void					aff_buf(t_set *set, char *buf);
 void					aff_dellnl(t_set *set);
@@ -301,7 +301,8 @@ int						is_wild(char *str);
 char					**found_file(char *dst, char *wild, t_set *set);
 int						correct_patern(char *file, char *wild, t_set *set);
 void					ft_sort_file(char **dbtab);
-char					*process_file(t_set *set, char *res, char **wild_splitted, char *pwd);
+char					*process_file(t_set *set, char *res,
+							char **wild_splitted, char *pwd);
 int						set_word(char *src, int i, t_set *set);
 void					create_stdin(char *namefile, t_set *set);
 
