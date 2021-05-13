@@ -98,6 +98,7 @@ void			create_stdin(char *namefile, t_set *set)
 		if (exit == 0)
 			ft_putstr_fd(set->redirect, pipefd[1]);
 	}
+	ffree(namefile);
 	ifclose(pipefd[1]);
 	if (exit == 2)
 	{
