@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minish_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/05/13 12:40:24 by user42           ###   ########.fr       */
+=======
+/*   Updated: 2021/05/13 12:44:47 by tsannie          ###   ########.fr       */
+>>>>>>> 1a151b9d683304d1bc125134af49ce9e55b035bf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +302,11 @@ int						all_ccmd2(char *buf, t_set *set);
 
 char					*wildcard(char *src, t_set *set);
 int						is_wild(char *str);
+char					**found_file(char *dst, char *wild, t_set *set);
+int						correct_patern(char *file, char *wild, t_set *set);
+void					ft_sort_file(char **dbtab);
+char					*process_file(t_set *set, char *res, char **wild_splitted, char *pwd);
+int						set_word(char *src, int i, t_set *set);
 void					create_stdin(char *namefile, t_set *set);
 
 #endif
