@@ -44,7 +44,8 @@ int				aff_modif_str(t_set *set, char *buf)
 	if (set->cur_pos - 12 < (int)(ft_strlen(set->str)))
 	{
 		ft_putstr_fd(buf, STDERR);
-		ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
+		if (ft_strlen(buf) < 2)
+			ft_putstr_fd(set->str + (set->cur_pos - 12), STDERR);
 		if ((len % col) == 0)
 		{
 			ft_putstr_fd(" ", STDERR);
@@ -88,7 +89,7 @@ void			all_ccmd(char *buf, t_set *set)
 		is_copy_cut(set, buf);
 	else if (buf[0] != 10 && buf[0] != 127)
 		oui = aff_modif_str(set, buf);
-	if (oui == 0)
+	if (oui == 0 && ft_strlen(buf) < 4)
 		ft_putstr_fd(buf, STDERR);
 }
 

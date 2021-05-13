@@ -12,9 +12,10 @@
 
 #include "../../includes/minish.h"
 
-int		eexxfold(char *tmp3, t_set *set, int i)
+int		eexxfold(char *tmp3, t_set *set, int i, char *tmp)
 {
 	ffree(tmp3);
+	ffree(tmp);
 	if (ft_strlen(set->argss[i]) > 0)
 	{
 		if (i == 0 && is_dir(set->argss[i]) == 0 &&
@@ -91,5 +92,5 @@ int		err_folder(t_set *set, char *namefile, int i)
 		}
 		i = intit(i, tmp, tmp2);
 	}
-	return (eexxfold(tmp3, set, i));
+	return (eexxfold(tmp3, set, i, tmp));
 }
