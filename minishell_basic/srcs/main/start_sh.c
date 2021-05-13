@@ -93,14 +93,3 @@ void			start_cmd(t_set *set)
 	set->all_path = ft_splitbc(set->path, ':');
 	add_exval(set);
 }
-
-int				start_shell(int ac, char **av, t_set *set)
-{
-	int			ret;
-
-	if (ac == 3)
-		set->str = ft_strdup(av[2]);
-	treat_cmd(set);
-	ret = set->exit_val;
-	return (ret);
-}

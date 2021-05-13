@@ -33,12 +33,11 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 	int				y;
 
 	y = -1;
-
 	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
 			path = get_path(set, set->all_path[y], cmd);
-	}	
+	}
 	else if (chemin == 1)
 		path = get_path_chemin(set, path, set->len, cmd);
 	if (chemin == 0 && path == NULL)

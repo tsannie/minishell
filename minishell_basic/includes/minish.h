@@ -184,7 +184,6 @@ int						forwar_quote(char *src, int i);
 void					ft_putstr_not_found(char *str, t_set *set);
 void					ft_eexit(t_set *set);
 int						ft_disp_export(t_set *set);
-int						start_shell(int ac, char **av, t_set *set);
 void					treat_cmd(t_set *set);
 void					start_cmd(t_set *set);
 void					search_arg(char *str, t_set *set);

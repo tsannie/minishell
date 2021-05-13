@@ -16,30 +16,13 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= -Wall -Wextra -Werror #-fsanitize=leak
+CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
 INCLUDE			= -I /minishell_basic/includes
 INCLUDE_B		= -I /minishell_bonus/includes
 INCLUDE_LIB		= -I ./libft/libft.a
-
-#/bin/../../../bin/ls
-#/bin//////////bin/ls
-#/bin///////////ls
-
-
-
-
-#/bin/Ls
-#export A export A="qwe " export A
-#ᴍɪɴɪsʜᴇʟʟ ➔  .
-#ᴍɪɴɪsʜᴇʟʟ ➔  ..
-#ᴍɪɴɪsʜᴇʟʟ ➔  exit
-
-#bog
-#Paste in minishell bonus
-
 
 ######################################################################
 #                               C0l0r$                               #
