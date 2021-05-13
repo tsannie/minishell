@@ -22,6 +22,7 @@ int					fot(t_set *set, char *path, char *cmd)
 	else if (check_stat_file(set, path) == 1)
 	{
 		set->bleu = 1;
+		ffree(path);
 		return (1);
 	}
 	return (exec_bin(set, path, cmd));
@@ -32,11 +33,12 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 	int				y;
 
 	y = -1;
+
 	if (chemin == 0 && path == NULL && set->all_path)
 	{
 		while (set->all_path[++y] && path == NULL)
 			path = get_path(set, set->all_path[y], cmd);
-	}
+	}	
 	else if (chemin == 1)
 		path = get_path_chemin(set, path, set->len, cmd);
 	if (chemin == 0 && path == NULL)
@@ -50,6 +52,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
+	//printf("[%s][%s][%d]\n", path, cmd, chemin);
 	return (fot(set, path, set->cmd));
 }
 
@@ -58,6 +61,9 @@ int					setx(t_set *set, char *cmd)
 	int x;
 
 	x = 0;
+	while (cmd[x] != '.' && cmd[x + 1] != '.' && cmd[x + 2] != '/'
+	&& set->len == 0 && (x + 2 < (int)ft_strlen(cmd)))
+		x++;
 	while (cmd[x] == '.' && cmd[x + 1] == '.' && cmd[x + 2] == '/'
 	&& set->len == 0)
 		x += 3;
@@ -108,5 +114,6 @@ int					bash_cmd(t_set *set)
 		y = -1;
 		x++;
 	}
+	//printf("[%s][%s][%d]\n", path, cmd, set->len);
 	return (finn(set, path, cmd));
 }

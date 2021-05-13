@@ -22,6 +22,7 @@ int					fot(t_set *set, char *path, char *cmd)
 	else if (check_stat_file(set, path) == 1)
 	{
 		set->bleu = 1;
+		ffree(path);
 		return (1);
 	}
 	return (exec_bin(set, path, cmd));
@@ -43,7 +44,7 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 		path = get_path_chemin(set, path, ft_strlenbc(cmd), cmd);
 	if (path == NULL && set->pwd != NULL && set->path == NULL)
 	{
-		path = cmd_in_pwd(set, cmd);
+		path = cmd_in_pwd(set, cmd, path);
 		if (is_dir(cmd) == 1)
 		{
 			set->bleu = 1;
@@ -58,6 +59,9 @@ int					setx(t_set *set, char *cmd)
 	int x;
 
 	x = 0;
+	while (cmd[x] != '.' && cmd[x + 1] != '.' && cmd[x + 2] != '/'
+	&& set->len == 0 && (x + 2 < (int)ft_strlen(cmd)))
+		x++;
 	while (cmd[x] == '.' && cmd[x + 1] == '.' && cmd[x + 2] == '/'
 	&& set->len == 0)
 		x += 3;

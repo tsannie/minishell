@@ -81,7 +81,6 @@ void			read_ent(t_set *set)
 		ft_bzero((void *)buf, BUF_SIZE);
 		if (read(1, buf, BUF_SIZE) == -1)
 			ft_putstr_fd("err\n", STDERR);
-		//printf("[%s][%ld]\n", buf, ft_strlen(buf));
 		all_sdig(set);
 		all_ccmd(buf, set);
 		if (ft_strcmp(buf, "\n") == 0)

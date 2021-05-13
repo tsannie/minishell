@@ -78,15 +78,14 @@ char				*get_path_chemin(t_set *set, char *path, int len, char *cmd)
 		return (NULL);
 	while ((item = readdir(folder)) && valid == 0)
 	{
+	//	printf("[%s]==[%s]\n", item->d_name, cmd + len);
 		if (ft_strcmpsl(item->d_name, cmd + len) == 0)
 			valid = 1;
 	}
 	closedir(folder);
+	//printf("v[%d]\n", valid);
 	if (check_elem_chem(cmd, valid, path, set) == 1)
 		return (NULL);
-	//if (ft_strncmp("./", path, len) != 0)
-	//	ffree(path);	leak / segfault
-	//ffree(path);
 	return (ft_strdup(set->pathbc));
 }
 

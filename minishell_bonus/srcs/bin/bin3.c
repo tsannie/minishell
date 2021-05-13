@@ -83,6 +83,7 @@ int					exec_bin(t_set *set, char *path, char *cmd)
 	int				ret;
 	int				pid;
 
+	//printf("[%s][%s]\n", path, cmd);
 	if (check_sh(set, path) == 1)
 		return (1);
 	pid = fork();

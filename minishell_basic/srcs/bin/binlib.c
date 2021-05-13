@@ -71,7 +71,10 @@ int					check_stat_file(t_set *set, char *path)
 	set->x = (filestat.st_mode & S_IXUSR);
 	set->d = (S_ISDIR(filestat.st_mode));
 	if (checkmode(set) == 1)
+	{
+		ffree(path);
 		return (1);
+	}
 	return (0);
 }
 

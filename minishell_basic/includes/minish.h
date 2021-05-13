@@ -244,7 +244,7 @@ void					get_lastcmd(t_set *set);
 char					*get_path(t_set *set, char *path, char *cmd);
 char					*get_path_chemin(t_set *set, char *path, int len,
 char *cmd);
-char					*cmd_in_pwd(t_set *set, char *cmd);
+char					*cmd_in_pwd(t_set *set, char *cmd, char *path);
 int						ft_strlenbc(char *str);
 int						check_sh(t_set *set, char *path);
 int						check_stat_file(t_set *set, char *path);

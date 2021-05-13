@@ -12,23 +12,28 @@
 
 #include "../../includes/minish.h"
 
-char				*cmd_in_pwd(t_set *set, char *cmd)
+char				*cmd_in_pwd(t_set *set, char *cmd, char *path)
 {
 	DIR				*folder;
 	struct dirent	*item;
 
 	folder = opendir(set->pwd + 4);
 	if (!folder)
+	{
+		ffree(path);
 		return (NULL);
+	}
 	while ((item = readdir(folder)))
 	{
 		if (ft_strcmp(item->d_name, cmd) == 0)
 		{
 			closedir(folder);
+			ffree(path);
 			return (joinf(set->pwd + 4, "/", set->cmd, ""));
 		}
 	}
 	closedir(folder);
+	ffree(path);
 	return (NULL);
 }
 
