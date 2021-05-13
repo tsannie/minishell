@@ -16,7 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
+CFLAGS			= #-Wall -Wextra -Werror -fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
@@ -36,9 +36,6 @@ INCLUDE_LIB		= -I ./libft/libft.a
 #ᴍɪɴɪsʜᴇʟʟ ➔  .
 #ᴍɪɴɪsʜᴇʟʟ ➔  ..
 #ᴍɪɴɪsʜᴇʟʟ ➔  exit
-
-#leak
-#cat Makefile > test
 
 #bog
 #Paste in minishell bonus
