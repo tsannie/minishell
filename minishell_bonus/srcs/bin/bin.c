@@ -52,7 +52,6 @@ int					chemin_path(int chemin, char *path, t_set *set, char *cmd)
 			return (1);
 		}
 	}
-	//printf("[%s][%s][%d]\n", path, cmd, chemin);
 	return (fot(set, path, set->cmd));
 }
 
@@ -114,6 +113,5 @@ int					bash_cmd(t_set *set)
 		y = -1;
 		x++;
 	}
-	//printf("[%s][%s][%d]\n", path, cmd, set->len);
 	return (finn(set, path, cmd));
 }

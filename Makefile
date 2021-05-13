@@ -16,7 +16,7 @@
 
 NAME			= minishell
 CC				= @gcc
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=leak
+CFLAGS			= -Wall -Wextra -Werror #-fsanitize=leak
 LIB_FLAGS		= -lncurses -lft -Llibft
 RM				= @rm -rf
 LIBFT			= ./libft
@@ -117,9 +117,6 @@ OBJ_B			= $(SRC_B:c=o)
 #                               Rules                                #
 ######################################################################
 
-norm:
-			norminette libft/*.c libft/*.h ${SRC} ${SRC_B} */*/*.h
-
 %.o: %.c
 			@printf "${PURPLE}${BOLD}%-50.50s\r${END}" $@
 			${CC} ${CFLAGS} -c $< -o $@
@@ -157,4 +154,7 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all test clean fclean re
+norm:
+			norminette libft/*.c libft/*.h ${SRC} ${SRC_B} */*/*.h
+
+.PHONY:		all test clean fclean re norm
