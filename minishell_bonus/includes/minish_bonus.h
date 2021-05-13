@@ -6,11 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:07:34 by phbarrad          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/05/13 12:40:24 by user42           ###   ########.fr       */
-=======
-/*   Updated: 2021/05/13 12:44:47 by tsannie          ###   ########.fr       */
->>>>>>> 1a151b9d683304d1bc125134af49ce9e55b035bf
+/*   Updated: 2021/05/13 13:42:38 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +49,9 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
-	int 				fl;
+	int					fl;
 	char				*credir;
-	char 				*edit_copy;
+	char				*edit_copy;
 	int					cur_pos;
 	int					dell_len;
 	int					dell_his;
@@ -155,7 +151,7 @@ int						ft_dell(t_set *set);
 
 void					init_his(t_set *set);
 void					add_history(t_set *set);
-void 					free_buff(char *buf);
+void					free_buff(char *buf);
 int						aff_modif_str(t_set *set, char *buf);
 void					aff_buf(t_set *set, char *buf);
 void					aff_dellnl(t_set *set);
@@ -305,7 +301,8 @@ int						is_wild(char *str);
 char					**found_file(char *dst, char *wild, t_set *set);
 int						correct_patern(char *file, char *wild, t_set *set);
 void					ft_sort_file(char **dbtab);
-char					*process_file(t_set *set, char *res, char **wild_splitted, char *pwd);
+char					*process_file(t_set *set, char *res,
+							char **wild_splitted, char *pwd);
 int						set_word(char *src, int i, t_set *set);
 void					create_stdin(char *namefile, t_set *set);
 
