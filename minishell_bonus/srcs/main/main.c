@@ -34,6 +34,8 @@ int				main(int ac, char **av, char **envp)
 {
 	t_set		*set;
 
+	(void)ac;
+	(void)av;
 	if (!(isatty(0)))
 		return (0);
 	if (!(set = malloc(sizeof(t_set))))

@@ -12,6 +12,15 @@
 
 #include "../../includes/minish.h"
 
+void		aff_last_buf(t_set *set, char *buf)
+{
+	if ((((int)ft_strlen(set->str) + 12) % (set->col)) == 0)
+	{
+		ft_putstr_fd(buf, STDERR);
+		aff_dell(set);
+	}
+}
+
 void		aff_dellnl(size_t len, size_t col, t_set *set)
 {
 	while (len > 0)
@@ -31,6 +40,17 @@ void		aff_dellnl(size_t len, size_t col, t_set *set)
 	}
 }
 
+void		aff_all_h(t_set *set)
+{
+	disp_prompt();
+	ft_putstr_fd(set->str, STDERR);
+	if ((((int)ft_strlen(set->str) + 12) % (set->col)) == 0)
+	{
+		ft_putstr_fd(" ", STDERR);
+		aff_dell(set);
+	}
+}
+
 int			history_prev(t_set *set)
 {
 	size_t len;
@@ -46,8 +66,7 @@ int			history_prev(t_set *set)
 	set->str = ft_strdup(set->history[set->his_pos]);
 	aff_dellnl(len, col, set);
 	ft_putstr_fd("\033[2K", STDERR);
-	disp_prompt();
-	ft_putstr_fd(set->str, STDERR);
+	aff_all_h(set);
 	return (0);
 }
 
@@ -75,7 +94,6 @@ int			history_next(t_set *set)
 	set->str = ft_strdup(set->history[set->his_pos]);
 	aff_dellnl(len, col, set);
 	ft_putstr_fd("\033[2K", STDERR);
-	disp_prompt();
-	ft_putstr_fd(set->str, STDERR);
+	aff_all_h(set);
 	return (0);
 }

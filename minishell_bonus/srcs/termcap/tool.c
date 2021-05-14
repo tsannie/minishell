@@ -90,7 +90,7 @@ void			all_ccmd(char *buf, t_set *set)
 	else if (buf[0] != 10 && buf[0] != 127)
 		oui = aff_modif_str(set, buf);
 	if (oui == 0 && ft_strlen(buf) < 4)
-		ft_putstr_fd(buf, STDERR);
+		disp_bbuf(set, buf);
 }
 
 void			eeddn(t_set *set)

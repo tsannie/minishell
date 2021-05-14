@@ -72,8 +72,7 @@ void			aff_end_col(t_set *set, size_t len)
 	size_t		e;
 
 	e = 0;
-	if ((int)len + 12 != set->col)
-		ft_putstr_fd(set->tt_up, STDERR);
+	ft_putstr_fd(set->tt_up, STDERR);
 	while (++e < len + 12)
 		ft_putstr_fd(set->tt_right, STDERR);
 	ft_putstr_fd("  ", STDERR);

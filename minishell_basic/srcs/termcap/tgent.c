@@ -81,6 +81,7 @@ void			read_ent(t_set *set)
 		all_sdig(set);
 		all_ccmd(buf, set);
 		ft_putstr_fd(buf, STDERR);
+		aff_last_buf(set, buf);
 		if (ft_strcmp(buf, "\n") == 0)
 			i = 1;
 	}

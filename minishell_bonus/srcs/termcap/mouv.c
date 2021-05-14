@@ -12,6 +12,17 @@
 
 #include "../../includes/minish_bonus.h"
 
+void			disp_bbuf(t_set *set, char *buf)
+{
+	ft_putstr_fd(buf, STDERR);
+	if ((((int)ft_strlen(set->str) + 12) % (set->col)) == 0)
+	{
+		ft_putstr_fd(buf, STDERR);
+		if (((set->cur_pos) % ((int)ft_strlen(set->str) + 12)) == 0)
+			aff_dell(set);
+	}
+}
+
 void			aff_dellnl(t_set *set)
 {
 	size_t		col;
@@ -45,6 +56,12 @@ int				history_prev(t_set *set)
 	set->str = ft_strdup(set->history[set->his_pos]);
 	ft_putstr_fd(set->str, STDERR);
 	set->cur_pos = ft_strlen(set->str) + 12;
+	if ((((int)ft_strlen(set->str) + 12) % (set->col)) == 0)
+	{
+		ft_putstr_fd(" ", STDERR);
+		if (((set->cur_pos) % ((int)ft_strlen(set->str) + 12)) == 0)
+			aff_dell(set);
+	}
 	return (0);
 }
 
@@ -67,5 +84,11 @@ int				history_next(t_set *set)
 	set->str = ft_strdup(set->history[set->his_pos]);
 	ft_putstr_fd(set->str, STDERR);
 	set->cur_pos = ft_strlen(set->str) + 12;
+	if ((((int)ft_strlen(set->str) + 12) % (set->col)) == 0)
+	{
+		ft_putstr_fd(" ", STDERR);
+		if (((set->cur_pos) % ((int)ft_strlen(set->str) + 12)) == 0)
+			aff_dell(set);
+	}
 	return (0);
 }

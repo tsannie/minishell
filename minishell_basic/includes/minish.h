@@ -121,6 +121,7 @@ typedef struct			s_set
 	int					d;
 }						t_set;
 
+void					aff_last_buf(t_set *set, char *buf);
 void					start_term2(t_set *set);
 void					init_his(t_set *set);
 void					add_history(t_set *set);

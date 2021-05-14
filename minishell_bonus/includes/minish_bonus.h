@@ -49,6 +49,7 @@ typedef struct			s_set
 	struct termios		term;
 	struct termios		term_backup;
 
+	int					old_len;
 	int					fl;
 	char				*credir;
 	char				*edit_copy;
@@ -132,6 +133,7 @@ typedef struct			s_set
 	int					empty_wild;
 }						t_set;
 
+void					disp_bbuf(t_set *set, char *buf);
 void					start_term2(t_set *set);
 char					*ft_strjoin_free_len(char *s1, char *s2, int len);
 
