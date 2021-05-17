@@ -83,11 +83,7 @@ void			read_ent(t_set *set)
 			ft_putstr_fd("err\n", STDERR);
 		all_sdig(set);
 		all_ccmd(buf, set);
-		if (ft_strcmp(buf, "\n") == 0)
-		{
-			i = 1;
-			free_buff(buf);
-		}
+		i = cp_nb(set, buf);
 	}
 	eeddn(set);
 	g_sig.pid = 0;

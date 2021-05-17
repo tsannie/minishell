@@ -136,6 +136,7 @@ typedef struct			s_set
 void					disp_bbuf(t_set *set, char *buf);
 void					start_term2(t_set *set);
 char					*ft_strjoin_free_len(char *s1, char *s2, int len);
+int						cp_nb(t_set *set, char *buf);
 
 void					go_g(t_set *set);
 void					go_d(t_set *set, int col);

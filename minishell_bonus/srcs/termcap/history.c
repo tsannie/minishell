@@ -102,3 +102,21 @@ void			add_history(t_set *set)
 	if (m == 1)
 		add_in_his_file(set);
 }
+
+int				cp_nb(t_set *set, char *buf)
+{
+	int i;
+
+	i = 0;
+	if (ft_strlen(buf) > 3)
+	{
+		while (set->cur_pos - 12 < (int)ft_strlen(set->str))
+			fg_o_fd(set, 70, 0, set->col);
+	}
+	if (ft_strcmp(buf, "\n") == 0)
+	{
+		i = 1;
+		free_buff(buf);
+	}
+	return (i);
+}
