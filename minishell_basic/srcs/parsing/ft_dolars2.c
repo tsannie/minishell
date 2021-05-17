@@ -17,6 +17,8 @@ int		antislash_pair(char *src, int i)
 	int n;
 
 	n = 0;
+	if (i - 1 == -1)
+		return (1);
 	if (src[i - 1] == '\\')
 	{
 		i--;
