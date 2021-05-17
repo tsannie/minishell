@@ -58,6 +58,8 @@ int					end_exec(t_set *set, int ret, char *path)
 {
 	if (ret == 256)
 		set->exit_val = 1;
+	else if (ret == 512)
+		set->exit_val = 2;
 	else if (ret == 54784)
 		set->exit_val = 1;
 	if (set->exit_val == 1)
