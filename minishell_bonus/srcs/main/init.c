@@ -56,6 +56,8 @@ void			init_null(t_set *set)
 	set->lastcmd = NULL;
 	set->all_path = NULL;
 	set->str = NULL;
+	set->credir = NULL;
+	set->redirect = NULL;
 	set->edit_copy = NULL;
 	set->word_tmp = NULL;
 	set->dol_amb = NULL;
