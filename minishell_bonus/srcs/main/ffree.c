@@ -46,8 +46,6 @@ int				free_all(t_set *set, int ret)
 	ffree(set->tt_down);
 	ffree(set->tt_left);
 	ffree(set->tt_right);
-	ffree(set->tt_home);
-	ffree(set->tt_end);
 	ffree(set->tt_ctl_up);
 	ffree(set->tt_crl_down);
 	ffree(set->str);

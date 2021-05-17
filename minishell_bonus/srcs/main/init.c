@@ -23,8 +23,6 @@ void			init_term(t_set *set)
 	set->tt_down = ft_strdup("\033[B");
 	set->tt_left = ft_strdup("\033[D");
 	set->tt_right = ft_strdup("\033[C");
-	set->tt_home = ft_strdup("\001");
-	set->tt_end = ft_strdup("\005");
 	set->tt_ctl_up = ft_strdup("\033\033[A");
 	set->tt_crl_down = ft_strdup("\033\033[B");
 }
