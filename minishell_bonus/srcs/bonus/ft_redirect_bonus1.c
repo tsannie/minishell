@@ -6,7 +6,7 @@
 /*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 09:52:57 by tsannie           #+#    #+#             */
-/*   Updated: 2021/05/13 13:50:01 by tsannie          ###   ########.fr       */
+/*   Updated: 2021/05/18 09:24:29 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void			create_stdin(char *namefile, t_set *set)
 		exit = add_line(namefile, set, 0);
 		if (exit == 0)
 			ft_putstr_fd(set->redirect, pipefd[1]);
-		ffree(set->redirect);
 	}
+	ffree(set->redirect);
 	ffree(namefile);
 	ifclose(pipefd[1]);
 	if (exit == 2)

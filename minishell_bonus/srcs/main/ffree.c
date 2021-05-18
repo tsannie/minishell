@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ffree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsannie <tsannie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 12:18:28 by phbarrad          #+#    #+#             */
-/*   Updated: 2021/05/13 08:02:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/18 09:22:42 by tsannie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int				free_all(t_set *set, int ret)
 	ffree(set->str);
 	ffree(set->credir);
 	ffree(set->edit_copy);
-	ffree(set->redirect);
 	free_all2(set);
 	free(set);
 	return (ret);
