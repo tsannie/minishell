@@ -24,7 +24,7 @@ Minishell is a simple shell implementation that can be used to execute commands 
 - Implement the following builtins: echo, cd, pwd, export, unset, env, exit.
 - Have a working history.
 
-Usage
+## Usage
 To use minishell, simply run the executable:
 
 ```bash
